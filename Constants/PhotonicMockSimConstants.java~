@@ -1,0 +1,54 @@
+/*
+Copyright Michael Cloran 2013
+
+NOTE:This code is for educational use only and not 
+to be used for commercial purposes and it is
+provided with no warranty thus no liability
+for damages if anything goes wrong.
+
+It can not be used to base a project on.
+
+*/
+
+package Constants;
+import java.awt.*;
+import javax.swing.*;
+
+public class PhotonicMockSimConstants {
+
+//components
+public final static int  AND_GATE				= 101;
+public final static int  NAND_GATE				= 102;
+public final static int  OR_GATE				= 103;
+public final static int  NOR_GATE				= 104;
+public final static int  NOT_GATE				= 105;
+public final static int  EXOR_GATE				= 106;
+public final static int  WAVELENGTH_CONVERTER	= 107;
+public final static int  MEMORY_UNIT			= 108;
+public final static int  OPTICAL_SWITCH			= 109;
+public final static int  LOPASS_FILTER			= 110;
+public final static int  BANDPASS_FILTER		= 111;
+public final static int  HIPASS_FILTER			= 112;
+public final static int  INPUT_PORT				= 113;
+public final static int  OUTPUT_PORT			= 114;
+public final static int  ROM					= 115;
+public final static int  INPUT_CONSOLE			= 116;
+public final static int  DISPLAY				= 117;
+public final static int  OPTICAL_WAVEGUIDE		= 118;
+public final static int  TEST_POINT				= 119;
+public final static int  MACH_ZEHNER			= 120;
+public final static int  CLOCK					= 121;
+
+//job functions
+public final static int  SIMULATE				= 122;
+
+public final static int 	DEFAULT_COMPONENT_TYPE 		= AND_GATE;
+public final static Color 	DEFAULT_COMPONENT_COLOR 	= Color.BLACK;
+public final static Font 	DEFAULT_FONT 				= new Font("Serif", Font.BOLD, 6);
+public final static Color 	HIGHLIGHT_COLOR 			= Color.MAGENTA;
+
+public final static String NORMAL 	= "Normal";
+public final static String MOVE 	= "Move";
+public final static String ROTATE 	= "Rotate";
+
+}
