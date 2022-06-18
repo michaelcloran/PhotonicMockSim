@@ -10,7 +10,7 @@ execution queue mechanism is a weakness in the project as with complex feedback 
 
 If anyone can help with this project then I will be delighted to hear from you.!!
 
-you can contact mer via email: michaelcloran2010@gmail.com
+you can contact me via email: michaelcloran2010@gmail.com
 
 
 
