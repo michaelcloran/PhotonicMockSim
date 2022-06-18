@@ -308,6 +308,4 @@ public final static int IN_THE_MIDDLE           = 5;
 public final static int YES                     = 11;
 public final static int NO                      = 12;
 
-
-
 }
