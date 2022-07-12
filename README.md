@@ -17,6 +17,10 @@ I am awaiting a laptop to be delivered to me before I can go further with this p
 
 I am really annoyed about the late delivery of my laptop but life goes on!!!!!!!!.
 
+As time goes on and when the system upgrade is done I will add to the documentation and show you what this system is capable of!!.
+Regards
+Michael
+
 
 
 
