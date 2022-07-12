@@ -12,6 +12,11 @@ If anyone can help with this project then I will be delighted to hear from you.!
 
 you can contact me via email: michaelcloran2010@gmail.com
 
+@12/7/22 @ 14:45
+I am awaiting a laptop to be delivered to me before I can go further with this project. As I am in the process of overhauling my development environment on my workstation. I currently have a windows 10 development environment. I want to be able to boot Red Hat Linux and then boot Win 10 as a virtual machine. This will require me backing up about 500 to 700GB of data and creating a Windows 10 backup image and installing this on a VM ontop of Red Hat Linux. I need the laptop in order to ensure I have internet connectivity and to be able to backup correctly in case anything goes wrong. The estimated date of delivery is next week to the week after. I thought this would only take 5 to 10 days to deliver but it has taken about a month so far which is annoying to say the least. So bear with me and I will branch to a new edition of the simulator to V2.03 and create buses. Two differnt types. One with a control unit kinda multiplexing the input ports to output ports and one with bus arbitration. I will also have to add new comnponents optical flip flops with pr and clear pins and then lastly but not least I will have to refine the way debugging is done to a flag system in the constants file a flag for each major class. So I will be able to debug functionality by class. This will make debugging more modular and the simulator run faster!!.
+
+I am really annoyed about the late delivery of my laptop but life goes on!!!!!!!!.
+
 
 
 
