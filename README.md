@@ -29,7 +29,10 @@ I have installed MySQL comunity setup a dictionary database and imported a defau
 I can now move on to the next stage of the setting up new systems to reading the licencing for Red Hat Linux Developer edition and then downloading the image and installing that to a bootable USB key. THen I will be able to install the Red Hat system on my workstation!!. Fingers crossed for everything working first try???.
 ![image](https://user-images.githubusercontent.com/107754541/182541023-28718383-5d6a-46b5-af7d-8bf253b0836d.png)
 
+@3/8/22 @15:00
+I have installed Red Hat Linux Developer Edition but dont have KDE just Gnome which is disappointing. I also only have dual monitors. The default drivers dont detect my third monitor?? I am going to raise a ticket as soon as I get my head around Reh Hat again/reorientate!!. I have to check the firewall and antivirus and then things should be good to go. I have installed IntelliJ Idea Community and got a sucessful compile and build of my repo code with version 2.01.
 
+I have to install MySQL Community edition and the java connector and then run my application and check the word soundex auto suggest works and then I am good to go. This will take another day!!.
 
 As time goes on and when the system upgrade is done I will add to the documentation and show you what this system is capable of!!.
 Regards
