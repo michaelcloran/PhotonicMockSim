@@ -23,6 +23,14 @@ Regards Michael
 ![image](https://user-images.githubusercontent.com/107754541/182467258-2d4a64a7-5bea-41b3-97b5-7426bbf0da98.png)
 
 
+@3/8/22 @7:34
+I have installed MySQL comunity setup a dictionary database and imported a default dictionary for the document management system.(screenshot shows a file in a WYSIWYG editor and the tast word not in database so the popup dialog shows a list of words and if you click on suggest and change the word will be changed to test.This works via a soundex. I had to install the java-connector which was tedious as I tried installing the mysql.com java connector but I could not find the jar file to include it in my project. So I resorted to installing libmariadb and in /usr/share/java the mysql-connector.jar file was found. So I added this to the project dependencies and I got a working document management system with spell check and soundex suggestion!!.
+
+I can now move on to the next stage of the setting up new systems to reading the licencing for Red Hat Linux Developer edition and then downloading the image and installing that to a bootable USB key. THen I will be able to install the Red Hat system on my workstation!!. Fingers crossed for everything working first try???.
+![image](https://user-images.githubusercontent.com/107754541/182541023-28718383-5d6a-46b5-af7d-8bf253b0836d.png)
+
+
+
 As time goes on and when the system upgrade is done I will add to the documentation and show you what this system is capable of!!.
 Regards
 Michael
