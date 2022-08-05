@@ -34,6 +34,11 @@ I have installed Red Hat Linux Developer Edition but dont have KDE just Gnome wh
 
 I have to install MySQL Community edition and the java connector and then run my application and check the word soundex auto suggest works and then I am good to go. This will take another day!!.
 
+@11:09 @ 5/8/22
+I have successifully installed mysql and mysql-connector-java.jar file to the project in order for spell checking to work on the document management and editing system.
+
+I have sucessfully got my development environment up and running on Red Hat Linux with IntelliJ Idea IDE. This was relatively straight forward. This will mena that now I am open to developing I think first to fork? a new development edition on GitHub to V2.02. V2.02 is going to be an update with busses and pr and clear flipflops and new debugging functionality. I have to read the manual on GitHub on how to create a new fork(I have to read the manual but I think I can do it through IntelliJ Idea IDE)
+
 As time goes on and when the system upgrade is done I will add to the documentation and show you what this system is capable of!!.
 Regards
 Michael
