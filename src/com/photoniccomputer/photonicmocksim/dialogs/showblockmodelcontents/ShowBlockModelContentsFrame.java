@@ -673,7 +673,7 @@ public class ShowBlockModelContentsFrame extends JFrame implements ActionListene
         }else
         if(e.getSource() == copyAndSaveItem){
             theApp.getView().mode = COPYANDSAVE;
-            System.out.println("in frame mode = copyandsave");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSFRAME) System.out.println("in frame mode = copyandsave");
         }else
         if(e.getSource() == gridConfigurationItem){
             new GridConfigurationDialog(theApp);

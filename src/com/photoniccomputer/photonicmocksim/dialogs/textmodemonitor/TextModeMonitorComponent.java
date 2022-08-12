@@ -77,7 +77,7 @@ public abstract class TextModeMonitorComponent {
 
 
             //bounds = new java.awt.Rectangle(start.x, start.y, fm.stringWidth(text)+4, maxAscent+fm.getMaxDescent()+4);
-            //System.out.println(bounds);
+            //if(DEBUG_TEXTMODEMONITORCOMPONENT) System.out.println(bounds);
         }
 
         public void draw(Graphics2D g2D){

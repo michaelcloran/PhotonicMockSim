@@ -261,7 +261,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
                 partTypeStr = (String)partTypeComboBox.getSelectedItem();
                 partTypeComboBox.setEnabled(false);
                 partLibraryNumberString = (String)partComboBox.getSelectedItem();
-                System.out.println("partLibraryNumberString:"+partLibraryNumberString);
+                if(DEBUG_ADDLOCKMODELPARTDIALOG) System.out.println("partLibraryNumberString:"+partLibraryNumberString);
                 
                 //GridBagConstraints constraints3 = new GridBagConstraints();
                 //constraints3.gridx = 0;
@@ -320,10 +320,10 @@ public final class AddBlockModelPartDialog extends JDialog  {
                 }
                 
                 if(windowType == MAIN_WINDOW){
-                    System.out.println("Part added partNumber"+theMainApp.getModel().getPartsMap().lastKey());
+                    if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("Part added partNumber"+theMainApp.getModel().getPartsMap().lastKey());
                 }
-                
-                System.out.println("partLibraryNumberString:"+partLibraryNumberString);
+
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("partLibraryNumberString:"+partLibraryNumberString);
                 setVisible(false);
                 dispose();
                 theMainApp.getWindow().repaint();
@@ -339,7 +339,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
                 
                 if(windowType == MAIN_WINDOW){
                     //part = Part.createBlockModelForPart(CHIP, Color.BLACK, startPoint, new Point(startPoint.x,startPoint.y),theMainApp.getBlockModelNodeList());
-                    System.out.println("startPt.x:"+startPoint.x+" startPt.y:"+startPoint.y);
+                    if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("startPt.x:"+startPoint.x+" startPt.y:"+startPoint.y);
                     module = Module.createModule(MODULE, Color.BLACK, startPoint, new Point(startPoint.x, startPoint.y), theMainApp.getBlockModelNodeList());
                     
                     //module.setModuleNumber()//here??
@@ -370,10 +370,10 @@ public final class AddBlockModelPartDialog extends JDialog  {
                    
                                    
                     blockModelPortsList = module.getBlockModelPortsList();
-                    System.out.println("blockModelPortsList.size:"+blockModelPortsList.size());
+                    if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("blockModelPortsList.size:"+blockModelPortsList.size());
                     //selectedModule = module;
                     selectedModule = theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber);
-                    System.out.println("selectedModule:"+selectedModule.getModuleNumber());
+                    if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule:"+selectedModule.getModuleNumber());
                 }
                 
                 System.out.println("----------------------PartNumber:"+partNumber+" partNumber on module:"+selectedModule.getPartNumber()+" ------------------------");
@@ -386,14 +386,14 @@ public final class AddBlockModelPartDialog extends JDialog  {
                        tempPt = new Point(startPoint.x, startPoint.y+bMP.getBlockModelPortPosition().y-(component.getComponentBreadth()/2));
                        component.getInputConnectorsMap().get(1).setPhysicalLocation(startPoint.x, startPoint.y+bMP.getBlockModelPortPosition().y);
                        component.setBlockModelPortNumber(bMP.getBlockModelPortNumber());
-                       System.out.println("component.setBlockModelPortNumber:"+component.getBlockModelPortNumber());
+                       if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("component.setBlockModelPortNumber:"+component.getBlockModelPortNumber());
                    }else{//output port
                      System.out.println("OUTPUT_PORT");
                        component = CircuitComponent.createComponent(SAME_LAYER_INTER_MODULE_LINK_END, HIGHLIGHT_COLOR, startPoint, new Point(0,0));
                        tempPt = new Point(startPoint.x+bMP.getBlockModelPortPosition().x-component.getComponentWidth(), startPoint.y+bMP.getBlockModelPortPosition().y-(component.getComponentBreadth()/2));
                        component.getOutputConnectorsMap().get(2).setPhysicalLocation(startPoint.x+bMP.getBlockModelPortPosition().x, startPoint.y+bMP.getBlockModelPortPosition().y);
                        component.setBlockModelPortNumber(bMP.getBlockModelPortNumber());
-                       System.out.println("component.setBlockModelPortNumber:"+component.getBlockModelPortNumber());
+                       if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("component.setBlockModelPortNumber:"+component.getBlockModelPortNumber());
                    }
                    component.setPosition(tempPt);
                    theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).add(component);
@@ -401,44 +401,44 @@ public final class AddBlockModelPartDialog extends JDialog  {
                    //selectedModule.add(component);
                    System.out.println("ComponentType:"+component.getComponentType()+" componentNumber:"+theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().lastKey());
                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                       System.out.println("component Number:"+component.getComponentNumber());
+                       if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("component Number:"+component.getComponentNumber());
                        for(CircuitComponent comp : module.getComponentsMap().values()){
-                           System.out.println("comp.type:"+component.getComponentType()+" comp.getComponentNumber:"+comp.getComponentNumber());
+                           if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("comp.type:"+component.getComponentType()+" comp.getComponentNumber:"+comp.getComponentNumber());
                            if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                               System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                               if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                                 if(comp.getBlockModelPortNumber() !=0){
                                     if(comp.getBlockModelPortNumber() == bMP.getBlockModelPortNumber()){
-                                        System.out.println("creating IMLS 1");
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("creating IMLS 1");
                                         InterModuleLink IML = new InterModuleLink();
                                         IML.setComponentLinkedToNumber(comp.getComponentNumber());
-                                        System.out.println("selectedModule component IML setComponentLinkedToNumber:"+IML.getComponentLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setComponentLinkedToNumber:"+IML.getComponentLinkedToNumber());
                                         IML.setComponentTypeLinked(SAME_LAYER_INTER_MODULE_LINK_END);
-                                        System.out.println("selectedModule component IML setComponentTypeLinked:"+IML.getComponentTypeLinked());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setComponentTypeLinked:"+IML.getComponentTypeLinked());
                                         IML.setLayerLinkedToNumber(layerNumber);
-                                        System.out.println("selectedModule component IML setLayerLinkedToNumber:"+IML.getLayerLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setLayerLinkedToNumber:"+IML.getLayerLinkedToNumber());
                                         IML.setPartLinkedToNumber(partNumber);
-                                        System.out.println("selectedModule component IML setPartLinkedToNumber:"+IML.getPartLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setPartLinkedToNumber:"+IML.getPartLinkedToNumber());
                                         IML.setModuleLinkedToNumber(module.getModuleNumber());
-                                        System.out.println("selectedModule component IML setModuleLinkedToNumber:"+IML.getModuleLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setModuleLinkedToNumber:"+IML.getModuleLinkedToNumber());
                                         IML.setPortLinkedToNumber(1);
-                                        System.out.println("selectedModule component IML setPortLinkedToNumber:"+IML.getPortLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setPortLinkedToNumber:"+IML.getPortLinkedToNumber());
                                         component.getOutputConnectorsMap().get(2).addInterModuleLink(IML);
 
                                         InterModuleLink IML2 = new InterModuleLink();
                                         IML2.setComponentLinkedToNumber(component.getComponentNumber());
-                                        System.out.println("module comp IML setComponentLinkedToNumber:"+IML2.getComponentLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setComponentLinkedToNumber:"+IML2.getComponentLinkedToNumber());
                                         IML2.setComponentTypeLinked(SAME_LAYER_INTER_MODULE_LINK_START);
-                                        System.out.println("module comp IML setComponentTypeLinked:"+IML2.getComponentTypeLinked());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setComponentTypeLinked:"+IML2.getComponentTypeLinked());
                                         IML2.setLayerLinkedToNumber(layerNumber);
-                                        System.out.println("module comp IML setLayerLinkedToNumber:"+IML2.getLayerLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setLayerLinkedToNumber:"+IML2.getLayerLinkedToNumber());
                                         IML2.setPartLinkedToNumber(partNumber);
-                                        System.out.println("module comp IML setPartLinkedToNumber:"+IML2.getPartLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setPartLinkedToNumber:"+IML2.getPartLinkedToNumber());
                                         IML2.setModuleLinkedToNumber(moduleNumber);
-                                        System.out.println("module comp IML setModuleLinkedToNumber:"+IML2.getModuleLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setModuleLinkedToNumber:"+IML2.getModuleLinkedToNumber());
                                         IML2.setPortLinkedToNumber(2);
-                                        System.out.println("module comp IML setPortLinkedToNumber:"+IML2.getPortLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setPortLinkedToNumber:"+IML2.getPortLinkedToNumber());
                                         comp.getInputConnectorsMap().get(1).addInterModuleLink(IML2);
-                                        System.out.println("adding inter module link for SAME_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("adding inter module link for SAME_LAYER_INTER_MODULE_LINK_END");
                                     }
                                 }
                            }
@@ -448,50 +448,50 @@ public final class AddBlockModelPartDialog extends JDialog  {
                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                        for(CircuitComponent comp : module.getComponentsMap().values()){
                            if(comp.getComponentType()==SAME_LAYER_INTER_MODULE_LINK_START){
-                               System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                               if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                                 if(comp.getBlockModelPortNumber() !=0){
                                     if(comp.getBlockModelPortNumber() == bMP.getBlockModelPortNumber()){
-                                        System.out.println("creating IMLS 2");
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("creating IMLS 2");
                                         InterModuleLink IML = new InterModuleLink();
                                         IML.setComponentLinkedToNumber(comp.getComponentNumber());
-                                        System.out.println("selectedModule component IML setComponentLinkedToNumber:"+IML.getComponentLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setComponentLinkedToNumber:"+IML.getComponentLinkedToNumber());
                                         IML.setComponentTypeLinked(SAME_LAYER_INTER_MODULE_LINK_START);
-                                        System.out.println("selectedModule component IML setComponentTypeLinked:"+IML.getComponentTypeLinked());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setComponentTypeLinked:"+IML.getComponentTypeLinked());
                                         IML.setLayerLinkedToNumber(layerNumber);
-                                        System.out.println("selectedModule component IML setLayerLinkedToNumber:"+IML.getLayerLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setLayerLinkedToNumber:"+IML.getLayerLinkedToNumber());
                                         IML.setPartLinkedToNumber(partNumber);
-                                        System.out.println("selectedModule component IML setPartLinkedToNumber:"+IML.getPartLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setPartLinkedToNumber:"+IML.getPartLinkedToNumber());
                                         IML.setModuleLinkedToNumber(module.getModuleNumber());
-                                        System.out.println("selectedModule component IML setModuleLinkedToNumber:"+IML.getModuleLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setModuleLinkedToNumber:"+IML.getModuleLinkedToNumber());
                                         IML.setPortLinkedToNumber(2);
-                                        System.out.println("selectedModule component IML setPortLinkedToNumber:"+IML.getPortLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("selectedModule component IML setPortLinkedToNumber:"+IML.getPortLinkedToNumber());
                                         component.getInputConnectorsMap().get(1).addInterModuleLink(IML);
 
                                         InterModuleLink IML2 = new InterModuleLink();
                                         IML2.setComponentLinkedToNumber(component.getComponentNumber());
-                                        System.out.println("module comp IML setComponentLinkedToNumber:"+IML2.getComponentLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setComponentLinkedToNumber:"+IML2.getComponentLinkedToNumber());
                                         IML2.setComponentTypeLinked(SAME_LAYER_INTER_MODULE_LINK_END);
-                                        System.out.println("module comp IML setComponentTypeLinked:"+IML2.getComponentTypeLinked());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setComponentTypeLinked:"+IML2.getComponentTypeLinked());
                                         IML2.setLayerLinkedToNumber(layerNumber);
-                                        System.out.println("module comp IML setLayerLinkedToNumber:"+IML2.getLayerLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setLayerLinkedToNumber:"+IML2.getLayerLinkedToNumber());
                                         IML2.setPartLinkedToNumber(partNumber);
-                                        System.out.println("module comp IML setPartLinkedToNumber:"+IML2.getPartLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setPartLinkedToNumber:"+IML2.getPartLinkedToNumber());
                                         IML2.setModuleLinkedToNumber(moduleNumber);
-                                        System.out.println("module comp IML setModuleLinkedToNumber:"+IML2.getModuleLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setModuleLinkedToNumber:"+IML2.getModuleLinkedToNumber());
                                         IML2.setPortLinkedToNumber(1);
-                                        System.out.println("module comp IML setPortLinkedToNumber:"+IML2.getPortLinkedToNumber());
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("module comp IML setPortLinkedToNumber:"+IML2.getPortLinkedToNumber());
                                         comp.getOutputConnectorsMap().get(2).addInterModuleLink(IML2);
-                                        System.out.println("adding inter module link for SAME_LAYER_INTER_MODULE_LINK_START");
+                                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("adding inter module link for SAME_LAYER_INTER_MODULE_LINK_START");
                                     }
                                 }
                            }
                        }
                    }
                    if(bMP.getBlockModelPortType().equals("INPUT_PORT")){
-                       System.out.println("INPUT_PORT");
+                       if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("INPUT_PORT");
                         module.addBlockModelInputConnectorComponentList(component);
                    }else{//output port
-                       System.out.println("OUTPUT_PORT");
+                       if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("OUTPUT_PORT");
                         module.addBlockModelOutputConnectorComponentList(component);
                    }
                 }
@@ -578,7 +578,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
                                                 IML2.setModuleLinkedToNumber(moduleNumber);
                                                 IML2.setPortLinkedToNumber(2);
                                                 comp.getInputConnectorsMap().get(1).addInterModuleLink(IML2);
-                                                System.out.println("adding inter module link for DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                                                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("adding inter module link for DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                                             }
                                         }
                                    }
@@ -611,7 +611,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
                                                 IML2.setModuleLinkedToNumber(moduleNumber);
                                                 IML2.setPortLinkedToNumber(1);
                                                 comp.getOutputConnectorsMap().get(2).addInterModuleLink(IML2);
-                                                System.out.println("adding inter module link for DIFFERENT_LAYER_INTER_MODULE_LINK_START");
+                                                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("adding inter module link for DIFFERENT_LAYER_INTER_MODULE_LINK_START");
                                             }
                                         }
                                    }
@@ -647,7 +647,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
     public class BlockModelPanel extends JPanel{
         public BlockModelPanel( ){
             setPreferredSize(new Dimension(1001,1001));
-            System.out.println("setPreferredSize 1001 1001");
+            if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("setPreferredSize 1001 1001");
             setBackground(DEFAULT_GRID_COLOR);
         }
         
@@ -779,9 +779,9 @@ public final class AddBlockModelPartDialog extends JDialog  {
                             //textOriginal.getAttributes().removeNamedItem("'");
                             String str = ""+NodeList.class.toString();
                             //String text2 = text.substring(1,text.length()-1);
-                           
-                            
-                            System.out.println("CircuitDescriptionTextString:"+str);
+
+
+                            if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("CircuitDescriptionTextString:"+str);
                             Font font = DEFAULT_TEXTAREA_FONT;
                             if(windowType == MAIN_WINDOW){
                                 theMainApp.setCircuitDescriptionText(str);
@@ -795,23 +795,23 @@ public final class AddBlockModelPartDialog extends JDialog  {
                             break;
                     }
                 }
-                System.out.println("part library is not null");
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("part library is not null");
                 
             }else{
-                System.out.println("part library number is null");//just the background color is painted
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("part library number is null");//just the background color is painted
             }
             
         }
         
         public void updateGraphics(String partLibraryNumberString){
-            System.out.println("updateGraphics");
+            if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("updateGraphics");
             this.partLibraryNumber = partLibraryNumberString;
             repaint();
             //validate();
         }
         
         public void updateGraphics(){
-            System.out.println("updateGraphics not argument");
+            if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("updateGraphics not argument");
             
             repaint();
             //validate();
@@ -840,7 +840,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
 
             try {
 
-                System.out.println("tempUTLStr:"+tempURLStr);
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("tempUTLStr:"+tempURLStr);
                 homeURL = new File(tempURLStr).toURI().toURL();
                 System.out.println("homeURL:"+homeURL.toString());
                 String tempStr = "Specification.html";
@@ -856,19 +856,19 @@ public final class AddBlockModelPartDialog extends JDialog  {
     //        } catch (MalformedURLException ex) {
     //            ex.printStackTrace();
     //        }
-            if(partTypeStr.equals("Chip")){   
-                System.out.println("firstPageUrl:"+firstPageUrl.toString());
+            if(partTypeStr.equals("Chip")){
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("firstPageUrl:"+firstPageUrl.toString());
                 tabbedpane.add("P"+partNumber, makePanel(firstPageUrl, documents));
                 documents.setTabTitle("P"+partNumber);
             }else{
-                System.out.println("firstPageUrl:"+firstPageUrl.toString());
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("firstPageUrl:"+firstPageUrl.toString());
                 tabbedpane.add("M"+moduleNumber, makePanel(firstPageUrl, documents));
                 documents.setTabTitle("P"+partNumber+".L"+layerNumber+".M"+moduleNumber);
             }
             initTabComponent(0);
             documents.setTabNumber(0);
             documents.setCurrentFile(new File(firstPageUrl.getFile()));
-            System.out.println("documents.m_currentFile:"+documents.getTextPane().toString());
+            if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("documents.m_currentFile:"+documents.getTextPane().toString());
             tabbedpane.setSelectedIndex(0);
 
             //documents.setTabTitle("P"+partNumber);
@@ -914,7 +914,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
         } catch (BadLocationException ex) {
             ex.printStackTrace();
         }
-        System.out.println("documents.m_editor.getText():"+documents.getTextPane().getText());
+        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("documents.m_editor.getText():"+documents.getTextPane().getText());
         
 //        JMenuBar menuBar = createMenuBar(documents);
 //        setJMenuBar(menuBar);
@@ -931,16 +931,16 @@ public final class AddBlockModelPartDialog extends JDialog  {
         HyperlinkListener hlst = new HyperlinkListener(){
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e){
-                System.out.println("hyperLinkPressed");
+                if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("hyperLinkPressed");
                 if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED){
                     try {
-                        System.out.println("hyperLinkPressed: "+e.getURL().toString());
-                        String str = e.getURL().toString();  
-                        System.out.println("STR:"+str);
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("hyperLinkPressed: "+e.getURL().toString());
+                        String str = e.getURL().toString();
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("STR:"+str);
                         str = str.substring(str.indexOf('/')+1,str.length());
                         str = str.replace('/', '\\');
-                        
-                        System.out.println("str:"+str+" projectName:"+theMainApp.getProjectName()); 
+
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("str:"+str+" projectName:"+theMainApp.getProjectName());
                         
                         
                         String tabStr = str.substring(1, str.indexOf("Specification",str.indexOf(theMainApp.getProjectName(),0))-1);
@@ -951,8 +951,8 @@ public final class AddBlockModelPartDialog extends JDialog  {
                         }else{
                             str = DEFAULT_MODULELIBRARY_DIRECTORY.toString()+"\\"+partLibraryNumberString+"\\"+str;
                         }
-                        
-                        System.out.println("description:"+str);
+
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("description:"+str);
                         tabStr = tabStr.replace('\\', '.');
                         Documents docs = new Documents();
                         
@@ -968,10 +968,10 @@ public final class AddBlockModelPartDialog extends JDialog  {
                         System.out.println("fileStr:"+str);
                         
                         docs.setCurrentFile(new File(str));
-                        System.out.println("documents.m_currentFile:"+docs.getCurrentfile().toString());
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("documents.m_currentFile:"+docs.getCurrentfile().toString());
                         tabbedpane.setSelectedIndex(tabbedpane.getTabCount()-1);
-                        
-                        System.out.println("hyperLinkPressed setPage:"+e.getURL());
+
+                        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("hyperLinkPressed setPage:"+e.getURL());
                     } catch (MalformedURLException ex) {
                         ex.printStackTrace();
                     }
@@ -1116,7 +1116,7 @@ public final class AddBlockModelPartDialog extends JDialog  {
             }
         });
         dl.addToDocumentsList(documents);
-        System.out.println("newly created node tab number:"+dl.getSelectedNode(0).getTabNumber());
+        if(DEBUG_ADDLOCKMODELPARTDIALOG)System.out.println("newly created node tab number:"+dl.getSelectedNode(0).getTabNumber());
     }
     
     public class ButtonTabComponent extends JPanel {

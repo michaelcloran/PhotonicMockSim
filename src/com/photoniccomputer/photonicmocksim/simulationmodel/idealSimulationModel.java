@@ -385,7 +385,7 @@ public class idealSimulationModel  {
             if (iPortValues1[2] == 0 && iPortValues2[2] == 0) {
                 currentComponent.setOutputPortValues( 3, currentComponent.getInternalWavelength(), 0);
             }else if (iPortValues1[2] == 0 && iPortValues2[2] == 1) {
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("orGateModel iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("orGateModel iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+"\n");
                 currentComponent.setOutputPortValues( 3, currentComponent.getInternalWavelength(), 1);
             }else if (iPortValues1[2] == 1 && iPortValues2[2] == 0) {
                 currentComponent.setOutputPortValues( 3, currentComponent.getInternalWavelength(), 1);
@@ -415,9 +415,9 @@ public class idealSimulationModel  {
             int[] iPortValues3 = currentComponent.getInputPortValues(3);
 
             int[] iPortValues4 = currentComponent.getInputPortValues(4);
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("OR gate Or 1");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("OR gate Or 1");
             if ((iPortValues1[2] == 1) || (iPortValues2[2] == 1) || (iPortValues3[2] == 1) || (iPortValues4[2] == 1)) {
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("OR gate Or");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("OR gate Or");
                 currentComponent.setOutputPortValues( 5, currentComponent.getInternalWavelength(), 1);
             }else{
                 currentComponent.setOutputPortValues( 5, currentComponent.getInternalWavelength(), 0);
@@ -893,7 +893,7 @@ public class idealSimulationModel  {
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
         }else
         if(iPortValues1[2] == 1 && iPortValues2[2] == 1 && iPortValues3[2] == 1){
-            if(DEBUG_IDEALSIMULATIONMODEL) theApp.printToLogFile("idealSimulationModel srFlipFlopModel Undefined change!. As set and reset intensity levels are set to 1 only one (either set or reset should be set to 1 currentComponent.getComponentNumber():"+currentComponent.getComponentNumber());
+            if(DEBUG_IDEALSIMULATIONMODEL) System.out.println("idealSimulationModel srFlipFlopModel Undefined change!. As set and reset intensity levels are set to 1 only one (either set or reset should be set to 1 currentComponent.getComponentNumber():"+currentComponent.getComponentNumber());
             JOptionPane.showMessageDialog(null,"Undefined change!. As set and reset intensity levels are set to 1 only one (either set or reset should be set to 1 currentComponent.getComponentNumber():"+currentComponent.getComponentNumber());
         }
         
@@ -914,14 +914,14 @@ public class idealSimulationModel  {
 
         int[] iPortValues3 = currentComponent.getInputPortValues(3);
 
-        if(DEBUG_IDEALSIMULATIONMODEL) theApp.printToLogFile("idealSimulationModel jkFlipFlopModel iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+        if(DEBUG_IDEALSIMULATIONMODEL) System.out.println("idealSimulationModel jkFlipFlopModel iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
         //System.err.println("idealSimulationModel jkFlipFlopModel iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]);
         
         if(currentComponent.getInternalWavelength() == 0){
             JOptionPane.showMessageDialog(null,"Error undefined internal wavelength!. please set the internal wavelength with the properties dialog for component Number:"+currentComponent.getComponentNumber());
         }else if((iPortValues1[2] == 0 && iPortValues2[2] == 1 && iPortValues3[2] == 0) || (iPortValues1[2] == 0 && iPortValues2[2] == 0 && iPortValues3[2] == 0)){
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 1 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 1 0 port 4  currentComponent.getInternalWavelength():"+ currentComponent.getInternalWavelength()+" currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 1 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 1 0 port 4  currentComponent.getInternalWavelength():"+ currentComponent.getInternalWavelength()+" currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"\n");
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
             if(currentComponent.getInternalIntensityLevel() == 1){
                 currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
@@ -931,14 +931,14 @@ public class idealSimulationModel  {
             }
 
         }else if(iPortValues1[2] == 0 && iPortValues2[2] == 1 && iPortValues3[2] == 1){
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 2 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 2 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
 
             currentComponent.setInternalIntensityLevel(0);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 1);
 
         }else if(iPortValues1[2] == 1 && iPortValues2[2] == 1 && iPortValues3[2] == 0){
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 3 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 3 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
 
             currentComponent.setInternalIntensityLevel(1);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
@@ -946,18 +946,18 @@ public class idealSimulationModel  {
         }else if(iPortValues1[2] == 1 && iPortValues2[2] == 1 && iPortValues3[2] == 1){
             System.err.println("********************************************* idealSimulationModel jkFlipFlopModel 4 iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
             if(currentComponent.getInternalIntensityLevel() == 1){
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 5 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 5 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
                 currentComponent.setInternalIntensityLevel(0);
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 5.1 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 5.1 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
                // System.err.println("toggling from 1 to 0 on port 4 componentNumber:"+currentComponent.getComponentNumber());
                 currentComponent.setOutputPortValues( 4, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
                 int[] test = currentComponent.getOutputPortValues(4);
                 //System.err.println("idealSimulationModel jkFlipFlopModel 6 port 4 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
                 currentComponent.setOutputPortValues( 5, currentComponent.getInternalWavelength(), 1);
                  test = currentComponent.getOutputPortValues(5);
-                if(DEBUG_IDEALSIMULATIONMODEL) theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 7 port 5 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL) System.out.println("idealSimulationModel jkFlipFlopModel 7 port 5 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
             }else {
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 8 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 8 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
                 currentComponent.setInternalIntensityLevel(1);
                 //System.err.println("toggling from 0 to 1 on port 4componentNumber:"+currentComponent.getComponentNumber());
                 currentComponent.setOutputPortValues( 4, currentComponent.getInternalWavelength(), 1);
@@ -966,11 +966,11 @@ public class idealSimulationModel  {
                 //System.err.println("idealSimulationModel jkFlipFlopModel 9 4 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
                 currentComponent.setOutputPortValues( 5, currentComponent.getInternalWavelength(), 0);
                  //test = currentComponent.getOutputPortValues(5);
-                //if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 10 5 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 11 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                //if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 10 5 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 11 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
             }
         }else{//1 0 1
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel jkFlipFlopModel 12 else currentComponent.getInternalWavelength():"+currentComponent.getInternalWavelength()+" iPortValues[1]:"+iPortValues1[1]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 12 else currentComponent.getInternalWavelength():"+currentComponent.getInternalWavelength()+" iPortValues[1]:"+iPortValues1[1]+"\n");
             //System.err.println("idealSimulation model error JK flip flop");
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
             if(currentComponent.getInternalIntensityLevel() == 1){
@@ -1013,26 +1013,26 @@ public class idealSimulationModel  {
             currentComponent.setFirstTimeToggle(true);
         }
 
-        System.out.println("idealSimulationModel jkFlipFlopModel iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+        if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
         if(currentComponent.getInternalWavelength() == 0){
             JOptionPane.showMessageDialog(null,"Error undefined internal wavelength!. please set the internal wavelength with the properties dialog for component Number:"+currentComponent.getComponentNumber());
         }else
         if(iPortValues1[2] == 0 && iPortValues5[2] == 1){
-            System.err.println("model 1");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 1");
             currentComponent.setInternalIntensityLevel(1);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel()); 
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
         }else
         if(iPortValues1[2] == 1 && iPortValues5[2] == 0){
-            System.err.println("model 2");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 2");
             currentComponent.setInternalIntensityLevel(0);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel()); 
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 1);
         }else
         if((iPortValues2[2] == 0 && iPortValues3[2] == 1 && iPortValues4[2] == 0) || (iPortValues2[2] == 0 && iPortValues3[2] == 0 && iPortValues4[2] == 0)){
-            System.err.println("model 4");
-            System.out.println("idealSimulationModel jkFlipFlopModel 1 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+" iPortValues4[2]:"+iPortValues4[2]+" iPortValues5[2]:"+iPortValues5[2]+"\n");
-            System.out.println("idealSimulationModel jkFlipFlopModel 1 0 port 4  currentComponent.getInternalWavelength():"+ currentComponent.getInternalWavelength()+" currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 4");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 1 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+" iPortValues4[2]:"+iPortValues4[2]+" iPortValues5[2]:"+iPortValues5[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 1 0 port 4  currentComponent.getInternalWavelength():"+ currentComponent.getInternalWavelength()+" currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"\n");
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
             if(currentComponent.getInternalIntensityLevel() == 1){
                 //currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
@@ -1045,8 +1045,8 @@ public class idealSimulationModel  {
 
         }else
         if(iPortValues2[2] == 0 && iPortValues3[2] == 1 && iPortValues4[2] == 1 && currentComponent.getLowToHighToggleBool() == true){
-            System.err.println("model 5");
-            System.out.println("idealSimulationModel jkFlipFlopModel 2 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 5");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 2 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
 
             currentComponent.setInternalIntensityLevel(0);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
@@ -1056,8 +1056,8 @@ public class idealSimulationModel  {
 
         }else
         if(iPortValues2[2] == 1 && iPortValues3[2] == 1 && iPortValues4[2] == 0 && currentComponent.getLowToHighToggleBool() == true){
-            System.err.println("model 6");
-            System.out.println("idealSimulationModel jkFlipFlopModel 3 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 6");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 3 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
 
             currentComponent.setInternalIntensityLevel(1);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
@@ -1066,34 +1066,34 @@ public class idealSimulationModel  {
             currentComponent.setLowToHighToggleBool(false);
         }else
         if(iPortValues2[2] == 1 && iPortValues3[2] == 1 && iPortValues4[2] == 1 && currentComponent.getLowToHighToggleBool() == true){
-            System.err.println("model 7 iPortValues1[2]:"+iPortValues1[2]+" iPortValues5[2]:"+iPortValues5[2]);
-            System.out.println("idealSimulationModel jkFlipFlopModel 4 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 7 iPortValues1[2]:"+iPortValues1[2]+" iPortValues5[2]:"+iPortValues5[2]);
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 4 iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
             if(currentComponent.getInternalIntensityLevel() == 1){
-                System.out.println("idealSimulationModel jkFlipFlopModel 5 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+" iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 5 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+" iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
                 currentComponent.setInternalIntensityLevel(0);
-                System.out.println("idealSimulationModel jkFlipFlopModel 5.1 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+" iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 5.1 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+" iPortValues1[2]:"+iPortValues1[2]+" iPortValues2[2]:"+iPortValues2[2]+" iPortValues3[2]:"+iPortValues3[2]+"\n");
 
                 currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
                 int[] test = currentComponent.getOutputPortValues(4);
-                System.out.println("idealSimulationModel jkFlipFlopModel 6 port 4 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 6 port 4 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
                 currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 1);
                  test = currentComponent.getOutputPortValues(5);
-                System.out.println("idealSimulationModel jkFlipFlopModel 7 port 5 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 7 port 5 wavelength test[1]:"+test[1]+" intensity level test[2]:"+test[2]+"\n");
             }else {
-                System.out.println("idealSimulationModel jkFlipFlopModel 8 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 8 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
                 currentComponent.setInternalIntensityLevel(1);
                 currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
                  int[] test = currentComponent.getOutputPortValues(4);
-                System.out.println("idealSimulationModel jkFlipFlopModel 9 4 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 9 4 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
                 currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
                  test = currentComponent.getOutputPortValues(5);
-                System.out.println("idealSimulationModel jkFlipFlopModel 10 5 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
-                System.out.println("idealSimulationModel jkFlipFlopModel 11 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 10 5 wavelength test[1]:"+test[1]+" intensity test[2]:"+test[2]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 11 "+"currentComponent.getInternalIntensityLevel():"+currentComponent.getInternalIntensityLevel()+"iPortValues1[2]:"+iPortValues1[2]+"iPortValues2[2]:"+iPortValues2[2]+"iPortValues3[2]:"+iPortValues3[2]+"\n");
             }
             currentComponent.setLowToHighToggleBool(false);
         }else{//1 0 1
-            System.err.println("model 8");
-            System.out.println("idealSimulationModel jkFlipFlopModel 12 else currentComponent.getInternalWavelength():"+currentComponent.getInternalWavelength()+" iPortValues[1]:"+iPortValues1[1]+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.err.println("model 8");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel jkFlipFlopModel 12 else currentComponent.getInternalWavelength():"+currentComponent.getInternalWavelength()+" iPortValues[1]:"+iPortValues1[1]+"\n");
 
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel());
             if(currentComponent.getInternalIntensityLevel() == 1){
@@ -1182,19 +1182,19 @@ public class idealSimulationModel  {
 
         int[] iPortValues2 = currentComponent.getInputPortValues(2);
 
-        System.out.println("iPortValues1:"+iPortValues1[2]+" iPortValues2:"+iPortValues2[2]);
+        if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("iPortValues1:"+iPortValues1[2]+" iPortValues2:"+iPortValues2[2]);
         
          if(currentComponent.getInternalWavelength() == 0){
             JOptionPane.showMessageDialog(null,"Error undefined internal wavelength!. please set the internal wavelength with the properties dialog for component Number:"+currentComponent.getComponentNumber());
         }else
         if(iPortValues1[2] == 0 && iPortValues2[2] == 1){
-            System.out.println("arithmeticShiftRightModel s=0 r=1:");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("arithmeticShiftRightModel s=0 r=1:");
             currentComponent.setInternalIntensityLevel(1);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel()); 
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 0);
         }else
         if(iPortValues1[2] == 1 && iPortValues2[2] == 0){
-            System.out.println("arithmeticShiftRightModel s=1 r=0:");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("arithmeticShiftRightModel s=1 r=0:");
             currentComponent.setInternalIntensityLevel(0);
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+1, currentComponent.getInternalWavelength(), currentComponent.getInternalIntensityLevel()); 
             currentComponent.setOutputPortValues( currentComponent.getInputConnectorsMap().size()+2, currentComponent.getInternalWavelength(), 1);
@@ -1290,7 +1290,7 @@ public class idealSimulationModel  {
             portNumber4.setOutputWavelength(currentComponent.getInternalWavelength());
 
 
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("portNumber1.getInputBitLevel():"+portNumber1.getInputBitLevel()+" portNumber1.getInputWavelength():"+portNumber1.getInputWavelength()+" cComp.getInternalWavelength():"+currentComponent.getInternalWavelength()+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("portNumber1.getInputBitLevel():"+portNumber1.getInputBitLevel()+" portNumber1.getInputWavelength():"+portNumber1.getInputWavelength()+" cComp.getInternalWavelength():"+currentComponent.getInternalWavelength()+"\n");
         }else
         if(portNumber2.getInputBitLevel() == 0 && portNumber3.getInputBitLevel() == 1){//read
             if(currentComponent.getInternalWavelength() != 0){
@@ -1298,14 +1298,14 @@ public class idealSimulationModel  {
                 portNumber4.setOutputWavelength(currentComponent.getInternalWavelength());
 
 
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("portNumber4.getOutputBitLevel():"+portNumber4.getOutputBitLevel()+"  portNumber4.getOutputWavelength()"+ portNumber4.getOutputWavelength()+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("portNumber4.getOutputBitLevel():"+portNumber4.getOutputBitLevel()+"  portNumber4.getOutputWavelength()"+ portNumber4.getOutputWavelength()+"\n");
             }else{
                 JOptionPane.showMessageDialog(null,"The internal memory unit must be initialised with a write wavelength and bit level on component number:"+currentComponent.getComponentNumber());
 
             }
         }else {
             JOptionPane.showMessageDialog(null,"The system must be in either a read or write state write(p2=1 p3=1) read(p2=0 p3=1)");
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("final else on memoryUnit \n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("final else on memoryUnit \n");
 
         }
         
@@ -1657,14 +1657,14 @@ public class idealSimulationModel  {
         for(int i = (numberOfAddressBusInputPorts-1);i>=0; i--){
             decimalAddressValue +=binaryArray[i]*pow(2,i);
         }
-        if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("decimal Value:"+decimalAddressValue+"\n");
+        if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("decimal Value:"+decimalAddressValue+"\n");
         int[] bitIntensityArray = currentComponent.getMemoryAddress(decimalAddressValue);
         int[] wavelengthArray = currentComponent.getWavelengthArray();
         wavelengthArray = currentComponent.getWavelengthArray();
 
         for(int i=0;i<numberOfDataBusInputs;i++){
             if(wavelengthArray[i]==0){
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("wavelengthArray not set \n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("wavelengthArray not set \n");
                 JOptionPane.showMessageDialog(null,"The internal wavelengths for the unit must be initialised for component number:"+currentComponent.getComponentNumber());
 
                 break;
@@ -1672,10 +1672,10 @@ public class idealSimulationModel  {
         }
 
         if(currentComponent.getInputConnectorsMap().get((1+numberOfAddressBusInputPorts)).getInputBitLevel()== 1){//write
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("ramModel write Operation \n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("ramModel write Operation \n");
             ctr = 0;
 
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("decimal Value:"+decimalAddressValue+"\n");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("decimal Value:"+decimalAddressValue+"\n");
             int bitIntensityArray1[] = {0,0,0,0, 0,0,0,0}; 
             for(int i=1;i<=numberOfDataBusInputs;i++){
                 bitIntensityArray1[i-1] = currentComponent.getInputConnectorsMap().get(1+numberOfAddressBusInputPorts+i+8).getInputBitLevel();//8 bit databus
@@ -1683,7 +1683,7 @@ public class idealSimulationModel  {
 
             currentComponent.setMemoryAddress(decimalAddressValue, bitIntensityArray1);
             for(int i=0;i <numberOfDataBusInputs;i++){
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("portnumber:8 decimalAddressValue:"+decimalAddressValue+" bitIntensityArray:["+i+"]:"+bitIntensityArray1[i]+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("portnumber:8 decimalAddressValue:"+decimalAddressValue+" bitIntensityArray:["+i+"]:"+bitIntensityArray1[i]+"\n");
             }
         }else{
             bitIntensityArray = currentComponent.getMemoryAddress(decimalAddressValue);
@@ -1751,7 +1751,7 @@ public class idealSimulationModel  {
 
         for(InputConnector portNumber: currentComponent.getInputConnectorsMap().values()){
             if(portNumber.getInputBitLevel() == 1){
-                if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel opticalCouplerMX1Model getInputBitLevel:"+portNumber.getInputBitLevel()+"\n");
+                if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel opticalCouplerMX1Model getInputBitLevel:"+portNumber.getInputBitLevel()+"\n");
                 opticlalInputWavelength = portNumber.getInputWavelength();
                opticalBitLevel = 1;
                 break;
@@ -1761,7 +1761,7 @@ public class idealSimulationModel  {
         }
         currentComponent.getOutputConnectorsMap().get(currentComponent.getInputConnectorsMap().size()+1).setOutputWavelength(opticlalInputWavelength);
         currentComponent.getOutputConnectorsMap().get(currentComponent.getInputConnectorsMap().size()+1).setOutputBitLevel(opticalBitLevel);
-        if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel opticalCouplerMX1Model currentComponent.getOutputConnectorsMap().get(cComp.getInputConnectorsMap().size()+1).getOutputWavelength():"+currentComponent.getOutputConnectorsMap().get(currentComponent.getInputConnectorsMap().size()+1).getOutputWavelength()+"\n");
+        if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel opticalCouplerMX1Model currentComponent.getOutputConnectorsMap().get(cComp.getInputConnectorsMap().size()+1).getOutputWavelength():"+currentComponent.getOutputConnectorsMap().get(currentComponent.getInputConnectorsMap().size()+1).getOutputWavelength()+"\n");
 
         if(theApp.getDebugTestpointBool() == true){
             for(InputConnector iConnector : currentComponent.getInputConnectorsMap().values()){
@@ -1849,7 +1849,7 @@ public class idealSimulationModel  {
 
             int[] iPortValues1 = currentComponent.getInputPortValues(1);
             currentComponent.setOutputPortValues( 2, iPortValues1[1], iPortValues1[2]);
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel testPointModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel testPointModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
         }
         
         if(theApp.getDebugTestpointBool() == true){
@@ -1868,7 +1868,7 @@ public class idealSimulationModel  {
 
             int[] iPortValues1 = currentComponent.getInputPortValues(1);
             currentComponent.setOutputPortValues( 2, iPortValues1[1], iPortValues1[2]);
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
         }
         
         if(theApp.getDebugTestpointBool() == true){
@@ -1886,7 +1886,7 @@ public class idealSimulationModel  {
 
             int[] iPortValues1 = currentComponent.getInputPortValues(1);
             currentComponent.setOutputPortValues( 2, iPortValues1[1], iPortValues1[2]);
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
         }
         
         if(theApp.getDebugTestpointBool() == true){
@@ -1904,7 +1904,7 @@ public class idealSimulationModel  {
 
             int[] iPortValues1 = currentComponent.getInputPortValues(1);
             currentComponent.setOutputPortValues( 2, iPortValues1[1], iPortValues1[2]);
-            if(DEBUG_IDEALSIMULATIONMODEL)theApp.printToLogFile("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("idealSimulationModel sLIMLStModel iPortValues1[1]:"+iPortValues1[1]+" iPortValues1[2]:"+iPortValues1[2]+"\n" );
         }
         
         if(theApp.getDebugTestpointBool() == true){
@@ -1943,7 +1943,7 @@ public class idealSimulationModel  {
             public void actionPerformed(ActionEvent evt){
                 if(currentComponent.getTimer().isRunning()){
                     currentComponent.getTimer().stop();
-                    System.out.println("KeyboardHub cComp.getComponentNumber:"+currentComponent.getComponentNumber()+" stop Timer");
+                    if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("KeyboardHub cComp.getComponentNumber:"+currentComponent.getComponentNumber()+" stop Timer");
                 }
             }
         };
@@ -2062,7 +2062,7 @@ public class idealSimulationModel  {
             //else reset timer and readread
         }else
         if(clearPortValues[2] == 1 && !currentComponent.getTimer().isRunning()){
-            System.out.println("Current Timer not running and clear bit set!!!");
+            if(DEBUG_IDEALSIMULATIONMODEL)System.out.println("Current Timer not running and clear bit set!!!");
         }/*else{
             
             //int[] keyboardReadArray = currentComponent.getKeyboardReadArray();

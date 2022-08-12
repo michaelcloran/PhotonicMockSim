@@ -325,14 +325,14 @@ public class PhotonicMockSimModel extends Observable implements Serializable /*,
             if(component.getComponentNumber() == 0){
                 component.setComponentNumber(1);
             }else{
-                System.out.println("Model Setting componentNumber:"+component.getComponentNumber());
+                if(DEBUG_PHOTONICMOCKSIMMODEL)System.out.println("Model Setting componentNumber:"+component.getComponentNumber());
                 component.setComponentNumber(component.getComponentNumber());
             }
         }else {
             if(component.getComponentNumber() == 0){
                 component.setComponentNumber((partsMap.get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap()).lastKey()+1);
             }else{
-                System.out.println("Model Setting componentNumber:"+component.getComponentNumber());
+                if(DEBUG_PHOTONICMOCKSIMMODEL)System.out.println("Model Setting componentNumber:"+component.getComponentNumber());
                 component.setComponentNumber(component.getComponentNumber());
             }
         }

@@ -1,13 +1,9 @@
 package com.photoniccomputer.photonicmocksim.dialogs;
 
 
-import static Constants.PhotonicMockSimConstants.CHILD_WINDOW;
-import static Constants.PhotonicMockSimConstants.MAIN_WINDOW;
 import com.photoniccomputer.photonicmocksim.utils.Layer;
 import com.photoniccomputer.photonicmocksim.utils.Module;
 import com.photoniccomputer.photonicmocksim.utils.Part;
-import static Constants.PhotonicMockSimConstants.NO;
-import static Constants.PhotonicMockSimConstants.YES;
 import com.photoniccomputer.photonicmocksim.PhotonicMockSim;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -20,6 +16,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import static Constants.PhotonicMockSimConstants.*;
 
 /*
 Copyright Michael Cloran 2013
@@ -189,7 +187,7 @@ public class ShowBlockModelPadsDialog extends JDialog{
                             dispose(); 
                             if(showBlockModelPads.equals("YES"))theApp.getModel().getPartsMap().get(selectedPartNumber).getLayersMap().get(selectedLayerNumber).getModulesMap().get(selectedModuleNumber).setShowBlockModelModuleContentsBoolean(true);
                             if(showBlockModelPads.equals("NO")) theApp.getModel().getPartsMap().get(selectedPartNumber).getLayersMap().get(selectedLayerNumber).getModulesMap().get(selectedModuleNumber).setShowBlockModelModuleContentsBoolean(false);
-                            System.out.println("showBlockModelPads:"+showBlockModelPads);      
+                            if(DEBUG_SHOWBLOCKMODELPADSDIALOG) System.out.println("showBlockModelPads:"+showBlockModelPads);
                             if(windowType != CHILD_WINDOW){
                                 theApp.getWindow().repaint();
                             }else{

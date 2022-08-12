@@ -461,7 +461,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         
         viewBlockModelLinks.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                System.out.println("running viewBlockModelLinks viewLinks()");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("running viewBlockModelLinks viewLinks()");
                 viewLinks();
             }
         });
@@ -488,10 +488,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     for(CircuitComponent comp : deleteList){
                        new DeleteComponent(theApp.getWindow(), theApp, highlightModule, comp,0); 
                     }
-                                       
-                    System.out.println("---- delete Part number:"+highlightPart.getPartNumber()+" ----");
+
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- delete Part number:"+highlightPart.getPartNumber()+" ----");
                     if(theApp.getModel().removePart(highlightPart.getPartNumber()) == true){
-                        System.out.println("RemovedPart:"+highlightPart.getPartNumber());
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("RemovedPart:"+highlightPart.getPartNumber());
                         highlightPart=null;
                     }else{
                         JOptionPane.showMessageDialog(null, "Error Part not found!.");
@@ -524,10 +524,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     for(CircuitComponent comp : deleteList){
                        new DeleteComponent(theApp.getWindow(), theApp, moduleLinked, comp,0); 
                     }
-                                       
-                    System.out.println("---- delete Module number:"+highlightModule.getModuleNumber()+" ----");
+
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- delete Module number:"+highlightModule.getModuleNumber()+" ----");
                     if(theApp.getModel().removeModule(highlightPart.getPartNumber(),highlightLayer.getLayerNumber(),highlightModule.getModuleNumber())==true){
-                        System.out.println("RemovedModule:"+highlightModule.getModuleNumber());
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("RemovedModule:"+highlightModule.getModuleNumber());
                         highlightModule=null;
                     }else{
                         JOptionPane.showMessageDialog(null, "Error Module not found!.");
@@ -679,13 +679,13 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         if(highlightComponent.getComponentType() == COPYANDSAVEORPASTE){
             for(CircuitComponent component : highlightModule.getComponentsMap().values()) {//the model gives a part layer module component maps this needs changing maybe use highlightModule Map
                 if(highlightComponent.getCircuitComponentBounds().contains(component.getCircuitComponentBounds()) && component.getComponentType() != COPYANDSAVEORPASTE)  {
-                    System.out.println("ComponentNumber:"+component.getComponentNumber()+"\n");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("ComponentNumber:"+component.getComponentNumber()+"\n");
                     highlightComponent.getCopyComponentsMap().put(component.getComponentNumber(),component);
 
                 }
             }
-            System.out.println("------------------------------------------------\n");
-            for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("------------------------------------------------\n");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
 
                 System.out.println("CompNumber:"+comp.getComponentNumber()+"\n");
             }
@@ -693,7 +693,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
     }
 
     private void performPasteAsObjects(){
-        System.out.println("--------- start normalisation map ---------");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- start normalisation map ---------");
         for(CircuitComponent comp1 : highlightComponent.getCopyComponentsMap().values()){
             if(comp1.getComponentType()== TEXT){
                 Point compPos = comp1.getPosition();
@@ -705,7 +705,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised Component Text CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n"); 
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalised Component Text CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
 
             }else
             if(comp1.getComponentType() != OPTICAL_WAVEGUIDE && comp1.getComponentType() != PIVOT_POINT && comp1.getComponentType() != TEXT){
@@ -715,7 +715,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised Component CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalised Component CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else
             if(comp1.getComponentType() == PIVOT_POINT){
                 Point compPos = comp1.getPosition();
@@ -725,7 +725,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised pivot point CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalised pivot point CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else
             if(comp1.getComponentType() == OPTICAL_WAVEGUIDE){
                 Point compPos = comp1.getPosition();
@@ -734,25 +734,25 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised optical waveguide CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalised optical waveguide CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else{
                 System.out.println("---- start ----\n --- error with type ---\n type = "+comp1.getComponentType()+"\n--- end with error type ---\n---- finish error ----\n");
             }
         }
-        System.out.println("--------- end normalisation map ---------");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- end normalisation map ---------");
 
         for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
 
             if(comp.getComponentType()== TEXT){
-                System.out.println("--------- start text---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- start text---------");
                 //nothing needs to be done here
                 Point compPos = comp.getPosition();
 
                 CircuitComponent tempComponent =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
-                System.out.println("Text tempComponentNumber:"+tempComponent.getComponentNumber());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Text tempComponentNumber:"+tempComponent.getComponentNumber());
                 //tempComponent.setPosition(compPos);
                 //tempComponent.setRotation(comp.getRotation());
-                System.out.println("--------- end text---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- end text---------");
             }else
             if(comp.getComponentType() != OPTICAL_WAVEGUIDE && comp.getComponentType() != PIVOT_POINT && comp.getComponentType() != TEXT){
                 Point compPos = comp.getPosition();
@@ -760,8 +760,8 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 CircuitComponent tempComponent =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
                 tempComponent.setRotation(comp.getRotation());
 
-                System.out.println("--------- start generic---------");
-                System.out.println("normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- start generic---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
                 int originalSourceComponentNumber = 0;
                 int normalisedSourceComponentNumber = 0;
                 int sourcePortNumber = 0;
@@ -772,18 +772,18 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     for(ComponentLink componentLink : iConnector.getComponentLinks()){
 
                         originalSourceComponentNumber = comp.getInputConnectorsMap().get(iConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationComponentNumber();
-                        System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                         if(highlightComponent.getCopyComponentsMap().get(originalSourceComponentNumber) != null){
 
                             normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                            System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
 
                             sourcePortNumber = comp.getInputConnectorsMap().get(iConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationPortNumber();
-                            System.out.println("sourcePortNumber:"+sourcePortNumber);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
 
                             for(InputConnector iConnector2 : tempComponent.getInputConnectorsMap().values()){
                                 if(iConnector2.getPortNumber() == iConnector.getPortNumber()){
-                                    System.out.println("iConnector has a componentLink");
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("iConnector has a componentLink");
                                     ComponentLink componentLink2 = new ComponentLink();
                                     iConnector2.addComponentLink(componentLink2);
 
@@ -797,7 +797,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
 
 
-                            System.out.println("comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()):"+comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()));
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()):"+comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()));
                             Point pt = comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber());
 
                             tempComponent.setIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber(),pt.x,pt.y);
@@ -807,8 +807,8 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                             tempComponent.setIConnectorDestinationComponentNumber(1,iConnector.getPortNumber(),normalisedSourceComponentNumber);//source Port,destination componentNumber
 
-                            System.out.println("comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()):"+comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()));
-                            System.out.println("highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()):"+comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()));
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
                             tempComponent.setInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber(), highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
                         }     
                     }
@@ -817,17 +817,17 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     for(ComponentLink componentLink : oConnector.getComponentLinks()){
 
                         int originalDestinationComponentNumber = comp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationComponentNumber();
-                        System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                         if(highlightComponent.getCopyComponentsMap().get(originalDestinationComponentNumber) != null){
                             int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                            System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                              destinationPortNumber = comp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationPortNumber();
-                            System.out.println("destinationPortNumber:"+destinationPortNumber);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
 
                             for(OutputConnector oConnector2 : tempComponent.getOutputConnectorsMap().values()){
                                 if(oConnector2.getPortNumber() == oConnector.getPortNumber()){
-                                    System.out.println("oConnector has a componentLink");
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("oConnector has a componentLink");
                                     ComponentLink componentLink2 = new ComponentLink();
                                     oConnector2.addComponentLink(componentLink2);
 
@@ -841,7 +841,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
 
                             Point pt =comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber());
-                            System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber():"+comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber():"+comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
                             int componentLinkCtr2 = 1;// = iConnector.getComponentLinks().getLast().getLinkNumber();
                             tempComponent.setOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber(),pt.x,pt.y);
 
@@ -853,33 +853,33 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                         }
                     }
                 }
-                System.out.println("Generic normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Generic normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish generic---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- finish generic---------");
             }else
             if(comp.getComponentType() == PIVOT_POINT){
 
-                System.out.println("--------- start pivot point---------");
-                System.out.println("PivotPoint");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- start pivot point---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("PivotPoint");
 
                 Point compPos = comp.getPosition();
                 CircuitComponent tempComponentPivotPoint =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
                 tempComponentPivotPoint.setPosition(new Point(compPos.x, compPos.y));
 
-                System.out.println("tempComponentPivotPoint.getComponentNumber:"+tempComponentPivotPoint.getComponentNumber());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("tempComponentPivotPoint.getComponentNumber:"+tempComponentPivotPoint.getComponentNumber());
 
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
                 int originalSourceComponentNumber = comp.getInputConnectorsMap().get(1).getComponentLinks().getFirst().getDestinationComponentNumber();
-                System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                 int normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
                 int sourcePortNumber = comp.getInputConnectorsMap().get(1).getComponentLinks().getFirst().getDestinationPortNumber();
-                System.out.println("sourcePortNumber:"+sourcePortNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
                 int originalDestinationComponentNumber = comp.getOutputConnectorsMap().get(2).getComponentLinks().getFirst().getDestinationComponentNumber();
-                System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                 int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                 int destinationPortNumber = comp.getOutputConnectorsMap().get(2).getComponentLinks().getFirst().getDestinationPortNumber();
 
                 //todo need to set all values to links of pivot point here
@@ -904,7 +904,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                         }
 
                         Point pt =comp.getOConnectorDestinationPhysicalLocation(1,2);
-                        System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,2):"+comp.getOConnectorDestinationPhysicalLocation(1,2));
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,2):"+comp.getOConnectorDestinationPhysicalLocation(1,2));
 
                         tempComponentPivotPoint.setOConnectorDestinationPhysicalLocation(1,2,pt.x,pt.y);
 
@@ -933,7 +933,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                     tempComponentPivotPoint.setIConnectorDestinationPhysicalLocation(1,1,pt.x,pt.y);
 
-                    System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                     tempComponentPivotPoint.setIConnectorDestinationComponentNumber(1,1,normalisedSourceComponentNumber);//source Port,destination componentNumber
 
                     tempComponentPivotPoint.setIConnectorDestinationPort(1,1,sourcePortNumber);//oConnector.getPortNumber());//
@@ -944,27 +944,27 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     tempComponentPivotPoint.draw(g2D);
 
                 }
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish pivot point---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- finish pivot point---------");
             }else
             if(comp.getComponentType() == OPTICAL_WAVEGUIDE){  //optical waveguide     
 
 
-                System.out.println("--------- start optical waveguide---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- start optical waveguide---------");
 
                 int originalSourceComponentNumber = comp.getComponentLinks().get(0).getConnectsToComponentNumber();
-                System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                 int normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
                 int sourcePortNumber = comp.getComponentLinks().get(0).getConnectsToComponentPortNumber();
-                System.out.println("sourcePortNumber:"+sourcePortNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
                 int originalDestinationComponentNumber = comp.getComponentLinks().get(1).getConnectsToComponentNumber();
-                System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                 int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                 int destinationPortNumber = comp.getComponentLinks().get(1).getConnectsToComponentPortNumber();//.getDestinationPortNumber();
-                System.out.println("destinationPortNumber:"+destinationPortNumber);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
                 Point sourcePhysicalLoc = new Point(0,0);
                 Point destinationPhysicalLoc = new Point(0,0);
@@ -987,11 +987,11 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 }
                 tempComponent.modify(sourcePhysicalLoc,destinationPhysicalLoc);
 
-                tempComponent.setPosition(sourcePhysicalLoc); 
-                System.out.println("sourcePhysicalLoc.x:"+sourcePhysicalLoc.x+" sourcePhysicalLoc.y:"+sourcePhysicalLoc.y);
-                System.out.println("destinationPhysicalLoc.x:"+destinationPhysicalLoc.x+" destinationPhysicalLoc.y:"+destinationPhysicalLoc.y);
+                tempComponent.setPosition(sourcePhysicalLoc);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("sourcePhysicalLoc.x:"+sourcePhysicalLoc.x+" sourcePhysicalLoc.y:"+sourcePhysicalLoc.y);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("destinationPhysicalLoc.x:"+destinationPhysicalLoc.x+" destinationPhysicalLoc.y:"+destinationPhysicalLoc.y);
 
-                System.out.println("optical waveguide normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey()));
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("optical waveguide normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey()));
 
                 tempComponent.getLM().setSourceComponentNumber(normalisedSourceComponentNumber);
                 tempComponent.getLM().setSourcePortNumber(sourcePortNumber);
@@ -1002,7 +1002,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 tempComponent.getLM().setDestinationLinkNumber(1);//should only be 1 link
 
                 for(Integer lineLink : comp.getLM().getLineLinks()){
-                    System.out.println("Line Links:"+lineLink);
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Line Links:"+lineLink);
                     tempComponent.getLM().addLineLink(highlightComponent.getCopyAndPasteNormalisationMap().get(lineLink));
                 }
 
@@ -1030,31 +1030,31 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                 repaint();
 
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish optical waveguide---------");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--------- finish optical waveguide---------");
             }
 
         }
         LinkedList<Integer> moveList = new LinkedList();
-        System.out.println("--- start ---\n");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--- start ---\n");
         for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
-            System.out.println("MoveList creation highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()):"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("MoveList creation highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()):"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
             moveList.add(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
-            System.out.println(moveList.getLast()+"\n");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println(moveList.getLast()+"\n");
         }
-        System.out.println("--- end ---\n");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--- end ---\n");
         highlightComponent.getCopyComponentsMap().clear();
-        System.out.println("--- start normalised move list ---\n");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--- start normalised move list ---\n");
         for(Integer moveListComponentNumber : moveList){
             highlightComponent.getCopyComponentsMap().put(moveListComponentNumber, highlightModule.getComponentsMap().get(moveListComponentNumber));
-            System.out.println("move List component:"+highlightComponent.getCopyComponentsMap().lastEntry().getKey());
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("move List component:"+highlightComponent.getCopyComponentsMap().lastEntry().getKey());
         }
-        System.out.println("--- end normalised move list ---\n");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("--- end normalised move list ---\n");
     }
 
     private void performCopyAndSave(){
-        System.out.println("in view performcopyandsave");
+        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("in view performcopyandsave");
         performSave();
     }
 
@@ -1162,12 +1162,12 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
     private void ViewValues(){
         ShowBlockModelContentsFrame thewindow = theApp.getWindow();
         /*if(highlightPart != null){//for block model
-                System.out.println("ViewValues highlightPart != null highlightPartNumber:"+highlightPart.getPartNumber());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("ViewValues highlightPart != null highlightPartNumber:"+highlightPart.getPartNumber());
                 new ViewValuesDialog(thewindow,highlightPart.getPartNumber(),highlightModule, highlightComponent, theApp);
         }else*/
         if(highlightComponent != null){
-            
-            System.out.println("ViewValues highlightPart == null");
+
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("ViewValues highlightPart == null");
             new ViewValuesDialog(thewindow,0,highlightModule, highlightComponent, theApp);
             
         }
@@ -1176,14 +1176,14 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
     private void viewLinks(){
         ShowBlockModelContentsFrame thewindow = theApp.getWindow();
         /*if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
-            System.out.println("running ViewLinksDialog for highlightPart:"+highlightPart.getPartNumber());
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("running ViewLinksDialog for highlightPart:"+highlightPart.getPartNumber());
             int sourcePartNumber = highlightModule.getPartNumber();
             new ViewLinksDialog(thewindow, sourcePartNumber, highlightPart.getPartNumber(), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent, theApp);
         }else*/
         if(highlightComponent != null){
-            
-            
-            System.out.println("running ViewLinksDialog for normal component");
+
+
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("running ViewLinksDialog for normal component");
             int sourcePartNumber = 0;
             ViewLinksDialog vld = new ViewLinksDialog(thewindow, 0 , highlightModule.getPartNumber(), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent, theApp);
             
@@ -1204,12 +1204,12 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
     private void sendPartToBack() {
         if(highlightPart != null) {
-            System.out.println("sendPartToBack");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("sendPartToBack");
             if(theApp.getModel().removePart(highlightPart.getPartNumber()) == true){
-                System.out.println("theApp.getModel().getPartsMap().remove(highlightPart.getPartNumber())");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("theApp.getModel().getPartsMap().remove(highlightPart.getPartNumber())");
                 highlightPart.setPartNumber(theApp.getModel().getPartsMap().lastKey()+1);//temp fix
                 theApp.getModel().addPart(highlightPart);
-                System.out.println("partNumber:"+highlightPart.getPartNumber());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("partNumber:"+highlightPart.getPartNumber());
                 for(Layer layer : highlightPart.getLayersMap().values()){
                     for(Module module: layer.getModulesMap().values()){
                         module.setPartNumber(highlightPart.getPartNumber());
@@ -1299,9 +1299,9 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         }
         if(theApp.getShowBlockModelContentsType()==CHIP){
             for(Part part : theApp.getModel().getPartsMap().values()) {
-                System.out.println("+++++++++++++++++++++++++++++++++++++PartNumber:"+theApp.getPartNumber());
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++PartNumber:"+theApp.getPartNumber());
                 if(part.getPartNumber() == theApp.getPartNumber() && theApp.getShowBlockModelContentsType()==CHIP){
-                    System.out.println("------------------------------- partNumber:"+part.getPartNumber()+"-----------------------------------------------------");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("------------------------------- partNumber:"+part.getPartNumber()+"-----------------------------------------------------");
                     if(part.getBlockModelExistsBoolean() == true && part.getShowBlockModelPartContentsBoolean()==false && theApp.getShowBlockModelContentsType() == BLOCK_MODEL){
 
                         if(getTopIndex().y >0 || getTopIndex().x >0) {
@@ -1325,12 +1325,12 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                             part.draw(g2D);
                         }
                     }else{
-                        System.out.println("---- CHIP ----");
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- CHIP ----");
                         for(Layer layer : part.getLayersMap().values()) {
 
                             for(Module m :  layer.getModulesMap().values()) {   
                                 Point modulePosition = m.getBlockModelPosition();//getPosition();
-                                System.out.println("Child module position:"+modulePosition);
+                                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child module position:"+modulePosition);
                                 if(m.getBlockModelExistsBoolean() == true ){//needed??
                                     if(getTopIndex().y >0 || getTopIndex().x >0) {
                                         AffineTransform old = g2D.getTransform();                    
@@ -1345,22 +1345,22 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                         }
 
                                         //m.draw(g2D);
-                                        System.out.println("Child View paint 1 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 1 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                         m.drawBlockModel(g2D);
-                                        System.out.println("Child View paint 2 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 2 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                         g2D.setTransform(old);
-                                        System.out.println("Child View paint 3 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 3 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                         //m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
                                         m.translateBlockModelBounds(m.getBlockModelPosition().x -getTopIndex().x , m.getBlockModelPosition().y -getTopIndex().y);
-                                        System.out.println("Child View paint 4 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 4 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                        //g2D.draw(part.getBounds());
                                     }else{
                                         //m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
-                                        System.out.println("Child View paint 5 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 5 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
                                         m.translateBlockModelBounds(m.getBlockModelPosition().x -getTopIndex().x , m.getBlockModelPosition().y -getTopIndex().y);
-                                        System.out.println("Child View paint 6 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 6 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
                                         m.drawBlockModel(g2D);
-                                        System.out.println("Child View paint 7 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child View paint 7 moduleWidth:"+m.getModuleBlockModelWidth()+" moduleBreadth:"+m.getModuleBlockModelBreadth());
                                         //m.draw(g2D);
                                     }
                                 }else{
@@ -1411,8 +1411,8 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                     g2D.translate(0, -topIndex.y);
                                                 }else {
                                                     g2D.translate(-topIndex.x, 0);
-                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PhotonicMockSimView paint topIndex X:"+topIndex.x);
-                                                    if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("PhotonicMockSimView paint topIndexY:"+topIndex.y);
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("PhotonicMockSimView paint topIndex X:"+topIndex.x);
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("PhotonicMockSimView paint topIndexY:"+topIndex.y);
                                                 }
                                                                                         //this is temporary as need a boolean to show or not show the parts part.getShowBlockModelBoolean module.getShowBlockModelBoolean
                                                                                         //if a part and part.getShowBlockModelBoolean == true then it cycles throught modules and sets module.setShowBlockModelBoolean(true)
@@ -1422,7 +1422,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                      //if(part.getShowBlockModelPartContentsBoolean() == true || m.getShowBlockModelModuleContentsBoolean() == true || theApp.getShowBlockModelContentsType()==CHIP){
                                                        if((part.getShowBlockModelPartContentsBoolean() == true || m.getShowBlockModelModuleContentsBoolean() == true )|| theApp.getShowBlockModelContentsType()==CHIP){
                                                         if((comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START && comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_END) ) {
-                                                            System.out.println("testing whats seen 1");
+                                                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing whats seen 1");
                                                             comp.draw(g2D);
                                                             comp.translateBounds(comp.getPosition().x -getTopIndex().x , comp.getPosition().y -getTopIndex().y);
                                                         }
@@ -1431,11 +1431,11 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                  }else
                                                 if(comp.getBlockModelPortNumber() == 0 || m.getShowBlockModelModuleContentsBoolean()==true){//not showing pads
                                                     if((comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START && comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_END) ) {
-                                                        System.out.println("testing whats seen 2");
+                                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing whats seen 2");
                                                         comp.draw(g2D);
                                                         
                                                         if(comp.getComponentType() == OPTICAL_WAVEGUIDE){
-                                                            System.out.println("testing component tp2.1");
+                                                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing component tp2.1");
                                                             comp.translateLineBounds(comp.getPosition().x -getTopIndex().x , comp.getPosition().y -getTopIndex().y);
 
                                                            g2D.setTransform(old);
@@ -1459,7 +1459,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                 if(part.getBlockModelExistsBoolean() == true){//just for blockmodel parts for now
                                                      if((part.getShowBlockModelPartContentsBoolean() == true || m.getShowBlockModelModuleContentsBoolean() == true) || theApp.getShowBlockModelContentsType()==CHIP){
                                                         if( (comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START && comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_END) ) {
-                                                            System.out.println("testing whats seen 3 compType:"+comp.getComponentType());
+                                                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing whats seen 3 compType:"+comp.getComponentType());
                                                             comp.draw(g2D);
                                                             
                                                             if(comp.getComponentType() == OPTICAL_WAVEGUIDE) {
@@ -1477,7 +1477,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                 }else
                                                 if(comp.getBlockModelPortNumber() == 0 || m.getShowBlockModelModuleContentsBoolean()==true){//not showing pads
                                                     if((comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START && comp.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_END) ) {
-                                                        System.out.println("testing whats seen 4");
+                                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing whats seen 4");
                                                         comp.draw(g2D);
                                                         
                                                          if(comp.getComponentType() == OPTICAL_WAVEGUIDE) {
@@ -1492,7 +1492,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                 }
                                             }
                                         }else {
-                                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PhotonicMockSimView paint window not translated");
+                                             System.out.println("PhotonicMockSimView paint window not translated");
 
                                         }
                                     }
@@ -1506,10 +1506,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         if(theApp.getShowBlockModelContentsType()==MODULE){
             Module m = theApp.getTheMainApp().getModel().getPartsMap().get(theApp.getPartNumber()).getLayersMap().get(theApp.getLayerNumber()).getModulesMap().get(theApp.getModuleNumber());//theApp.getTheModule();
             //highlightModule = m;
-            System.out.println("-------- Module number:"+m.getModuleNumber()+" --------");
-            System.out.println("partNumber:"+theApp.getPartNumber()+" layerNumber:"+theApp.getLayerNumber()+" moduleNumber:"+theApp.getModuleNumber());
-                
-            System.out.println("---- MODULE 2 moduleNumber:"+m.getModuleNumber()+" ----");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("-------- Module number:"+m.getModuleNumber()+" --------");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("partNumber:"+theApp.getPartNumber()+" layerNumber:"+theApp.getLayerNumber()+" moduleNumber:"+theApp.getModuleNumber());
+
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- MODULE 2 moduleNumber:"+m.getModuleNumber()+" ----");
             Point modulePosition = m.getPosition();
             if( ( ((modulePosition.y >= getTopIndex().y) ||  (modulePosition.y+m.getModuleBreadth() >= getTopIndex().y)) && (modulePosition.y <= (getTopIndex().y+theApp.getWindowHeight()) ) ) && (( (modulePosition.x >= getTopIndex().x) || (modulePosition.x+m.getModuleWidth() >= getTopIndex().x)) && (modulePosition.x <= (getTopIndex().x+theApp.getWindowWidth()) ))) {
 
@@ -1524,23 +1524,23 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     }else {
                         g2D.translate(-topIndex.x, 0);
                     }
-                    System.out.println("---- MODULE 2.1 moduleNumber:"+m.getModuleNumber()+" ----");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- MODULE 2.1 moduleNumber:"+m.getModuleNumber()+" ----");
                     m.draw(g2D);
 
                     g2D.setTransform(old);
                     m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
                 }else{
-                    System.out.println("---- MODULE 2.2 moduleNumber:"+m.getModuleNumber()+" ----");
-                    System.out.println("Child 1 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- MODULE 2.2 moduleNumber:"+m.getModuleNumber()+" ----");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child 1 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                     m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
-                    System.out.println("Child 2 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child 2 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                     m.draw(g2D);
-                    System.out.println("Child 3 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Child 3 Bounds:"+m.getbounds()+"moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                 }
             }
-            System.out.println("---- MODULE 3 moduleNumber:"+m.getModuleNumber()+" ----");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- MODULE 3 moduleNumber:"+m.getModuleNumber()+" ----");
             for(CircuitComponent comp: m.getComponentsMap().values()) {
-                System.out.println("---- MODULE ComponentNumber:"+comp.getComponentNumber()+" ComponentType:"+comp.getComponentType()+" ----");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("---- MODULE ComponentNumber:"+comp.getComponentNumber()+" ComponentType:"+comp.getComponentType()+" ----");
                 //component.draw(g2D);
                 //for(Component comp : m.getComponents() ) {
                 Point pos = comp.getPosition();
@@ -1559,8 +1559,8 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                             g2D.translate(0, -topIndex.y);
                         }else {
                             g2D.translate(-topIndex.x, 0);
-                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PhotonicMockSimView paint topIndexX:"+topIndex.x);
-                            if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("PhotonicMockSimView paint topIndexY:"+topIndex.y);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW)  System.out.println("PhotonicMockSimView paint topIndexX:"+topIndex.x);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("PhotonicMockSimView paint topIndexY:"+topIndex.y);
                         }
                         if( m.getShowBlockModelModuleContentsBoolean()==true){
                             comp.draw(g2D);
@@ -1574,7 +1574,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                         }
                     }
                 }else {
-                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PhotonicMockSimView paint window not translated");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW)  System.out.println("PhotonicMockSimView paint window not translated");
 
                 }
             }      
@@ -1586,7 +1586,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         public void mousePressed(MouseEvent e) {
             start = e.getPoint();
             buttonState = e.getButton();
-            System.out.println("Mouse pressed");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Mouse pressed");
             if(showContextMenu(e)) {
                 start = null;
                 buttonState = MouseEvent.NOBUTTON;
@@ -1611,7 +1611,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 start = e.getPoint();//??
                 imageFinish = e.getPoint();
                 last = e.getPoint();//??
-                System.out.println("in view mousepressed testing for image and button 1 press imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
+               if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("in view mousepressed testing for image and button 1 press imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
             }else
             if((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0){
                 displayCopyPopupMenu(e.getPoint());
@@ -1667,7 +1667,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 case COPYASOBJECTS:
                 break;
                 case COPYANDSAVE:
-                    System.out.println("testing copy and save in mouseDragged in view imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("testing copy and save in mouseDragged in view imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
                     if(buttonState == MouseEvent.BUTTON1 ) {
                         if(tempComponent == null) {
                             int posy = start.y + getTopIndex().y;
@@ -1682,8 +1682,8 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                             
                             if(theApp.getGridSnapStatus()==true) start = theApp.setNewStartPointWithSnap(start);
                             if(theApp.getGridSnapStatus()==true) last = theApp.setNewStartPointWithSnap(last);
-                            
-                            System.out.println("1 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
+
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("1 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
                             tempComponent = CircuitComponent.createComponent(COPYANDSAVEORPASTE, Color.blue, start, last);
                             tempComponent.setPosition(start);
                         }else{
@@ -1698,7 +1698,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                             last.y = posy2;
                              int posx2 = last.x + getTopIndex().x;
                             last.x = posx2;
-                            System.out.println("2 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("2 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
                             
                             if(theApp.getGridSnapStatus()==true) start = theApp.setNewStartPointWithSnap(start);
                             if(theApp.getGridSnapStatus()==true) last = theApp.setNewStartPointWithSnap(last);
@@ -1759,26 +1759,26 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                                                component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                                ///testing angle for adjusting bounds
-                                               System.out.println("angle:"+angle);
+                                                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("angle:"+angle);
                                                double angle = component.getRotation();
                                                 if(angle >= 0 && angle <= (Math.PI/2)){
-                                                    System.out.println("between 0 and 90 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("between 0 and 90 degrees");
                                                     component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                                 }else
                                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                                     component.setPosition(tempPosition); 
                                                     //component.bounds = new java.awt.Rectangle(Math.min(start.x-component.getComponentWidth(), last.x-component.getComponentWidth()), Math.min(start.y, last.y), Math.abs(start.x - last.x)+1, Math.abs(start.y - last.y)+1);
                                                     //position.x = position.x - componentWidth;
                                                 }else
                                                 if(angle > -(Math.PI/2) && angle <= 0){
-                                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }else
                                                 if(angle < 0 && angle <= -(Math.PI/2)){
-                                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }
@@ -1787,10 +1787,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                
                                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                                     component.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                                    System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                                 }else{
                                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                                 }
                                                 int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
                                                 int iConnectorCtr=1;
@@ -1823,34 +1823,34 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                             for(OutputConnector oConnector : (selectedComponent.getOutputConnectorsMap()).values()){
                                 for(ComponentLink componentLink : oConnector.getComponentLinks()){
                                     int compNumber = selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber());//??
-                                    System.out.println("In view selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("In view selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                     if(compNumber != 0){
                                         for(CircuitComponent tmpcomponent : highlightModule.getComponentsMap().values()){
                                             if(compNumber == tmpcomponent.getComponentNumber()){
 
                                                 tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
-                                                System.out.println("selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                                                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                                 ///testing angle for adjusting bounds
-                                               System.out.println("angle:"+angle);
+                                                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("angle:"+angle);
                                                double angle = tmpcomponent.getRotation();
                                                 if(angle >= 0 && angle <= (Math.PI/2)){
-                                                    System.out.println("between 0 and 90 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("between 0 and 90 degrees");
                                                     tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                                 }else
                                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                                     tmpcomponent.setPosition(tempPosition); 
                                                     //tmpcomponent.bounds = new java.awt.Rectangle(Math.min(start.x-tmpcomponent.getComponentWidth(), last.x-tmpcomponent.getComponentWidth()), Math.min(start.y, last.y), Math.abs(start.x - last.x)+1, Math.abs(start.y - last.y)+1);
                                                     //position.x = position.x - componentWidth;
                                                 }else
                                                 if(angle > -(Math.PI/2) && angle <= 0){
-                                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                                     tmpcomponent.setPosition(tempPosition);
                                                 }else
                                                 if(angle < 0 && angle <= -(Math.PI/2)){
-                                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                                     tmpcomponent.setPosition(tempPosition);
                                                 }
@@ -1858,10 +1858,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                                 //tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                                    System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                                 }else{
                                                     tmpcomponent.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                                 }
                                             int oConnectorCtr=oConnector.getPortNumber(); 
                                                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
@@ -1963,24 +1963,24 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                 if(compNumber == component.getComponentNumber()){//line
                                     component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                     ///testing angle for adjusting bounds
-                                    System.out.println("angle:"+angle);
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("angle:"+angle);
                                     double angle = component.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("between 0 and 90 degrees");
                                         component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }
@@ -1989,10 +1989,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         component.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                     }else{
                                         component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
                                     int iConnectorCtr=1;
@@ -2025,24 +2025,24 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                 if(compNumber == tmpcomponent.getComponentNumber()){
                                     tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                     ///testing angle for adjusting bounds
-                                   System.out.println("angle:"+angle);
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("angle:"+angle);
                                    double angle = tmpcomponent.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("between 0 and 90 degrees");
                                         tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                         tmpcomponent.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }
@@ -2050,10 +2050,10 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                                     //tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                     }else{
                                         tmpcomponent.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int oConnectorCtr=oConnector.getPortNumber(); 
                                     for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
@@ -2094,7 +2094,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
             }
 
             if( mode == MOVE_TEMP_MODULE) {//
-                System.out.println("mousereleased1 mode:"+mode);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("mousereleased1 mode:"+mode);
                 selectedComponent = null;
                 start = last = null;
                 highlightComponent.getCopyComponentsMap().clear();
@@ -2105,7 +2105,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 return;
             }
             if(mode == MOVE || mode == MOVE_MODULE || mode == ROTATE || mode == COPYANDSAVE ) {//
-                System.out.println("mousereleased2 mode:"+mode);
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("mousereleased2 mode:"+mode);
                 selectedComponent = null;
                 start = last = null;
 
@@ -2114,7 +2114,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
             }
 
             if(mode == MOVE_BLOCK_MODEL){
-                System.out.println("------ MouseReleased "+ mode+"-----");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("------ MouseReleased "+ mode+"-----");
                 highlightPart = null;
                 start = last = null;
                 mode = NORMAL;
@@ -2163,13 +2163,13 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                 
                 if(part.getPartNumber() == theApp.getPartNumber()&& (theApp.getShowBlockModelContentsType()==CHIP || theApp.getShowBlockModelContentsType()==MODULE)){
                     Point cursor2 = e.getPoint();
-                    System.out.println("Cursor2:"+cursor2);
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Cursor2:"+cursor2);
                     if(part.getBlockModelExistsBoolean() == true && theApp.getShowBlockModelContentsType() == BLOCK_MODEL){
-                        System.out.println("Part Number:"+part.getPartNumber());
-                        System.out.println("Bounds not equal null :"+part.getBounds());
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Part Number:"+part.getPartNumber());
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Bounds not equal null :"+part.getBounds());
 
                         if(part.getBounds().contains(cursor2) ) {
-                            System.out.println("------------------------------Part "+part.getPartNumber()+" contains cursor-------------------------");
+                            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("------------------------------Part "+part.getPartNumber()+" contains cursor-------------------------");
 
                             if(part == highlightPart) {
                                 return;
@@ -2195,12 +2195,12 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
 
                             for(Module module : layer.getModulesMap().descendingMap().values()) {  
                                 Point cursor3 = e.getPoint();
-                                System.out.println("Cursor3:"+cursor3);
+                                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Cursor3:"+cursor3);
                                 if(module.getBlockModelExistsBoolean() == true && (theApp.getShowBlockModelContentsType() != MODULE)){
-                                    System.out.println("BlockModelExists Cursor3:"+cursor3+" module.getBlockModelBounds():"+module.getBlockModelBounds());
-                                    System.out.println("module bounds:"+module.getbounds());
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("BlockModelExists Cursor3:"+cursor3+" module.getBlockModelBounds():"+module.getBlockModelBounds());
+                                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("module bounds:"+module.getbounds());
                                     if(module.getBlockModelBounds().contains(cursor3) ) {
-                                        System.out.println("------------------------------Module "+module.getModuleNumber()+" moduleNumber"+module.getModuleNumber()+" contains cursor-------------------------");
+                                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("------------------------------Module "+module.getModuleNumber()+" moduleNumber"+module.getModuleNumber()+" contains cursor-------------------------");
 
                                         if(module == highlightModule) {
                                             return;
@@ -2318,7 +2318,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         }
         
          public boolean oriented_rectangle_point_collide(CircuitComponent comp, Point p){
-            System.out.println("optical waveguide checking bounds oriented_rectangle_point_collide");
+             if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("optical waveguide checking bounds oriented_rectangle_point_collide");
             Rectangle lr = new Rectangle();
 
             //double A = Math.abs(comp.position.x -comp.getEndPosition().x);//works
@@ -2347,7 +2347,7 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
             lp = rotate_vector(lp, -comp.getRotation());
             lp = add_vector(lp,new Point(R/2, 2));
 
-            System.out.println("lp"+lp);
+             if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("lp"+lp);
 
             return point_rectangle_collide(lp,lr);
 
@@ -2389,9 +2389,9 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
         @Override
         public void mouseClicked(MouseEvent e){
             //only if text and button 1 clicked
-            System.out.println("Mouse Clicked");
+            if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Mouse Clicked");
             if(theApp.getWindow().getComponentType() == TEXT && buttonState == MouseEvent.BUTTON1){
-                System.out.println("Mouse Clicked text button 1");
+                if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("Mouse Clicked text button 1");
                 String text = JOptionPane.showInputDialog(theApp.getWindow(),"Enter Input:","Create Text Component", JOptionPane.PLAIN_MESSAGE);
                 if(text != null && !text.isEmpty()){
                     g2D = (Graphics2D)getGraphics();
@@ -2400,12 +2400,12 @@ public class ShowBlockModelContentsView extends JComponent implements Observer{
                     int posx = start.x + getTopIndex().x;
                     start.x = posx;
                     tempComponent = new CircuitComponent.Text(text, start, Color.black, g2D.getFontMetrics(theApp.getWindow().getFont()));
-                    if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("mouseClicked Text created tempComponent text");
+                    if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("mouseClicked Text created tempComponent text");
                     g2D.dispose();
                     g2D = null;
                     if(tempComponent != null){
                         highlightModule.add(tempComponent);
-                        if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("mouseClicked text added text to model with text:"+text);
+                        if(DEBUG_SHOWBLOCKMODELCONTENTSVIEW) System.out.println("mouseClicked text added text to model with text:"+text);
                     }
                 }
                 //text = null;

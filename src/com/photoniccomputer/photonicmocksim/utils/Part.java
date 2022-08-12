@@ -338,24 +338,24 @@ public abstract class Part implements Serializable {
         //create partNumber attribute
         Attr attr = doc.createAttribute("partNumber");
         attr.setValue(String.valueOf(getPartNumber()));
-        System.out.println("PartNumber:"+getPartNumber());
+        if(DEBUG_PART) System.out.println("PartNumber:"+getPartNumber());
         packageModelForPartElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partName");
         attr.setValue(String.valueOf(getPartName()));
-        System.out.println("partName:"+getPartName());
+        if(DEBUG_PART) System.out.println("partName:"+getPartName());
         packageModelForPartElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partType");
         attr.setValue(String.valueOf(getPartType()));
-        System.out.println("partType:"+getPartType());
+        if(DEBUG_PART) System.out.println("partType:"+getPartType());
         packageModelForPartElement.setAttributeNode(attr);
 
         org.w3c.dom.Element boardTypeElement = doc.createElement("BoardType");
 
         attr = doc.createAttribute("boardType");
         attr.setValue(String.valueOf(getBoardType()));
-        System.out.println("boardType:"+getBoardType());
+        if(DEBUG_PART) System.out.println("boardType:"+getBoardType());
         boardTypeElement.setAttributeNode(attr);
 
         packageModelForPartElement.appendChild(boardTypeElement);
@@ -366,12 +366,12 @@ public abstract class Part implements Serializable {
 
         attr = doc.createAttribute("partWidth");
         attr.setValue(String.valueOf(getPartWidth()));
-        System.out.println("partWidth:"+getPartWidth()+":"+attr.getValue());
+        if(DEBUG_PART) System.out.println("partWidth:"+getPartWidth()+":"+attr.getValue());
         boardDimensionsElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partBreadth");
         attr.setValue(String.valueOf(getPartBreadth()));
-        System.out.println("partBreadth:"+getPartBreadth()+":"+attr.getValue());
+        if(DEBUG_PART) System.out.println("partBreadth:"+getPartBreadth()+":"+attr.getValue());
         boardDimensionsElement.setAttributeNode(attr);
 
         packageModelForPartElement.appendChild(boardDimensionsElement);
@@ -382,7 +382,7 @@ public abstract class Part implements Serializable {
 
             attr = doc.createAttribute("layerNumber");
             attr.setValue(String.valueOf(layer.getLayerNumber()));
-            System.out.println("layerNumber:"+layer.getLayerNumber());
+            if(DEBUG_PART) System.out.println("layerNumber:"+layer.getLayerNumber());
             layerElement.setAttributeNode(attr);
 
             
@@ -392,7 +392,7 @@ public abstract class Part implements Serializable {
 
                 attr = doc.createAttribute("moduleNumber");
                 attr.setValue(String.valueOf(module.getModuleNumber()));
-                System.out.println("moduleNumber:"+module.getModuleNumber());
+                if(DEBUG_PART) System.out.println("moduleNumber:"+module.getModuleNumber());
                 moduleElement.setAttributeNode(attr);
 
                 layerElement.appendChild(moduleElement);
@@ -404,25 +404,25 @@ public abstract class Part implements Serializable {
         org.w3c.dom.Element positionElement = doc.createElement("Position");
         attr = doc.createAttribute("x");
         attr.setValue(String.valueOf(getPosition().x));
-        System.out.println("position.x:"+getPosition().x);
+        if(DEBUG_PART) System.out.println("position.x:"+getPosition().x);
         positionElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("y");
         attr.setValue(String.valueOf(getPosition().y));
-        System.out.println("position.y:"+getPosition().y);
+        if(DEBUG_PART) System.out.println("position.y:"+getPosition().y);
         positionElement.setAttributeNode(attr);
         
         packageModelForPartElement.appendChild(positionElement);
 /*this causes problems with a block model in the circuit diagram disable for now
         if(getBlockModelExistsBoolean() == true){//boolean == true// need a getBlockModelExistsBoolean() need to store the Block model diagram in XML in a String and call getBlockModelXMLString()??? or save it to a doc element node and call it after here getBlockModelElementsBlock()
             //create a documentFragment for the BlockModelEditor diagram and append it as child to packageModelForPartElement??
-            System.out.println("BlockModelEnabled");
+            if(DEBUG_PART) System.out.println("BlockModelEnabled");
             Node firstDocImportedNode = doc.importNode(getBlockModelElementNodeList(), true);
             packageModelForPartElement.appendChild(firstDocImportedNode);
         }
 */
         if(getBlockModelExistsBoolean()==true){
-            System.out.println("BlockModelEnabled");
+            if(DEBUG_PART) System.out.println("BlockModelEnabled");
             NodeList nodeList = getBlockModelNodeList();
             int numberOfNodes = nodeList.getLength();
             Node currentNode = null;
@@ -432,16 +432,16 @@ public abstract class Part implements Serializable {
                 currentNode = nodeList.item(i);
                 //if(currentNode.getNodeType() == Node.ELEMENT_NODE){
                     //Element element = (Element)currentNode;
-                    System.out.println("currentNode value:"+currentNode.getNodeValue());
+                    if(DEBUG_PART) System.out.println("currentNode value:"+currentNode.getNodeValue());
                     if(currentNode!=null)elementNodeList.appendChild(currentNode);
                 //}
             }*/
             org.w3c.dom.Element blockModelElement = doc.createElement("BlockModel");
             Node firstDocImportedNode = null;
             for(int i=0;i<numberOfNodes;i++){
-                System.out.println("---- getNodeName: "+nodeList.item(i).getNodeName()+" ----");
+                if(DEBUG_PART) System.out.println("---- getNodeName: "+nodeList.item(i).getNodeName()+" ----");
                 if(nodeList.item(i).getNodeName().equals("PackageModelForPart")){
-                    System.out.println("++++ PackageModelForPart ++++");
+                    if(DEBUG_PART) System.out.println("++++ PackageModelForPart ++++");
                     nodeList.item(i).getAttributes().getNamedItem("partNumber").setNodeValue(Integer.toString(getPartNumber()));
                 }
                 firstDocImportedNode = doc.importNode(nodeList.item(i), true);
@@ -454,9 +454,9 @@ public abstract class Part implements Serializable {
     }
     
     public void createPartModelFromXML(Node node){
-        System.out.println("createPartModelFromXML");
+        if(DEBUG_PART) System.out.println("createPartModelFromXML");
             NamedNodeMap attrs = node.getAttributes();
-            System.out.println("rootNode:"+node.getNodeName());
+        if(DEBUG_PART) System.out.println("rootNode:"+node.getNodeName());
             setPartType(Integer.valueOf(((Attr)(attrs.getNamedItem("partType"))).getValue()));
             setPartNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("partNumber"))).getValue()));
             setPartName(String.valueOf(((Attr)(attrs.getNamedItem("partName"))).getValue()));
@@ -466,7 +466,7 @@ public abstract class Part implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_PART) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "Position":
                         attrs = aNode.getAttributes();
@@ -485,20 +485,20 @@ public abstract class Part implements Serializable {
                     case "BlockModel":
                         bounds = new java.awt.Rectangle(getPosition().x,getPosition().y,getPartWidth(),getPartBreadth());
                         setBlockModelExistsBoolean(true);
-                        System.out.println("BlockModelExists");
+                        if(DEBUG_PART) System.out.println("BlockModelExists");
                         NodeList nodeList = aNode.getChildNodes();
                         setBlockModelNodeList(nodeList);
-                        System.out.println("createPartModelFromXML nodeList.length:"+nodeList.getLength());
+                        if(DEBUG_PART) System.out.println("createPartModelFromXML nodeList.length:"+nodeList.getLength());
                         attrs = node.getAttributes();
                         Node aNode1;
                         for(int x=0; x<childNodes.getLength(); ++x){
                             aNode1 = childNodes.item(x);
-                            System.out.println("aNode.getNodeName():"+aNode1.getNodeName());
+                            if(DEBUG_PART) System.out.println("aNode.getNodeName():"+aNode1.getNodeName());
                             switch(aNode1.getNodeName()){
                                 case "BlockModelPartLibraryNumber":
                                     attrs = aNode.getAttributes();
                                     setPartLibraryNumber(String.valueOf(((Attr)(attrs.getNamedItem("PLN"))).getValue()));
-                                    System.out.println("setting BlockModelPartLibraryNumber():"+getPartLibraryNumber());
+                                    if(DEBUG_PART) System.out.println("setting BlockModelPartLibraryNumber():"+getPartLibraryNumber());
                                 break;
                             }
                         }
@@ -508,11 +508,11 @@ public abstract class Part implements Serializable {
                     
                 }
             }
-            System.out.println("just set values for part");
+        if(DEBUG_PART) System.out.println("just set values for part");
     }
     
     public void createBlockModelPartModelFromXML(Node node){
-        System.out.println("createPartModelFromXML");
+        if(DEBUG_PART) System.out.println("createPartModelFromXML");
             NamedNodeMap attrs = node.getAttributes();
             setPartType(Integer.valueOf(((Attr)(attrs.getNamedItem("partType"))).getValue()));
             //setPartNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("partNumber"))).getValue()));
@@ -528,7 +528,7 @@ public abstract class Part implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_PART) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "BoardType":
                         attrs = aNode.getAttributes();
@@ -541,7 +541,7 @@ public abstract class Part implements Serializable {
                     break;
                     case "BlockModel":
                         setBlockModelExistsBoolean(true);
-                        System.out.println("BlockModelExists");
+                        if(DEBUG_PART) System.out.println("BlockModelExists");
                         NodeList nodeList = aNode.getChildNodes();
                         setBlockModelNodeList(nodeList);
                     
@@ -556,7 +556,7 @@ public abstract class Part implements Serializable {
                     break;*/
                 }
             }
-            System.out.println("just set values for part");
+        if(DEBUG_PART) System.out.println("just set values for part");
     }
     
     public void createPartBlockModelNodeListFromXML(Node node){
@@ -565,11 +565,11 @@ public abstract class Part implements Serializable {
         NamedNodeMap attrs = node.getAttributes();
         for(int i=0; i<childNodes.getLength(); ++i){
             aNode = childNodes.item(i);
-            System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+            if(DEBUG_PART) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
             switch(aNode.getNodeName()){
                 case "BlockModel":
                     setBlockModelExistsBoolean(true);
-                    System.out.println("BlockModelExists");
+                    if(DEBUG_PART) System.out.println("BlockModelExists");
                     NodeList nodeList = aNode.getChildNodes();
                     setBlockModelNodeList(nodeList);
                     
@@ -646,9 +646,9 @@ public abstract class Part implements Serializable {
             //bounds = new java.awt.Rectangle(Math.min(start.x ,end.x),Math.min(start.y, tempyPos),Math.abs(start.x - end.x)+1, Math.abs(start.y - tempyPos)+1);
             //rectangle = new Rectangle2D.Double(origin.x, origin.y,50,50);// Width & height
             //bounds = new java.awt.Rectangle( origin.x, origin.y,51,51);
-            System.out.println("Block model constructor");
+            if(DEBUG_PART) System.out.println("Block model constructor");
             //if(getBlockModelExistsBoolean()== true){
-                System.out.println("Block model exists in constructor");
+            if(DEBUG_PART) System.out.println("Block model exists in constructor");
             //needede obsolete ??????????
             Node aNode;
             NodeList nodes;
@@ -668,24 +668,24 @@ public abstract class Part implements Serializable {
                             case "BlockModelEnabled":
                                 attrs = aNode.getAttributes();
                                 if(((Attr)(attrs.getNamedItem("Type"))).getValue().equals("true")){
-                                    System.out.println("Setting block model enabled");
+                                    if(DEBUG_PART) System.out.println("Setting block model enabled");
                                     setBlockModelExistsBoolean(true);
                                 }
                                 break;
                             case "Rectangle":
-                                System.out.println("Rectangle1");
+                                if(DEBUG_PART) System.out.println("Rectangle1");
                                 attrs = aNode.getAttributes();
                                 int width = (Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                                 int breadth = (Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue()));
                                 x1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()));
                                 y1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
                                 String type1 = ((Attr)(attrs.getNamedItem("Type"))).getValue();
-                                System.out.println("Main type:"+type1);
+                                if(DEBUG_PART) System.out.println("Main type:"+type1);
                                 //g2D.setColor(color);
                                 if(type1.equals(MAIN)){
                                     blockModelWidth = width;
-                                    blockModelBreadth = breadth; 
-                                    System.out.println("Setting bounds 1");
+                                    blockModelBreadth = breadth;
+                                    if(DEBUG_PART) System.out.println("Setting bounds 1");
                                     bounds = new java.awt.Rectangle( start.x, start.y,blockModelWidth+1,blockModelBreadth+1);
                                     BlockModelPosition = new Point(500 - blockModelWidth/2,500 - blockModelBreadth/2);//panel width/2 - blockModelWidth/2
                                 }
@@ -722,27 +722,27 @@ public abstract class Part implements Serializable {
                                 attrs = aNode.getAttributes();
                                 String type1 = ((Attr)(attrs.getNamedItem("blockModelEnabled"))).getValue();
                                 if(type1.equals("true")){
-                                    System.out.println("Setting block model enabled2");
+                                    if(DEBUG_PART) System.out.println("Setting block model enabled2");
                                     setBlockModelExistsBoolean(true);
                                 }
                                 break;
                             case "Rectangle":
-                                System.out.println("Rectangle2");
+                                if(DEBUG_PART) System.out.println("Rectangle2");
                                 attrs = aNode.getAttributes();
                                 int width = (Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                                 int breadth = (Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue()));
                                 x1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()));
                                 y1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
                                 String type2 = ((Attr)(attrs.getNamedItem("Type"))).getValue();
-                                System.out.println("Main type2:"+type2);
+                                if(DEBUG_PART) System.out.println("Main type2:"+type2);
                                 if(type2.equals(MAIN)){
                                     blockModelWidth = width;
                                     blockModelBreadth = breadth; 
                                     setPartWidth(width);
                                     setPartBreadth(breadth);
-                                    System.out.println("Setting bounds 2");
+                                    if(DEBUG_PART) System.out.println("Setting bounds 2");
                                     bounds = new java.awt.Rectangle( start.x, start.y,blockModelWidth+1,blockModelBreadth+1);
-                                    System.out.println("Bounds:"+bounds);
+                                    if(DEBUG_PART) System.out.println("Bounds:"+bounds);
                                     BlockModelPosition = new Point(500 - blockModelWidth/2,500 - blockModelBreadth/2);//panel width/2 - blockModelWidth/2
                                 }
                                 //g2D.drawRect(x, y, width, breadth);
@@ -754,7 +754,7 @@ public abstract class Part implements Serializable {
                                                                     
                             }break;
                             case "Line":
-                                System.out.println("Line");
+                                if(DEBUG_PART) System.out.println("Line");
                                 attrs = aNode.getAttributes();
                                 int endx = (Integer.valueOf(((Attr)(attrs.getNamedItem("endx"))).getValue()));
                                 int endy = (Integer.valueOf(((Attr)(attrs.getNamedItem("endy"))).getValue()));
@@ -805,7 +805,7 @@ public abstract class Part implements Serializable {
                     aNode = nodes.item(i);
                     switch(aNode.getNodeName()){
                         case "Rectangle":
-                            System.out.println("Rectangle");
+                            if(DEBUG_PART) System.out.println("Rectangle");
                             attrs = aNode.getAttributes();
                             int width = (Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                             int breadth = (Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue()));
@@ -821,7 +821,7 @@ public abstract class Part implements Serializable {
                             g2D.drawRect(origin.x, origin.y, width, breadth);
                             break;
                         case "Line":
-                            System.out.println("Line");
+                            if(DEBUG_PART) System.out.println("Line");
                             attrs = aNode.getAttributes();
                             int endx = (Integer.valueOf(((Attr)(attrs.getNamedItem("endx"))).getValue()));
                             int endy = (Integer.valueOf(((Attr)(attrs.getNamedItem("endy"))).getValue()));
@@ -839,7 +839,7 @@ public abstract class Part implements Serializable {
                             }
                             break;
                         case "Text":
-                            System.out.println("Text");
+                            if(DEBUG_PART) System.out.println("Text");
                             Point pos = new Point(0,0);
                             int pointSize=0;
                             int fontStyle=0;
@@ -874,7 +874,7 @@ public abstract class Part implements Serializable {
                                         break;
                                     case "TextString":
 
-                                        System.out.println("text Content:"+aNode2.getTextContent());
+                                        if(DEBUG_PART) System.out.println("text Content:"+aNode2.getTextContent());
                                         text = aNode2.getTextContent();
                                         break;
                                     case "Bounds":
@@ -930,7 +930,7 @@ public abstract class Part implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_PART) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "boardType":
                         attrs = aNode.getAttributes();

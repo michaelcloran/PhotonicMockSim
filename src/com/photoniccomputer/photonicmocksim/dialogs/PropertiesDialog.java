@@ -623,7 +623,7 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
                     if(memoryAddressCombo.getSelectedItem()!=null){
                         int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem())); 
-                        //System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
+                        //if(DEBUG_PROPERTIESDIALOG) System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
                         if(memoryBitArraySelected[0] == 0){
                             bitIntensityCombo1.setSelectedIndex(0);
                         }else {
@@ -681,7 +681,7 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_6 = new Integer(wavelength6.getText());
                     Integer wavelength_7 = new Integer(wavelength7.getText());
                     Integer wavelength_8 = new Integer(wavelength8.getText());
-                    System.out.println("wavelength_1:"+wavelength_1);
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberInputPorts+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -898,8 +898,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
             memoryAddressCombo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     if(memoryAddressCombo.getSelectedItem()!=null){
-                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem())); 
-                        System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
+                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem()));
+                        if(DEBUG_PROPERTIESDIALOG) System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
                         if(memoryBitArraySelected[0] == 0){
                             bitIntensityCombo1.setSelectedIndex(0);
                         }else {
@@ -1004,8 +1004,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_14 = new Integer(wavelength14.getText());
                     Integer wavelength_15 = new Integer(wavelength15.getText());
                     Integer wavelength_16 = new Integer(wavelength16.getText());
-                    
-                    System.out.println("wavelength_1:"+wavelength_1);
+
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberInputPorts+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -1291,8 +1291,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
             memoryAddressCombo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     if(memoryAddressCombo.getSelectedItem()!=null){
-                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem())); 
-                        System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
+                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem()));
+                        if(DEBUG_PROPERTIESDIALOG) System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
                         if(memoryBitArraySelected[0] == 0){
                             bitIntensityCombo1.setSelectedIndex(0);
                         }else {
@@ -1422,8 +1422,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_18 = new Integer(wavelength18.getText());
                     Integer wavelength_19 = new Integer(wavelength19.getText());
                     Integer wavelength_20 = new Integer(wavelength20.getText());
-                    
-                    System.out.println("wavelength_1:"+wavelength_1);
+
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberInputPorts+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -1762,8 +1762,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
             memoryAddressCombo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     if(memoryAddressCombo.getSelectedItem()!=null){
-                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem())); 
-                        System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
+                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem()));
+                        if(DEBUG_PROPERTIESDIALOG) System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
                         if(memoryBitArraySelected[0] == 0){
                             bitIntensityCombo1.setSelectedIndex(0);
                         }else {
@@ -1921,8 +1921,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_22 = new Integer(wavelength22.getText());
                     Integer wavelength_23 = new Integer(wavelength23.getText());
                     Integer wavelength_24 = new Integer(wavelength24.getText());
-                    
-                    System.out.println("wavelength_1:"+wavelength_1);
+
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberInputPorts+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -2336,8 +2336,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
             memoryAddressCombo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
                     if(memoryAddressCombo.getSelectedItem()!=null){
-                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem())); 
-                        System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
+                        int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((int)(memoryAddressCombo.getSelectedItem()));
+                        if(DEBUG_PROPERTIESDIALOG) System.out.println("memoryBitArraySelected:"+memoryBitArraySelected[0]+memoryBitArraySelected[1]+memoryBitArraySelected[2]+memoryBitArraySelected[3]+memoryBitArraySelected[4]+memoryBitArraySelected[5]+memoryBitArraySelected[6]+memoryBitArraySelected[7]+" (Integer)(memoryAddressCombo.getSelectedItem()):"+(int)(memoryAddressCombo.getSelectedItem()));
                         if(memoryBitArraySelected[0] == 0){
                             bitIntensityCombo1.setSelectedIndex(0);
                         }else {
@@ -2530,8 +2530,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_28 = new Integer(wavelength28.getText());
                     Integer wavelength_29 = new Integer(wavelength29.getText());
                     Integer wavelength_30 = new Integer(wavelength30.getText());
-                    
-                    System.out.println("wavelength_1:"+wavelength_1);
+
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberInputPorts+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -2850,8 +2850,8 @@ public class PropertiesDialog extends JDialog implements ActionListener {
 
             memoryAddressCombo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) {
-                    int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((Integer)memoryAddressCombo.getSelectedItem()); 
-                    System.out.println("here");
+                    int[] memoryBitArraySelected = selectedComponent.getMemoryAddress((Integer)memoryAddressCombo.getSelectedItem());
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("here");
                     if(memoryBitArraySelected[0] == 0){
                         bitIntensityCombo1.setSelectedIndex(0);
                     }else {
@@ -2909,7 +2909,7 @@ public class PropertiesDialog extends JDialog implements ActionListener {
                     Integer wavelength_6 = new Integer(wavelength6.getText());
                     Integer wavelength_7 = new Integer(wavelength7.getText());
                     Integer wavelength_8 = new Integer(wavelength8.getText());
-                    System.out.println("wavelength_1:"+wavelength_1);
+                    if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength_1:"+wavelength_1);
                     OutputConnector portNumber = selectedComponent.getOutputConnectorsMap().get(numberAddressBusInputPorts+1+1);
                     portNumber.setOutputBitLevel(0);
                     portNumber.setOutputWavelength(wavelength_1);
@@ -3498,7 +3498,7 @@ public class PropertiesDialog extends JDialog implements ActionListener {
             content.add(maxTimeTextField);
             
             int[] wavelengthArray = selectedComponent.getWavelengthArray();
-            System.out.println("wavelength Array:"+selectedComponent.getWavelengthArray());
+            if(DEBUG_PROPERTIESDIALOG) System.out.println("wavelength Array:"+selectedComponent.getWavelengthArray());
             
             content.add(new JLabel("wavelength bit 1"));
             JTextField wavelengthBit1 = new JTextField(""+wavelengthArray[0]);

@@ -210,7 +210,7 @@ public abstract class BlockModelComponent implements Serializable{
 
                 public void draw(Graphics2D g2D) {
                         //draw(g2D,rectangle);
-                    //System.out.println("in BlockModel rectangle draw");
+                    //if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("in BlockModel rectangle draw");
                     g2D.setPaint(highlighted ? HIGHLIGHT_COLOR : color);
 
                     AffineTransform old = g2D.getTransform();
@@ -256,7 +256,7 @@ public abstract class BlockModelComponent implements Serializable{
                 }*/
 
                 public Rectangle(Node node){
-                    System.out.println("In Rectangle BlockModelComponent");
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle BlockModelComponent");
                     //setAngleFromXML(node);
                     NodeList childNodes = node.getChildNodes();
                     Node aNode = null;
@@ -265,15 +265,15 @@ public abstract class BlockModelComponent implements Serializable{
                         switch(aNode.getNodeName()){
                             case "Rectangle":
                                 setPositionFromXML(aNode);
-                                System.out.println("In Rectangle BlockModelComponent setPosition");      
+                                if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle BlockModelComponent setPosition");
                                 break;
                             /*case "color":
                                 setColorFromXML(aNode);
-                            System.out.println("In Rectangle CircuitComponent setColor");
+                            if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle CircuitComponent setColor");
                                 break;*/
                             /*case "bounds":
                                 setBoundsFromXML(aNode);
-                            System.out.println("In Rectangle CircuitComponent setBounds");
+                            if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle CircuitComponent setBounds");
                                 break;*/
                                 
                             default:
@@ -283,19 +283,19 @@ public abstract class BlockModelComponent implements Serializable{
                     NamedNodeMap attrs = node.getAttributes();
                     //rectangle = new Rectangle2D.Double();
                     componentType = RECTANGLE;//Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue());
-                    System.out.println("componentType:"+componentType);
-                    //System.out.println("In Rectangle CircuitComponent set x and y"+getBounds().x);
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("componentType:"+componentType);
+                    //if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle CircuitComponent set x and y"+getBounds().x);
 
-                    System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                     componentWidth = Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue());
-                    System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                     componentBreadth = Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue());
-                    System.out.println("Set width height");
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("Set width height");
                     //rectangle.x = (int)getBounds().x;
                     //rectangle.y = (int)getBounds().y;
                     rectangle = new java.awt.Rectangle(origin.x,origin.y,componentWidth,componentBreadth);
-                    bounds = new java.awt.Rectangle(position.x, position.y, componentWidth,componentBreadth); 
-                    System.out.println("In Rectangle BlockModelComponent set x and y");
+                    bounds = new java.awt.Rectangle(position.x, position.y, componentWidth,componentBreadth);
+                    if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("In Rectangle BlockModelComponent set x and y");
                     
                 }
 
@@ -339,9 +339,9 @@ public abstract class BlockModelComponent implements Serializable{
             Point end = new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("endx"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("endy"))).getValue()));
             
             componentWidth = Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue());
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
+            if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
             componentBreadth = Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue());
-            System.out.println("Set width height");
+            if(DEBUG_BLOCKMODELCOMPONENT) System.out.println("Set width height");
             
             setPortNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("portNumber"))).getValue()));
             
@@ -372,7 +372,7 @@ public abstract class BlockModelComponent implements Serializable{
 
 
             //bounds = new java.awt.Rectangle(start.x, start.y, fm.stringWidth(text)+4, maxAscent+fm.getMaxDescent()+4);
-            System.out.println(bounds);
+            if(DEBUG_BLOCKMODELCOMPONENT) System.out.println(bounds);
         }
 
         public void draw(Graphics2D g2D){

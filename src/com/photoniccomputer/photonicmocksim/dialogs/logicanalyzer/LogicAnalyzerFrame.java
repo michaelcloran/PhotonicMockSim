@@ -5,13 +5,6 @@
  */
 package com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer;
 
-import static Constants.PhotonicMockSimConstants.DEFAULT_COMPONENT_COLOR;
-import static Constants.PhotonicMockSimConstants.DEFAULT_FONT;
-import static Constants.PhotonicMockSimConstants.DEFAULT_LOGICANALYZER_FILENAME;
-import static Constants.PhotonicMockSimConstants.DEFAULT_LOGICANALYZER_TAG_FONT;
-import static Constants.PhotonicMockSimConstants.DEFAULT_LOGICANALYZER_TRACES_DIRECTORY;
-import static Constants.PhotonicMockSimConstants.LINE;
-import static Constants.PhotonicMockSimConstants.TEXT;
 import com.photoniccomputer.photonicmocksim.dialogs.FontDialog;
 import com.photoniccomputer.photonicmocksim.dialogs.LogicAnalyzerDialog;
 import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerModel.LogicTrace;
@@ -29,6 +22,8 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static Constants.PhotonicMockSimConstants.*;
 import static java.nio.file.StandardOpenOption.APPEND;
 import static java.nio.file.StandardOpenOption.CREATE;
 import java.util.Observable;
@@ -204,7 +199,7 @@ public class LogicAnalyzerFrame extends JFrame implements ActionListener, Observ
            
        }catch(ParserConfigurationException pce){
            JOptionPane.showMessageDialog(this, "Parser configuration Error while creating document" , "DOM Parser Error", JOptionPane.ERROR_MESSAGE);
-           System.out.println(pce.getMessage());
+           if(DEBUG_LOGICANALYZERFRAME) System.out.println(pce.getMessage());
            pce.printStackTrace();
            return null;
        }catch(DOMException de){
@@ -466,8 +461,8 @@ public class LogicAnalyzerFrame extends JFrame implements ActionListener, Observ
             }else{
                 logicAnalyzerApp.setNumberOfBuffers(logicAnalyzerApp.readXMLFileAndReturnNumberOfBuffers(Paths.get(DEFAULT_LOGICANALYZER_TRACES_DIRECTORY.toString(), DEFAULT_LOGICANALYZER_FILENAME)));
             }
-       
-            System.out.println("------------------------ numberOfBuffers: -----------------"+logicAnalyzerApp.getNumberOfBuffers());
+
+            if(DEBUG_LOGICANALYZERFRAME) System.out.println("------------------------ numberOfBuffers: -----------------"+logicAnalyzerApp.getNumberOfBuffers());
             logicAnalyzerApp.setLabel3(logicAnalyzerApp.getNumberOfBuffers()+1);
             logicAnalyzerApp.getLabel3().repaint();
             setSelectedFile(file);
@@ -513,7 +508,7 @@ public class LogicAnalyzerFrame extends JFrame implements ActionListener, Observ
         
         NodeList nodes = xmlDoc.getElementsByTagName("logicAnalyzerTrace");//gets a list of logicAnalyzerTrace traces
         NodeList elementsNodeList = nodes.item(bufferIndexNumber).getChildNodes();//first logicAnalyzerTrace node
-        System.out.println("testpoint just assigned elementNodeList");
+        if(DEBUG_LOGICANALYZERFRAME) System.out.println("testpoint just assigned elementNodeList");
         
         XPathFactory xpathFactory = XPathFactory.newInstance();
         // XPath to find empty text nodes.
@@ -543,12 +538,12 @@ public class LogicAnalyzerFrame extends JFrame implements ActionListener, Observ
             for(int i = 0 ; i<elementsNodeList.getLength() ; ++i){ // ...process them
                 
                 elementNode = elementsNodeList.item(i);
-                //System.out.println("1nodeName:"+elementNode.getNodeName());
+                //if(DEBUG_LOGICANALYZERFRAME) System.out.println("1nodeName:"+elementNode.getNodeName());
                 
                 switch(elementNode.getNodeName()) {
                     case "logicAnalyzerTrace":
-                        System.out.println("root node found!!!!!!");
-                        System.out.println("end logicAnalyzerTrace");
+                        if(DEBUG_LOGICANALYZERFRAME) System.out.println("root node found!!!!!!");
+                        if(DEBUG_LOGICANALYZERFRAME) System.out.println("end logicAnalyzerTrace");
                         break;
                     case "line":
                         

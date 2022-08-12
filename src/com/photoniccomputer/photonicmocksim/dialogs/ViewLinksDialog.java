@@ -91,29 +91,29 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
         
         removeLinkButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Remove Link Clicked");
+                if(DEBUG_VIEWLINKSDIALOG) System.out.println("Remove Link Clicked");
                 String chosenLinkStr = (String)comboBox.getSelectedItem();
                 
                 if( highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
                     String partOneStr = chosenLinkStr.substring(0,chosenLinkStr.indexOf(" "));
-                    System.out.println("partOneStr:"+partOneStr);
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOneStr:"+partOneStr);
                     String partTwoStr = chosenLinkStr.substring(chosenLinkStr.lastIndexOf(" ")+1,chosenLinkStr.length());
-                    System.out.println("partTwoStr:"+partTwoStr);
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoStr:"+partTwoStr);
                     String str ="";
                     if(partOneStr.startsWith("B")){
                         int partOneNumber = new Integer(partOneStr.substring(2,partOneStr.indexOf(".")));
-                        System.out.println("partOneNumber:"+partOneNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOneNumber:"+partOneNumber);
                         int partOnePortNumber = new Integer(partOneStr.substring(partOneStr.indexOf("p")+1,partOneStr.length()));
-                        System.out.println("partOnePortNumber"+partOnePortNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOnePortNumber"+partOnePortNumber);
                         for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
                             if(comp.getBlockModelPortNumber() == partOnePortNumber ){
                                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partOneNumber){
                                     str +="C"+comp.getComponentNumber()+".P1.L1"+" Connects to ";
-                                    System.out.println("Str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("Str:"+str);
                                 }else
                                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partOneNumber){//imled
                                     str+="C"+comp.getComponentNumber()+".P2.L1 Connects to ";
-                                    System.out.println("str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                 }
                             }
                         }
@@ -123,9 +123,9 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     
                     if(partTwoStr.contains("BP")){
                         int partTwoNumber = new Integer(partTwoStr.substring(2,partTwoStr.indexOf(".")));
-                        System.out.println("partTwoNumber:"+partTwoNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoNumber:"+partTwoNumber);
                         int partTwoPortNumber = new Integer(partTwoStr.substring(partTwoStr.indexOf("p")+1,partTwoStr.length()));
-                        System.out.println("partTwoPortNumber"+partTwoPortNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoPortNumber"+partTwoPortNumber);
                         if(highlightModule == null){
                             TreeMap<Integer,CircuitComponent> componentsMap = null;
                             if(windowType == MAIN_WINDOW){
@@ -137,11 +137,11 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                 if(comp.getBlockModelPortNumber() == partTwoPortNumber){
                                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partTwoNumber){
                                         str +="C"+comp.getComponentNumber()+".P1.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }else
                                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partTwoNumber){//imled
                                         str+="C"+comp.getComponentNumber()+".P2.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }
                                 }
                             }
@@ -165,27 +165,27 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                 if(comp.getBlockModelPortNumber() == partTwoPortNumber){
                                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partTwoNumber){
                                         str +="C"+comp.getComponentNumber()+".P1.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }else
                                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partTwoNumber){//imled
                                         str+="C"+comp.getComponentNumber()+".P2.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }
                                 }
                             }
                         }
                     }else{
                         str += partTwoStr;
-                        System.out.println("str:"+str);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                     }
-                    System.out.println("---- str:"+str+"----");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("---- str:"+str+"----");
                     if(str!="")removeLink(str);
                 }else
                 if( highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
                     String partOneStr = chosenLinkStr.substring(0,chosenLinkStr.indexOf(" "));
-                    System.out.println("partOneStr:"+partOneStr);
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOneStr:"+partOneStr);
                     String partTwoStr = chosenLinkStr.substring(chosenLinkStr.lastIndexOf(" ")+1,chosenLinkStr.length());
-                    System.out.println("partTwoStr:"+partTwoStr.toUpperCase());
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoStr:"+partTwoStr.toUpperCase());
                     String str ="";
                     
                     Module moduleLinked = null;
@@ -206,55 +206,55 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     
                     if(partOneStr.contains("BM")){
                         int partOneNumber = new Integer(partOneStr.substring(2,partOneStr.indexOf(".")));
-                        System.out.println("partOneNumber:"+partOneNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOneNumber:"+partOneNumber);
                         int partOnePortNumber = new Integer(partOneStr.substring(partOneStr.indexOf("p")+1,partOneStr.length()));
-                        System.out.println("partOnePortNumber"+partOnePortNumber);
-                        
-                        
-                        System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOnePortNumber"+partOnePortNumber);
+
+
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
                         for(CircuitComponent comp : moduleLinked.getComponentsMap().values()){
                             if(comp.getBlockModelPortNumber() == partOnePortNumber ){
                                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partOneNumber){
                                     str +="C"+comp.getComponentNumber()+".P1.L1"+" Connects to ";
-                                    System.out.println("Str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("Str:"+str);
                                 }else
                                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partOneNumber){//imled
                                     str+="C"+comp.getComponentNumber()+".P2.L1 Connects to ";
-                                    System.out.println("str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                 }
                             }
                         }
                     }else
                     if(partOneStr.contains("BP")){
                         int partOneNumber = new Integer(partOneStr.substring(2,partOneStr.indexOf(".")));
-                        System.out.println("partOneNumber:"+partOneNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOneNumber:"+partOneNumber);
                         int partOnePortNumber = new Integer(partOneStr.substring(partOneStr.indexOf("p")+1,partOneStr.length()));
-                        System.out.println("partOnePortNumber"+partOnePortNumber);
-                        
-                        
-                        System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partOnePortNumber"+partOnePortNumber);
+
+
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
                         for(CircuitComponent comp : moduleLinked.getComponentsMap().values()){
                             if(comp.getBlockModelPortNumber() == partOnePortNumber ){
                                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partOneNumber){
                                     str +="C"+comp.getComponentNumber()+".P1.L1"+" Connects to ";
-                                    System.out.println("Str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("Str:"+str);
                                 }else
                                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partOneNumber){//imled
                                     str+="C"+comp.getComponentNumber()+".P2.L1 Connects to ";
-                                    System.out.println("str:"+str);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                 }
                             }
                         }
                     }else{
-                        System.out.println("BM else");
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("BM else");
                         str += partOneStr+" Connects to "; 
                     }
                     
                     if(partTwoStr.startsWith("B")){
                         int partTwoNumber = new Integer(partTwoStr.substring(2,partTwoStr.indexOf(".")));
-                        System.out.println("partTwoNumber:"+partTwoNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoNumber:"+partTwoNumber);
                         int partTwoPortNumber = new Integer(partTwoStr.substring(partTwoStr.indexOf("p")+1,partTwoStr.length()));
-                        System.out.println("partTwoPortNumber"+partTwoPortNumber);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("partTwoPortNumber"+partTwoPortNumber);
                         if(highlightModule == null){
                             TreeMap<Integer,CircuitComponent> componentsMap = null;
                             if(windowType == MAIN_WINDOW){
@@ -266,11 +266,11 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                 if(comp.getBlockModelPortNumber() == partTwoPortNumber){
                                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partTwoNumber){
                                         str +="C"+comp.getComponentNumber()+".P1.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }else
                                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == partTwoNumber){//imled
                                         str+="C"+comp.getComponentNumber()+".P2.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }
                                 }
                             }
@@ -279,20 +279,20 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                 if(comp.getBlockModelPortNumber() == partTwoPortNumber){
                                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partTwoNumber){
                                         str +="C"+comp.getComponentNumber()+".P1.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }else
                                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partTwoNumber){//imled
                                         str+="C"+comp.getComponentNumber()+".P2.L1";
-                                        System.out.println("str:"+str);
+                                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                                     }
                                 }
                             }
                         }
                     }else{
                         str += partTwoStr.toUpperCase();
-                        System.out.println("str:"+str);
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("str:"+str);
                     }
-                    System.out.println("---- str:"+str+"----");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("---- str:"+str+"----");
                     highlightModuleNumber = moduleLinked.getModuleNumber();
                     if(str!="")removeLink(str);
                 }else
@@ -330,7 +330,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 }else
                 if(highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE){
                     if(chosenLinkStr.length() != 0){
-                        System.out.println("chosenLinkStr.substring(0,1):"+chosenLinkStr.substring(0,1));
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("chosenLinkStr.substring(0,1):"+chosenLinkStr.substring(0,1));
                         if(chosenLinkStr.substring(0,1).equals("C")){
                             if(chosenLinkStr.startsWith("C") == true){
                                 removeLink(chosenLinkStr);
@@ -362,18 +362,18 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
         if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
             for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
-                    System.out.println("ViewLinks BlockModel DIFFERENT_LAYER_INTER_MODULE_LINK_START");
-                    System.out.println("comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel DIFFERENT_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                     if(comp.getBlockModelPortNumber() != 0 && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
-                        System.out.println("compNumber:"+comp.getComponentNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                         for(InputConnector iConnector : comp.getInputConnectorsMap().values()){
                             for(ComponentLink cLink : iConnector.getComponentLinks()){
                                 CircuitComponent connectedComponent = null;
                                 boolean moduleBlockModelExists = false;
                                 if(windowType == MAIN_WINDOW){
-                                    System.out.println("sourcePartNumber:"+sourcePartNumber+" layerNumber:"+layerNumber+" highlightModuleNumber:"+highlightModuleNumber+" cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber());
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourcePartNumber:"+sourcePartNumber+" layerNumber:"+layerNumber+" highlightModuleNumber:"+highlightModuleNumber+" cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber());
                                     connectedComponent = theMainApp.getModel().getPartsMap().get(sourcePartNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber).getComponentsMap().get(cLink.getDestinationComponentNumber());
-                                    System.out.println("cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber()+" cLink.getConnectsToComponentNumber():"+cLink.getConnectsToComponentNumber()+" connectedComponent:"+connectedComponent);
+                                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber()+" cLink.getConnectsToComponentNumber():"+cLink.getConnectsToComponentNumber()+" connectedComponent:"+connectedComponent);
                                     //int module = highlightModule.getComponentsMap().get(cLink.getDestinationComponentNumber()).getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber();
                                     int module = highlightModule.getComponentsMap().get(comp.getComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber();
                                     //int layer = highlightModule.getComponentsMap().get(cLink.getDestinationComponentNumber()).getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getLayerLinkedToNumber();
@@ -390,7 +390,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                     int part = highlightModule.getComponentsMap().get(cLink.getDestinationComponentNumber()).getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber();
                                     moduleBlockModelExists = theMainApp.getModel().getPartsMap().get(part).getLayersMap().get(layer).getModulesMap().get(module).getBlockModelExistsBoolean();
                                 }
-                                System.out.println("connectedComponentNumber:"+connectedComponent.getComponentNumber()+" sourcePartNumber:"+sourcePartNumber);
+                                if(DEBUG_VIEWLINKSDIALOG) System.out.println("connectedComponentNumber:"+connectedComponent.getComponentNumber()+" sourcePartNumber:"+sourcePartNumber);
                                 String str = "";
                                 if(connectedComponent.getBlockModelPortNumber() != 0 && moduleBlockModelExists ==false){
                                     int connectedBlockModelPart = connectedComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber();
@@ -409,9 +409,9 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     }
                 }
                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                    System.out.println("ViewLinks BlockModel DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                     if(comp.getBlockModelPortNumber() != 0 && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
-                        System.out.println("compNumber:"+comp.getComponentNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                         for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                             for(ComponentLink cLink : oConnector.getComponentLinks()){
                                 CircuitComponent connectedComponent = null;
@@ -456,7 +456,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     }
                 }   
             }
-            System.out.println("ViewLinks BlockModel finished for loops");
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel finished for loops");
             Container contentPane = getContentPane();
             contentPane.setLayout(new FlowLayout());
             setTitle("View Links Dialog BP"+highlightPart.getPartNumber());
@@ -485,7 +485,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
             
         }else
         if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
-            System.out.println("In highlightModule");
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("In highlightModule");
             Module moduleLinked = null;
             for(CircuitComponent c: highlightModule.getComponentsMap().values()){
                 if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
@@ -501,14 +501,14 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     }
                 }
             }
-            System.out.println("modulLinkedNumber"+moduleLinked.getModuleNumber());
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("modulLinkedNumber"+moduleLinked.getModuleNumber());
             for(CircuitComponent comp : moduleLinked.getComponentsMap().values()){
                 
                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                    System.out.println("ViewLinks BlockModel SAME_LAYER_INTER_MODULE_LINK_START");
-                    System.out.println("comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel SAME_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                     if(comp.getBlockModelPortNumber() != 0 && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
-                        System.out.println("compNumber:"+comp.getComponentNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                         for(InputConnector iConnector : comp.getInputConnectorsMap().values()){
                             for(ComponentLink cLink : iConnector.getComponentLinks()){
                                 
@@ -526,8 +526,8 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                                     int part = highlightModule.getPartNumber();
                                     partBlockModelExists = theChildApp.getModel().getPartsMap().get(part).getBlockModelExistsBoolean();
                                 }
-                                
-                                System.out.println("connectedComponentNumber:"+connectedComponent.getComponentNumber()+" sourcePartNumber:"+sourcePartNumber);
+
+                                if(DEBUG_VIEWLINKSDIALOG) System.out.println("connectedComponentNumber:"+connectedComponent.getComponentNumber()+" sourcePartNumber:"+sourcePartNumber);
                                 String str = "";
                                 if(connectedComponent.getBlockModelPortNumber() != 0 && partBlockModelExists ==false){
                                     int connectedBlockModelModuleNumber = connectedComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber();
@@ -546,9 +546,9 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     }
                 }
                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                    System.out.println("ViewLinks BlockModel SAME_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel SAME_LAYER_INTER_MODULE_LINK_END");
                     if(comp.getBlockModelPortNumber() != 0 && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
-                        System.out.println("compNumber:"+comp.getComponentNumber());
+                        if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                         for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                             for(ComponentLink cLink : oConnector.getComponentLinks()){
                                 CircuitComponent connectedComponent = null;
@@ -585,7 +585,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     }
                 }   
             }
-            System.out.println("ViewLinks BlockModel finished for loops");
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("ViewLinks BlockModel finished for loops");
             Container contentPane = getContentPane();
             contentPane.setLayout(new FlowLayout());
             setTitle("View Links Dialog BM"+highlightModule.getModuleNumber());
@@ -842,24 +842,24 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
     
     public void removeLink(String chosenLinkStr){
         String portOneStr = chosenLinkStr.substring(0, chosenLinkStr.indexOf(" "));
-        System.out.println("portOneStr:"+portOneStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portOneStr:"+portOneStr);
 
         Integer componentNumber = new Integer(portOneStr.substring(1,chosenLinkStr.indexOf(".")));
-        System.out.println("componentNumber:"+componentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("componentNumber:"+componentNumber);
         Integer portNumber = new Integer(portOneStr.substring((portOneStr.indexOf("P")+1),portOneStr.indexOf(".",portOneStr.indexOf("P"))));
-        System.out.println("portNumber:"+portNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portNumber:"+portNumber);
         Integer linkNumber = new Integer(portOneStr.substring(portOneStr.indexOf("L")+1,portOneStr.length()));
-        System.out.println("linkNumber:"+linkNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("linkNumber:"+linkNumber);
 
         String portTwoStr = chosenLinkStr.substring(chosenLinkStr.lastIndexOf(" ")+1,chosenLinkStr.length());
-        System.out.println("portTwoStr:"+portTwoStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portTwoStr:"+portTwoStr);
 
         Integer destinationComponentNumber = new Integer(portOneStr.substring(1,chosenLinkStr.indexOf(".")));
-        System.out.println("destinationComponentNumber:"+destinationComponentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationComponentNumber:"+destinationComponentNumber);
         Integer destinationPortNumber = new Integer(portOneStr.substring((portOneStr.indexOf("P")+1),portOneStr.indexOf(".",portOneStr.indexOf("P"))));
-        System.out.println("destinationPortNumber:"+destinationPortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationPortNumber:"+destinationPortNumber);
         Integer destinationLinkNumber = new Integer(portOneStr.substring(portOneStr.indexOf("L")+1,portOneStr.length()));
-        System.out.println("destinationLinkNumber:"+destinationLinkNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationLinkNumber:"+destinationLinkNumber);
         
         Integer lineNumber1 = 0;
         Integer lineNumber2 = 0;
@@ -882,8 +882,8 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 lineNumber2 = theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber).getComponentsMap().get(componentNumber).getInputConnectorConnectsToComponentNumber(1, portNumber);
             }
         }
-        System.out.println("lineNumber1:"+lineNumber1);
-        System.out.println("lineNumber2:"+lineNumber2);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("lineNumber1:"+lineNumber1);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("lineNumber2:"+lineNumber2);
         CircuitComponent lineComponent;
         if(lineNumber1 > 0){
             if(sourcePartNumber != 0){//if a block model part exists
@@ -918,7 +918,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 }
             }
         }
-        System.out.println("lineComponent:"+lineComponent.getComponentNumber());
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("lineComponent:"+lineComponent.getComponentNumber());
         /*PhotonicMockSimFrame thewindow = null;
         if(windowType == MAIN_WINDOW){
             thewindow = theMainApp.getWindow();
@@ -927,7 +927,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
         }*/
         
         if(sourcePartNumber != 0){//if a block model part exists
-            System.out.println("Block model exists deleteComponent line sourcePartNumber:"+sourcePartNumber);
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("Block model exists deleteComponent line sourcePartNumber:"+sourcePartNumber);
             
             if(windowType == MAIN_WINDOW){
                 new DeleteComponent(theMainApp.getWindow(), theMainApp, theMainApp.getModel().getPartsMap().get(sourcePartNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber), lineComponent,1);//line
@@ -935,7 +935,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 new DeleteComponent(theChildApp.getWindow(), theChildApp, theChildApp.getModel().getPartsMap().get(sourcePartNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber), lineComponent,1);//line
             }
         }else{
-            System.out.println("deleteComponent line");
+            if(DEBUG_VIEWLINKSDIALOG) System.out.println("deleteComponent line");
             
             if(windowType == MAIN_WINDOW){
                 new DeleteComponent(theMainApp.getWindow(), theMainApp, theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber), lineComponent,1);//line  
@@ -947,44 +947,44 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
     
     public void removeOutputPortIML(String chosenLinkStr){
         String portOneStr = chosenLinkStr.substring(0, chosenLinkStr.indexOf(" "));
-        System.out.println("portOneStr:"+portOneStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portOneStr:"+portOneStr);
 //need to get values in P1.L1.M1.C1.p1 format not C1.P1.L1 format
 /*
         Integer componentNumber = new Integer(portOneStr.substring(1,chosenLinkStr.indexOf(".")));
-        System.out.println("componentNumber:"+componentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("componentNumber:"+componentNumber);
         Integer portNumber = new Integer(portOneStr.substring((portOneStr.indexOf("P")+1),portOneStr.indexOf(".",portOneStr.indexOf("P"))));
-        System.out.println("portNumber:"+portNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portNumber:"+portNumber);
         Integer linkNumber = new Integer(portOneStr.substring(portOneStr.indexOf("L")+1,portOneStr.length()));
-        System.out.println("linkNumber:"+linkNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("linkNumber:"+linkNumber);
 */
 
         Integer sourcePartNumber = new Integer(portOneStr.substring(1,portOneStr.indexOf(".")));
-        System.out.println("sourcePartNumber:"+sourcePartNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourcePartNumber:"+sourcePartNumber);
         Integer sourceLayerNumber = new Integer(portOneStr.substring((portOneStr.indexOf("L")+1),portOneStr.indexOf(".",portOneStr.indexOf("L"))));
-        System.out.println("sourceLayerNumber:"+sourceLayerNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceLayerNumber:"+sourceLayerNumber);
         Integer sourceModuleNumber = new Integer(portOneStr.substring((portOneStr.indexOf("M")+1),portOneStr.indexOf(".",portOneStr.indexOf("M"))));
-        System.out.println("sourceModuleNumber:"+sourceModuleNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceModuleNumber:"+sourceModuleNumber);
         Integer sourceComponentNumber = new Integer(portOneStr.substring((portOneStr.indexOf("C")+1),portOneStr.indexOf(".",portOneStr.indexOf("C"))));
-        System.out.println("sourceComponentNumber:"+sourceComponentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceComponentNumber:"+sourceComponentNumber);
         Integer sourcePortNumber = new Integer(portOneStr.substring((portOneStr.indexOf("p")+1),portOneStr.length()));
-        System.out.println("sourcePortNumber:"+sourcePortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourcePortNumber:"+sourcePortNumber);
 
         String portTwoStr = chosenLinkStr.substring(chosenLinkStr.lastIndexOf(" ")+1,chosenLinkStr.length());
-        System.out.println("portTwoStr:"+portTwoStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portTwoStr:"+portTwoStr);
 
-        System.out.println("portTwoStr.substring(1,portTwoStr.indexOf(\".\")):"+portTwoStr.substring(1,portTwoStr.indexOf(".")));
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portTwoStr.substring(1,portTwoStr.indexOf(\".\")):"+portTwoStr.substring(1,portTwoStr.indexOf(".")));
         Integer destinationPartNumber = new Integer(portTwoStr.substring(1,portTwoStr.indexOf(".")));
-        System.out.println("destinationPartNumber:"+destinationPartNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationPartNumber:"+destinationPartNumber);
         Integer destinationLayerNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("L")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("L"))));
-        System.out.println("destinationLayerNumber:"+destinationLayerNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationLayerNumber:"+destinationLayerNumber);
         Integer destinationModuleNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("M")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("M"))));
-        System.out.println("destinationModuleNumber:"+destinationModuleNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationModuleNumber:"+destinationModuleNumber);
         Integer destinationComponentNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("C")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("C"))));
-        System.out.println("destinationComponentNumber:"+destinationComponentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationComponentNumber:"+destinationComponentNumber);
         Integer destinationPortNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("p")+1),portTwoStr.length()));
-        System.out.println("destinationPortNumber:"+destinationPortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
-        System.out.println(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
         selectedComponent.getOutputConnectorsMap().get(2).removeInterModuleLink(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
         if(windowType == MAIN_WINDOW){
             theMainApp.getModel().getPartsMap().get(destinationPartNumber).getLayersMap().get(destinationLayerNumber).getModulesMap().get(destinationModuleNumber).getComponentsMap().get(destinationComponentNumber).getInputConnectorsMap().get(destinationPortNumber).removeInterModuleLink(sourcePartNumber+"."+sourceLayerNumber+"."+sourceModuleNumber+"."+sourceComponentNumber+"."+sourcePortNumber);
@@ -995,44 +995,44 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
     
     public void removeInputPortIML(String chosenLinkStr){
         String portOneStr = chosenLinkStr.substring(0, chosenLinkStr.indexOf(" "));
-        System.out.println("portOneStr:"+portOneStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portOneStr:"+portOneStr);
 
-        System.out.println("portTwoStr.substring(1,portTwoStr.indexOf(\".\")):"+portOneStr.substring(1,portOneStr.indexOf(".")));
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portTwoStr.substring(1,portTwoStr.indexOf(\".\")):"+portOneStr.substring(1,portOneStr.indexOf(".")));
         Integer destinationPartNumber = new Integer(portOneStr.substring(1,portOneStr.indexOf(".")));
-        System.out.println("destinationPartNumber:"+destinationPartNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationPartNumber:"+destinationPartNumber);
         Integer destinationLayerNumber = new Integer(portOneStr.substring((portOneStr.indexOf("L")+1),portOneStr.indexOf(".",portOneStr.indexOf("L"))));
-        System.out.println("destinationLayerNumber:"+destinationLayerNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationLayerNumber:"+destinationLayerNumber);
         Integer destinationModuleNumber = new Integer(portOneStr.substring((portOneStr.indexOf("M")+1),portOneStr.indexOf(".",portOneStr.indexOf("M"))));
-        System.out.println("destinationModuleNumber:"+destinationModuleNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationModuleNumber:"+destinationModuleNumber);
         Integer destinationComponentNumber = new Integer(portOneStr.substring((portOneStr.indexOf("C")+1),portOneStr.indexOf(".",portOneStr.indexOf("C"))));
-        System.out.println("destinationComponentNumber:"+destinationComponentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationComponentNumber:"+destinationComponentNumber);
         Integer destinationPortNumber = new Integer(portOneStr.substring((portOneStr.indexOf("p")+1),portOneStr.length()));
-        System.out.println("destinationPortNumber:"+destinationPortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
         String portTwoStr = chosenLinkStr.substring(chosenLinkStr.lastIndexOf(" ")+1,chosenLinkStr.length());
-        System.out.println("portTwoStr:"+portTwoStr);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portTwoStr:"+portTwoStr);
 //need to get values in P1.L1.M1.C1.p1 format not C1.P1.L1 format
 /*
         Integer componentNumber = new Integer(portTwoStr.substring(1,portTwoStr.indexOf(".")));
-        System.out.println("componentNumber:"+componentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("componentNumber:"+componentNumber);
         Integer portNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("P")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("P"))));
-        System.out.println("portNumber:"+portNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("portNumber:"+portNumber);
         Integer linkNumber = new Integer(portTwoStr.substring(portTwoStr.indexOf("L")+1,portTwoStr.length()));
-        System.out.println("linkNumber:"+linkNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("linkNumber:"+linkNumber);
 */
 
         Integer sourcePartNumber = new Integer(portTwoStr.substring(1,portTwoStr.indexOf(".")));
-        System.out.println("sourcePartNumber:"+sourcePartNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourcePartNumber:"+sourcePartNumber);
         Integer sourceLayerNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("L")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("L"))));
-        System.out.println("sourceLayerNumber:"+sourceLayerNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceLayerNumber:"+sourceLayerNumber);
         Integer sourceModuleNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("M")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("M"))));
-        System.out.println("sourceModuleNumber:"+sourceModuleNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceModuleNumber:"+sourceModuleNumber);
         Integer sourceComponentNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("C")+1),portTwoStr.indexOf(".",portTwoStr.indexOf("C"))));
-        System.out.println("sourceComponentNumber:"+sourceComponentNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourceComponentNumber:"+sourceComponentNumber);
         Integer sourcePortNumber = new Integer(portTwoStr.substring((portTwoStr.indexOf("p")+1),portTwoStr.length()));
-        System.out.println("sourcePortNumber:"+sourcePortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println("sourcePortNumber:"+sourcePortNumber);
 
-        System.out.println(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
+        if(DEBUG_VIEWLINKSDIALOG) System.out.println(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
         selectedComponent.getInputConnectorsMap().get(1).removeInterModuleLink(destinationPartNumber+"."+destinationLayerNumber+"."+destinationModuleNumber+"."+destinationComponentNumber+"."+destinationPortNumber);
         if(windowType == MAIN_WINDOW){
             theMainApp.getModel().getPartsMap().get(destinationPartNumber).getLayersMap().get(destinationLayerNumber).getModulesMap().get(destinationModuleNumber).getComponentsMap().get(destinationComponentNumber).getOutputConnectorsMap().get(destinationPortNumber).removeInterModuleLink(sourcePartNumber+"."+sourceLayerNumber+"."+sourceModuleNumber+"."+sourceComponentNumber+"."+sourcePortNumber);
@@ -1058,7 +1058,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 }else{
                     comp = theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber).getComponentsMap().get(componentLink.getDestinationComponentNumber());
                 }
-                System.out.println("compNumber:"+comp.getComponentNumber());
+                if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                 if(comp.getBlockModelPortNumber() != 0){
                     
                     connectedToPartNumber = 0;
@@ -1068,7 +1068,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                         connectedToPartNumber = comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber();
                     }
-                    System.out.println("connectedToPartNumber:"+connectedToPartNumber);
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("connectedToPartNumber:"+connectedToPartNumber);
                     
                     if(windowType == MAIN_WINDOW){
                         highlightPart = theMainApp.getModel().getPartsMap().get(connectedToPartNumber);
@@ -1128,7 +1128,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                 }else{
                     comp = theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(highlightModuleNumber).getComponentsMap().get(componentLink.getDestinationComponentNumber());
                 }
-                System.out.println("compNumber:"+comp.getComponentNumber());
+               if(DEBUG_VIEWLINKSDIALOG) System.out.println("compNumber:"+comp.getComponentNumber());
                 if(comp.getBlockModelPortNumber() != 0){
                     
                     connectedToPartNumber = 0;
@@ -1138,7 +1138,7 @@ public class ViewLinksDialog extends JDialog implements ActionListener {
                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                         connectedToPartNumber = comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber();
                     }
-                    System.out.println("connectedToPartNumber:"+connectedToPartNumber);
+                    if(DEBUG_VIEWLINKSDIALOG) System.out.println("connectedToPartNumber:"+connectedToPartNumber);
                     
                     if(windowType == MAIN_WINDOW){
                         highlightPart = theMainApp.getModel().getPartsMap().get(connectedToPartNumber);

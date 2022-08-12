@@ -123,14 +123,14 @@ public class Layer implements Serializable {
         //create partNumber attribute
         Attr attr = doc.createAttribute("partName");
         attr.setValue(String.valueOf(getPartName()));
-        System.out.println("PartName:"+getPartName());
+        if(DEBUG_LAYER) System.out.println("PartName:"+getPartName());
         packageModelForLayerElement.setAttributeNode(attr);
         
         org.w3c.dom.Element layerNumberElement = doc.createElement("layerNumber");
 
         attr = doc.createAttribute("layerNumber");
         attr.setValue(String.valueOf(getLayerNumber()));
-        System.out.println("layerNumber:"+getLayerNumber());
+        if(DEBUG_LAYER) System.out.println("layerNumber:"+getLayerNumber());
         layerNumberElement.setAttributeNode(attr);
         
         packageModelForLayerElement.appendChild(layerNumberElement);
@@ -140,7 +140,7 @@ public class Layer implements Serializable {
 
             attr = doc.createAttribute("moduleNumber");
             attr.setValue(String.valueOf(module.getModuleNumber()));
-            System.out.println("moduleNumber:"+module.getModuleNumber());
+            if(DEBUG_LAYER) System.out.println("moduleNumber:"+module.getModuleNumber());
             moduleNumberElement.setAttributeNode(attr);
         
             packageModelForLayerElement.appendChild(moduleNumberElement);
@@ -158,7 +158,7 @@ public class Layer implements Serializable {
         for(int i=0; i<childNodes.getLength(); ++i){
 
             aNode = childNodes.item(i);
-            System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+            if(DEBUG_LAYER) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
             switch(aNode.getNodeName()){
                 case "boardType":
                     attrs = aNode.getAttributes();

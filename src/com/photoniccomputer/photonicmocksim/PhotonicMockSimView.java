@@ -518,7 +518,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
        /*if(theApp.getProjectType() == MOTHERBOARD) addBlockModelPart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //Point startPoint = new Point(50,50);//todo get actual point of click
-               System.out.println("addBlockModelPart");
+               if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("addBlockModelPart");
                 new AddBlockModelPartDialog(theApp,moduleManagementPopupAddBlockModelStartPoint, highlightPart.getPartNumber(), highlightLayer.getLayerNumber(), highlightModule.getModuleNumber());
                 repaint();
             }
@@ -620,7 +620,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true && highlightPart != null && highlightLayer != null){
                     new ShowBlockModelContentsDialog(theApp, highlightPart.getPartNumber(),highlightLayer.getLayerNumber(), highlightModule.getModuleNumber());
                 }else{
-                    System.out.println("Child editor open error!!");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Child editor open error!!");
                 }
             }
         });
@@ -640,7 +640,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         
         viewBlockModelLinks.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e) {
-                System.out.println("running viewBlockModelLinks viewLinks()");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("running viewBlockModelLinks viewLinks()");
                 viewLinks();
             }
         });
@@ -668,9 +668,9 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                        new DeleteComponent(theApp.getWindow(), theApp, highlightModule, comp,0); 
                     }
                                        
-                    System.out.println("---- delete Part number:"+highlightPart.getPartNumber()+" ----");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- delete Part number:"+highlightPart.getPartNumber()+" ----");
                     if(theApp.getModel().removePart(highlightPart.getPartNumber()) == true){
-                        System.out.println("RemovedPart:"+highlightPart.getPartNumber());
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("RemovedPart:"+highlightPart.getPartNumber());
                         highlightPart=null;
                     }else{
                         JOptionPane.showMessageDialog(null, "Error Part not found!.");
@@ -704,9 +704,9 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                        new DeleteComponent(theApp.getWindow(), theApp, moduleLinked, comp,0); 
                     }
                                        
-                    System.out.println("---- delete Module number:"+highlightModule.getModuleNumber()+" ----");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- delete Module number:"+highlightModule.getModuleNumber()+" ----");
                     if(theApp.getModel().removeModule(highlightPart.getPartNumber(),highlightLayer.getLayerNumber(),highlightModule.getModuleNumber())==true){
-                        System.out.println("RemovedModule:"+highlightModule.getModuleNumber());
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("RemovedModule:"+highlightModule.getModuleNumber());
                         highlightModule=null;
                     }else{
                         JOptionPane.showMessageDialog(null, "Error Module not found!.");
@@ -864,21 +864,21 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         if(highlightComponent.getComponentType() == COPYANDSAVEORPASTE){
             for(CircuitComponent component : highlightModule.getComponentsMap().values()) {//the model gives a part layer module component maps this needs changing maybe use highlightModule Map
                 if(highlightComponent.getCircuitComponentBounds().contains(component.getCircuitComponentBounds()) && component.getComponentType() != COPYANDSAVEORPASTE)  {
-                    System.out.println("ComponentNumber:"+component.getComponentNumber()+"\n");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("ComponentNumber:"+component.getComponentNumber()+"\n");
                     highlightComponent.getCopyComponentsMap().put(component.getComponentNumber(),component);
 
                 }
             }
-            System.out.println("------------------------------------------------\n");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("------------------------------------------------\n");
             for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
 
-                System.out.println("CompNumber:"+comp.getComponentNumber()+"\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("CompNumber:"+comp.getComponentNumber()+"\n");
             }
         }
     }
 
     private void performPasteAsObjects(){
-        System.out.println("--------- start normalisation map ---------");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- start normalisation map ---------");
         for(CircuitComponent comp1 : highlightComponent.getCopyComponentsMap().values()){
             if(comp1.getComponentType()== TEXT){
                 Point compPos = comp1.getPosition();
@@ -890,7 +890,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised Component Text CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n"); 
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalised Component Text CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n"); 
 
             }else
             if(comp1.getComponentType() != OPTICAL_WAVEGUIDE && comp1.getComponentType() != PIVOT_POINT && comp1.getComponentType() != TEXT){
@@ -900,7 +900,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised Component CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalised Component CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else
             if(comp1.getComponentType() == PIVOT_POINT){
                 Point compPos = comp1.getPosition();
@@ -910,7 +910,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised pivot point CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalised pivot point CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else
             if(comp1.getComponentType() == OPTICAL_WAVEGUIDE){
                 Point compPos = comp1.getPosition();
@@ -919,25 +919,25 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 highlightModule.add(tempComponent);
 
                 highlightComponent.getCopyAndPasteNormalisationMap().put(comp1.getComponentNumber(),tempComponent.getComponentNumber());
-                System.out.println("normalised optical waveguide CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalised optical waveguide CompNumber:"+comp1.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
             }else{
-                System.out.println("---- start ----\n --- error with type ---\n type = "+comp1.getComponentType()+"\n--- end with error type ---\n---- finish error ----\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- start ----\n --- error with type ---\n type = "+comp1.getComponentType()+"\n--- end with error type ---\n---- finish error ----\n");
             }
         }
-        System.out.println("--------- end normalisation map ---------");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- end normalisation map ---------");
 
         for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
 
             if(comp.getComponentType()== TEXT){
-                System.out.println("--------- start text---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- start text---------");
                 //nothing needs to be done here
                 Point compPos = comp.getPosition();
 
                 CircuitComponent tempComponent =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
-                System.out.println("Text tempComponentNumber:"+tempComponent.getComponentNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Text tempComponentNumber:"+tempComponent.getComponentNumber());
                 //tempComponent.setPosition(compPos);
                 //tempComponent.setRotation(comp.getRotation());
-                System.out.println("--------- end text---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- end text---------");
             }else
             if(comp.getComponentType() != OPTICAL_WAVEGUIDE && comp.getComponentType() != PIVOT_POINT && comp.getComponentType() != TEXT){
                 Point compPos = comp.getPosition();
@@ -945,8 +945,8 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 CircuitComponent tempComponent =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
                 tempComponent.setRotation(comp.getRotation());
 
-                System.out.println("--------- start generic---------");
-                System.out.println("normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- start generic---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey()+1:"+(highlightModule.getComponentsMap().lastEntry().getKey())+"\n");
                 int originalSourceComponentNumber = 0;
                 int normalisedSourceComponentNumber = 0;
                 int sourcePortNumber = 0;
@@ -957,18 +957,18 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     for(ComponentLink componentLink : iConnector.getComponentLinks()){
 
                         originalSourceComponentNumber = comp.getInputConnectorsMap().get(iConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationComponentNumber();
-                        System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                         if(highlightComponent.getCopyComponentsMap().get(originalSourceComponentNumber) != null){
 
                             normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                            System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
 
                             sourcePortNumber = comp.getInputConnectorsMap().get(iConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationPortNumber();
-                            System.out.println("sourcePortNumber:"+sourcePortNumber);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
 
                             for(InputConnector iConnector2 : tempComponent.getInputConnectorsMap().values()){
                                 if(iConnector2.getPortNumber() == iConnector.getPortNumber()){
-                                    System.out.println("iConnector has a componentLink");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector has a componentLink");
                                     ComponentLink componentLink2 = new ComponentLink();
                                     iConnector2.addComponentLink(componentLink2);
 
@@ -982,7 +982,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
 
 
-                            System.out.println("comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()):"+comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()));
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()):"+comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()));
                             Point pt = comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber());
 
                             tempComponent.setIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber(),pt.x,pt.y);
@@ -992,8 +992,8 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                             tempComponent.setIConnectorDestinationComponentNumber(1,iConnector.getPortNumber(),normalisedSourceComponentNumber);//source Port,destination componentNumber
 
-                            System.out.println("comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()):"+comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()));
-                            System.out.println("highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()):"+comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber()));
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
                             tempComponent.setInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber(), highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getInputConnectorConnectsToComponentNumber(1,iConnector.getPortNumber())));
                         }     
                     }
@@ -1002,17 +1002,17 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     for(ComponentLink componentLink : oConnector.getComponentLinks()){
 
                         int originalDestinationComponentNumber = comp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationComponentNumber();
-                        System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                         if(highlightComponent.getCopyComponentsMap().get(originalDestinationComponentNumber) != null){
                             int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                            System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                              destinationPortNumber = comp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getComponentLinks().getFirst().getDestinationPortNumber();
-                            System.out.println("destinationPortNumber:"+destinationPortNumber);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
 
                             for(OutputConnector oConnector2 : tempComponent.getOutputConnectorsMap().values()){
                                 if(oConnector2.getPortNumber() == oConnector.getPortNumber()){
-                                    System.out.println("oConnector has a componentLink");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector has a componentLink");
                                     ComponentLink componentLink2 = new ComponentLink();
                                     oConnector2.addComponentLink(componentLink2);
 
@@ -1026,7 +1026,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
 
                             Point pt =comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber());
-                            System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber():"+comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber():"+comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
                             int componentLinkCtr2 = 1;// = iConnector.getComponentLinks().getLast().getLinkNumber();
                             tempComponent.setOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber(),pt.x,pt.y);
 
@@ -1038,33 +1038,33 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                         }
                     }
                 }
-                System.out.println("Generic normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Generic normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish generic---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- finish generic---------");
             }else
             if(comp.getComponentType() == PIVOT_POINT){
 
-                System.out.println("--------- start pivot point---------");
-                System.out.println("PivotPoint");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- start pivot point---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PivotPoint");
 
                 Point compPos = comp.getPosition();
                 CircuitComponent tempComponentPivotPoint =  highlightModule.getComponentsMap().get(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
                 tempComponentPivotPoint.setPosition(new Point(compPos.x, compPos.y));
 
-                System.out.println("tempComponentPivotPoint.getComponentNumber:"+tempComponentPivotPoint.getComponentNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("tempComponentPivotPoint.getComponentNumber:"+tempComponentPivotPoint.getComponentNumber());
 
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
                 int originalSourceComponentNumber = comp.getInputConnectorsMap().get(1).getComponentLinks().getFirst().getDestinationComponentNumber();
-                System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                 int normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
                 int sourcePortNumber = comp.getInputConnectorsMap().get(1).getComponentLinks().getFirst().getDestinationPortNumber();
-                System.out.println("sourcePortNumber:"+sourcePortNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
                 int originalDestinationComponentNumber = comp.getOutputConnectorsMap().get(2).getComponentLinks().getFirst().getDestinationComponentNumber();
-                System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                 int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                 int destinationPortNumber = comp.getOutputConnectorsMap().get(2).getComponentLinks().getFirst().getDestinationPortNumber();
 
                 //todo need to set all values to links of pivot point here
@@ -1089,7 +1089,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                         }
 
                         Point pt =comp.getOConnectorDestinationPhysicalLocation(1,2);
-                        System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,2):"+comp.getOConnectorDestinationPhysicalLocation(1,2));
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("comp.getOConnectorDestinationPhysicalLocation(1,2):"+comp.getOConnectorDestinationPhysicalLocation(1,2));
 
                         tempComponentPivotPoint.setOConnectorDestinationPhysicalLocation(1,2,pt.x,pt.y);
 
@@ -1118,7 +1118,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                     tempComponentPivotPoint.setIConnectorDestinationPhysicalLocation(1,1,pt.x,pt.y);
 
-                    System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                     tempComponentPivotPoint.setIConnectorDestinationComponentNumber(1,1,normalisedSourceComponentNumber);//source Port,destination componentNumber
 
                     tempComponentPivotPoint.setIConnectorDestinationPort(1,1,sourcePortNumber);//oConnector.getPortNumber());//
@@ -1129,38 +1129,38 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     tempComponentPivotPoint.draw(g2D);
 
                 }
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponentPivotPoint.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish pivot point---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- finish pivot point---------");
             }else
             if(comp.getComponentType() == OPTICAL_WAVEGUIDE){  //optical waveguide     
 
 
-                System.out.println("--------- start optical waveguide---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- start optical waveguide---------");
 
                 int originalSourceComponentNumber = comp.getComponentLinks().get(0).getConnectsToComponentNumber();
-                System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalSourceComponentNumber:"+originalSourceComponentNumber);
                 int normalisedSourceComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalSourceComponentNumber);
-                System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedSourceComponentNumber:"+normalisedSourceComponentNumber);
                 int sourcePortNumber = comp.getComponentLinks().get(0).getConnectsToComponentPortNumber();
-                System.out.println("sourcePortNumber:"+sourcePortNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("sourcePortNumber:"+sourcePortNumber);
                 int originalDestinationComponentNumber = comp.getComponentLinks().get(1).getConnectsToComponentNumber();
-                System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("originalDestinationComponentNumber:"+originalDestinationComponentNumber);
                 int normalisedDestinationComponentNumber = highlightComponent.getCopyAndPasteNormalisationMap().get(originalDestinationComponentNumber);
-                System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("normalisedDestinationComponentNumber:"+normalisedDestinationComponentNumber);
                 int destinationPortNumber = comp.getComponentLinks().get(1).getConnectsToComponentPortNumber();//.getDestinationPortNumber();
-                System.out.println("destinationPortNumber:"+destinationPortNumber);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("destinationPortNumber:"+destinationPortNumber);
 
                 Point sourcePhysicalLoc = new Point(0,0);
                 Point destinationPhysicalLoc = new Point(0,0);
 
                 //if sourceport is an output port
                 if(sourcePortNumber > highlightComponent.getCopyComponentsMap().get(originalSourceComponentNumber).getInputConnectorsMap().size()){
-                    System.out.println("optical waveguide output port");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide output port");
                      sourcePhysicalLoc = highlightModule.getComponentsMap().get(normalisedSourceComponentNumber).getOutputConnectorsMap().get(sourcePortNumber).getPhysicalLocation();/*(highlightComponent.getCopyComponentsMap().get(originalSourceComponentNumber)).getOutputConnectorsMap().get(sourcePortNumber).getPhysicalLocation();*/
                      destinationPhysicalLoc = highlightModule.getComponentsMap().get(normalisedDestinationComponentNumber).getInputConnectorsMap().get(destinationPortNumber).getPhysicalLocation();//highlightComponent.getCopyComponentsMap().get(originalDestinationComponentNumber).getInputConnectorsMap().get(destinationPortNumber).getPhysicalLocation();
                 }else{//if source port is an input port
-                    System.out.println("optical waveguide input port");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide input port");
                     sourcePhysicalLoc = highlightModule.getComponentsMap().get(normalisedSourceComponentNumber).getInputConnectorsMap().get(sourcePortNumber).getPhysicalLocation();/*(highlightComponent.getCopyComponentsMap().get(originalSourceComponentNumber)).getOutputConnectorsMap().get(sourcePortNumber).getPhysicalLocation();*/
                     destinationPhysicalLoc = highlightModule.getComponentsMap().get(normalisedDestinationComponentNumber).getOutputConnectorsMap().get(destinationPortNumber).getPhysicalLocation();//highlightComponent.getCopyComponentsMap().get(originalDestinationComponentNumber).getInputConnectorsMap().get(destinationPortNumber).getPhysicalLocation();
                 }
@@ -1176,10 +1176,10 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                 tempComponent.setPosition(sourcePhysicalLoc); 
                                                               
-                System.out.println("sourcePhysicalLoc.x:"+sourcePhysicalLoc.x+" sourcePhysicalLoc.y:"+sourcePhysicalLoc.y);
-                System.out.println("destinationPhysicalLoc.x:"+destinationPhysicalLoc.x+" destinationPhysicalLoc.y:"+destinationPhysicalLoc.y);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("sourcePhysicalLoc.x:"+sourcePhysicalLoc.x+" sourcePhysicalLoc.y:"+sourcePhysicalLoc.y);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("destinationPhysicalLoc.x:"+destinationPhysicalLoc.x+" destinationPhysicalLoc.y:"+destinationPhysicalLoc.y);
 
-                System.out.println("optical waveguide normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey()));
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+(highlightModule.getComponentsMap().lastEntry().getKey()));
 
                 tempComponent.getLM().setSourceComponentNumber(normalisedSourceComponentNumber);
                 tempComponent.getLM().setSourcePortNumber(sourcePortNumber);
@@ -1190,7 +1190,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 tempComponent.getLM().setDestinationLinkNumber(1);//should only be 1 link
 
                 for(Integer lineLink : comp.getLM().getLineLinks()){
-                    System.out.println("Line Links:"+lineLink);
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Line Links:"+lineLink);
                     tempComponent.getLM().addLineLink(highlightComponent.getCopyAndPasteNormalisationMap().get(lineLink));
                 }
 
@@ -1218,31 +1218,31 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                 repaint();
 
-                System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("pivot point normalised CompNumber:"+comp.getComponentNumber()+" tempComp:"+tempComponent.getComponentNumber()+" theApp.getModel().getComponentsMap().lastEntry().getKey():"+highlightModule.getComponentsMap().lastEntry().getKey());
 
-                System.out.println("--------- finish optical waveguide---------");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--------- finish optical waveguide---------");
             }
 
         }
         LinkedList<Integer> moveList = new LinkedList();
-        System.out.println("--- start ---\n");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--- start ---\n");
         for(CircuitComponent comp : highlightComponent.getCopyComponentsMap().values()){
-            System.out.println("MoveList creation highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()):"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("MoveList creation highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()):"+highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
             moveList.add(highlightComponent.getCopyAndPasteNormalisationMap().get(comp.getComponentNumber()));
-            System.out.println(moveList.getLast()+"\n");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println(moveList.getLast()+"\n");
         }
-        System.out.println("--- end ---\n");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--- end ---\n");
         highlightComponent.getCopyComponentsMap().clear();
-        System.out.println("--- start normalised move list ---\n");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--- start normalised move list ---\n");
         for(Integer moveListComponentNumber : moveList){
             highlightComponent.getCopyComponentsMap().put(moveListComponentNumber, highlightModule.getComponentsMap().get(moveListComponentNumber));
-            System.out.println("move List component:"+highlightComponent.getCopyComponentsMap().lastEntry().getKey());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("move List component:"+highlightComponent.getCopyComponentsMap().lastEntry().getKey());
         }
-        System.out.println("--- end normalised move list ---\n");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("--- end normalised move list ---\n");
     }
 
     private void performCopyAndSave(){
-        System.out.println("in view performcopyandsave");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("in view performcopyandsave");
         performSave();
     }
 
@@ -1261,12 +1261,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     try{
                         capture =  new Robot().createScreenCapture(screenRect);
                     }catch(AWTException e){
-                        theApp.printToLogFile(e.toString());
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println(e.toString());
                     }
                     File f = new File(file.toString());
                     ImageIO.write(capture, "jpg", f);
                 }catch (Exception e){
-                    theApp.printToLogFile("Write to image file error:"+e.toString()+" Path:"+file.toString()+"\n");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Write to image file error:"+e.toString()+" Path:"+file.toString()+"\n");
                 }
             }
         }
@@ -1352,7 +1352,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
             if(highlightPart!=null && highlightLayer!=null && highlightModule!=null){
                 ld=new LinkDialog(thewindow,highlightPart, highlightLayer.getLayerNumber(), highlightModule, highlightComponent, theApp);
             }else{
-                System.out.println("link dialog need highlighted part highlighted layer and highlighted module");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("link dialog need highlighted part highlighted layer and highlighted module");
             }
 
 
@@ -1363,12 +1363,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
     private void ViewValues(){
         PhotonicMockSimFrame thewindow = theApp.getWindow();
         if(highlightPart != null){
-                System.out.println("ViewValues highlightPart != null highlightPartNumber:"+highlightPart.getPartNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("ViewValues highlightPart != null highlightPartNumber:"+highlightPart.getPartNumber());
                 ViewValuesDialog vld = new ViewValuesDialog(thewindow,highlightPart.getPartNumber(),highlightModule, highlightComponent, theApp);
         }else
         if(highlightComponent != null){
             //PhotonicMockSimModel diagram = theApp.getModel();
-            System.out.println("ViewValues highlightPart == null");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("ViewValues highlightPart == null");
             ViewValuesDialog vld = new ViewValuesDialog(thewindow,0,highlightModule, highlightComponent, theApp);
             
         }
@@ -1377,19 +1377,19 @@ public class PhotonicMockSimView extends JComponent implements Observer{
     private void viewLinks(){
         PhotonicMockSimFrame thewindow = theApp.getWindow();
         if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
-            System.out.println("running ViewLinksDialog for highlightPart:"+highlightPart.getPartNumber());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("running ViewLinksDialog for highlightPart:"+highlightPart.getPartNumber());
             int sourcePartNumber = highlightModule.getPartNumber();
             ViewLinksDialog vld = new ViewLinksDialog(thewindow, sourcePartNumber, highlightPart.getPartNumber(), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent, theApp);
         }else
         if(highlightModule != null && highlightPart != null && highlightModule.getBlockModelExistsBoolean() == true){
-            System.out.println("running ViewLinksDialog for highlightModule:"+highlightModule.getModuleNumber());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("running ViewLinksDialog for highlightModule:"+highlightModule.getModuleNumber());
             int sourcePartNumber = highlightModule.getPartNumber();
             ViewLinksDialog vld = new ViewLinksDialog(thewindow, sourcePartNumber, highlightPart.getPartNumber(), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent, theApp);
         }else
         if(highlightComponent != null){
             //PhotonicMockSimModel diagram = theApp.getModel();
             
-            System.out.println("running ViewLinksDialog for normal component");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("running ViewLinksDialog for normal component");
             int sourcePartNumber = 0;
             ViewLinksDialog vld = new ViewLinksDialog(thewindow, 0 , highlightModule.getPartNumber(), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent, theApp);
             
@@ -1410,12 +1410,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
     private void sendPartToBack() {
         if(highlightPart != null) {
-            System.out.println("sendPartToBack");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("sendPartToBack");
             if(theApp.getModel().removePart(highlightPart.getPartNumber()) == true){
-                System.out.println("theApp.getModel().getPartsMap().remove(highlightPart.getPartNumber())");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("theApp.getModel().getPartsMap().remove(highlightPart.getPartNumber())");
                 highlightPart.setPartNumber(theApp.getModel().getPartsMap().lastKey()+1);//temp fix
                 theApp.getModel().addPart(highlightPart);
-                System.out.println("partNumber:"+highlightPart.getPartNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("partNumber:"+highlightPart.getPartNumber());
                 for(Layer layer : highlightPart.getLayersMap().values()){
                     for(Module module: layer.getModulesMap().values()){
                         module.setPartNumber(highlightPart.getPartNumber());
@@ -1426,12 +1426,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     for(Module tempModule : tempLayer.getModulesMap().values()){
                                         for(CircuitComponent comp : tempModule.getComponentsMap().values()){
                                             if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
-                                                System.out.println("Setting DLIMLSTART highlightpart to "+highlightPart.getPartNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Setting DLIMLSTART highlightpart to "+highlightPart.getPartNumber());
                                                 comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().setPartLinkedToNumber(highlightPart.getPartNumber());
                                                 //do i need to back link on DLIMLEN
                                             }else
                                             if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                                System.out.println("Setting DLIMLEND highlightpart to "+highlightPart.getPartNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Setting DLIMLEND highlightpart to "+highlightPart.getPartNumber());
                                                 comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().setPartLinkedToNumber(highlightPart.getPartNumber());
                                             }
                                         }
@@ -1447,7 +1447,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
             }
             
         }else{
-            System.out.println("highlightPart is null");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("highlightPart is null");
         }
     }
     
@@ -1506,7 +1506,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         }
 
         for(Part part : theApp.getModel().getPartsMap().values()) {
-            System.out.println("+++++++++++++++++++++++++++++++++++++PartNumber:"+part.getPartNumber());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++PartNumber:"+part.getPartNumber());
             if(part.getBlockModelExistsBoolean() == true){// && part.getShowBlockModelPartContentsBoolean()==false){
                 
                 if(getTopIndex().y >0 || getTopIndex().x >0) {
@@ -1535,7 +1535,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                     for(Module m :  layer.getModulesMap().values()) {   
                         //Point modulePosition = m.getPosition();
-                        System.out.println("BlockModelExitstboolean:"+m.getBlockModelExistsBoolean()+" moduleNumber:"+m.getModuleNumber());
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("BlockModelExitstboolean:"+m.getBlockModelExistsBoolean()+" moduleNumber:"+m.getModuleNumber());
                         Point modulePosition = m.getBlockModelPosition();
                         if(m.getBlockModelExistsBoolean() == true ){//needed??
                             if(getTopIndex().y >0 || getTopIndex().x >0) {
@@ -1551,22 +1551,22 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 }
 
                                 //m.draw(g2D);
-                                System.out.println("Main View paint 1 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 1 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 m.drawBlockModel(g2D);
-                                System.out.println("Main View paint 2 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 2 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 g2D.setTransform(old);
-                                System.out.println("Main View paint 3 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 3 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 //m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
                                 m.translateBlockModelBounds(m.getBlockModelPosition().x -getTopIndex().x , m.getBlockModelPosition().y -getTopIndex().y);
-                                System.out.println("Main View paint 4 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 4 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                //g2D.draw(part.getBounds());
                             }else{
                                 //m.translateBounds(m.getPosition().x -getTopIndex().x , m.getPosition().y -getTopIndex().y);
-                                System.out.println("Main View paint 5 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 5 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 m.translateBlockModelBounds(m.getBlockModelPosition().x -getTopIndex().x , m.getBlockModelPosition().y -getTopIndex().y);
-                                System.out.println("Main View paint 6 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 6 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 m.drawBlockModel(g2D);
-                                System.out.println("Main View paint 7 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Main View paint 7 moduleWidth:"+m.getModuleWidth()+" moduleBreadth:"+m.getModuleBreadth());
                                 //m.draw(g2D);
                             }
                         }else{
@@ -1624,20 +1624,20 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                          //this algorithm will still draw blockModel lines as comp.getBlockModelPortNumber()=0 by default need a way of singling out components from block models
                                          if(part.getBlockModelExistsBoolean() == true){//just for blockmodel parts for now
                                              if(part.getShowBlockModelPartContentsBoolean() == true ){
-                                                 System.out.println("testing component tp1");
+                                                 if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing component tp1");
                                                 comp.draw(g2D);
                                                 
                                                 comp.translateBounds(comp.getPosition().x -getTopIndex().x , comp.getPosition().y -getTopIndex().y);
                                              }
                                          }else
                                         if(comp.getBlockModelPortNumber() == 0 || m.getShowBlockModelModuleContentsBoolean()==true){//not showing pads
-                                            //System.out.println("drawing component:"+comp.getComponentNumber());
-                                            System.out.println("testing component tp2");
+                                            //if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("drawing component:"+comp.getComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing component tp2");
                                             comp.draw(g2D);
                                            
                                             //g2D.draw(comp.getLineBounds());
                                             if(comp.getComponentType() == OPTICAL_WAVEGUIDE){
-                                                System.out.println("testing component tp2.1");
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing component tp2.1");
                                                 comp.translateLineBounds(comp.getPosition().x -getTopIndex().x , comp.getPosition().y -getTopIndex().y);
                                                 
                                                g2D.setTransform(old);
@@ -1657,14 +1657,14 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     }else{
                                         if(part.getBlockModelExistsBoolean() == true){//just for blockmodel parts for now
                                              if(part.getShowBlockModelPartContentsBoolean() == true ){
-                                                 System.out.println("testing component tp3");
+                                                 if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing component tp3");
                                                 comp.draw(g2D);
                                                 comp.translateBounds(comp.getPosition().x -getTopIndex().x , comp.getPosition().y -getTopIndex().y);
                                              }
                                         }else
                                         if(comp.getBlockModelPortNumber() == 0 || m.getShowBlockModelModuleContentsBoolean()==true){//not showing pads
-                                            //System.out.println("drawing component:"+comp.getComponentNumber());
-                                            System.out.println("testing component tp4");
+                                            //if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("drawing component:"+comp.getComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing component tp4");
                                             comp.draw(g2D);
                                             
                                             if(comp.getComponentType() == OPTICAL_WAVEGUIDE) {
@@ -1695,7 +1695,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         public void mousePressed(MouseEvent e) {
             start = e.getPoint();
             buttonState = e.getButton();
-            System.out.println("Mouse pressed");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Mouse pressed");
             if(showContextMenu(e)) {
                 start = null;
                 buttonState = MouseEvent.NOBUTTON;
@@ -1720,7 +1720,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 start = e.getPoint();//??
                 imageFinish = e.getPoint();
                 last = e.getPoint();//??
-                System.out.println("in view mousepressed testing for image and button 1 press imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("in view mousepressed testing for image and button 1 press imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
             }else
             if((e.getModifiers() & InputEvent.BUTTON3_MASK) != 0){
                 displayCopyPopupMenu(e.getPoint());
@@ -1744,7 +1744,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 }*/
                 if(theApp.getProjectType() == CHIP){
                     partManagementPopup.removeAll();
-                    System.out.println("View CHIP");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("View CHIP");
                     partManagementPopup.add(new JMenuItem("Add Part Layer")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 PhotonicMockSimFrame thewindow = theApp.getWindow();
@@ -1791,7 +1791,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         });
                     
                     modulePopup.removeAll();
-                    System.out.println("Building modulePopup for chip");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Building modulePopup for chip");
                     modulePopup.add(new JMenuItem("Resize")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new resizeModuleDialog(theApp.getWindow(),highlightModule);
@@ -1800,7 +1800,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     modulePopup.add(new JMenuItem("Add BlockModel Part")).addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             //Point startPoint = new Point(50,50);//todo get actual point of click
-                           System.out.println("addBlockModelPart");
+                           if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("addBlockModelPart");
                             new AddBlockModelPartDialog(theApp,moduleManagementPopupAddBlockModelStartPoint, highlightPart.getPartNumber(), highlightLayer.getLayerNumber(), highlightModule.getModuleNumber());
                             repaint();
                         }
@@ -1831,11 +1831,11 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 }else
                 if(theApp.getProjectType() == MODULE){
                     partManagementPopup.removeAll();
-                    System.out.println("View MODULE");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("View MODULE");
                 }else
                 if(theApp.getProjectType() == MOTHERBOARD){
                     partManagementPopup.removeAll();
-                    System.out.println("View MOTHERBOARD");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("View MOTHERBOARD");
                     partManagementPopup.add(new JMenuItem("Add Part")).addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             PhotonicMockSimFrame thewindow = theApp.getWindow();
@@ -1899,7 +1899,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         });
                     
                     modulePopup.removeAll();
-                    System.out.println("Building modulePopup for motherboard");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Building modulePopup for motherboard");
                     modulePopup.add(new JMenuItem("Resize")).addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new resizeModuleDialog(theApp.getWindow(),highlightModule);
@@ -1908,7 +1908,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     modulePopup.add(new JMenuItem("Add BlockModel Part")).addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent e) {
                             //Point startPoint = new Point(50,50);//todo get actual point of click
-                           System.out.println("addBlockModelPart");
+                           if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("addBlockModelPart");
                             new AddBlockModelPartDialog(theApp,moduleManagementPopupAddBlockModelStartPoint, highlightPart.getPartNumber(), highlightLayer.getLayerNumber(), highlightModule.getModuleNumber());
                             repaint();
                         }
@@ -1948,7 +1948,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     partManagementPopup.show(PhotonicMockSimView.this, start.x, start.y);
                 }else
                 if(highlightComponent != null && highlightModule != null && highlightComponent.getComponentType() != OPTICAL_WAVEGUIDE && highlightComponent.getComponentType() != COPYANDSAVEORPASTE) {
-                    System.out.println("Component popup");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Component popup");
                     componentPopup.show(PhotonicMockSimView.this, start.x, start.y);
                 }else
                 if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true) {
@@ -1962,7 +1962,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 }
                 
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
-                    System.out.println("Showing block model module popup!!");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Showing block model module popup!!");
                     blockModelPopup.show(PhotonicMockSimView.this,start.x,start.y); 
                 }
                 return true;
@@ -1979,7 +1979,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 case COPYASOBJECTS:
                 break;
                 case COPYANDSAVE:
-                    System.out.println("testing copy and save in mouseDragged in view imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing copy and save in mouseDragged in view imageStart.x:"+imageStart.x+" imageFinish.x:"+imageFinish.x);
                     if(buttonState == MouseEvent.BUTTON1 ) {
                         if(tempComponent == null) {
                             int posy = start.y + getTopIndex().y;
@@ -1995,7 +1995,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                             if(theApp.getGridSnapStatus()==true) start = theApp.setNewStartPointWithSnap(start);
                             if(theApp.getGridSnapStatus()==true) last = theApp.setNewStartPointWithSnap(last);
                             
-                            System.out.println("1 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("1 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
                             tempComponent = CircuitComponent.createComponent(COPYANDSAVEORPASTE, Color.blue, start, last);
                             tempComponent.setPosition(start);
                         }else{
@@ -2010,7 +2010,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                             last.y = posy2;
                              int posx2 = last.x + getTopIndex().x;
                             last.x = posx2;
-                            System.out.println("2 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("2 start.x:"+start.x+" start.y:"+start.y+" last.x:"+last.x+" last.y:"+last.y);
                             
                             if(theApp.getGridSnapStatus()==true) start = theApp.setNewStartPointWithSnap(start);
                             if(theApp.getGridSnapStatus()==true) last = theApp.setNewStartPointWithSnap(last);
@@ -2061,165 +2061,165 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                             if(theApp.getGridSnapStatus()==true) start = theApp.setNewStartPointWithSnap(start);
                             if(theApp.getGridSnapStatus()==true) last = theApp.setNewStartPointWithSnap(last);
                             
-                            System.out.println("before Move start:"+start+" last:"+last);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("before Move start:"+start+" last:"+last);
                             //start debugging move algorithm before move---
-                            System.out.println("\n\n---- debugging move testing before move completeted ----");
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("\n\n---- debugging move testing before move completeted ----");
                             for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
                                 if(comp.getComponentType() == OPTICAL_WAVEGUIDE){
-                                    System.out.println("---- debugging before move testing line info for Line:"+comp.getComponentNumber()+" ----");
-                                    System.out.println("First link ConnectsToComponentNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                    System.out.println("First link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                    System.out.println("First link LinkNumber:"+comp.getComponentLinks().get(0).getLinkNumber());
-                                    System.out.println("First link DestinationComponentNumber:"+comp.getComponentLinks().get(0).getDestinationComponentNumber());
-                                    System.out.println("First link DestinationPortNumber:"+comp.getComponentLinks().get(0).getDestinationPortNumber());
-                                    System.out.println("First link DestinationPortLinkNumber:"+comp.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                    System.out.println("First link DestinationPhysicalLocation:"+comp.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- debugging before move testing line info for Line:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link LinkNumber:"+comp.getComponentLinks().get(0).getLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationComponentNumber:"+comp.getComponentLinks().get(0).getDestinationComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortNumber:"+comp.getComponentLinks().get(0).getDestinationPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortLinkNumber:"+comp.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPhysicalLocation:"+comp.getComponentLinks().get(0).getDestinationPhysicalLocation());
 
-                                    System.out.println("Second link ConnectsToComponentNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentNumber());
-                                    System.out.println("Second link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentPortNumber());
-                                    System.out.println("Second link LinkNumber:"+comp.getComponentLinks().get(1).getLinkNumber());
-                                    System.out.println("Second link DestinationComponentNumber:"+comp.getComponentLinks().get(1).getDestinationComponentNumber());
-                                    System.out.println("Second link DestinationPortNumber:"+comp.getComponentLinks().get(1).getDestinationPortNumber());
-                                    System.out.println("Second link DestinationPortLinkNumber:"+comp.getComponentLinks().get(1).getDestinationPortLinkNumber());
-                                    System.out.println("Second link DestinationPhysicalLocation:"+comp.getComponentLinks().get(1).getDestinationPhysicalLocation());
-                                    System.out.println("---- end debugging before move testing line info for Line:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link LinkNumber:"+comp.getComponentLinks().get(1).getLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationComponentNumber:"+comp.getComponentLinks().get(1).getDestinationComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortNumber:"+comp.getComponentLinks().get(1).getDestinationPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortLinkNumber:"+comp.getComponentLinks().get(1).getDestinationPortLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPhysicalLocation:"+comp.getComponentLinks().get(1).getDestinationPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging before move testing line info for Line:"+comp.getComponentNumber()+" ----");
                                 }else{
-                                    System.out.println("---- debugging before move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- debugging before move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
                                     for(InputConnector iConnector: comp.getInputConnectorsMap().values()){
                                         if(iConnector.getComponentLinks().size()>0){
-                                            System.out.println("-- debugging component iConnector:"+iConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
-                                            System.out.println("iConnector ConnectsToComponentNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                            System.out.println("iConnector ConnectsToComponentPortNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                            System.out.println("iConnector LinkNumber"+iConnector.getComponentLinks().get(0).getLinkNumber());
-                                            System.out.println("iConnector DestinationComponentNumber:"+iConnector.getComponentLinks().get(0).getDestinationComponentNumber());
-                                            System.out.println("iConnector DestinationPortNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortNumber());
-                                            System.out.println("iConnector DestinationPortLinkNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                            System.out.println("iConnector DestinationPhysicalLocation"+iConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
-                                            System.out.println("-- end debugging component iConnector:"+iConnector.getPortNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- debugging component iConnector:"+iConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector ConnectsToComponentNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector ConnectsToComponentPortNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector LinkNumber"+iConnector.getComponentLinks().get(0).getLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationComponentNumber:"+iConnector.getComponentLinks().get(0).getDestinationComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPortNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPortLinkNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPhysicalLocation"+iConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- end debugging component iConnector:"+iConnector.getPortNumber()+" --");
                                         }
                                     }
                                     for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                                         if(oConnector.getComponentLinks().size()>0){
-                                            System.out.println("-- debugging component oConnector:"+oConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
-                                            System.out.println("oConnector ConnectsToComponentNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                            System.out.println("oConnector ConnectsToComponentPortNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                            System.out.println("oConnector LinkNumber"+oConnector.getComponentLinks().get(0).getLinkNumber());
-                                            System.out.println("oConnector DestinationComponentNumber:"+oConnector.getComponentLinks().get(0).getDestinationComponentNumber());
-                                            System.out.println("oConnector DestinationPortNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortNumber());
-                                            System.out.println("oConnector DestinationPortLinkNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                            System.out.println("oConnector DestinationPhysicalLocation"+oConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
-                                            System.out.println("-- end debugging component oConnector:"+oConnector.getPortNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- debugging component oConnector:"+oConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector ConnectsToComponentNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector ConnectsToComponentPortNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector LinkNumber"+oConnector.getComponentLinks().get(0).getLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationComponentNumber:"+oConnector.getComponentLinks().get(0).getDestinationComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPortNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPortLinkNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPhysicalLocation"+oConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- end debugging component oConnector:"+oConnector.getPortNumber()+" --");
                                         }
                                     }
                                     
-                                    System.out.println("---- end debugging before move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging before move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
                                     
                                 }
                             }
-                            System.out.println("---- end debugging before move testing before move completeted ----\n\n");
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging before move testing before move completeted ----\n\n");
                             //end debugging move algorithm before move
                             
                             selectedComponent.move(last.x-start.x, last.y-start.y);
-                            System.out.println("selectedComponentNumber:"+selectedComponent.getComponentNumber());
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("selectedComponentNumber:"+selectedComponent.getComponentNumber());
                                                         
                             for(InputConnector iConnector : selectedComponent.getInputConnectorsMap().values()){
                                 for(ComponentLink componentLink : iConnector.getComponentLinks()){
                                     int compNumber = selectedComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),iConnector.getPortNumber());//line
-                                    System.out.println("lineNumber connected to selectedComponent input port = "+compNumber);
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("lineNumber connected to selectedComponent input port = "+compNumber);
                                     if(compNumber != 0){
                                         for(CircuitComponent component : highlightModule.getComponentsMap().values()){
-                                            System.out.println("testing iConnector for loop in move component:"+component.getComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing iConnector for loop in move component:"+component.getComponentNumber());
                                             if(compNumber == component.getComponentNumber()){//line
 
-                                                System.out.println("move iConnector before modify IConnectorPhysicalLocation:"+selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())+" IConnectorDestinationPhysicalLocation:"+selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("move iConnector before modify IConnectorPhysicalLocation:"+selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())+" IConnectorDestinationPhysicalLocation:"+selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));
                                                 /*component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                                 ///testing angle for adjusting bounds
-                                                System.out.println("input connector loop angle:"+angle);
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input connector loop angle:"+angle);
                                                 double angle = component.getRotation();
                                                 if(angle >= 0.0 && angle <= (Math.PI/2)){
-                                                    System.out.println("between 0 and 90 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                                     component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                                 }else
                                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                                     component.setPosition(tempPosition); 
                                                     //component.bounds = new java.awt.Rectangle(Math.min(start.x-component.getComponentWidth(), last.x-component.getComponentWidth()), Math.min(start.y, last.y), Math.abs(start.x - last.x)+1, Math.abs(start.y - last.y)+1);
                                                     //position.x = position.x - componentWidth;
                                                 }else
                                                 if(angle > -(Math.PI/2) && angle <= 0.0){
-                                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }else
                                                 if(angle < 0.0 && angle <= -(Math.PI/2)){
-                                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }*/
-//                                                System.out.println("1.0 line 11 second link DestinationPhysicalLocation:"+highlightModule.getComponentsMap().get(11).getComponentLinks().get(1).getDestinationPhysicalLocation());
+//                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("1.0 line 11 second link DestinationPhysicalLocation:"+highlightModule.getComponentsMap().get(11).getComponentLinks().get(1).getDestinationPhysicalLocation());
                                                 
                                                 Point tp1 = selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber());
                                                 Point tp2 = selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber());
-                                                System.out.println("tp1:"+tp1+" tp2:"+tp2);
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("tp1:"+tp1+" tp2:"+tp2);
                                                                                               
                                                 component.modify(tp1,tp2);
                                                                                                 
-                                                System.out.println("componentNumber:"+component.getComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("componentNumber:"+component.getComponentNumber());
                                                                                                
                                                 ///testing angle for adjusting bounds
-                                                System.out.println("input connector loop angle:"+angle);
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input connector loop angle:"+angle);
                                                 double angle = component.getRotation();
                                                 if(angle >= 0.0 && angle <= (Math.PI/2)){
-                                                    System.out.println("between 0 and 90 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                                     component.setPosition(selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber())); 
                                                 }else
                                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).y);
                                                     component.setPosition(tempPosition); 
                                                 }else
                                                 if(angle > -(Math.PI/2) && angle <= 0.0){
-                                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).x,selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }else
                                                 if(angle < 0.0 && angle <= -(Math.PI/2)){
-                                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()).y-component.getComponentBreadth());
                                                     component.setPosition(tempPosition); 
                                                 }
                                                 
                                                 ///end testing angle for adjusting bounds
-                                                System.out.println("---- move iconnector testing line info for Line:"+component.getComponentNumber()+" ----");
-                                                System.out.println("First link ConnectsToComponentNumber:"+component.getComponentLinks().getFirst().getConnectsToComponentNumber());
-                                                System.out.println("First link ConnectsToComponentPortNumber:"+component.getComponentLinks().getFirst().getConnectsToComponentPortNumber());
-                                                System.out.println("First link LinkNumber:"+component.getComponentLinks().getFirst().getLinkNumber());
-                                                System.out.println("First link DestinationComponentNumber:"+component.getComponentLinks().getFirst().getDestinationComponentNumber());
-                                                System.out.println("First link DestinationPortNumber:"+component.getComponentLinks().getFirst().getDestinationPortNumber());
-                                                System.out.println("First link DestinationPortLinkNumber:"+component.getComponentLinks().getFirst().getDestinationPortLinkNumber());
-                                                System.out.println("First link DestinationPhysicalLocation:"+component.getComponentLinks().getFirst().getDestinationPhysicalLocation());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- move iconnector testing line info for Line:"+component.getComponentNumber()+" ----");
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentNumber:"+component.getComponentLinks().getFirst().getConnectsToComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentPortNumber:"+component.getComponentLinks().getFirst().getConnectsToComponentPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link LinkNumber:"+component.getComponentLinks().getFirst().getLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationComponentNumber:"+component.getComponentLinks().getFirst().getDestinationComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortNumber:"+component.getComponentLinks().getFirst().getDestinationPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortLinkNumber:"+component.getComponentLinks().getFirst().getDestinationPortLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPhysicalLocation:"+component.getComponentLinks().getFirst().getDestinationPhysicalLocation());
                                                        
-                                                System.out.println("Second link ConnectsToComponentNumber:"+component.getComponentLinks().getLast().getConnectsToComponentNumber());
-                                                System.out.println("Second link ConnectsToComponentPortNumber:"+component.getComponentLinks().getLast().getConnectsToComponentPortNumber());
-                                                System.out.println("Second link LinkNumber:"+component.getComponentLinks().getLast().getLinkNumber());
-                                                System.out.println("Second link DestinationComponentNumber:"+component.getComponentLinks().getLast().getDestinationComponentNumber());
-                                                System.out.println("Second link DestinationPortNumber:"+component.getComponentLinks().getLast().getDestinationPortNumber());
-                                                System.out.println("Second link DestinationPortLinkNumber:"+component.getComponentLinks().getLast().getDestinationPortLinkNumber());
-                                                System.out.println("Second link DestinationPhysicalLocation:"+component.getComponentLinks().getLast().getDestinationPhysicalLocation());
-                                                System.out.println("---- end move iconnector testing line info for Line:"+component.getComponentNumber()+" ----");
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentNumber:"+component.getComponentLinks().getLast().getConnectsToComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentPortNumber:"+component.getComponentLinks().getLast().getConnectsToComponentPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link LinkNumber:"+component.getComponentLinks().getLast().getLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationComponentNumber:"+component.getComponentLinks().getLast().getDestinationComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortNumber:"+component.getComponentLinks().getLast().getDestinationPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortLinkNumber:"+component.getComponentLinks().getLast().getDestinationPortLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPhysicalLocation:"+component.getComponentLinks().getLast().getDestinationPhysicalLocation());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end move iconnector testing line info for Line:"+component.getComponentNumber()+" ----");
                                                
                                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                                     //component.getComponentLinks().getFirst().setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                                    System.out.println("1 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("1 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                                 }else
                                                 if(selectedComponent.getComponentType() == OPTICAL_INPUT_PORT){
                                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("2 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("2 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                                 }else{
                                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("3 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("3 input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                                 }
                                                                                                                     
                                                 int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
@@ -2232,7 +2232,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                                                 if(oConnector.getPortNumber() == selectedComponent.getIConnectorDestinationPort(componentLink.getLinkNumber(),iConnector.getPortNumber())){
                                                                     
                                                                     tempComponent.setOConnectorDestinationPhysicalLocation(componentLnk.getLinkNumber(),oConnector.getPortNumber(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
-                                                                    System.out.println("Setting OConnectorDestinationPhysicalLocation:"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber())+" componentNumber:"+tempComponent.getComponentNumber()+" port:"+oConnector.getPortNumber()+" selectedComponentNumber:"+selectedComponent.getComponentNumber()+" IConnectorDestinationComponentNumber:"+selectedComponent.getIConnectorDestinationComponentNumber(componentLink.getLinkNumber(),iConnector.getPortNumber())+" selectedComponent IConnector:"+iConnector.getPortNumber());
+                                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Setting OConnectorDestinationPhysicalLocation:"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber())+" componentNumber:"+tempComponent.getComponentNumber()+" port:"+oConnector.getPortNumber()+" selectedComponentNumber:"+selectedComponent.getComponentNumber()+" IConnectorDestinationComponentNumber:"+selectedComponent.getIConnectorDestinationComponentNumber(componentLink.getLinkNumber(),iConnector.getPortNumber())+" selectedComponent IConnector:"+iConnector.getPortNumber());
                                                                 }
                                                             }
                                                         }
@@ -2246,67 +2246,67 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                             for(OutputConnector oConnector : selectedComponent.getOutputConnectorsMap().values()){
                                 for(ComponentLink componentLink : oConnector.getComponentLinks()){
                                     int compNumber = selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber());//??
-                                    System.out.println("lineNumber connected to selectedComponent outputport = "+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("lineNumber connected to selectedComponent outputport = "+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                     if(compNumber != 0){
                                         for(CircuitComponent tmpcomponent : highlightModule.getComponentsMap().values()){
-                                            System.out.println("testing oConnector for loop in move component:"+tmpcomponent.getComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("testing oConnector for loop in move component:"+tmpcomponent.getComponentNumber());
                                             if(compNumber == tmpcomponent.getComponentNumber()){
 
                                                 tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
-                                                System.out.println("modify tmpcomponentNumber:"+tmpcomponent.getComponentNumber()+" selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("modify tmpcomponentNumber:"+tmpcomponent.getComponentNumber()+" selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                                 ///testing angle for adjusting bounds
-                                                System.out.println("output connector loop angle:"+angle);
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output connector loop angle:"+angle);
                                                 double angle = tmpcomponent.getRotation();
                                                 if(angle >= 0.0 && angle <= (Math.PI/2)){
-                                                    System.out.println("between 0 and 90 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                                     tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                                 }else
                                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                                     tmpcomponent.setPosition(tempPosition); 
                                                 }else
                                                 if(angle > -(Math.PI/2) && angle <= 0.0){
-                                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                                     tmpcomponent.setPosition(tempPosition);
                                                 }else
                                                 if(angle < 0.0 && angle <= -(Math.PI/2)){
-                                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                                     tmpcomponent.setPosition(tempPosition);
                                                 }
                                                 ///end testing angle for adjusting bounds
 
-                                                System.out.println("---- move oconnector testing line info for Line:"+tmpcomponent.getComponentNumber()+" ----");
-                                                System.out.println("First link ConnectsToComponentNumber:"+tmpcomponent.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                                System.out.println("First link ConnectsToComponentPortNumber:"+tmpcomponent.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                                System.out.println("First link LinkNumber:"+tmpcomponent.getComponentLinks().get(0).getLinkNumber());
-                                                System.out.println("First link DestinationComponentNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationComponentNumber());
-                                                System.out.println("First link DestinationPortNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationPortNumber());
-                                                System.out.println("First link DestinationPortLinkNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                                System.out.println("First link DestinationPhysicalLocation:"+tmpcomponent.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- move oconnector testing line info for Line:"+tmpcomponent.getComponentNumber()+" ----");
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentNumber:"+tmpcomponent.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentPortNumber:"+tmpcomponent.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link LinkNumber:"+tmpcomponent.getComponentLinks().get(0).getLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationComponentNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortLinkNumber:"+tmpcomponent.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPhysicalLocation:"+tmpcomponent.getComponentLinks().get(0).getDestinationPhysicalLocation());
                                                        
-                                                System.out.println("Second link ConnectsToComponentNumber:"+tmpcomponent.getComponentLinks().get(1).getConnectsToComponentNumber());
-                                                System.out.println("Second link ConnectsToComponentPortNumber:"+tmpcomponent.getComponentLinks().get(1).getConnectsToComponentPortNumber());
-                                                System.out.println("Second link LinkNumber:"+tmpcomponent.getComponentLinks().get(1).getLinkNumber());
-                                                System.out.println("Second link DestinationComponentNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationComponentNumber());
-                                                System.out.println("Second link DestinationPortNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationPortNumber());
-                                                System.out.println("Second link DestinationPortLinkNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationPortLinkNumber());
-                                                System.out.println("Second link DestinationPhysicalLocation:"+tmpcomponent.getComponentLinks().get(1).getDestinationPhysicalLocation());
-                                                System.out.println("---- end move oconnector testing line info for Line:"+tmpcomponent.getComponentNumber()+" ----");
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentNumber:"+tmpcomponent.getComponentLinks().get(1).getConnectsToComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentPortNumber:"+tmpcomponent.getComponentLinks().get(1).getConnectsToComponentPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link LinkNumber:"+tmpcomponent.getComponentLinks().get(1).getLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationComponentNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationComponentNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationPortNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortLinkNumber:"+tmpcomponent.getComponentLinks().get(1).getDestinationPortLinkNumber());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPhysicalLocation:"+tmpcomponent.getComponentLinks().get(1).getDestinationPhysicalLocation());
+                                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end move oconnector testing line info for Line:"+tmpcomponent.getComponentNumber()+" ----");
                                     
                                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                                    System.out.println("1 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("1 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                                 }else
                                                 if(selectedComponent.getComponentType() == OPTICAL_INPUT_PORT){
                                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("2 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("2 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                                 }else{
                                                     //tmpcomponent.getComponentLinks().getLast().setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                                    System.out.println("3 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("3 output port Setting lines source physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                                 }
                                                                                                 
                                                 int oConnectorCtr=oConnector.getPortNumber(); 
@@ -2318,7 +2318,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                                                 if(inConnector.getPortNumber() == selectedComponent.getOConnectorDestinationPort(componentLink.getLinkNumber(),oConnector.getPortNumber())){
 
                                                                     tempComponent.setIConnectorDestinationPhysicalLocation(componentLnk.getLinkNumber(),inConnector.getPortNumber(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
-                                                                    System.out.println("Setting IConnectorDestinationPhysicalLocation:"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber())+" componentNumber:"+tempComponent.getComponentNumber()+" port:"+inConnector.getPortNumber()+" selectedComponentNumber:"+selectedComponent.getComponentNumber()+" OConnectorDestinationComponentNumber:"+selectedComponent.getOConnectorDestinationComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber())+" selectedComponent OConnector:"+oConnector.getPortNumber());
+                                                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Setting IConnectorDestinationPhysicalLocation:"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber())+" componentNumber:"+tempComponent.getComponentNumber()+" port:"+inConnector.getPortNumber()+" selectedComponentNumber:"+selectedComponent.getComponentNumber()+" OConnectorDestinationComponentNumber:"+selectedComponent.getOConnectorDestinationComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber())+" selectedComponent OConnector:"+oConnector.getPortNumber());
                                                                 }
                                                             }
                                                         }
@@ -2331,66 +2331,66 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                             }
                         
                             //start debugging move algorithm ---
-                            System.out.println("\n\n---- debugging move testing after move completeted ----");
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("\n\n---- debugging move testing after move completeted ----");
                             for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
-                                System.out.println("comp Number:"+comp.getComponentNumber());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("comp Number:"+comp.getComponentNumber());
                                 if(comp.getComponentType() == OPTICAL_WAVEGUIDE){
-                                    System.out.println("---- debugging move testing line info for Line:"+comp.getComponentNumber()+" ----");
-                                    System.out.println("First link ConnectsToComponentNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                    System.out.println("First link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                    System.out.println("First link LinkNumber:"+comp.getComponentLinks().get(0).getLinkNumber());
-                                    System.out.println("First link DestinationComponentNumber:"+comp.getComponentLinks().get(0).getDestinationComponentNumber());
-                                    System.out.println("First link DestinationPortNumber:"+comp.getComponentLinks().get(0).getDestinationPortNumber());
-                                    System.out.println("First link DestinationPortLinkNumber:"+comp.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                    System.out.println("First link DestinationPhysicalLocation:"+comp.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- debugging move testing line info for Line:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link LinkNumber:"+comp.getComponentLinks().get(0).getLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationComponentNumber:"+comp.getComponentLinks().get(0).getDestinationComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortNumber:"+comp.getComponentLinks().get(0).getDestinationPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPortLinkNumber:"+comp.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("First link DestinationPhysicalLocation:"+comp.getComponentLinks().get(0).getDestinationPhysicalLocation());
 
-                                    System.out.println("Second link ConnectsToComponentNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentNumber());
-                                    System.out.println("Second link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentPortNumber());
-                                    System.out.println("Second link LinkNumber:"+comp.getComponentLinks().get(1).getLinkNumber());
-                                    System.out.println("Second link DestinationComponentNumber:"+comp.getComponentLinks().get(1).getDestinationComponentNumber());
-                                    System.out.println("Second link DestinationPortNumber:"+comp.getComponentLinks().get(1).getDestinationPortNumber());
-                                    System.out.println("Second link DestinationPortLinkNumber:"+comp.getComponentLinks().get(1).getDestinationPortLinkNumber());
-                                    System.out.println("Second link DestinationPhysicalLocation:"+comp.getComponentLinks().get(1).getDestinationPhysicalLocation());
-                                    System.out.println("---- end debugging move testing line info for Line:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link ConnectsToComponentPortNumber:"+comp.getComponentLinks().get(1).getConnectsToComponentPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link LinkNumber:"+comp.getComponentLinks().get(1).getLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationComponentNumber:"+comp.getComponentLinks().get(1).getDestinationComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortNumber:"+comp.getComponentLinks().get(1).getDestinationPortNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPortLinkNumber:"+comp.getComponentLinks().get(1).getDestinationPortLinkNumber());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Second link DestinationPhysicalLocation:"+comp.getComponentLinks().get(1).getDestinationPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging move testing line info for Line:"+comp.getComponentNumber()+" ----");
                                 }else{
-                                    System.out.println("---- debugging move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- debugging move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
                                     for(InputConnector iConnector: comp.getInputConnectorsMap().values()){
                                         if(iConnector.getComponentLinks().size()>0){
-                                            System.out.println("-- debugging component iConnector:"+iConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
-                                            System.out.println("iConnector ConnectsToComponentNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                            System.out.println("iConnector ConnectsToComponentPortNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                            System.out.println("iConnector LinkNumber"+iConnector.getComponentLinks().get(0).getLinkNumber());
-                                            System.out.println("iConnector DestinationComponentNumber:"+iConnector.getComponentLinks().get(0).getDestinationComponentNumber());
-                                            System.out.println("iConnector DestinationPortNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortNumber());
-                                            System.out.println("iConnector DestinationPortLinkNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                            System.out.println("iConnector DestinationPhysicalLocation"+iConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
-                                            System.out.println("-- end debugging component iConnector:"+iConnector.getPortNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- debugging component iConnector:"+iConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector ConnectsToComponentNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector ConnectsToComponentPortNumber:"+iConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector LinkNumber"+iConnector.getComponentLinks().get(0).getLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationComponentNumber:"+iConnector.getComponentLinks().get(0).getDestinationComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPortNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPortLinkNumber:"+iConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("iConnector DestinationPhysicalLocation"+iConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- end debugging component iConnector:"+iConnector.getPortNumber()+" --");
                                         }
                                     }
                                     for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                                         if(oConnector.getComponentLinks().size()>0){
-                                            System.out.println("-- debugging component oConnector:"+oConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
-                                            System.out.println("oConnector ConnectsToComponentNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
-                                            System.out.println("oConnector ConnectsToComponentPortNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
-                                            System.out.println("oConnector LinkNumber"+oConnector.getComponentLinks().get(0).getLinkNumber());
-                                            System.out.println("oConnector DestinationComponentNumber:"+oConnector.getComponentLinks().get(0).getDestinationComponentNumber());
-                                            System.out.println("oConnector DestinationPortNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortNumber());
-                                            System.out.println("oConnector DestinationPortLinkNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
-                                            System.out.println("oConnector DestinationPhysicalLocation"+oConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
-                                            System.out.println("-- end debugging component oConnector:"+oConnector.getPortNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- debugging component oConnector:"+oConnector.getPortNumber()+" componentNumber:"+comp.getComponentNumber()+" --");
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector ConnectsToComponentNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector ConnectsToComponentPortNumber:"+oConnector.getComponentLinks().get(0).getConnectsToComponentPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector LinkNumber"+oConnector.getComponentLinks().get(0).getLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationComponentNumber:"+oConnector.getComponentLinks().get(0).getDestinationComponentNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPortNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPortLinkNumber:"+oConnector.getComponentLinks().get(0).getDestinationPortLinkNumber());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("oConnector DestinationPhysicalLocation"+oConnector.getComponentLinks().get(0).getDestinationPhysicalLocation());
+                                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- end debugging component oConnector:"+oConnector.getPortNumber()+" --");
                                         }
                                     }
-                                    System.out.println("---- end debugging move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging move testing componentType:"+comp.getComponentType()+" componentNumber:"+comp.getComponentNumber()+" ----");
                                 }
                             }
-                            System.out.println("---- end debugging move testing after move completeted ----\n\n");
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("---- end debugging move testing after move completeted ----\n\n");
                             //end debugging move algorithm
                             
                         }//end if highlightModule != null
                         
                         repaint();
                         start = last;
-                        System.out.println("start = last:"+start);
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("start = last:"+start);
                     }
                     break;
                 case MOVE_TEMP_MODULE://copy and paste
@@ -2466,7 +2466,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 moveBlockModelPartPads(deltaX, deltaY);
             }else
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
-                System.out.println("Moving highlightModuleNumber:"+highlightModule.getModuleNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Moving highlightModuleNumber:"+highlightModule.getModuleNumber());
                 highlightModule.move(deltaX,deltaY);
                 moveBlockModelModulePads(deltaX, deltaY);
             }
@@ -2487,9 +2487,9 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     }
                 }
             }
-            System.out.println("moveBlockModelModulePads moduleLinked:"+moduleLinked.getModuleNumber());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("moveBlockModelModulePads moduleLinked:"+moduleLinked.getModuleNumber());
             for(CircuitComponent selectedComponent : highlightModule.getBlockModelInputConnectorComponentList()){
-                System.out.println("selectedComponentNumber:"+selectedComponent.getComponentNumber());
+                if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("selectedComponentNumber:"+selectedComponent.getComponentNumber());
                 selectedComponent.move(deltaX, deltaY);
                 
                 for(InputConnector iConnector : selectedComponent.getInputConnectorsMap().values()){
@@ -2500,24 +2500,24 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 if(compNumber == component.getComponentNumber()){//line
                                     component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                     ///testing angle for adjusting bounds
-                                    System.out.println("angle:"+angle);
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                     double angle = component.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                         component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }
@@ -2527,10 +2527,10 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         //component.getComponentLinks().getFirst().setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                         component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                     }else{
                                         component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
                                     int iConnectorCtr=1;
@@ -2563,24 +2563,24 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 if(compNumber == tmpcomponent.getComponentNumber()){
                                     tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                     ///testing angle for adjusting bounds
-                                   System.out.println("angle:"+angle);
+                                   if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                    double angle = tmpcomponent.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                         tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                         tmpcomponent.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }
@@ -2588,11 +2588,11 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     //tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                     }else{
                                         //tmpcomponent.getComponentLinks().getLast().setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                         tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int oConnectorCtr=oConnector.getPortNumber(); 
                                     for(CircuitComponent tempComponent : moduleLinked.getComponentsMap().values()){
@@ -2627,24 +2627,24 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 if(compNumber == component.getComponentNumber()){//line
                                     component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                     ///testing angle for adjusting bounds
-                                    System.out.println("angle:"+angle);
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                     double angle = component.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                         component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                         component.setPosition(tempPosition); 
                                     }
@@ -2654,10 +2654,10 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         //component.getComponentLinks().getFirst().setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                         component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                     }else{
                                         component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
                                     int iConnectorCtr=1;
@@ -2691,24 +2691,24 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 if(compNumber == tmpcomponent.getComponentNumber()){
                                     tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                     ///testing angle for adjusting bounds
-                                   System.out.println("angle:"+angle);
+                                   if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                    double angle = tmpcomponent.getRotation();
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("between 0 and 90 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                         tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                         tmpcomponent.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                         tmpcomponent.setPosition(tempPosition);
                                     }
@@ -2716,11 +2716,11 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                     //tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                     if(selectedComponent.getComponentType() == PIVOT_POINT){
                                         tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                     }else{
                                         tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                         //tmpcomponent.getComponentLinks().getLast().setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                        System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                     }
                                     int oConnectorCtr=oConnector.getPortNumber(); 
                                     for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
@@ -2761,7 +2761,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
             }
 
             if( mode == MOVE_TEMP_MODULE) {//
-                System.out.println("mousereleased1 mode:"+mode);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("mousereleased1 mode:"+mode);
                 selectedComponent = null;
                 start = last = null;
                 highlightComponent.getCopyComponentsMap().clear();
@@ -2772,7 +2772,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 return;
             }
             if(mode == MOVE || mode == MOVE_MODULE || mode == ROTATE || mode == COPYANDSAVE ) {//
-                System.out.println("mousereleased2 mode:"+mode);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("mousereleased2 mode:"+mode);
                 selectedComponent = null;
                 start = last = null;
 
@@ -2781,7 +2781,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
             }
 
             if(mode == MOVE_BLOCK_MODEL){
-                System.out.println("------ MouseReleased "+ mode+"-----");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("------ MouseReleased "+ mode+"-----");
                 if(highlightPart != null && highlightPart.getBlockModelExistsBoolean()==true)highlightPart = null;
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean()==true)highlightModule = null;
                 start = last = null;
@@ -2831,13 +2831,13 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                 
                 
                 Point cursor2 = e.getPoint();
-                System.out.println("Cursor2:"+cursor2);
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Cursor2:"+cursor2);
                 if(part.getBlockModelExistsBoolean() == true ){
-                    System.out.println("Part Number:"+part.getPartNumber());
-                    System.out.println("Bounds not equal null :"+part.getBounds());
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Part Number:"+part.getPartNumber());
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Bounds not equal null :"+part.getBounds());
 
                     if(part.getBounds().contains(cursor2) ) {
-                        System.out.println("------------------------------Part "+part.getPartNumber()+" contains cursor-------------------------");
+                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("------------------------------Part "+part.getPartNumber()+" contains cursor-------------------------");
 
                         if(part == highlightPart) {
                             return;
@@ -2863,12 +2863,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                         for(Module module : layer.getModulesMap().descendingMap().values()) {  
                             Point cursor3 = e.getPoint();
-                            System.out.println("Cursor3:"+cursor3);
+                            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Cursor3:"+cursor3);
                             if(module.getBlockModelExistsBoolean() == true){
-                                System.out.println("BlockModelExists Cursor3:"+cursor3+" module.getBlockModelBounds():"+module.getBlockModelBounds());
-                                System.out.println("module bounds:"+module.getbounds());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("BlockModelExists Cursor3:"+cursor3+" module.getBlockModelBounds():"+module.getBlockModelBounds());
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("module bounds:"+module.getbounds());
                                 if(module.getBlockModelBounds().contains(cursor3) ) {
-                                    System.out.println("------------------------------Module "+module.getModuleNumber()+" moduleNumber"+module.getModuleNumber()+" contains cursor-------------------------");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("------------------------------Module "+module.getModuleNumber()+" moduleNumber"+module.getModuleNumber()+" contains cursor-------------------------");
 
                                     if(module == highlightModule) {
                                         return;
@@ -2920,9 +2920,9 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                                 if(component.getComponentType() == OPTICAL_WAVEGUIDE){
                                     cursor = e.getPoint();
-                                    System.out.println("optical waveguide checking bounds");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide checking bounds");
                                     if(oriented_rectangle_point_collide(component, cursor)){
-                                        System.out.println("optical waveguide checking bounds 2");
+                                        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide checking bounds 2");
                                             if(component == highlightComponent) {
                                             return;
                                         }
@@ -3000,7 +3000,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         /// the problem here is with the bounds I need to be able todo with the positions with the bounds 
         
         public boolean oriented_rectangle_point_collide(CircuitComponent comp, Point p){
-			System.out.println("optical waveguide checking bounds oriented_rectangle_point_collide");
+			if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("optical waveguide checking bounds oriented_rectangle_point_collide");
 			Rectangle lr = new Rectangle();
 
 			//double A = Math.abs(comp.position.x -comp.getEndPosition().x);//works
@@ -3029,7 +3029,7 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 			lp = rotate_vector(lp, -comp.angle);
 			lp = add_vector(lp,new Point(R/2, 2));
 
-			System.out.println("lp"+lp);
+			if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("lp"+lp);
 
 			return point_rectangle_collide(lp,lr);
 
@@ -3071,9 +3071,9 @@ public class PhotonicMockSimView extends JComponent implements Observer{
         @Override
         public void mouseClicked(MouseEvent e){
             //only if text and button 1 clicked
-            System.out.println("Mouse Clicked");
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Mouse Clicked");
             if(theApp.getWindow().getComponentType() == TEXT && buttonState == MouseEvent.BUTTON1){
-                System.out.println("Mouse Clicked text button 1");
+                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("Mouse Clicked text button 1");
                 String text = JOptionPane.showInputDialog(theApp.getWindow(),"Enter Input:","Create Text Component", JOptionPane.PLAIN_MESSAGE);
                 if(text != null && !text.isEmpty()){
                     g2D = (Graphics2D)getGraphics();
@@ -3082,12 +3082,12 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                     int posx = start.x + getTopIndex().x;
                     start.x = posx;
                     tempComponent = new CircuitComponent.Text(text, start, Color.black, g2D.getFontMetrics(theApp.getWindow().getFont()));
-                    if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("mouseClicked Text created tempComponent text");
+                    if(DEBUG_PHOTONICMOCKSIMVIEW)if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("mouseClicked Text created tempComponent text");
                     g2D.dispose();
                     g2D = null;
                     if(tempComponent != null){
                         highlightModule.add(tempComponent);
-                        if(DEBUG_PHOTONICMOCKSIMVIEW)System.out.println("mouseClicked text added text to model with text:"+text);
+                        if(DEBUG_PHOTONICMOCKSIMVIEW)if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("mouseClicked text added text to model with text:"+text);
                     }
                 }
                 //text = null;
@@ -3126,26 +3126,26 @@ public class PhotonicMockSimView extends JComponent implements Observer{
 
                                component.modify(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()), selectedComponent.getIConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                                ///testing angle for adjusting bounds
-                               System.out.println("angle:"+angle);
+                               if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                double angle = component.getRotation();
                                 if(angle >= 0 && angle <= (Math.PI/2)){
-                                    System.out.println("between 0 and 90 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                     component.setPosition(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                                 }else
                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                     component.setPosition(tempPosition); 
                                     //component.bounds = new java.awt.Rectangle(Math.min(start.x-component.getComponentWidth(), last.x-component.getComponentWidth()), Math.min(start.y, last.y), Math.abs(start.x - last.x)+1, Math.abs(start.y - last.y)+1);
                                     //position.x = position.x - componentWidth;
                                 }else
                                 if(angle > -(Math.PI/2) && angle <= 0){
-                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                     component.setPosition(tempPosition); 
                                 }else
                                 if(angle < 0 && angle <= -(Math.PI/2)){
-                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                     Point tempPosition = new Point(selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),selectedComponent.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                     component.setPosition(tempPosition); 
                                 }
@@ -3155,11 +3155,11 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                     //component.getComponentLinks().getFirst().setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
-                                    System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(1).getPhysicalLocation());
                                 }else{
                                     component.getComponentLinks().get(1).setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                     //component.getComponentLinks().getFirst().setDestinationPhysicalLoctaion(selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
-                                    System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("input port Setting lines destination physicalLocation to:"+selectedComponent.getInputConnectorsMap().get(iConnector.getPortNumber()).getPhysicalLocation());
                                 }
                                 int iConnectorCtrSize = selectedComponent.getInputConnectorsMap().size();
                                 int iConnectorCtr=1;
@@ -3185,34 +3185,34 @@ public class PhotonicMockSimView extends JComponent implements Observer{
             for(OutputConnector oConnector : (selectedComponent.getOutputConnectorsMap()).values()){
                 for(ComponentLink componentLink : oConnector.getComponentLinks()){
                     int compNumber = selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber());//??
-                    System.out.println("In view selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("In view selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                     if(compNumber != 0){
                         for(CircuitComponent tmpcomponent : highlightModule.getComponentsMap().values()){
                             if(compNumber == tmpcomponent.getComponentNumber()){
 
                                 tmpcomponent.modify(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()),selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
-                                System.out.println("selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
+                                if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()):"+selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber())+" selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()):"+selectedComponent.getOConnectorDestinationPhysicalLocation(componentLink.getLinkNumber(),oConnector.getPortNumber()));
                                 ///testing angle for adjusting bounds
-                               System.out.println("angle:"+angle);
+                               if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("angle:"+angle);
                                double angle = tmpcomponent.getRotation();
                                 if(angle >= 0 && angle <= (Math.PI/2)){
-                                    System.out.println("between 0 and 90 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("between 0 and 90 degrees");
                                     tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                 }else
                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                    System.out.println("greater then 90 degrees and less then 180 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater then 90 degrees and less then 180 degrees");
                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                     tmpcomponent.setPosition(tempPosition); 
                                     //tmpcomponent.bounds = new java.awt.Rectangle(Math.min(start.x-tmpcomponent.getComponentWidth(), last.x-tmpcomponent.getComponentWidth()), Math.min(start.y, last.y), Math.abs(start.x - last.x)+1, Math.abs(start.y - last.y)+1);
                                     //position.x = position.x - componentWidth;
                                 }else
                                 if(angle > -(Math.PI/2) && angle <= 0){
-                                    System.out.println("greater than 180 degrees and less then 270 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 180 degrees and less then 270 degrees");
                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                     tmpcomponent.setPosition(tempPosition);
                                 }else
                                 if(angle < 0 && angle <= -(Math.PI/2)){
-                                    System.out.println("greater than 270 degrees and less then 360 degrees");
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("greater than 270 degrees and less then 360 degrees");
                                     Point tempPosition = new Point(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                     tmpcomponent.setPosition(tempPosition);
                                 }
@@ -3220,10 +3220,10 @@ public class PhotonicMockSimView extends JComponent implements Observer{
                                 //tmpcomponent.setPosition(selectedComponent.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                                 if(selectedComponent.getComponentType() == PIVOT_POINT){
                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
-                                    System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(2).getPhysicalLocation());
                                 }else{
                                     tmpcomponent.getComponentLinks().get(0).setDestinationPhysicalLoctaion(selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
-                                    System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
+                                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("output port Setting lines destination physicalLocation to:"+selectedComponent.getOutputConnectorsMap().get(oConnector.getPortNumber()).getPhysicalLocation());
                                 }
                                 int oConnectorCtr=oConnector.getPortNumber(); 
                                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){

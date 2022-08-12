@@ -51,7 +51,7 @@ import org.w3c.dom.NodeList;
 
 public class PhotonicMockSim  extends JFrame implements WindowListener,WindowStateListener{
     public PhotonicMockSim(){
-        System.out.println("Constructor");
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Constructor");
         
     }
     
@@ -65,7 +65,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
     }
 
     public void createGUI() {
-        window = new PhotonicMockSimFrame("Digital Photonic Simulator V2.01  ",this);
+        window = new PhotonicMockSimFrame("Digital Photonic Simulator V2.02.01  ",this);
         
         Toolkit theKit = window.getToolkit();
         Dimension wndSize = theKit.getScreenSize();
@@ -208,9 +208,9 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
     }
     
     public Point setNewStartPointWithSnap(Point start){
-        System.out.println("mouseClicked start"+start+" gridWidth:"+getGridWidth());
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("mouseClicked start"+start+" gridWidth:"+getGridWidth());
         int remainderX = start.x % getGridWidth();
-        System.out.println("remainderX:"+remainderX);
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("remainderX:"+remainderX);
         int halfWidth = getGridWidth()/2;
 
         if(remainderX >= halfWidth){
@@ -220,7 +220,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
         }
 
         int remainderY = start.y % getGridHeight();
-        System.out.println("remainderY:"+remainderY);
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("remainderY:"+remainderY);
         int halfHeight = getGridHeight()/2;
         if(remainderY >= halfHeight){
             start.y = start.y - remainderY + getGridHeight();
@@ -228,7 +228,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
             start.y = start.y-remainderY;
         }
 
-        System.out.println("mouseClicked new start:"+start);
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("mouseClicked new start:"+start);
         return start;
     }
     
@@ -390,11 +390,11 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
                         NodeList elementChildNodes = elementNode.getChildNodes();
                         for(int x=0; x < elementChildNodes.getLength(); ++x){
                             Node node = elementChildNodes.item(x);
-                            System.out.println("node name:"+node.getNodeName());
+                            if(DEBUG_PHOTONICMOCKSIM) System.out.println("node name:"+node.getNodeName());
                             if(node.getNodeName().equals("BlockModel")){
                                 //"BlockModel":
                                 //part.setBlockModelExistsBoolean(true);
-                                System.out.println("BlockModelExists partNumber");
+                                if(DEBUG_PHOTONICMOCKSIM) System.out.println("BlockModelExists partNumber");
                                 NodeList nodeList = node.getChildNodes();
                                 theApp.setBlockModelNodeList(nodeList);
                             }
@@ -474,9 +474,9 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "PackageModelForPart":
-                        System.out.println("part creation from xml");
+                        if(DEBUG_PHOTONICMOCKSIM) System.out.println("part creation from xml");
                         part.createPartModelFromXML(elementNode);
-                        System.out.println("part number:"+part.getPartNumber());
+                        if(DEBUG_PHOTONICMOCKSIM) System.out.println("part number:"+part.getPartNumber());
                 }
             }
         }
@@ -495,13 +495,13 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
     }*/
 
     public void windowOpened(WindowEvent e){
-        System.out.println("Window Opened event"); 
-        JOptionPane.showMessageDialog(null, "Welcome to Version 2.0 of the simulator");
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Window Opened event"); 
+        JOptionPane.showMessageDialog(null, "Welcome to Version 2.02.01 of the simulator");
     }
     
-    public void windowClosed(WindowEvent e){System.out.println("Window Closed event");}
+    public void windowClosed(WindowEvent e){if(DEBUG_PHOTONICMOCKSIM) System.out.println("Window Closed event");}
     public void windowClosing(WindowEvent e) {
-        System.out.println("Window Closing event!!");
+        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Window Closing event!!");
         window.checkForSave();
         window.dispose();
         System.exit(0);
@@ -509,7 +509,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
     public void windowStateChanged(WindowEvent e){
         int state = e.getNewState();
         if(state == Frame.MAXIMIZED_BOTH){
-            System.out.println("The window is maximised");
+            if(DEBUG_PHOTONICMOCKSIM) System.out.println("The window is maximised");
            /* Toolkit theKit = window.getToolkit();
             Dimension wndSize = theKit.getScreenSize();
 
@@ -519,7 +519,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
             window.getContentPane().remove(vsb);
             window.getContentPane().remove(hsb);*/
         }else {
-            System.out.println("The window is minimised");
+            if(DEBUG_PHOTONICMOCKSIM) System.out.println("The window is minimised");
             /*Toolkit theKit = window.getToolkit();
             Dimension wndSize = theKit.getScreenSize();
             window.setSize(wndSize.width/2,wndSize.height/2);
@@ -533,7 +533,7 @@ public class PhotonicMockSim  extends JFrame implements WindowListener,WindowSta
     public void windowIconified(WindowEvent e){}
     public void windowDeiconified(WindowEvent e){}
     public void windowActivated(WindowEvent e){}
-    public void windowDeactivated(WindowEvent e){System.out.println("Window deactivated event");}
+    public void windowDeactivated(WindowEvent e){if(DEBUG_PHOTONICMOCKSIM) System.out.println("Window deactivated event");}
 
     public void setExecutionQueueBuiltFlag(boolean flagValue){
         executionQueueBuiltFlag = flagValue;

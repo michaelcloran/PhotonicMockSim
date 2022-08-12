@@ -14,6 +14,32 @@ Closed Source Software
 
 
 package Constants;
+import com.photoniccomputer.htmleditor.dialogs.DocumentPropsDlg;
+import com.photoniccomputer.htmleditor.dialogs.FindDialog;
+import com.photoniccomputer.htmleditor.dialogs.HTMLSourceDlg;
+import com.photoniccomputer.htmleditor.dialogs.TableDlg;
+import com.photoniccomputer.htmleditor.dialogs.utils.DialogLayout2;
+import com.photoniccomputer.htmleditor.dialogs.utils.DocumentTokenizer;
+import com.photoniccomputer.htmleditor.dialogs.utils.OpenList;
+import com.photoniccomputer.htmleditor.tabbedhtmleditordialog.Documents;
+import com.photoniccomputer.htmleditor.tabbedhtmleditordialog.DocumentsList;
+import com.photoniccomputer.htmleditor.tabbedhtmleditordialog.TabbedHTMLEditorDialog;
+import com.photoniccomputer.htmleditor.utils.CustomHTMLEditorKit;
+import com.photoniccomputer.htmleditor.utils.MutableHTMLDocument;
+import com.photoniccomputer.photonicmocksim.dialogs.*;
+import com.photoniccomputer.photonicmocksim.dialogs.blockmodel.*;
+import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerComponent;
+import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerFrame;
+import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerModel;
+import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerView;
+import com.photoniccomputer.photonicmocksim.dialogs.showblockmodelcontents.ShowBlockModelContentsFrame;
+import com.photoniccomputer.photonicmocksim.dialogs.showblockmodelcontents.ShowBlockModelContentsView;
+import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorComponent;
+import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorFrame;
+import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorModel;
+import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorView;
+import com.photoniccomputer.photonicmocksim.utils.*;
+
 import java.awt.*;
 
 import java.nio.file.Path;
@@ -285,14 +311,312 @@ public final static int         DEFAULT_BLOCKMODEL_LINE_LENGTH          = 10;
 
 //debug functionality via debug file
 public final static boolean DEBUG                                               = false;
+
+//CircuitComponent.java
+public final static boolean DEBUG_CIRCUITCOMPONENT                              = false;
+
+//PhotonicMockSim.java
+public final static boolean DEBUG_PHOTONICMOCKSIM                               = false;
+
+//PhotonicMockSimView.java
 public final static boolean DEBUG_PHOTONICMOCKSIMVIEW                           = false;
+
+//PhotonicMockSimFrame
+public final static boolean DEBUG_PHOTONICMOCKSIMFRAME                        = false;
 public final static boolean DEBUG_SIMULATEDIALOG                                = false;
 public final static boolean DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE            = false;
 public final static boolean DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE  = false;
 public final static boolean DEBUG_INITIALISESYSTEM                              = false;
 public final static boolean DEBUG_SIMULATESYSTEM                                = false;
+
+//PhotonicMockSimModel
+public final static boolean DEBUG_PHOTONICMOCKSIMMODEL                          = false;
+
+//idealSimulationModel.java
 public final static boolean DEBUG_IDEALSIMULATIONMODEL                          = false;
+
+//LinkDialog.java
 public final static boolean DEBUG_LINKDIALOG                                    = false;
+
+
+//AddBlockModelPartDialog
+public final static boolean DEBUG_ADDLOCKMODELPARTDIALOG                        = false;
+
+//AddDebugTestpointsDialog
+public final static boolean DEBUG_ADDDEBUGTESTPOINTSDIALOG                      = false;    //not used
+
+//addLayerDialog
+public final static boolean DEBUG_ADDLAYERDIALOG                                = false;    //not used
+
+//addModuleDialog
+public final static boolean DEBUG_ADDMODULEDIALOG                               = false; //not used
+
+//addPartDialog
+public final static boolean DEBUG_ADDPARTDIALOG                                 = false;  //not used
+
+//ChooseBlockModelTypeDialog
+public final static boolean DEBUG_CHOOSEBLOCKMODELTYPEDIALOG                    = false; //not used
+
+//ChooseKeyboardHubDialog
+public final static boolean DEBUG_CHOOSEKEYBOARDHUBDIALOG                       = false;    //not used
+
+//ChooseModuleForBlockModelDialog
+public final static boolean DEBUG_CHOOSEMODULEFORBLOCKMODELDIALOG               = false; //not used
+
+//ChooseMonitorHubDialog
+public final static boolean DEBUG_CHOOSEMONITORHUBDIALOG                        = false;    //not used
+
+//ChoosePartForBlockModelDialog
+public final static boolean DEBUG_CHOOSEPARTFORBLOCKMODELDIALOG                 = false; //not used#
+
+//CreatePivotPointDialog
+public final static boolean DEBUG_CREATEPIVOTPOINTDIALOG                        = false;
+
+//CreateProjectDialog
+public final static boolean DEBUG_CREATEPROJECTDIALOG                           = false;
+
+//DeleteComponent
+public final static boolean DEBUG_DELETECOMPONENT                               = false;
+
+//deleteLayerDialog
+public final static boolean DEBUG_DELETELAYERDIALOG                             = false;    //not used
+
+//deleteModuleDialog
+public final static boolean DEBUG_DELETEMODULEDIALOG                            = false;    //not used
+
+//deletePartDialog
+public final static boolean DEBUG_DELETEPARTDIALOG                              = false; //not used
+
+//FontDialog
+public final static boolean DEBUG_FONTDIALOG                                    = false;    //not used
+
+//GridConfigurationDialog
+public final static boolean DEBUG_GRIDCONFIGURATIONDIALOG                       = false; //not used
+
+//KeyboardDialog
+public final static boolean DEBUG_KEYBOARDDIALOG                                = false;    //not used
+
+//LoadHTMLEditorWithDescriptionDialog
+public final static boolean DEBUG_LOADHTMLEDITORWITHDESCRIPTIONDIALOG           = false;
+
+//LogicAnalyzerDialog
+public final static boolean DEBUG_LOGICANALYZERDIALOG                           = false;
+
+//LogicProbeDialog
+public final static boolean DEBUG_LOGICPROBEDIALOG                              = false; //not used
+
+//PropertiesDialog
+public final static boolean DEBUG_PROPERTIESDIALOG                              = false;
+
+//PropertiesModuleDialog
+public final static boolean DEBUG_PROPERTIESMODULEDIALOG                        = false;
+
+//resizeModuleDialog
+public final static boolean DEBUG_RESIZEMODULEDIALOG                            = false;    //not used
+
+//SetBlockModelPortNumberDialog
+public final static boolean DEBUG_SETBLOCKMODELPORTNUMBERDIALOG                 = false;
+
+//SetLineWidthDialog
+public final static boolean DEBUG_SETLINEWIDTHDIALOG                            = false;    //not used
+
+//SetSimulationDelayTimeDialog
+public final static boolean DEBUG_SETSIMULATIONDELAYTIMEDIALOG                  = false;    //not used
+
+//ShowBlockModelContentsDialog
+public final static boolean DEBUG_SHOWBLOCKMODELCONTENTSDIALOG                  = false; //not used
+
+//ShowBlockModelPadsDialog
+public final static boolean DEBUG_SHOWBLOCKMODELPADSDIALOG                      = false;
+
+//SimulateBuildExecutionQueueProgressDialog
+public final static boolean DEBUG_SIMULATEBUILDEXECUTIONQUEUEPROGRESSDIALOG     = false;    //not used
+
+//TextModeMonitorDialog
+public final static boolean DEBUG_TEXTMODEMONITORDIALOG                         = false;
+
+//ViewLineDialog
+public final static boolean DEBUG_VIEWLINEDIALOG                                = false;   //not used
+
+//ViewLineLinksDialog
+public final static boolean DEBUG_VIEWLINELINKSDIALOG                           = false;    //not used
+
+//ViewLinksDialog
+public final static boolean DEBUG_VIEWLINKSDIALOG                               = false;
+
+//ViewValuesDialog
+public final static boolean DEBUG_VIEWVALUESDIALOG                          = false;
+
+//ComponentLink
+public final static boolean DEBUG_COMPONENTLINK                             = false;    //not used
+
+//componentLinkage
+public final static boolean DEBUG_COMPONENTLINKAGE                          = false;    //not used
+
+//ExecutionQueueNode
+public final static boolean DEBUG_EXECUTIONQUEUENODE                        = false;    //not used
+
+//ExtensionFilter
+public final static boolean DEBUG_EXTENSIONFILTER                           = false;    //not used
+
+//ImageData
+public final static boolean DEBUG_IMAGEDATA                                 = false;    //not used
+
+//ImageSelection
+public final static boolean DEBUG_IMAGESELECTION                            = false; //not used
+
+//InputConnector
+public final static boolean DEBUG_INPUTCONNECTOR                            = false;
+
+//InterModuleLink
+public final static boolean DEBUG_INTERMODULELINK                           = false;    //not used
+
+//Layer
+public final static boolean DEBUG_LAYER                                     = false;
+
+//LineManagement
+public final static boolean DEBUG_LINEMANAGEMENT                            = false; //not used
+
+//Module
+public final static boolean DEBUG_MODULE                                    = false;
+
+//OutputConnector
+public final static boolean DEBUG_OUTPUTCONNECTOR                           = false;
+
+//Part
+public final static boolean DEBUG_PART                                      = false;
+
+//dialogs.blockmodel
+//AddBlockModelDescriptionDialog
+public final static boolean DEBUG_ADDBLOCKMODELDESCRIPTIONDIALOG            = false;    //not used
+
+//AddGridDialog
+public final static boolean DEBUG_ADDGRIDDIALOG                             = false; //not used
+
+//BlockModel
+public final static boolean DEBUG_BLOCKMODEL                                = false;
+
+//BlockModelComponent
+public final static boolean DEBUG_BLOCKMODELCOMPONENT                       = false;
+
+//BlockModelFrame
+public final static boolean DEBUG_BLOCKMODELFRAME                           = false;
+
+//BlockModelSetTypeDialog
+public final static boolean DEBUG_BLOCKMODELSETTYPEDIALOG                   = false;    //not used
+
+//BlockModelView
+public final static boolean DEBUG_BLOCKMODELVIEW                            = false;
+
+//CreateBlockModelRectangleDialog
+public final static boolean DEBUG_CREATEBLOCKMODELRECTANGLEDIALOG           = false;
+
+//HTMLEditorSample
+public final static boolean DEBUG_HTMLEDITORSAMPLE                          = false;
+
+//PortSpacingDialog
+public final static boolean DEBUG_PORTSPACINGDIALOG                         = false; //not used
+
+//ResizeBlockModelDialog
+public final static boolean DEBUG_RESIZEBLOCKMODELDIALOG                    = false;    //not used
+
+//SetBlockModelPortWavelength
+public final static boolean DEBUG_SETBLOCKMODELPORTWAVELENGTH               = false;
+
+//photonicmocksim.dialogs.logicanalyzer
+//LogicAnalyzerComponent
+public final static boolean DEBUG_LOGICANALYZERCOMPONENT                    = false;
+
+//LogicAnalyzerFrame
+public final static boolean DEBUG_LOGICANALYZERFRAME                        = false;
+
+//LogicAnalyzerModel
+public final static boolean DEBUG_LOGICANALYZERMODEL                        = false;    // not used
+
+//LogicAnalyzerView
+public final static boolean DEBUG_LOGICANALYZERVIEW                         = false;
+
+//photonicmocksim.dialogs.showblockmodelcontents
+//ShowBlockModelContentsFrame
+public final static boolean DEBUG_SHOWBLOCKMODELCONTENTSFRAME               = false;
+
+//ShowBlockModelContentsView
+public final static boolean DEBUG_SHOWBLOCKMODELCONTENTSVIEW                = false;
+
+//photonicmocksim.dialogs.textmodemonitor
+//TextModeMonitorComponent
+public final static boolean DEBUG_TEXTMODEMONITORCOMPONENT                  = false;
+
+//TextModeMonitorFrame
+public final static boolean DEBUG_TEXTMODEMONITORFRAME                     = false; //not used
+
+//TextModeMonitorModel
+public final static boolean DEBUG_TEXTMODEMONITORMODEL                     = false;
+
+//TextModeMonitorView
+public final static boolean DEBUG_TEXTMODEMONITORVIEW                       = false;    //not used
+
+//com.photonicmocksim.htmleditor.dialogs.utils
+//DialogLayout2
+public final static boolean DEBUG_DIALOGLAYOUT2                             = false;    //not used
+
+//DocumentTokenizer
+public final static boolean DEBUG_DOCUMENTTOKENIZER                         = false;    //not used
+
+//OpenList
+public final static boolean DEBUG_OPENLIST                                  = false;    //not used
+
+//photoniccomputer.htmleditor.dialogs
+//DocumentPropsDlg
+public final static boolean DEBUG_DOCUMENTPROPSDLG                          = false; //not used
+
+//FindDialog
+public final static boolean DEBUG_FINDDIALOG                                = false;    //not used
+
+//HTMLSourceDlg
+public final static boolean DEBUG_HTMLSOURCEDLG                             = false;    //not used
+
+//TableDlg
+public final static boolean DEBUG_TABLEDLG                                  = false; //not used
+
+//photoniccomputer.tabbedhtmleditordialog
+//Documents
+public final static boolean DEBUG_DOCUMENTS                                 = false; //not used
+
+//DocumentsList
+public final static boolean DEBUG_DOCUMENTSLIST                             = false; //not used
+
+//TabbedHTMLEditorDialog
+public final static boolean DEBUG_TABBEDHTMLEDITORDIALOG                    = false;
+
+//photoniccomputer.htmleditor.utils
+//CustomHTMLEditorKit
+public final static boolean DEBUG_CUSTOMHTMLEDITORKIT                       = false; //not used
+
+//MutableHTMLDocument
+public final static boolean DEBUG_MUTABLEHTMLDOCUMENT                       = false; //not used
+
+//Utils
+public final static boolean DEBUG_UTILS                                     = false;    //not used
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //deprecated
 public final static int NOT_DONE                = 0;

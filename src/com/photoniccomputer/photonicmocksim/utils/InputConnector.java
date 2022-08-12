@@ -30,6 +30,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
+import static Constants.PhotonicMockSimConstants.DEBUG_INPUTCONNECTOR;
+
 public class InputConnector implements Serializable{
     public InputConnector() {
         this.physicalLocation               = new Point(0,0);
@@ -148,7 +150,7 @@ public class InputConnector implements Serializable{
                                 //JOptionPane.showMessageDialog(null,"InputConnector IML test  port 1 portNumber "+portNumber);
                                 for(OutputConnector port : component.getOutputConnectorsMap().values()){
                                     if(port.getPortNumber() == portNumber) {
-                                        System.out.println("componentNumber:"+componentNumber+" portNumber "+portNumber+" Input port adding to outputport IML");
+                                        if(DEBUG_INPUTCONNECTOR) System.out.println("componentNumber:"+componentNumber+" portNumber "+portNumber+" Input port adding to outputport IML");
 
                                         InterModuleLink IML = new InterModuleLink();//intermodulelink(IML)
                                         IML.setPartLinkedToNumber(part.getPartNumber());
@@ -185,7 +187,7 @@ public class InputConnector implements Serializable{
         LinkedList<InterModuleLink> TempIMLs = new LinkedList<InterModuleLink>();
         if(interModuleLinks.size()>0){
             //JOptionPane.showMessageDialog(null," IML size > 0 size = : "+interModuleLinks.size() );
-            System.out.println(" IML size > 0 size = : "+interModuleLinks.size() );
+            if(DEBUG_INPUTCONNECTOR) System.out.println(" IML size > 0 size = : "+interModuleLinks.size() );
             for(InterModuleLink IML : interModuleLinks) {
                 TempIMLs.add(IML);
             }

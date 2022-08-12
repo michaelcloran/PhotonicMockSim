@@ -106,15 +106,15 @@ public class PropertiesModuleDialog extends JDialog implements ActionListener {
                 for(Part part : diagram.getPartsMap().values()){
                     if(part.getPartNumber() == newPartNumber){
                         alreadyPartIndiagramBool = true;
-                        System.out.println("alreadyPartIndiagramBool");
+                        if(DEBUG_PROPERTIESMODULEDIALOG) System.out.println("alreadyPartIndiagramBool");
                         for(Layer layer : part.getLayersMap().values()){
                             if(layer.getLayerNumber() == newLayerNumber){
                                 alreadyLayerIndiagramBool = true;
-                                System.out.println("alreadyLayerIndiagramBool");
+                                if(DEBUG_PROPERTIESMODULEDIALOG) System.out.println("alreadyLayerIndiagramBool");
                                 for(Module module : layer.getModulesMap().values()){
                                     if(module.getModuleNumber() == newModuleNumber){
                                         alreadyModuleIndiagramBool = true;
-                                        System.out.println("alreadyModuleIndiagramBool");
+                                        if(DEBUG_PROPERTIESMODULEDIALOG) System.out.println("alreadyModuleIndiagramBool");
                                         break;
                                     }
                                 }

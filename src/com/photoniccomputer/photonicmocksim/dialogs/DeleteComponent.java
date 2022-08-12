@@ -206,7 +206,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                             connectsToSourceComponentPort =  cComp.getComponentLinks().get(0).getConnectsToComponentPortNumber();
                             connectsToSourceComponentLink =  cComp.getComponentLinks().get(0).getLinkNumber();
 
-                            System.out.println("connectsToSourceComponent:"+connectsToSourceComponent+"connectsToSourceComponentPort:"+connectsToSourceComponentPort);
+                            if(DEBUG_DELETECOMPONENT) System.out.println("connectsToSourceComponent:"+connectsToSourceComponent+"connectsToSourceComponentPort:"+connectsToSourceComponentPort);
                         }
                     }
 
@@ -244,15 +244,15 @@ public class DeleteComponent extends JDialog implements ActionListener {
 //                                            cComponent.setIConnectorDestinationComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber(), selectedComponent.getIConnectorDestinationComponentNumber(1, 1));
 //                                            System.out.println(" cComponent.getIConnectorDestinationComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort):"+ cComponent.getIConnectorDestinationComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber()));
 
-                                            System.out.println("connectsToSourceComponent:"+connectsToSourceComponent+"connectsToSourceComponentPort:"+connectsToSourceComponentPort+"connectsToSourceComponentLink:"+connectsToSourceComponentLink);
+                                            if(DEBUG_DELETECOMPONENT) System.out.println("connectsToSourceComponent:"+connectsToSourceComponent+"connectsToSourceComponentPort:"+connectsToSourceComponentPort+"connectsToSourceComponentLink:"+connectsToSourceComponentLink);
                                             cComponent.setIConnectorDestinationPhysicalLocation(connectsToSourceComponentLink, connectsToSourceComponentPort, sourceLoc.x, sourceLoc.y);
-                                            System.out.println("getIConnectorDestinationPhysicalLocation(connectsToSourceComponentLink, connectsToSourceComponentPort):"+cComponent.getIConnectorDestinationPhysicalLocation(cLink.getLinkNumber(), iConnector.getPortNumber()));
+                                            if(DEBUG_DELETECOMPONENT) System.out.println("getIConnectorDestinationPhysicalLocation(connectsToSourceComponentLink, connectsToSourceComponentPort):"+cComponent.getIConnectorDestinationPhysicalLocation(cLink.getLinkNumber(), iConnector.getPortNumber()));
 
                                             cComponent.setIConnectorDestinationPort(cLink.getLinkNumber(), iConnector.getPortNumber(), selectedComponent.getIConnectorDestinationPort(1, 1));
-                                            System.out.println("cComponent.getIConnectorDestinationPort(connectsToSourceComponentLink, connectsToSourceComponentPort)"+cComponent.getIConnectorDestinationPort(cLink.getLinkNumber(), iConnector.getPortNumber())+"selectedComponent.getIConnectorDestinationPort(1, 1):"+selectedComponent.getIConnectorDestinationPort(1, 1));
+                                            if(DEBUG_DELETECOMPONENT) System.out.println("cComponent.getIConnectorDestinationPort(connectsToSourceComponentLink, connectsToSourceComponentPort)"+cComponent.getIConnectorDestinationPort(cLink.getLinkNumber(), iConnector.getPortNumber())+"selectedComponent.getIConnectorDestinationPort(1, 1):"+selectedComponent.getIConnectorDestinationPort(1, 1));
 
                                             cComponent.setIConnectorDestinationComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber(), selectedComponent.getIConnectorDestinationComponentNumber(1, 1));
-                                            System.out.println(" cComponent.getIConnectorDestinationComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort):"+ cComponent.getIConnectorDestinationComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber()));
+                                            if(DEBUG_DELETECOMPONENT) System.out.println(" cComponent.getIConnectorDestinationComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort):"+ cComponent.getIConnectorDestinationComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber()));
 
 
                                             destinationComponent = cComponent;
@@ -268,7 +268,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
 
                     for(CircuitComponent cComponent : module.getComponentsMap().values()){
                         if(cComponent.getComponentNumber() == lineNumberToDelete){
-                            System.out.println("sourceLoc:"+sourceLoc+"destLoc:"+destLoc);
+                            if(DEBUG_DELETECOMPONENT) System.out.println("sourceLoc:"+sourceLoc+"destLoc:"+destLoc);
                             module.remove(cComponent.getComponentNumber());
                             break;
                         }
@@ -276,23 +276,23 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     CircuitComponent tempComponentLine = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, sourceLoc, destLoc);
                                        
                     double angle = tempComponentLine.getRotation();
-                    System.out.println("DelectPivotPoint new line angle:"+angle);
+                    if(DEBUG_DELETECOMPONENT) System.out.println("DelectPivotPoint new line angle:"+angle);
                     if(angle >= 0 && angle <= (Math.PI/2)){
-                        System.out.println("DelectPivotPoint new line between 0 and 90 degrees");
+                        if(DEBUG_DELETECOMPONENT) System.out.println("DelectPivotPoint new line between 0 and 90 degrees");
                         tempComponentLine.setPosition(sourceLoc);
                     }else
                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                        System.out.println("DelectPivotPoint new line greater then 90 degrees and less then 180 degrees");
+                        if(DEBUG_DELETECOMPONENT) System.out.println("DelectPivotPoint new line greater then 90 degrees and less then 180 degrees");
                         Point tempPosition = new Point(sourceLoc.x-tempComponentLine.getComponentWidth(),sourceLoc.y);
                         tempComponentLine.setPosition(tempPosition); 
                     }else
                     if(angle > -(Math.PI/2) && angle <= 0){
-                        System.out.println("DelectPivotPoint new line greater than 180 degrees and less then 270 degrees");
+                        if(DEBUG_DELETECOMPONENT) System.out.println("DelectPivotPoint new line greater than 180 degrees and less then 270 degrees");
                         Point tempPosition = new Point(sourceLoc.x,sourceLoc.y-tempComponentLine.getComponentBreadth());
                         tempComponentLine.setPosition(tempPosition);
                     }else
                     if(angle < 0 && angle <= -(Math.PI/2)){
-                        System.out.println("DelectPivotPoint new line greater than 270 degrees and less then 360 degrees");
+                        if(DEBUG_DELETECOMPONENT) System.out.println("DelectPivotPoint new line greater than 270 degrees and less then 360 degrees");
                         Point tempPosition = new Point(sourceLoc.x-tempComponentLine.getComponentWidth(),sourceLoc.y-tempComponentLine.getComponentBreadth());
                         tempComponentLine.setPosition(tempPosition);
                     }
@@ -366,13 +366,13 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     for(CircuitComponent comp : module.getComponentsMap().values()){
                         if(comp.getComponentNumber() == destinationComponent.getComponentNumber()){
                             comp.setInputConnectorConnectsToComponentNumber(1, connectsToDestinationComponentPort, tempComponentLine.getComponentNumber());
-                            System.out.println("cComponent.getInputConnectorConnectsToComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort):"+destinationComponent.getInputConnectorConnectsToComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort));
+                            if(DEBUG_DELETECOMPONENT) System.out.println("cComponent.getInputConnectorConnectsToComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort):"+destinationComponent.getInputConnectorConnectsToComponentNumber(connectsToSourceComponentLink, connectsToSourceComponentPort));
                             comp.setIConnectorDestinationPhysicalLocation(1, connectsToDestinationComponentPort, sourceLoc.x, sourceLoc.y);
                             comp.setIConnectorDestinationPort(1,connectsToDestinationComponentPort,connectsToSourceComponentPort);
                         }
                         if(comp.getComponentNumber() == sourceComponent.getComponentNumber()){
                             comp.setOutputConnectorConnectsToComponentNumber(connectsToDestinationComponentLink, connectsToSourceComponentPort, tempComponentLine.getComponentNumber());
-                            System.out.println("setOutputConnectorConnectsToComponentNumber(connectsToDestinationComponentLink, connectsToDestinationComponentPort):"+sourceComponent.getOutputConnectorConnectsToComponentNumber(connectsToDestinationComponentLink, connectsToDestinationComponentPort));
+                            if(DEBUG_DELETECOMPONENT) System.out.println("setOutputConnectorConnectsToComponentNumber(connectsToDestinationComponentLink, connectsToDestinationComponentPort):"+sourceComponent.getOutputConnectorConnectsToComponentNumber(connectsToDestinationComponentLink, connectsToDestinationComponentPort));
                             comp.setOConnectorDestinationPhysicalLocation(connectsToDestinationComponentLink, connectsToSourceComponentPort, destLoc.x, destLoc.y);
                             comp.setOConnectorDestinationPort(1,connectsToSourceComponentPort,connectsToDestinationComponentPort);
                         }
@@ -500,14 +500,14 @@ public class DeleteComponent extends JDialog implements ActionListener {
         for(InputConnector iConnector : selectedComponent.getInputConnectorsMap().values()){
             for(ComponentLink cLink : iConnector.getComponentLinks()){
 
-                System.out.println("getInputConnectorConnectsToComponentNumber:"+selectedComponent.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber())+" :cLink.getLinkNumber()"+cLink.getLinkNumber()+" iConnector.getPortNumber()"+iConnector.getPortNumber());
+                if(DEBUG_DELETECOMPONENT) System.out.println("getInputConnectorConnectsToComponentNumber:"+selectedComponent.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber())+" :cLink.getLinkNumber()"+cLink.getLinkNumber()+" iConnector.getPortNumber()"+iConnector.getPortNumber());
                 tempLine = selectedComponent.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber());
                 DeleteLineComponent(selectedComponent.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), iConnector.getPortNumber()),0);    
             }
         }
         for(OutputConnector oConnector : selectedComponent.getOutputConnectorsMap().values()){
             for(ComponentLink cLink : oConnector.getComponentLinks()){
-                System.out.println("getOutputConnectorConnectsToComponentNumber:"+selectedComponent.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), oConnector.getPortNumber())+" cLink.getLinkNumber():"+cLink.getLinkNumber()+" oConnector.getPortNumber():"+ oConnector.getPortNumber());
+                if(DEBUG_DELETECOMPONENT) System.out.println("getOutputConnectorConnectsToComponentNumber:"+selectedComponent.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), oConnector.getPortNumber())+" cLink.getLinkNumber():"+cLink.getLinkNumber()+" oConnector.getPortNumber():"+ oConnector.getPortNumber());
                 tempLine = selectedComponent.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), oConnector.getPortNumber());
 
                 DeleteLineComponent(selectedComponent.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), oConnector.getPortNumber()),0);                                    
@@ -544,7 +544,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     if(portNumber == iConnector.getPortNumber()){
                         for(ComponentLink cLink : iConnector.getComponentLinks()){
                             if(cLink.getLinkNumber() == linknumber){
-                                System.out.println("DeleteComponent DeleteCircuitComponentLinks circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
+                                if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent DeleteCircuitComponentLinks circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
                                 iConnector.removeComponentLink(cLink);
                                 iConnector.setConnectsToPort(0);
                             }
@@ -560,7 +560,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     if(portNumber == oConnector.getPortNumber()){
                         for(ComponentLink cLink : oConnector.getComponentLinks()){
                             if(cLink.getLinkNumber() == linknumber){
-                                System.out.println("DeleteComponent DeleteCircuitComponentLinks circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
+                                if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent DeleteCircuitComponentLinks circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
                                 oConnector.removeComponentLink(cLink);
                                 oConnector.setConnectsToPort(0);
                             }
@@ -579,7 +579,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                             if(iConnector.getComponentLinks().size()!=0){
                                 for(ComponentLink iCLink : iConnector.getComponentLinks()){
                                     if(iCLink.getLinkNumber() == cLink.getLinkNumber()){
-                                        System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
+                                        if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
                                         iConnector.removeComponentLink(iCLink);
                                         iConnector.setConnectsToPort(0); 
                                     }
@@ -597,7 +597,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                             if(oConnector.getComponentLinks().size()!=0){
                                 for(ComponentLink oCLink : oConnector.getComponentLinks()){
                                     if(oCLink.getLinkNumber() == cLink.getLinkNumber()){
-                                        System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
+                                        if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
                                         oConnector.removeComponentLink(oCLink);
                                         oConnector.setConnectsToPort(0);
                                         
@@ -616,21 +616,21 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     if(doneLeft == NOT_DONE){
                     
                         findLinksToLine(component.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), cLink.getConnectsToComponentPortNumber()),cLink.getConnectsToComponentPortNumber(),cLink.getLinkNumber(),direction);
-                        System.out.println("DeleteComponent RemoveLinkFromComponentNumber PIVOT_POINT doneLeft connectsToLinkNumber: "+cLink.getLinkNumber()+"connectsToComponentPortNumber: "+cLink.getConnectsToComponentPortNumber()+" Direction_Left getInputConnectorConnectsToComponentNumber():"+component.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), cLink.getConnectsToComponentPortNumber()));
+                        if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent RemoveLinkFromComponentNumber PIVOT_POINT doneLeft connectsToLinkNumber: "+cLink.getLinkNumber()+"connectsToComponentPortNumber: "+cLink.getConnectsToComponentPortNumber()+" Direction_Left getInputConnectorConnectsToComponentNumber():"+component.getInputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), cLink.getConnectsToComponentPortNumber()));
                         doneLeft = DIRECTION_LEFT_DONE;
                     }//else//comment out??                    
                      if(doneRight == NOT_DONE && doneLeft == DIRECTION_LEFT_DONE){
                     
                         findLinksToLine(component.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), cLink.getConnectsToComponentPortNumber()),cLink.getConnectsToComponentPortNumber(),cLink.getLinkNumber(),direction);
 
-                        System.out.println("DeleteComponent RemoveLinkFromComponentNumber PIVOT_POINT doneRight connectsToLinkNumber: "+cLink.getLinkNumber()+"connectsToComponentPortNumber: "+cLink.getConnectsToComponentNumber()+" Direction_Right component.getOutputConnectorConnectsToComponentNumber(connectsToLinkNumber, 2)"+component.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), 2));
+                         if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent RemoveLinkFromComponentNumber PIVOT_POINT doneRight connectsToLinkNumber: "+cLink.getLinkNumber()+"connectsToComponentPortNumber: "+cLink.getConnectsToComponentNumber()+" Direction_Right component.getOutputConnectorConnectsToComponentNumber(connectsToLinkNumber, 2)"+component.getOutputConnectorConnectsToComponentNumber(cLink.getLinkNumber(), 2));
                         doneRight = DIRECTION_RIGHT_DONE;
                      }
                      return 2;
                 }else
                 if(component.getComponentType() != PIVOT_POINT && component.getComponentType() == OPTICAL_WAVEGUIDE){
                     deleteList.add(component);
-                    System.out.println("DeleteComponent RemoveLinkFromComponentNumber OPTICAL_WAVEGUIDE");
+                    if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent RemoveLinkFromComponentNumber OPTICAL_WAVEGUIDE");
                 }
             }
         }
@@ -639,11 +639,11 @@ public class DeleteComponent extends JDialog implements ActionListener {
 
 
     public int findLinksToLine(int connectorConnectsToComponentNumber,int connectorConnectsToPortNumber,int connectorConnectsToLinkNumber, int direction){
-        System.out.println("findLinksToLine connectorConnectsToComponentNumber:" +connectorConnectsToComponentNumber);
+        if(DEBUG_DELETECOMPONENT) System.out.println("findLinksToLine connectorConnectsToComponentNumber:" +connectorConnectsToComponentNumber);
         for(CircuitComponent component : module.getComponentsMap().values()){
-                System.out.println("findLinksToLine componentNumber:" + component.getComponentNumber());
+            if(DEBUG_DELETECOMPONENT) System.out.println("findLinksToLine componentNumber:" + component.getComponentNumber());
             if(component.getComponentNumber() == connectorConnectsToComponentNumber){
-                System.out.println("findLinksToLine componentNumber:" + component.getComponentNumber());
+                if(DEBUG_DELETECOMPONENT) System.out.println("findLinksToLine componentNumber:" + component.getComponentNumber());
                 if(component.getComponentType() == PIVOT_POINT){
                     deleteList.add(component);
                     for(OutputConnector oConnector : component.getOutputConnectorsMap().values()){
@@ -653,7 +653,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                             if(direction == DIRECTION_RIGHT){
                                 findLinksToLine(component.getOutputConnectorConnectsToComponentNumber(1,2),component.getOConnectorDestinationPort(1, 2),connectorConnectsToLinkNumber,DIRECTION_RIGHT);
 
-                                System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_RIGHT oConnector connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
+                                if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_RIGHT oConnector connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
                                 if(oldNumber == connectorConnectsToComponentNumber || connectorConnectsToComponentNumber<oldNumber){
                                                         return DIRECTION_RIGHT_DONE;
                                 }
@@ -661,7 +661,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                             }else
                             if(direction == DIRECTION_LEFT){
                                 findLinksToLine(component.getInputConnectorConnectsToComponentNumber(1,1),connectorConnectsToPortNumber,connectorConnectsToLinkNumber,DIRECTION_LEFT);
-                                System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_LEFT iConnector connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
+                                if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_LEFT iConnector connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
                                 if(oldNumber == connectorConnectsToComponentNumber|| connectorConnectsToComponentNumber<oldNumber){
                                                         return DIRECTION_LEFT_DONE;
                                 }
@@ -675,11 +675,11 @@ public class DeleteComponent extends JDialog implements ActionListener {
                          for(ComponentLink iCLink: iConnector.getComponentLinks()){
                              if(direction == DIRECTION_RIGHT){
                                  findLinksToLine(component.getOutputConnectorConnectsToComponentNumber(1,2),component.getOConnectorDestinationPort(1, 2),connectorConnectsToLinkNumber,DIRECTION_RIGHT);
-                                 System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_RIGHT iConnector component.getOConnectorDestinationPort(1, 2):"+component.getOConnectorDestinationPort(1, 2));
+                                 if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_RIGHT iConnector component.getOConnectorDestinationPort(1, 2):"+component.getOConnectorDestinationPort(1, 2));
                              }else
                                 if(direction == DIRECTION_LEFT){
                                 findLinksToLine(component.getInputConnectorConnectsToComponentNumber(iCLink.getLinkNumber(),iConnector.getPortNumber()),connectorConnectsToPortNumber,connectorConnectsToLinkNumber,DIRECTION_LEFT);
-                                 System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_LEFT iConnector");
+                                    if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine PIVOT_POINT DIRECTION_LEFT iConnector");
                              }
                          }
                     }
@@ -688,7 +688,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                 if(component.getComponentType() == OPTICAL_WAVEGUIDE){
                    
                     deleteList.add(component);
-                        System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE number: "+component.getComponentNumber()+" direction:"+direction);
+                    if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE number: "+component.getComponentNumber()+" direction:"+direction);
                             
                             ComponentLink oCLink = component.getComponentLinks().get(0);//getLast();//getFirst();
                             if(direction == DIRECTION_RIGHT){
@@ -699,7 +699,7 @@ public class DeleteComponent extends JDialog implements ActionListener {
                                 }else{
                                 findLinksToLine(oCLink.getConnectsToComponentNumber(),oCLink.getConnectsToComponentPortNumber(),oCLink.getLinkNumber(),DIRECTION_RIGHT);//works for 1 pivot point
 
-                                System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE direction_right getDestinationComponentNumber(): "+oCLink.getDestinationComponentNumber()+"connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber+"oCLink.getConnectsToComponentNumber()"+oCLink.getConnectsToComponentNumber());
+                                    if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE direction_right getDestinationComponentNumber(): "+oCLink.getDestinationComponentNumber()+"connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber+"oCLink.getConnectsToComponentNumber()"+oCLink.getConnectsToComponentNumber());
                                
                                 oldNumber = component.getComponentNumber();//oCLink.getDestinationComponentNumber();
                                 }
@@ -709,8 +709,8 @@ public class DeleteComponent extends JDialog implements ActionListener {
                                findLinksToLine(oCLink.getConnectsToComponentNumber(),oCLink.getConnectsToComponentPortNumber(),oCLink.getLinkNumber(),DIRECTION_LEFT);
                                 
                                 oldNumber = component.getComponentNumber();//oCLink.getConnectsToComponentNumber();
-                                
-                                System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE direction_left number: "+component.getComponentNumber()+" oldNumber: "+oldNumber+"connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
+
+                                if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine OPTICAL_WAVEGUIDE direction_left number: "+component.getComponentNumber()+" oldNumber: "+oldNumber+"connectorConnectsToComponentNumber:"+connectorConnectsToComponentNumber);
                                 //break;//??
                             }
                       
@@ -719,11 +719,11 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     
                     for(InputConnector iConnector : component.getInputConnectorsMap().values()){
                        if(iConnector.getPortNumber() == connectorConnectsToPortNumber){
-                           System.out.println("DeleteComponent findLinksToLine Circuit Component iConnector connectorConnectsToPortNumber:"+connectorConnectsToPortNumber);
+                           if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component iConnector connectorConnectsToPortNumber:"+connectorConnectsToPortNumber);
                             if(iConnector.getComponentLinks().size()!=0){
                                 for(ComponentLink iCLink : iConnector.getComponentLinks()){
                                     if(iCLink.getLinkNumber() == connectorConnectsToLinkNumber){
-                                        System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
+                                        if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" iConnector: "+iConnector.getPortNumber()+" zero");
                                         iConnector.removeComponentLink(iCLink);
                                         iConnector.setConnectsToPort(0);
 
@@ -735,11 +735,11 @@ public class DeleteComponent extends JDialog implements ActionListener {
                     }
                     for(OutputConnector oConnector : component.getOutputConnectorsMap().values()){
                        if(oConnector.getPortNumber() == connectorConnectsToPortNumber){
-                           System.out.println("DeleteComponent findLinksToLine Circuit Component oConnector connectorConnectsToPortNumber:"+connectorConnectsToPortNumber);
+                           if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component oConnector connectorConnectsToPortNumber:"+connectorConnectsToPortNumber);
                             if(oConnector.getComponentLinks().size()!=0){
                                 for(ComponentLink oCLink : oConnector.getComponentLinks()){
                                     if(oCLink.getLinkNumber() == connectorConnectsToLinkNumber){
-                                       System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
+                                        if(DEBUG_DELETECOMPONENT) System.out.println("DeleteComponent findLinksToLine Circuit Component:"+component.getComponentNumber()+" oConnector: "+oConnector.getPortNumber()+" zero");
                                         oConnector.removeComponentLink(oCLink);
                                         oConnector.setConnectsToPort(0);
 

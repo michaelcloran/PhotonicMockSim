@@ -5,10 +5,6 @@
  */
 package com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer;
 
-import static Constants.PhotonicMockSimConstants.HIGHLIGHT_COLOR;
-import static Constants.PhotonicMockSimConstants.LINE;
-import static Constants.PhotonicMockSimConstants.LOGIC_ANALYZER_STEP_LINE;
-import static Constants.PhotonicMockSimConstants.TEXT;
 import com.photoniccomputer.photonicmocksim.dialogs.blockmodel.BlockModelComponent;
 import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerModel.LogicTrace;
 import java.awt.Color;
@@ -24,6 +20,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import static Constants.PhotonicMockSimConstants.*;
 
 /**
  *
@@ -311,7 +309,7 @@ public abstract class LogicAnalyzerComponent {
             componentBreadth = maxAscent+fm.getMaxDescent()+4;
             bounds = new java.awt.Rectangle(position.x, position.y, fm.stringWidth(text)+4, maxAscent+fm.getMaxDescent()+4);
             
-            System.out.println(bounds);
+            if(DEBUG_LOGICANALYZERCOMPONENT) System.out.println(bounds);
         }
 
         public void draw(Graphics2D g2D){

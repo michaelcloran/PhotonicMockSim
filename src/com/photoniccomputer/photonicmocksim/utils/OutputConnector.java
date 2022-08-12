@@ -25,6 +25,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
+import static Constants.PhotonicMockSimConstants.DEBUG_OUTPUTCONNECTOR;
+
 
 public class OutputConnector implements Serializable{
     public OutputConnector() {
@@ -143,7 +145,7 @@ public class OutputConnector implements Serializable{
                                 //JOptionPane.showMessageDialog(null,"OutputConnector IML test output component "+componentNumber+" port 2 portNumber "+portNumber);
                                 for(InputConnector port : component.getInputConnectorsMap().values()){
                                     if(port.getPortNumber() == portNumber) {
-                                        System.out.println("componentNumber:"+componentNumber+" portNumber"+portNumber+" Output port adding to inputport IML");
+                                        if(DEBUG_OUTPUTCONNECTOR) System.out.println("componentNumber:"+componentNumber+" portNumber"+portNumber+" Output port adding to inputport IML");
 
                                         InterModuleLink IML = new InterModuleLink();//intermodulelink(IML)
                                         IML.setPartLinkedToNumber(part.getPartNumber());
@@ -170,7 +172,7 @@ public class OutputConnector implements Serializable{
     
     public void removeInterModuleLink(String plmcp) {
         for(InterModuleLink IML : interModuleLinks){
-            System.out.println("IML.getInterModuleLinkString():"+IML.getInterModuleLinkString()+":plmcp:"+plmcp);
+            if(DEBUG_OUTPUTCONNECTOR) System.out.println("IML.getInterModuleLinkString():"+IML.getInterModuleLinkString()+":plmcp:"+plmcp);
             if(IML.getInterModuleLinkString().equals(plmcp)) {
                 interModuleLinks.remove(IML);
             }
@@ -181,14 +183,14 @@ public class OutputConnector implements Serializable{
         LinkedList<InterModuleLink> TempIMLs = new LinkedList<InterModuleLink>();
         if(interModuleLinks.size()>0){
             //JOptionPane.showMessageDialog(null," IML size > 0 size = : "+interModuleLinks.size() );
-            System.out.println(" IML size > 0 size = : "+interModuleLinks.size() );
+            if(DEBUG_OUTPUTCONNECTOR) System.out.println(" IML size > 0 size = : "+interModuleLinks.size() );
             for(InterModuleLink IML : interModuleLinks) {
                 TempIMLs.add(IML);
             }
             return TempIMLs;
         }else 
         if(interModuleLinks.size() == 0){
-            System.out.println("OutputConnector Inter Module Link not set. Size = 0");
+            if(DEBUG_OUTPUTCONNECTOR) System.out.println("OutputConnector Inter Module Link not set. Size = 0");
             //JOptionPane.showMessageDialog(null,"OutputConnector Inter Module Link not set. Size = 0");
         }
         return TempIMLs;

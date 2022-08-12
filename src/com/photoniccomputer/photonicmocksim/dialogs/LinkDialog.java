@@ -90,7 +90,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(Module module : layer.getModulesMap().values()){
                     for(CircuitComponent component : module.getComponentsMap().values()){
                         for(OutputConnector oConnector : component.getOutputConnectorsMap().values()){
-                            System.out.println("componentNumber:"+component.getComponentNumber()+" oConnector:"+oConnector.getPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("componentNumber:"+component.getComponentNumber()+" oConnector:"+oConnector.getPortNumber());
                             if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && component.getBlockModelPortNumber() != 0 && oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
                                 if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && component.getBlockModelPortNumber() != 0 && oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                     numberRows = numberRows +1;
@@ -150,13 +150,13 @@ public class LinkDialog extends JDialog implements ActionListener {
                     for(CircuitComponent component : module.getComponentsMap().values()){
                         if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             iConnectorCtr = iConnectorCtr +1;
-                            System.out.println("iConnectorCtr:"+iConnectorCtr);
+                            if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("iConnectorCtr:"+iConnectorCtr);
                         }
                     }
                 }
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                      oConnectorCtr += tempComponent.getOutputConnectorsMap().size();
-                     System.out.println("1oConnectorCtr++");
+                     if(DEBUG_LINKDIALOG) System.out.println("1oConnectorCtr++");
                 }
             }else
             if(highlightComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
@@ -170,13 +170,13 @@ public class LinkDialog extends JDialog implements ActionListener {
                     for(CircuitComponent component : module.getComponentsMap().values()){
                         if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
                             oConnectorCtr = oConnectorCtr +1;
-                            System.out.println("2oConnectorCtr:"+oConnectorCtr);
+                            if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("2oConnectorCtr:"+oConnectorCtr);
                         }
                     }
                 }
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                      iConnectorCtr += tempComponent.getInputConnectorsMap().size();
-                     System.out.println("3iConnectorCtr"+iConnectorCtr);
+                    if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("3iConnectorCtr"+iConnectorCtr);
                 }
             }else
             if(highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
@@ -192,7 +192,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                             for(CircuitComponent component : module.getComponentsMap().values()){
                                 if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                                     iConnectorCtr = iConnectorCtr +1;
-                                    System.out.println("4iConnectorCtr:"+iConnectorCtr);
+                                    if(DEBUG_LINKDIALOG)System.out.println("4iConnectorCtr:"+iConnectorCtr);
                                 }
                             }
                         }
@@ -200,7 +200,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 }
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     oConnectorCtr += tempComponent.getOutputConnectorsMap().size();
-                    System.out.println("5oConnectorCtr:"+oConnectorCtr);
+                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("5oConnectorCtr:"+oConnectorCtr);
                 }
 
             }else
@@ -217,7 +217,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                             for(CircuitComponent component : module.getComponentsMap().values()){
                                 if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                                     oConnectorCtr = oConnectorCtr +1;
-                                    System.out.println("6oConnectorCtr:"+oConnectorCtr);
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("6oConnectorCtr:"+oConnectorCtr);
                                 }
                             }
                         }
@@ -225,7 +225,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 }
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                      iConnectorCtr += tempComponent.getInputConnectorsMap().size();
-                     System.out.println("7iConnectorCtr:"+iConnectorCtr);
+                     if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("7iConnectorCtr:"+iConnectorCtr);
                 }
 
             }else
@@ -242,7 +242,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                             for(CircuitComponent component : module.getComponentsMap().values()){
                                 if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                                     iConnectorCtr = iConnectorCtr +1;
-                                    System.out.println("8iConnectorCtr:"+iConnectorCtr);
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("8iConnectorCtr:"+iConnectorCtr);
                                 }
                             }
                         }
@@ -254,7 +254,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                             for(CircuitComponent component : module.getComponentsMap().values()){
                                 if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                                     oConnectorCtr = oConnectorCtr +1;
-                                    System.out.println("9oConnectorCtr:"+oConnectorCtr);
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("9oConnectorCtr:"+oConnectorCtr);
                                 }
                             }
                         }
@@ -268,11 +268,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                     
                     if(tempComponent.getComponentType()==DIFFERENT_LAYER_INTER_MODULE_LINK_END){ 
                         oConnectorCtr += tempComponent.getOutputConnectorsMap().size();
-                        System.out.println("10oConnectorCtr++");
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("10oConnectorCtr++");
                     }else
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                         iConnectorCtr += tempComponent.getInputConnectorsMap().size();
-                        System.out.println("11iConnectorCtr:"+iConnectorCtr);
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("11iConnectorCtr:"+iConnectorCtr);
                     }else{
                         if(tempComponent.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START){
                             oConnectorCtr += tempComponent.getOutputConnectorsMap().size();
@@ -282,8 +282,8 @@ public class LinkDialog extends JDialog implements ActionListener {
                             iConnectorCtr += tempComponent.getInputConnectorsMap().size();
                         }
                         
-                        System.out.println("12oConnectorCtr:"+oConnectorCtr+" tempComponentNumber:"+tempComponent.getComponentNumber());
-                        System.out.println("13iConnectorCtr:"+iConnectorCtr+" tempComponentNumber:"+tempComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("12oConnectorCtr:"+oConnectorCtr+" tempComponentNumber:"+tempComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("13iConnectorCtr:"+iConnectorCtr+" tempComponentNumber:"+tempComponent.getComponentNumber());
                     }
                 }
             }
@@ -305,15 +305,15 @@ public class LinkDialog extends JDialog implements ActionListener {
                 }
             }*/
             if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
-                System.out.println("highlightPart");
+                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("highlightPart");
                 iConnectorCtr = 0;
                 oConnectorCtr = 0;
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
                         if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_START && tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_START ){
-                            System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
                             oConnectorCtr += 1;
-                            System.out.println("14oConnectorCtr++ :"+oConnectorCtr);
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("14oConnectorCtr++ :"+oConnectorCtr);
 
                         }
                     }
@@ -321,9 +321,9 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                         if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_END && tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_END ){
-                            System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
                             iConnectorCtr += 1;
-                            System.out.println("15iConnectorCtr++ : "+iConnectorCtr);
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("15iConnectorCtr++ : "+iConnectorCtr);
 
                         }
                     }
@@ -332,7 +332,7 @@ public class LinkDialog extends JDialog implements ActionListener {
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
                 iConnectorCtr = 0;
                 oConnectorCtr = 0;
-                System.out.println("highlightModule");
+                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("highlightModule");
                 Module moduleLinked = null;
                 for(CircuitComponent c : highlightModule.getComponentsMap().values()){
                     if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
@@ -352,9 +352,9 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent tempComponent : moduleLinked.getComponentsMap().values()){
                     for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
                         if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_START && tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_START ){
-                            System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
                             oConnectorCtr += 1;
-                             System.out.println("16oConnectorCtr++ :"+oConnectorCtr);
+                             if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("16oConnectorCtr++ :"+oConnectorCtr);
 
                         }
                     }
@@ -362,33 +362,33 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent tempComponent : moduleLinked.getComponentsMap().values()){
                     for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                         if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_END && tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_END ){
-                            System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("componentType"+tempComponent.getComponentType()+" componentNumber:"+tempComponent.getComponentNumber());
                             iConnectorCtr += 1;
-                            System.out.println("17iConnectorCtr++ : "+iConnectorCtr);
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("17iConnectorCtr++ : "+iConnectorCtr);
 
                         }
                     }
                 }
                 
             }else{
-                System.out.println("For some reason this happens!!!???");
+                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("For some reason this happens!!!???");
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_START || tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                         oConnectorCtr += tempComponent.getOutputConnectorsMap().size();
-                        System.out.println("18oConnectorCtr++"+oConnectorCtr);
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("18oConnectorCtr++"+oConnectorCtr);
                     }
                     
                 }
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     if(tempComponent.getComponentType()!=SAME_LAYER_INTER_MODULE_LINK_END || tempComponent.getComponentType()!=DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                         iConnectorCtr += tempComponent.getInputConnectorsMap().size();
-                        System.out.println("19iConnectorCtr++"+iConnectorCtr);
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("19iConnectorCtr++"+iConnectorCtr);
                     }
                 }
             }
         }
-        System.out.println("iConnectorCtr:"+iConnectorCtr);
-        System.out.println("oConnectorCtr:"+oConnectorCtr);
+        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("iConnectorCtr:"+iConnectorCtr);
+        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("oConnectorCtr:"+oConnectorCtr);
         String[] iConnectorArr;
         iConnectorArr = new String[iConnectorCtr+1];
         iConnectorArr[0] = "    ";
@@ -414,11 +414,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 for(OutputConnector oConnector : component.getOutputConnectorsMap().values()){
                                     if(component.getBlockModelPortNumber() != 0 && oConnector.getIMLSForComponent().size() !=0){
                                         str = "BP"+oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+component.getBlockModelPortNumber();
-                                        System.out.println("1Input "+str);
+                                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("1Input "+str);
                                         if(checkIfAlreadyInArray(str,iConnectorArr) ==false){
                                             iConnectorArr[++ctr] = str;
                                         }else{
-                                            System.out.println("Already in Array:"+str+" loop 1");
+                                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 1");
                                         }
                                     }
                                 }
@@ -452,20 +452,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                         if(oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()!=highlightModule.getModuleNumber()){
                             if(oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber() != highlightModule.getPartNumber()){
                                 str = "BP"+oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("Bp bm 2.1.1Input "+str);
+                                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Bp bm 2.1.1Input "+str);
                                 if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                     iConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 12.1");
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 12.1");
                                 }
                             }
                             else{
                                 str = "BM"+oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("BM 2.1.2Input "+str);
+                                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("BM 2.1.2Input "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     iConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 12.2");
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 12.2");
                                 }
                             }
                         }
@@ -478,11 +478,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                     if(tempComponent.getBlockModelPortNumber() == 0){
                         str = "C"+tempComponentNumber+"."+iConnector.getPortNumber();
-                        System.out.println("1.1Input "+str);
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("1.1Input "+str);
                         if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                             iConnectorArr[++ctr] = str;//array of strings
                         }else{
-                            System.out.println("Already in array:"+str+" loop2");
+                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in array:"+str+" loop2");
                         }
                             
                     }
@@ -501,11 +501,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     if(component.getBlockModelPortNumber() != 0 && oConnector.getIMLSForComponent().size() !=0){
                                         if(oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()==highlightModule.getModuleNumber()){
                                             str = "BM"+oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+component.getBlockModelPortNumber();
-                                            System.out.println("BM 1Input "+str);
+                                            if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("BM 1Input "+str);
                                             if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                                 iConnectorArr[++ctr] = str;
                                             }else{
-                                                System.out.println("Already in Array:"+str+" loop 3");
+                                                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 3");
                                             }
                                         }
                                     }
@@ -539,20 +539,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                         if(oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()!=highlightModule.getModuleNumber()){
                             if(oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber() != highlightModule.getPartNumber()){
                                 str = "BP"+oConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("Bp bm 2.1.1Input "+str);
+                                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Bp bm 2.1.1Input "+str);
                                 if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                     iConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 4.1");
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 4.1");
                                 }
                             }
                             else{
                                 str = "BM"+oConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("BM 2.1.2Input "+str);
+                                if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("BM 2.1.2Input "+str);
                                 if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                     iConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 4.2");
+                                    if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 4.2");
                                 }
                             }
                         }
@@ -564,13 +564,13 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(InputConnector iConnector : c.getInputConnectorsMap().values()){
                     if(c.getBlockModelPortNumber() == 0){
                         str = "C"+c.getComponentNumber()+"."+iConnector.getPortNumber();
-                        System.out.println("BM C 2.1.3Input "+str);
+                        if(DEBUG_LINKDIALOG) if(DEBUG_LINKDIALOG) System.out.println("BM C 2.1.3Input "+str);
                         if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                             if(c.getComponentType() != DIFFERENT_LAYER_INTER_MODULE_LINK_END){
                                 iConnectorArr[++ctr] = str;//array of strings
                             }
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 5");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 5");
                         }
                         
                     }
@@ -589,11 +589,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent component : module.getComponentsMap().values()){
                     if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                         str = "P"+highlightModule.getPartNumber()+".L"+highlightModule.getLayerNumber()+".M"+module.getModuleNumber()+".C"+component.getComponentNumber()+"."+"p1";//only one input port
-                        System.out.println("3Input "+str);
+                        if(DEBUG_LINKDIALOG) System.out.println("3Input "+str);
                         if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                             iConnectorArr[++ctr] = str;//array of strings
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 6");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 6");
                         }
                         
                     }
@@ -614,20 +614,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                             if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END ){
                                 if(component.getBlockModelPortNumber() != 0 && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()&& findBlockModelContents == NO){
                                     str = "BP"+highlightPart.getPartNumber()+".p"+component.getBlockModelPortNumber();
-                                    System.out.println("4.1Input "+str);
+                                    if(DEBUG_LINKDIALOG) System.out.println("4.1Input "+str);
                                     if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                         iConnectorArr[++ctr] = str;//array of strings
                                     }else{
-                                        System.out.println("Already in Array:"+str+" loop 7.1");
+                                        if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 7.1");
                                     }
                                     
                                 }else{
                                     str = "P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+component.getComponentNumber()+"."+"p1";//only one input port
-                                    System.out.println("4.2Input "+str);
+                                    if(DEBUG_LINKDIALOG) System.out.println("4.2Input "+str);
                                     if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                         iConnectorArr[++ctr] = str;//array of strings
                                     }else{
-                                        System.out.println("Already in Array:"+str+" loop 7.2");
+                                        if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 7.2");
                                     }
                                     
                                 }
@@ -639,29 +639,29 @@ public class LinkDialog extends JDialog implements ActionListener {
         }else{//if normal component within a module highlightModule
             for(CircuitComponent tempComponent: highlightModule.getComponentsMap().values()){
                 int tempComponentNumber = tempComponent.getComponentNumber();
-                System.out.println("tempComponent.getComponentType():"+tempComponent.getComponentType());
+                if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getComponentType():"+tempComponent.getComponentType());
                 for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                     
                     //needed in wrong place
                     /*if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                         if(tempComponent.getBlockModelPortNumber() != 0 && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().size() != 0){
                             str = "BM"+tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                            System.out.println("7.1.1.1Intput "+str);
+                            if(DEBUG_LINKDIALOG) System.out.println("7.1.1.1Intput "+str);
                             if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                 iConnectorArr[++ctr] = str;//array of strings
                             }else{
-                                System.out.println("Already in Array:"+str+" loop 8.1");
+                                if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 8.1");
                             }
                         }
                     }*/
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && findBlockModelContents == NO){//DIFFERENT_LAYER_INTER_MODULE_LINK_START
                             if(tempComponent.getBlockModelPortNumber() != 0 && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().size() != 0){
                                 str = "BM"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("7.1.2Intput "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("7.1.2Intput "+str);
                                 if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                     iConnectorArr[++ctr] = str;//array of strings
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 8.2");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 8.2");
                                 }
                                 
                             }
@@ -671,11 +671,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && findBlockModelContents == NO){
                         if(tempComponent.getBlockModelPortNumber() != 0 && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().size() != 0){
                             str = "BP"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                            System.out.println("6.1Input "+str);
+                            if(DEBUG_LINKDIALOG) System.out.println("6.1Input "+str);
                             if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                                 iConnectorArr[++ctr] = str;//array of strings
                             }else{
-                                System.out.println("Already in Array:"+str+" loop 8.3");
+                                if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 8.3");
                             }
                             
                         }
@@ -685,14 +685,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                     //if(tempComponent.getComponentType() != DIFFERENT_LAYER_INTER_MODULE_LINK_END && tempComponent.getComponentType() != DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                         //if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && tempComponent.getBlockModelPortNumber() == 0 || tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && tempComponent.getBlockModelPortNumber()==0){
                         
-                        System.out.println("normal component else loop");
+                        if(DEBUG_LINKDIALOG) System.out.println("normal component else loop");
                     
                         str = "C"+tempComponentNumber+"."+iConnector.getPortNumber();
-                        System.out.println("6.2Input "+str);
+                        if(DEBUG_LINKDIALOG) System.out.println("6.2Input "+str);
                         if(checkIfAlreadyInArray(str,iConnectorArr)==false){
                             iConnectorArr[++ctr] = str;//array of strings
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 8.4");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 8.4");
                         }
                         
                         }
@@ -710,11 +710,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 for(InputConnector iConnector : component.getInputConnectorsMap().values()){
                                     if(component.getBlockModelPortNumber() != 0 && iConnector.getIMLSForComponent().size() !=0){
                                         str = "BP"+iConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+component.getBlockModelPortNumber();
-                                        System.out.println("1Output "+str);
+                                        if(DEBUG_LINKDIALOG) System.out.println("1Output "+str);
                                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                             oConnectorArr[++ctr] = str;
                                         }else{
-                                            System.out.println("Already in Array:"+str+" loop 9");
+                                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 9");
                                         }
                                         
                                     }
@@ -730,11 +730,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
                     if(tempComponent.getBlockModelPortNumber() == 0){
                         str = "C"+tempComponentNumber+"."+oConnector.getPortNumber();
-                        System.out.println("2Output "+str);
+                        if(DEBUG_LINKDIALOG) System.out.println("2Output "+str);
                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                             oConnectorArr[++ctr] = str;//array of strings   
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 10");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 10");
                         }
                         
                     }
@@ -750,11 +750,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 for(InputConnector iConnector : component.getInputConnectorsMap().values()){
                                     if(component.getBlockModelPortNumber() != 0 && iConnector.getIMLSForComponent().size() !=0 && iConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
                                         str = "BM"+iConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+component.getBlockModelPortNumber();
-                                         System.out.println("BM 1Output "+str);
+                                         if(DEBUG_LINKDIALOG) System.out.println("BM 1Output "+str);
                                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                             oConnectorArr[++ctr] = str;
                                         }else{
-                                            System.out.println("Already in Array:"+str+" loop 11");
+                                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 11");
                                         }
                                        
                                     }
@@ -773,7 +773,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 if(tempComponent.getBlockModelPortNumber() == 0 ){
                                     str = "C"+tempComponentNumber+"."+oConnector.getPortNumber();
                                     oConnectorArr[++ctr] = str;//array of strings   
-                                    System.out.println("BM 2Output "+str);
+                                    if(DEBUG_LINKDIALOG) System.out.println("BM 2Output "+str);
                                 }
                             }
                         }
@@ -804,20 +804,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                         if(iConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()!=highlightModule.getModuleNumber()){
                             if(iConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber() != highlightModule.getPartNumber()){
                                 str = "BP"+iConnector.getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("Bp bm 2.1.1Output "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("Bp bm 2.1.1Output "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     oConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 12.1");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 12.1");
                                 }
                             }
                             else{
                                 str = "BM"+iConnector.getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("BM 2.1.2Output "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("BM 2.1.2Output "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     oConnectorArr[++ctr] = str;
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 12.2");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 12.2");
                                 }
                             }
                         }
@@ -828,12 +828,12 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(OutputConnector oConnector : c.getOutputConnectorsMap().values()){
                     if(c.getBlockModelPortNumber() == 0){
                         str = "C"+c.getComponentNumber()+"."+oConnector.getPortNumber();
-                        System.out.println("BM 2.1.3Output "+str);
+                        if(DEBUG_LINKDIALOG) System.out.println("BM 2.1.3Output "+str);
                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                             if(c.getComponentType() != DIFFERENT_LAYER_INTER_MODULE_LINK_START)
                             oConnectorArr[++ctr] = str;//array of strings
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 13");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 13");
                         }
                         
                     }
@@ -852,11 +852,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent component : module.getComponentsMap().values()){
                     if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
                         str = "P"+highlightModule.getPartNumber()+".L"+highlightModule.getLayerNumber()+".M"+module.getModuleNumber()+".C"+component.getComponentNumber()+"."+"p2";//only one input port
-                        System.out.println("3Output "+str);
+                        if(DEBUG_LINKDIALOG) System.out.println("3Output "+str);
                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                             oConnectorArr[++ctr] = str;//array of strings
                         }else{
-                            System.out.println("Already in Array:"+str+" loop 14");
+                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 14");
                         }
                         
                     }
@@ -878,20 +878,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 if(component.getBlockModelPortNumber() != 0 && component.getOutputConnectorsMap().get(2).getIMLSForComponent().size()>0){
                                     if(component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()&& findBlockModelContents == NO){
                                         str = "BP"+highlightPart.getPartNumber()+".p"+component.getBlockModelPortNumber();
-                                        System.out.println("4.1Output "+str);
+                                        if(DEBUG_LINKDIALOG) System.out.println("4.1Output "+str);
                                         if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                             oConnectorArr[++ctr] = str;//array of strings
                                         }else{
-                                            System.out.println("Already in Array:"+str+" loop 15.1");
+                                            if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 15.1");
                                         }
                                     }
                                 }else{
                                     str = "P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+component.getComponentNumber()+"."+"p2";//only one input port
-                                     System.out.println("4.2Output "+str);
+                                     if(DEBUG_LINKDIALOG) System.out.println("4.2Output "+str);
                                     if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                         oConnectorArr[++ctr] = str;//array of strings
                                     }else{
-                                        System.out.println("Already in Array:"+str+" loop 15.2");
+                                        if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 15.2");
                                     }
                                 }
                             }
@@ -903,17 +903,17 @@ public class LinkDialog extends JDialog implements ActionListener {
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean()==false){
                 for(CircuitComponent tempComponent: highlightModule.getComponentsMap().values()){
                     int tempComponentNumber = tempComponent.getComponentNumber();
-                    System.out.println("tempComponent.getComponentType():"+tempComponent.getComponentType());
+                    if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getComponentType():"+tempComponent.getComponentType());
                     for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
                                            
                         if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && findBlockModelContents == NO){//DIFFERENT_LAYER_INTER_MODULE_LINK_START
                             if(tempComponent.getBlockModelPortNumber() != 0 && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().size() != 0){
                                 str = "BM"+tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("7.1.1Output "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("7.1.1Output "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     oConnectorArr[++ctr] = str;//array of strings
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 16.1");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 16.1");
                                 } 
                             }
                         }
@@ -921,25 +921,25 @@ public class LinkDialog extends JDialog implements ActionListener {
                         if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && findBlockModelContents == NO){//DIFFERENT_LAYER_INTER_MODULE_LINK_START
                             if(tempComponent.getBlockModelPortNumber() != 0 && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().size() != 0){
                                 str = "BP"+tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber()+".p"+tempComponent.getBlockModelPortNumber();
-                                System.out.println("7.1Output "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("7.1Output "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     oConnectorArr[++ctr] = str;//array of strings
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 16.2");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 16.2");
                                 }
                             }
                         }
                         
                         if(tempComponent.getBlockModelPortNumber() == 0 || findBlockModelContents == YES){
                             if(tempComponent.getComponentType() != DIFFERENT_LAYER_INTER_MODULE_LINK_START && tempComponent.getComponentType() != SAME_LAYER_INTER_MODULE_LINK_START){
-                                System.out.println("normal component else loop");
+                                if(DEBUG_LINKDIALOG) System.out.println("normal component else loop");
 
                                 str = "C"+tempComponentNumber+"."+oConnector.getPortNumber();
-                                System.out.println("7.2Output "+str);
+                                if(DEBUG_LINKDIALOG) System.out.println("7.2Output "+str);
                                 if(checkIfAlreadyInArray(str,oConnectorArr)==false){
                                     oConnectorArr[++ctr] = str;//array of strings
                                 }else{
-                                    System.out.println("Already in Array:"+str+" loop 16.3");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Already in Array:"+str+" loop 16.3");
                                 }
                             }
                         }
@@ -950,7 +950,7 @@ public class LinkDialog extends JDialog implements ActionListener {
         
         if((highlightPart != null && (highlightPart.getBlockModelExistsBoolean() == false) &&(highlightModule != null && highlightModule.getBlockModelExistsBoolean()==false) || findBlockModelContents == YES) ){
             str = "";
-            System.out.println("Components");
+            if(DEBUG_LINKDIALOG) System.out.println("Components");
             for(InputConnector iConnector : highlightComponent.getInputConnectorsMap().values()){
                 JPanel portInputPanel = new JPanel();
                 str = "C"+componentNumber+"."+iConnector.getPortNumber()+" Links to ";
@@ -972,7 +972,7 @@ public class LinkDialog extends JDialog implements ActionListener {
 
         }else
         if(highlightPart != null && (highlightPart.getBlockModelExistsBoolean() == true)){//a block model part
-            System.out.println("BlockPart");
+            if(DEBUG_LINKDIALOG) System.out.println("BlockPart");
             for(int i=1;i<=numberInputPorts; i++){
                 JPanel portOutputPanel = new JPanel();
                 str = "BP"+highlightPart.getPartNumber()+".p"+i+" Links to ";
@@ -992,7 +992,7 @@ public class LinkDialog extends JDialog implements ActionListener {
         
         }else
         if(highlightModule != null && (highlightModule.getBlockModelExistsBoolean() == true)){//a block model module
-            System.out.println("BlockModule numberInputPorts:"+numberInputPorts+" numberOutputPorts:"+numberOutputPorts);
+            if(DEBUG_LINKDIALOG) System.out.println("BlockModule numberInputPorts:"+numberInputPorts+" numberOutputPorts:"+numberOutputPorts);
             for(int i=1;i<=numberInputPorts; i++){
                 JPanel portOutputPanel = new JPanel();
                 str = "BM"+highlightModule.getModuleNumber()+".p"+i+" Links to ";
@@ -1010,7 +1010,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 content.add(portOutputPanel);
             }
         }else{
-            System.out.println("Something went wrong with populating the form!!");
+            if(DEBUG_LINKDIALOG) System.out.println("Something went wrong with populating the form!!");
         }
         comboListItr = comboList.iterator();
 
@@ -1046,27 +1046,27 @@ public class LinkDialog extends JDialog implements ActionListener {
                 //remember a component is joined to a line and the line is joined to destination component.
                 //thus in the execution queue the component1 is first then line then destination component.also a line has a list of input/output connectors(segments??)
                 if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true && findBlockModelContents == NO){
-                    System.out.println("okButton click highlightPart.getBlockModelExistsBoolean = true findBlockModelContents = NO");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightPart.getBlockModelExistsBoolean = true findBlockModelContents = NO");
                     int sourcePort = 1;
-                    if(highlightComponent!=null)System.out.println("normal component highlightComponentNumber:"+highlightComponent.getComponentNumber());
+                    if(highlightComponent!=null)if(DEBUG_LINKDIALOG) System.out.println("normal component highlightComponentNumber:"+highlightComponent.getComponentNumber());
                     while(comboListItr.hasNext()) {
                         String selectedItem = (String)comboListItr.next().getSelectedItem();
                         //parse selectedItem here find port component and pass this tempComponent instead fo highlightComponent
-                        System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort);//" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort);//" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
                         if(selectedItem != "    ") {
                             if(selectedItem.substring(0, 2).equals("BP")){
-                                System.out.println("Block Model Part selectedItem:"+selectedItem.substring(0, 2));
+                                if(DEBUG_LINKDIALOG) System.out.println("Block Model Part selectedItem:"+selectedItem.substring(0, 2));
                                 int partNumber = new Integer(selectedItem.substring(2,selectedItem.indexOf(".")));
-                                System.out.println("partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                                 int portNumber = new Integer(selectedItem.substring(selectedItem.indexOf("p")+1,selectedItem.length()));
-                                System.out.println("portNumber:"+portNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("portNumber:"+portNumber);
                                 
                                 for(CircuitComponent component : highlightModule.getComponentsMap().values()){
                                     if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
                                         //if(component.getBlockModelPortNumber() == portNumber && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                                         if(component.getBlockModelPortNumber() == sourcePort && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                             selectedComponent = component;//dlimlst
-                                            System.out.println("testing 1 BP component DLIMLST sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 1 BP component DLIMLST sourcePort:"+sourcePort);
                                             updateList(selectedItem,sourcePort,component);//sourcePort//1
                                             
                                         }
@@ -1075,7 +1075,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         //if(component.getBlockModelPortNumber() == portNumber && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                                         if(component.getBlockModelPortNumber() == sourcePort && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                             selectedComponent = component;//dlimled
-                                            System.out.println("testing 2 BP component DLIMLED sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 2 BP component DLIMLED sourcePort:"+sourcePort);
                                             updateList(selectedItem,sourcePort,component);//sourcePort//2
                                         }
                                     }
@@ -1083,11 +1083,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 }
                             }else
                             if(selectedItem.substring(0, 1).equals("C") && highlightPart.getBlockModelExistsBoolean() == true){
-                                System.out.println("selectedItem is normal component but block model part is highlighted");
+                                if(DEBUG_LINKDIALOG) System.out.println("selectedItem is normal component but block model part is highlighted");
                                 for(CircuitComponent component : highlightModule.getComponentsMap().values()){
                                     if(component.getBlockModelPortNumber() == sourcePort && component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                         selectedComponent = component;
-                                        System.out.println("testing 3 sourcePort:"+sourcePort);
+                                        if(DEBUG_LINKDIALOG) System.out.println("testing 3 sourcePort:"+sourcePort);
                                         updateList(selectedItem,sourcePort,component);
                                     }else
                                     if(component.getBlockModelPortNumber() == sourcePort && component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
@@ -1096,26 +1096,26 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     }
                                 }
                             }else{
-                                System.out.println("okButton click selectedItem not a BP component");
+                                if(DEBUG_LINKDIALOG) System.out.println("okButton click selectedItem not a BP component");
                                 for(CircuitComponent component : highlightModule.getComponentsMap().values()){
                                     if(component.getBlockModelPortNumber() == sourcePort && component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                         selectedComponent = component;//dlimlstart
                                         if( highlightComponent != null && (highlightComponent.getComponentType()== OPTICAL_INPUT_PORT || component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START)){
-                                            System.out.println("testing 4 DLIMLST sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 4 DLIMLST sourcePort:"+sourcePort);
                                             updateList(selectedItem,1,selectedComponent);
                                         }else{
-                                            System.out.println("testing 5 DLIMLST sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 5 DLIMLST sourcePort:"+sourcePort);
                                             updateList(selectedItem,sourcePort,component);
                                         }
                                     }
                                     if(component.getBlockModelPortNumber() == sourcePort && component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                         selectedComponent = component;//dlimlend
                                         if(highlightComponent != null && highlightComponent.getComponentType()== OPTICAL_INPUT_PORT){
-                                            System.out.println("testing 6 sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 6 sourcePort:"+sourcePort);
                                             updateList(selectedItem,1,selectedComponent);
                                         }else
                                         if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                            System.out.println("testing 7 DLIMLED sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("testing 7 DLIMLED sourcePort:"+sourcePort);
                                             updateList(selectedItem,2,component);//sourcePort
                                         }else{
                                             updateList(selectedItem,sourcePort,component);
@@ -1130,114 +1130,114 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                         sourcePort = sourcePort + 1;
                     }//end while
-                    System.out.println("testing called location 1");
+                    if(DEBUG_LINKDIALOG) System.out.println("testing called location 1");
                     Iterator<componentLinkage> itrDestinationConnectors = componentLinkages.iterator();
-                    System.out.println("componentLinkages.size():"+componentLinkages.size());
+                    if(DEBUG_LINKDIALOG) System.out.println("componentLinkages.size():"+componentLinkages.size());
                     while(itrDestinationConnectors.hasNext()) {
                         componentLinkage tDConnector = itrDestinationConnectors.next();
-                        System.out.println("creating optical waveguide");
+                        if(DEBUG_LINKDIALOG) System.out.println("creating optical waveguide");
                         CircuitComponent tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
                         //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         double angle = tempComponent.getRotation();
-                        System.out.println("LinkDialog angle:"+angle);
+                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                         if(angle >= 0 && angle <= (Math.PI/2)){
-                            System.out.println("LinkDialog between 0 and 90 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                             tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         }else
                         if(angle > (Math.PI/2) && angle <= Math.PI){
-                            System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                             tempComponent.setPosition(tempPosition); 
                         }else
                         if(angle > -(Math.PI/2) && angle <= 0){
-                            System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }else
                         if(angle < 0 && angle <= -(Math.PI/2)){
-                            System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }
                         
-                        System.out.println("---- testing line management ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("---- testing line management ----");
                         tempComponent.getLM().setSourceComponentNumber(tDConnector.getsourceComponentNumber());
-                        System.out.println("tempComponent.getLM().getSourceComponentNumber:"+tempComponent.getLM().getSourceComponentNumber());
-                        System.out.println("tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getSourceComponentNumber:"+tempComponent.getLM().getSourceComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort());
                         if(highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END || highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){//destination
                             tempComponent.getLM().setSourcePortNumber(2);
                         }else{
                             tempComponent.getLM().setSourcePortNumber(tDConnector.getsourceComponentPort());
                         }
-                        System.out.println("tempComponent.getLM().getSourcePortNumber:"+tempComponent.getLM().getSourcePortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getSourcePortNumber:"+tempComponent.getLM().getSourcePortNumber());
                         
                         tempComponent.getLM().setSourceLinkNumber(1);//should only be 1 link
-                        System.out.println("tempComponent.getLM().getSourceLinkNumber:"+tempComponent.getLM().getSourceLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getSourceLinkNumber:"+tempComponent.getLM().getSourceLinkNumber());
 
                         tempComponent.getLM().setDestinationComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("tempComponent.getLM().getDestinationComponentNumber:"+tempComponent.getLM().getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationComponentNumber:"+tempComponent.getLM().getDestinationComponentNumber());
                         tempComponent.getLM().setDestinationPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("tempComponent.getLM().getDestinationPortNumber:"+tempComponent.getLM().getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationPortNumber:"+tempComponent.getLM().getDestinationPortNumber());
                         tempComponent.getLM().setDestinationLinkNumber(1);//should only be 1 link
-                        System.out.println("tempComponent.getLM().getDestinationLinkNumber:"+tempComponent.getLM().getDestinationLinkNumber());
-                        System.out.println("---- end testing line management ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationLinkNumber:"+tempComponent.getLM().getDestinationLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("---- end testing line management ----");
                         
                         ComponentLink cLink = new ComponentLink();
                         ComponentLink cLink1 = new ComponentLink();
 
-                        System.out.println("---- testing componentLinks ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("---- testing componentLinks ----");
                         cLink.setLinkNumber(1);//there can only be 1 link
-                        System.out.println("cLink.getLinkNumber:"+cLink.getLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getLinkNumber:"+cLink.getLinkNumber());
                         cLink.setConnectsToComponentNumber(tDConnector.getsourceComponentNumber());
-                        System.out.println("cLink.getConnectsToComponentNumber:"+cLink.getConnectsToComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getConnectsToComponentNumber:"+cLink.getConnectsToComponentNumber());
                         if(highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END || highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             cLink.setConnectsToComponentPortNumber(2);//2
                         }else{
                             cLink.setConnectsToComponentPortNumber(tDConnector.getsourceComponentPort());
                         }
-                        System.out.println("cLink.getConnectsToComponentPortNumber:"+cLink.getConnectsToComponentPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getConnectsToComponentPortNumber:"+cLink.getConnectsToComponentPortNumber());
                         
                         //cLink.setConnectsToComponentPortNumber(tDConnector.getsourceComponentPort());
                         cLink.setDestinationComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("cLink.getDestinationComponentNumber:"+cLink.getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationComponentNumber:"+cLink.getDestinationComponentNumber());
                         cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("cLink.getDestinationPortNumber:"+cLink.getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationPortNumber:"+cLink.getDestinationPortNumber());
                         cLink.setDestinationPortLinkNumber(1);//temp solution
-                        System.out.println("cLink.getDestinationPortLinkNumber:"+cLink.getDestinationPortLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationPortLinkNumber:"+cLink.getDestinationPortLinkNumber());
                         cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                        System.out.println("cLink.getDestinationPhysicalLoctaion:"+cLink.getDestinationPhysicalLocation());
-                        System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationPhysicalLoctaion:"+cLink.getDestinationPhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                         cLink1.setLinkNumber(1);//there can only be 1 link
-                        System.out.println("cLink1.getLinkNumber:"+cLink1.getLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getLinkNumber:"+cLink1.getLinkNumber());
                         cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("cLink1.getConnectsToComponentNumber:"+cLink1.getConnectsToComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getConnectsToComponentNumber:"+cLink1.getConnectsToComponentNumber());
                         cLink1.setConnectsToComponentPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("cLink1.getConnectsToComponentPortNumber:"+cLink1.getConnectsToComponentPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getConnectsToComponentPortNumber:"+cLink1.getConnectsToComponentPortNumber());
                         cLink1.setDestinationComponentNumber(tDConnector.getsourceComponentNumber());
-                        System.out.println("cLink1.getDestinationComponentNumber:"+cLink1.getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationComponentNumber:"+cLink1.getDestinationComponentNumber());
                         if(highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END || highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             cLink1.setDestinationPortNumber(2);//2
                         }else{
                             cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                         }
-                        System.out.println("cLink1.getDestinationPortNumber:"+cLink1.getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationPortNumber:"+cLink1.getDestinationPortNumber());
                         
                         //cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                         cLink1.setDestinationPortLinkNumber(1);//temp solution
-                        System.out.println("cLink1.getDestinationPortLinkNumber:"+cLink1.getDestinationPortLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationPortLinkNumber:"+cLink1.getDestinationPortLinkNumber());
                         cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                        System.out.println("cLink1.getDestinationPhysicalLoctaion:"+cLink1.getDestinationPhysicalLocation());
-                        System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
-                        System.out.println("-- end testing componentLinks ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationPhysicalLoctaion:"+cLink1.getDestinationPhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("-- end testing componentLinks ----");
                         
-                        System.out.println("- doing if clause on port type output or input");
+                        if(DEBUG_LINKDIALOG) System.out.println("- doing if clause on port type output or input");
                         if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                            System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink1);//cLink changed on 21/2/19
                             tempComponent.addComponentLink(cLink);//cLink1
                         }else{
-                            System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink);//cLink1 changed on 21/2/19
                             tempComponent.addComponentLink(cLink1);//cLink
                         }
@@ -1247,20 +1247,20 @@ public class LinkDialog extends JDialog implements ActionListener {
                         
                         highlightModule.add(tempComponent);
                         tempComponent.getLM().addLineLink(tempComponent.getComponentNumber());
-                        System.out.println("Adding tempComponent to highlightModule and adding line link to componentNumber:"+tempComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("Adding tempComponent to highlightModule and adding line link to componentNumber:"+tempComponent.getComponentNumber());
 
                         tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
-                        System.out.println("tDConnector.getLinksToComponentViaLineNumber:"+tDConnector.getLinksToComponentViaLineNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getLinksToComponentViaLineNumber:"+tDConnector.getLinksToComponentViaLineNumber());
                         
                         //if(tDConnector.getsourceComponentNumber() == selectedComponent.getComponentNumber()){//port number determines which is used
                             //selectedComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1/*tDConnector.getsourceComponentPort()*/, tempComponent.getComponentNumber());
                             //selectedComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1, tempComponent.getComponentNumber());
                             highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).setInputConnectorConnectsToComponentNumber(1,tDConnector.getdestinationComponentPort(), tempComponent.getComponentNumber());
-                            System.out.println("selectedComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1)+"  componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
-                            System.out.println("tempComponent.getComponentNumber():"+tempComponent.getComponentNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort());
+                            if(DEBUG_LINKDIALOG) System.out.println("selectedComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1)+"  componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getComponentNumber():"+tempComponent.getComponentNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort());
                             highlightModule.getComponentsMap().get(tDConnector.getsourceComponentNumber()).setOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
-                           // System.out.println("selectedComponent links active :"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorsMap().get(2).getComponentLinks().size());
-                            System.out.println("selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()):"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" selectedComponentType:"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getComponentType());
+                           // if(DEBUG_LINKDIALOG) System.out.println("selectedComponent links active :"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorsMap().get(2).getComponentLinks().size());
+                            if(DEBUG_LINKDIALOG) System.out.println("selectedComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()):"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" selectedComponentType:"+highlightModule.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getComponentType());
                             
                             for(CircuitComponent tmpComponent : highlightModule.getComponentsMap().values()){
                                 if(tmpComponent.getComponentNumber() == tDConnector.getsourceComponentNumber()){
@@ -1292,7 +1292,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                     
                 }else
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true && findBlockModelContents == NO){
-                    System.out.println("okButton click highlightModule.getBlockModelExistsBoolean = true findBlockModelContents = NO");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightModule.getBlockModelExistsBoolean = true findBlockModelContents = NO");
                     int sourcePort = 1;
                     
                     //is this in the right place
@@ -1313,29 +1313,29 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }
                     
-                    if(highlightComponent!=null)System.out.println("normal component highlightComponentNumber:"+highlightComponent.getComponentNumber());
+                    if(highlightComponent!=null)if(DEBUG_LINKDIALOG) System.out.println("normal component highlightComponentNumber:"+highlightComponent.getComponentNumber());
                     while(comboListItr.hasNext()) {
                         String selectedItem = (String)comboListItr.next().getSelectedItem();
                         //parse selectedItem here find port component and pass this tempComponent instead fo highlightComponent
-                        System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort);//" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort);//" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
                         if(selectedItem != "    ") {
                             if(selectedItem.substring(0, 2).equals("BM")){
-                                System.out.println("Block Model Module selectedItem:"+selectedItem.substring(0, 2));
+                                if(DEBUG_LINKDIALOG) System.out.println("Block Model Module selectedItem:"+selectedItem.substring(0, 2));
                                 int moduleNumber = new Integer(selectedItem.substring(2,selectedItem.indexOf(".")));
-                                System.out.println("moduleNumber:"+moduleNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("moduleNumber:"+moduleNumber);
                                 int portNumber = new Integer(selectedItem.substring(selectedItem.indexOf("p")+1,selectedItem.length()));
-                                System.out.println("portNumber:"+portNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("portNumber:"+portNumber);
                                 //for(CircuitComponent component : highlightModule.getComponentsMap().values()){
                                 for(CircuitComponent component : moduleLinkedTo.getComponentsMap().values()){
-                                    System.out.println("componentNumber:"+component.getComponentNumber()+" component.getBlockModelPortNumber():"+component.getBlockModelPortNumber());
-                                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START)System.out.println("component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
-                                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END)System.out.println("component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
+                                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber:"+component.getComponentNumber()+" component.getBlockModelPortNumber():"+component.getBlockModelPortNumber());
+                                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START)if(DEBUG_LINKDIALOG) System.out.println("component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
+                                    if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END)if(DEBUG_LINKDIALOG) System.out.println("component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
                                     if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
                                         //if(component.getBlockModelPortNumber() == portNumber && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                                         
                                         if(component.getBlockModelPortNumber() == sourcePort && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
                                             selectedComponent = component;//dlimlst
-                                            System.out.println("SLIMLST sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("SLIMLST sourcePort:"+sourcePort);
                                             updateList(selectedItem,1,component);//sourcePort
                                             
                                         }
@@ -1344,7 +1344,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         //if(component.getBlockModelPortNumber() == portNumber && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                                         if(component.getBlockModelPortNumber() == sourcePort && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
                                             selectedComponent = component;//dlimled
-                                            System.out.println("SLIMLED sourcePort:"+sourcePort);
+                                            if(DEBUG_LINKDIALOG) System.out.println("SLIMLED sourcePort:"+sourcePort);
                                             updateList(selectedItem,2,component);//sourcePort
                                         }
                                     }  
@@ -1352,24 +1352,24 @@ public class LinkDialog extends JDialog implements ActionListener {
                             }else
                             if(selectedItem.substring(0, 1).equals("C") && highlightModule.getBlockModelExistsBoolean() == true){
                                 //testing
-                                System.out.println("testing new if clause sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("testing new if clause sourcePort:"+sourcePort);
                                 for(CircuitComponent component : moduleLinkedTo.getComponentsMap().values()){
                                     if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()   && component.getBlockModelPortNumber() == sourcePort){
-                                        System.out.println("---- Found SLIMLST ----");
+                                        if(DEBUG_LINKDIALOG) System.out.println("---- Found SLIMLST ----");
                                         selectedComponent = component;
                                         updateList(selectedItem,sourcePort,component);
                                         
                                         
                                     }else
                                     if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && component.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()   && component.getBlockModelPortNumber() == sourcePort){
-                                        System.out.println("---- Found SLIMLED ----");
+                                        if(DEBUG_LINKDIALOG) System.out.println("---- Found SLIMLED ----");
                                         selectedComponent = component;
                                         updateList(selectedItem,sourcePort,component);
                                         
                                     }//end testing
                                 }
                             }else{
-                                System.out.println("okBitton Click else selectedItem not a BM component");
+                                if(DEBUG_LINKDIALOG) System.out.println("okBitton Click else selectedItem not a BM component");
                                 for(CircuitComponent component : highlightModule.getComponentsMap().values()){
                                     if(component.getBlockModelPortNumber() == sourcePort && component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && component.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
                                         selectedComponent = component;//dlimlstart
@@ -1390,19 +1390,19 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     }
                                 }
                                 //this is getting the pads a block model module needs
-                                System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber());
+                                if(DEBUG_LINKDIALOG) System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber());
                                 for(CircuitComponent comp : moduleLinkedTo.getComponentsMap().values()){
-                                    System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber()+" for loop compNumber:"+comp.getComponentNumber()+"comp.getBlockModelPoerNumber:"+comp.getBlockModelPortNumber());
-                                    if(comp.getComponentType()==SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().size()>0) System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber()+" for loop compNumber:"+comp.getComponentNumber()+"comp.getBlockModelPoerNumber:"+comp.getBlockModelPortNumber()+" comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" compType:"+comp.getComponentType());
+                                    if(DEBUG_LINKDIALOG) System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber()+" for loop compNumber:"+comp.getComponentNumber()+"comp.getBlockModelPoerNumber:"+comp.getBlockModelPortNumber());
+                                    if(comp.getComponentType()==SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().size()>0) if(DEBUG_LINKDIALOG) System.out.println("okButton click normal component moduleLinkedTo:"+moduleLinkedTo.getModuleNumber()+" for loop compNumber:"+comp.getComponentNumber()+"comp.getBlockModelPoerNumber:"+comp.getBlockModelPortNumber()+" comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" compType:"+comp.getComponentType());
                                     if(comp.getBlockModelPortNumber() == sourcePort && comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
-                                        System.out.println("okButton click module:"+moduleLinkedTo.getModuleNumber()+" compType:SAME_LAYER_INTER_MODULE_LINK_START" );
+                                        if(DEBUG_LINKDIALOG) System.out.println("okButton click module:"+moduleLinkedTo.getModuleNumber()+" compType:SAME_LAYER_INTER_MODULE_LINK_START" );
                                                                          
                                         selectedComponent = comp;
                                         updateList(selectedItem,sourcePort,selectedComponent);//might need to change this to output port number of SLIMLST
                                     }
                                     
                                     if(comp.getBlockModelPortNumber() == sourcePort && comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == highlightModule.getModuleNumber()){
-                                        System.out.println("okButton click module:"+moduleLinkedTo.getModuleNumber()+" compType:SAME_LAYER_INTER_MODULE_LINK_END" );
+                                        if(DEBUG_LINKDIALOG) System.out.println("okButton click module:"+moduleLinkedTo.getModuleNumber()+" compType:SAME_LAYER_INTER_MODULE_LINK_END" );
                                         selectedComponent = comp;
                                         updateList(selectedItem,sourcePort,selectedComponent);//might need to change this to output port number of SLIMLED
                                     }
@@ -1414,37 +1414,37 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                         sourcePort = sourcePort + 1;
                     }//end while
-                    System.out.println("testing called location 2");
+                    if(DEBUG_LINKDIALOG) System.out.println("testing called location 2");
                     Iterator<componentLinkage> itrDestinationConnectors = componentLinkages.iterator();
-                    System.out.println("componentLinkages.size():"+componentLinkages.size());
+                    if(DEBUG_LINKDIALOG) System.out.println("componentLinkages.size():"+componentLinkages.size());
                     while(itrDestinationConnectors.hasNext()) {
                         componentLinkage tDConnector = itrDestinationConnectors.next();
-                        System.out.println("creating optical waveguide");
+                        if(DEBUG_LINKDIALOG) System.out.println("creating optical waveguide");
                         CircuitComponent tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
                         //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         double angle = tempComponent.getRotation();
-                        System.out.println("LinkDialog angle:"+angle);
+                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                         if(angle >= 0 && angle <= (Math.PI/2)){
-                            System.out.println("LinkDialog between 0 and 90 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                             tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         }else
                         if(angle > (Math.PI/2) && angle <= Math.PI){
-                            System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                             tempComponent.setPosition(tempPosition); 
                         }else
                         if(angle > -(Math.PI/2) && angle <= 0){
-                            System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }else
                         if(angle < 0 && angle <= -(Math.PI/2)){
-                            System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }
-                        System.out.println("---- setting up line management ----");
-                        System.out.println("tDConnector.getsourceComponentNumber():"+tDConnector.getsourceComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("---- setting up line management ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentNumber():"+tDConnector.getsourceComponentNumber());
                         tempComponent.getLM().setSourceComponentNumber(tDConnector.getsourceComponentNumber());
                         if(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             tempComponent.getLM().setSourcePortNumber(2);
@@ -1456,24 +1456,24 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                         tempComponent.getLM().setSourceLinkNumber(1);//should only be 1 link
                         
-                        System.out.println("tempComponent.getLM().getSourcePortNumber():"+tempComponent.getLM().getSourcePortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getSourcePortNumber():"+tempComponent.getLM().getSourcePortNumber());
 
                         tempComponent.getLM().setDestinationComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("tempComponent.getLM().getDestinationComponentNumber():"+tempComponent.getLM().getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationComponentNumber():"+tempComponent.getLM().getDestinationComponentNumber());
                         tempComponent.getLM().setDestinationPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("tempComponent.getLM().getDestinationPortNumber():"+tempComponent.getLM().getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationPortNumber():"+tempComponent.getLM().getDestinationPortNumber());
                         tempComponent.getLM().setDestinationLinkNumber(1);//should only be 1 link
-                        System.out.println("tempComponent.getLM().getDestinationLinkNumber():"+tempComponent.getLM().getDestinationLinkNumber());
-                        System.out.println("---- end setting up line management ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getLM().getDestinationLinkNumber():"+tempComponent.getLM().getDestinationLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("---- end setting up line management ----");
 
                         ComponentLink cLink = new ComponentLink();
                         ComponentLink cLink1 = new ComponentLink();
 
-                        System.out.println("---- setting up component links ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("---- setting up component links ----");
                         cLink.setLinkNumber(1);//there can only be 1 link
-                        System.out.println("cLink.getLinkNumber():"+cLink.getLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getLinkNumber():"+cLink.getLinkNumber());
                         cLink.setConnectsToComponentNumber(tDConnector.getsourceComponentNumber());
-                        System.out.println("cLink.getConnectsToComponentNumber():"+cLink.getConnectsToComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getConnectsToComponentNumber():"+cLink.getConnectsToComponentNumber());
                         
                         if(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             cLink.setConnectsToComponentPortNumber(2);
@@ -1483,26 +1483,26 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }else{
                             cLink.setConnectsToComponentPortNumber(tDConnector.getsourceComponentPort());
                         }
-                        System.out.println("cLink.getConnectsToComponentPortNumber():"+cLink.getConnectsToComponentPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getConnectsToComponentPortNumber():"+cLink.getConnectsToComponentPortNumber());
                         
                         //cLink.setConnectsToComponentPortNumber(tDConnector.getsourceComponentPort());
                         cLink.setDestinationComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationComponentNumber():"+cLink.getDestinationComponentNumber());
                         cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("cLink.getDestinationPortNumber():"+cLink.getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationPortNumber():"+cLink.getDestinationPortNumber());
                         cLink.setDestinationPortLinkNumber(1);//temp solution
-                        System.out.println("cLink.getDestinationPortLinkNumber():"+cLink.getDestinationPortLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink.getDestinationPortLinkNumber():"+cLink.getDestinationPortLinkNumber());
                         cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                        System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                         cLink1.setLinkNumber(1);//there can only be 1 link
-                        System.out.println("cLink1.getLinkNumber():"+cLink1.getLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getLinkNumber():"+cLink1.getLinkNumber());
                         cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
-                        System.out.println("cLink1.getConnectsToComponentNumber():"+cLink1.getConnectsToComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getConnectsToComponentNumber():"+cLink1.getConnectsToComponentNumber());
                         cLink1.setConnectsToComponentPortNumber(tDConnector.getdestinationComponentPort());
-                        System.out.println("cLink1.getConnectsToComponentPortNumber():"+cLink1.getConnectsToComponentPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getConnectsToComponentPortNumber():"+cLink1.getConnectsToComponentPortNumber());
                         cLink1.setDestinationComponentNumber(tDConnector.getsourceComponentNumber());
-                        System.out.println("cLink1.getDestinationComponentNumber():"+cLink1.getDestinationComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationComponentNumber():"+cLink1.getDestinationComponentNumber());
                         
                         if(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
                             cLink1.setDestinationPortNumber(2);
@@ -1512,22 +1512,22 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }else{
                             cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                         }
-                        System.out.println("cLink1.getDestinationPortNumber():"+cLink1.getDestinationPortNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationPortNumber():"+cLink1.getDestinationPortNumber());
                         
                         //cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                         cLink1.setDestinationPortLinkNumber(1);//temp solution
-                        System.out.println("cLink1.getDestinationPortLinkNumber():"+cLink1.getDestinationPortLinkNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("cLink1.getDestinationPortLinkNumber():"+cLink1.getDestinationPortLinkNumber());
                         cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                        System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
-                        System.out.println("---- setting up component links ----");
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("---- setting up component links ----");
                         
-                        System.out.println("Doing if statement for a port to be set as output");
+                        if(DEBUG_LINKDIALOG) System.out.println("Doing if statement for a port to be set as output");
                         if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                            System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink1);//cLink this was changed on 21/2/19 because with BlockModels the line was saving the coordinates wrong
                             tempComponent.addComponentLink(cLink);//cLink1
                         }else{
-                            System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink);//cLink1 changed 21/2/19
                             tempComponent.addComponentLink(cLink1);//cLink
                         }
@@ -1535,24 +1535,24 @@ public class LinkDialog extends JDialog implements ActionListener {
                         
                         moduleLinkedTo.add(tempComponent);
                         tempComponent.getLM().addLineLink(tempComponent.getComponentNumber());
-                        System.out.println("Addlind tempComponent to moduleNumber:"+moduleLinkedTo.getModuleNumber()+" and adding tempComponent to line:"+tempComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("Addlind tempComponent to moduleNumber:"+moduleLinkedTo.getModuleNumber()+" and adding tempComponent to line:"+tempComponent.getComponentNumber());
                         
                         tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
-                        System.out.println("tDConnector.getLinksToComponentViaLineNumber():"+tDConnector.getLinksToComponentViaLineNumber()+" tDConnector.getdestinationComponentNumber():"+tDConnector.getdestinationComponentNumber()+" selectedComponent.getComponentNumber():"+selectedComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getLinksToComponentViaLineNumber():"+tDConnector.getLinksToComponentViaLineNumber()+" tDConnector.getdestinationComponentNumber():"+tDConnector.getdestinationComponentNumber()+" selectedComponent.getComponentNumber():"+selectedComponent.getComponentNumber());
                         //if(tDConnector.getsourceComponentNumber() == selectedComponent.getComponentNumber()){//port number determines which is used
                         //if(tDConnector.getdestinationComponentNumber() == selectedComponent.getComponentNumber()){//port number determines which is used
                             //if(selectedComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START) selectedComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());
                              moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1, tempComponent.getComponentNumber());//only 1 input port on SLIMLST
 
-                            System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+selectedComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1)+"  componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
-                            System.out.println("tempComponent.getComponentNumber():"+tempComponent.getComponentNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tDConnector.getsourceComponentNumber():"+tDConnector.getsourceComponentNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+selectedComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),1)+"  componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("tempComponent.getComponentNumber():"+tempComponent.getComponentNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tDConnector.getsourceComponentNumber():"+tDConnector.getsourceComponentNumber());
                             
                             //moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).setOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
-                            System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentNumber:"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentNumber:"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentNumber());
                             (moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber())).setOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
-                             System.out.println("(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber())).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()):"+(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber())).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()));
-                            //System.out.println("selectedComponent links active :"+moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent().size());//2
-                            System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()):"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort())+" selectedComponentType:"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType());
+                             if(DEBUG_LINKDIALOG) System.out.println("(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber())).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()):"+(moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber())).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()));
+                            //if(DEBUG_LINKDIALOG) System.out.println("selectedComponent links active :"+moduleLinkedTo.getComponentsMap().get(tDConnector.getdestinationComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent().size());//2
+                            if(DEBUG_LINKDIALOG) System.out.println("moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort()):"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getOutputConnectorConnectsToComponentNumber(1,tDConnector.getsourceComponentPort())+" selectedComponentType:"+moduleLinkedTo.getComponentsMap().get(tDConnector.getsourceComponentNumber()).getComponentType());
                             
                             for(CircuitComponent tmpComponent : moduleLinkedTo.getComponentsMap().values()){
                                 if(tmpComponent.getComponentNumber() == tDConnector.getsourceComponentNumber()){
@@ -1584,7 +1584,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                     
                 }else
                 if(highlightComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                    System.out.println("okButton click highlightComponent = SAME_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = SAME_LAYER_INTER_MODULE_LINK_START");
                     int ctr = 1;
                     String selectedItem1= "0";
                     for(JComboBox comboBox : comboList){
@@ -1594,33 +1594,33 @@ public class LinkDialog extends JDialog implements ActionListener {
                         ctr = ctr + 1;
                     }
                     Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                    System.out.println("partNumber:"+partNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                     int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                    System.out.println("index"+index);
+                    if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                     Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                    System.out.println("layerNumber"+layerNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                     Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                    System.out.println("moduleNumber"+moduleNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                     Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                    System.out.println("componentNumber"+componentNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                     Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                    System.out.println("portNumber"+portNumber);
-                    System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                     if(windowType == MAIN_WINDOW){
                         highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("testing:"+partNumber+"."+layerNumber+"."+moduleNumber+"."+componentNumber+"."+portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("testing:"+partNumber+"."+layerNumber+"."+moduleNumber+"."+componentNumber+"."+portNumber);
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
                     }else{
                         highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("testing:"+partNumber+"."+layerNumber+"."+moduleNumber+"."+componentNumber+"."+portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("testing:"+partNumber+"."+layerNumber+"."+moduleNumber+"."+componentNumber+"."+portNumber);
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
                     }
                     
                 }else
                 if(highlightComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                    System.out.println("okButton click highlightComponent = SAME_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = SAME_LAYER_INTER_MODULE_LINK_END");
                     int ctr = 1;
                     String selectedItem1= "0";
                     for(JComboBox comboBox : comboList){
@@ -1628,25 +1628,25 @@ public class LinkDialog extends JDialog implements ActionListener {
                             selectedItem1 = (String)comboBox.getSelectedItem();
                             if(!selectedItem1.contains(" ")){
                                 Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                                System.out.println("partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                                 int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                                System.out.println("index"+index);
+                                if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                                 Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                                System.out.println("layerNumber"+layerNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                                 Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                                System.out.println("moduleNumber"+moduleNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                                 Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                                System.out.println("componentNumber"+componentNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                                 Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                                System.out.println("portNumber"+portNumber);
-                                System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                                if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                                 if(windowType == MAIN_WINDOW){
                                     highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                     theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
                                 }else{
                                     highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                     theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
                                 }
                             }
@@ -1664,23 +1664,23 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     CircuitComponent tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
                                     //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                     double angle = tempComponent.getRotation();
-                                    System.out.println("LinkDialog angle:"+angle);
+                                    if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("LinkDialog between 0 and 90 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                                         tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                                         tempComponent.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                         tempComponent.setPosition(tempPosition);
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                         tempComponent.setPosition(tempPosition);
                                     }
@@ -1704,7 +1704,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
                                     cLink.setDestinationPortLinkNumber(1);//temp solution
                                     cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                                    System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                                     cLink1.setLinkNumber(1);//there can only be 1 link
                                     cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
@@ -1713,15 +1713,15 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                                     cLink1.setDestinationPortLinkNumber(1);//temp solution
                                     cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                                    System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
 
                                     
                                     if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                                        System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                                         tempComponent.addComponentLink(cLink);//cLink1
                                         tempComponent.addComponentLink(cLink1);//cLink
                                     }else{
-                                        System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                                         tempComponent.addComponentLink(cLink1);//cLink1
                                         tempComponent.addComponentLink(cLink);//cLink
                                     }
@@ -1734,7 +1734,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
                                     if(tDConnector.getsourceComponentNumber() == highlightComponent.getComponentNumber()){//port number determines which is used
                                         highlightComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());
-                                        if(DEBUG_LINKDIALOG)System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                                        if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
                                         highlightComponent.setOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
 
                                         for(CircuitComponent tmpComponent : highlightModule.getComponentsMap().values()){
@@ -1767,7 +1767,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                     
                 }else
                 if(highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
-                    System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_START");
                     int ctr = 1;
                     String selectedItem1= "0";
                     
@@ -1786,23 +1786,23 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 CircuitComponent tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
                                 //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                 double angle = tempComponent.getRotation();
-                                System.out.println("LinkDialog angle:"+angle);
+                                if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                                 if(angle >= 0 && angle <= (Math.PI/2)){
-                                    System.out.println("LinkDialog between 0 and 90 degrees");
+                                    if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                                     tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                 }else
                                 if(angle > (Math.PI/2) && angle <= Math.PI){
-                                    System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                                    if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                                     Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                                     tempComponent.setPosition(tempPosition); 
                                 }else
                                 if(angle > -(Math.PI/2) && angle <= 0){
-                                    System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                                    if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                                     Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                     tempComponent.setPosition(tempPosition);
                                 }else
                                 if(angle < 0 && angle <= -(Math.PI/2)){
-                                    System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                                    if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                                     Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                     tempComponent.setPosition(tempPosition);
                                 }
@@ -1826,7 +1826,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
                                 cLink.setDestinationPortLinkNumber(1);//temp solution
                                 cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                                System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                                if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                                 cLink1.setLinkNumber(1);//there can only be 1 link
                                 cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
@@ -1835,14 +1835,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                                 cLink1.setDestinationPortLinkNumber(1);//temp solution
                                 cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                                System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                                if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
 
                                 if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                                    System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                                     tempComponent.addComponentLink(cLink);//cLink1
                                     tempComponent.addComponentLink(cLink1);//cLink
                                 }else{
-                                    System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                                     tempComponent.addComponentLink(cLink1);//cLink1
                                     tempComponent.addComponentLink(cLink);//cLink
                                 }
@@ -1856,7 +1856,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
                                 if(tDConnector.getsourceComponentNumber() == highlightComponent.getComponentNumber()){//port number determines which is used
                                     highlightComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());
-                                    if(DEBUG_LINKDIALOG)System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                                    if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
                                     highlightComponent.setOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
 
                                     for(CircuitComponent tmpComponent : highlightModule.getComponentsMap().values()){
@@ -1886,25 +1886,25 @@ public class LinkDialog extends JDialog implements ActionListener {
                             selectedItem1 = (String)comboBox.getSelectedItem();
                             Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
                             
-                            System.out.println("partNumber:"+partNumber);
+                            if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                             int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                            System.out.println("index"+index);
+                            if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                             Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                            System.out.println("layerNumber"+layerNumber);
+                            if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                             Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                            System.out.println("moduleNumber"+moduleNumber);
+                            if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                             Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                            System.out.println("componentNumber"+componentNumber);
+                            if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                             Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                            System.out.println("portNumber"+portNumber);
-                            System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                            if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                            if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                             if(windowType == MAIN_WINDOW){
                                 highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                 theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
                             }else{
                                 highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                 theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
 
                             }
@@ -1914,26 +1914,26 @@ public class LinkDialog extends JDialog implements ActionListener {
                         ctr = ctr + 1;
                     }
                     /*Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                    System.out.println("partNumber:"+partNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                     int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                    System.out.println("index"+index);
+                    if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                     Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                    System.out.println("layerNumber"+layerNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                     Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                    System.out.println("moduleNumber"+moduleNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                     Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                    System.out.println("componentNumber"+componentNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                     Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                    System.out.println("portNumber"+portNumber);
-                    System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                     highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                     theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
 */
                     
                 }else
                 if(highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                    System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                     int ctr = 1;
                     String selectedItem1= "0";
                     
@@ -1945,25 +1945,25 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 
 
                                 Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                                System.out.println("partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                                 int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                                System.out.println("index"+index);
+                                if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                                 Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                                System.out.println("layerNumber"+layerNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                                 Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                                System.out.println("moduleNumber"+moduleNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                                 Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                                System.out.println("componentNumber"+componentNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                                 Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                                System.out.println("portNumber"+portNumber);
-                                System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                                if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                                 if(windowType == MAIN_WINDOW){
                                     highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                     theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
                                 }else{
                                     highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                                     theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
                                 }
                             }
@@ -1985,23 +1985,23 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     CircuitComponent tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
                                     //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                     double angle = tempComponent.getRotation();
-                                   System.out.println("LinkDialog angle:"+angle);
+                                   if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                                     if(angle >= 0 && angle <= (Math.PI/2)){
-                                        System.out.println("LinkDialog between 0 and 90 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                                         tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                                     }else
                                     if(angle > (Math.PI/2) && angle <= Math.PI){
-                                        System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                                         tempComponent.setPosition(tempPosition); 
                                     }else
                                     if(angle > -(Math.PI/2) && angle <= 0){
-                                        System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                         tempComponent.setPosition(tempPosition);
                                     }else
                                     if(angle < 0 && angle <= -(Math.PI/2)){
-                                        System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                                         Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                                         tempComponent.setPosition(tempPosition);
                                     }
@@ -2025,7 +2025,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
                                     cLink.setDestinationPortLinkNumber(1);//temp solution
                                     cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                                    System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                                     cLink1.setLinkNumber(1);//there can only be 1 link
                                     cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
@@ -2034,14 +2034,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                                     cLink1.setDestinationPortLinkNumber(1);//temp solution
                                     cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                                    System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                                    if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
 
                                     if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                                        System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                                         tempComponent.addComponentLink(cLink);//cLink1
                                         tempComponent.addComponentLink(cLink1);//cLink
                                     }else{
-                                        System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                                         tempComponent.addComponentLink(cLink1);//cLink1
                                         tempComponent.addComponentLink(cLink);//cLink
                                     }
@@ -2054,7 +2054,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
                                     if(tDConnector.getsourceComponentNumber() == highlightComponent.getComponentNumber()){//port number determines which is used
                                         highlightComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());
-                                        if(DEBUG_LINKDIALOG)System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                                        if(DEBUG_LINKDIALOG)if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
                                         highlightComponent.setOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
 
                                         for(CircuitComponent tmpComponent : highlightModule.getComponentsMap().values()){
@@ -2083,26 +2083,26 @@ public class LinkDialog extends JDialog implements ActionListener {
                         ctr = ctr + 1;
                     }
                     /*Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                    System.out.println("partNumber:"+partNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                     int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                    System.out.println("index"+index);
+                    if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                     Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                    System.out.println("layerNumber"+layerNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                     Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                    System.out.println("moduleNumber"+moduleNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                     Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                    System.out.println("componentNumber"+componentNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                     Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                    System.out.println("portNumber"+portNumber);
-                    System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                     highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                    System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                     theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
 */
                     
                 }else
                 if(highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE){
-                    System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
                     int ctr = 1;
                     String selectedItem1= "0";
                     String selectedItem2= "0";
@@ -2117,59 +2117,59 @@ public class LinkDialog extends JDialog implements ActionListener {
                         ctr = ctr + 1;
                     }
                     Integer partNumber = new Integer(selectedItem1.substring(1, selectedItem1.indexOf(".")));
-                    System.out.println("partNumber:"+partNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                     int index = selectedItem1.indexOf(".", selectedItem1.indexOf("L"));
-                    System.out.println("index"+index);
+                    if(DEBUG_LINKDIALOG) System.out.println("index"+index);
                     Integer layerNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("L")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("L"))));
-                    System.out.println("layerNumber"+layerNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                     Integer moduleNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("M")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("M"))));
-                    System.out.println("moduleNumber"+moduleNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                     Integer componentNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("C")+1,selectedItem1.indexOf(".", selectedItem1.indexOf("C"))));
-                    System.out.println("componentNumber"+componentNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                     Integer portNumber = new Integer(selectedItem1.substring(selectedItem1.indexOf("p")+1,selectedItem1.length()));
-                    System.out.println("portNumber"+portNumber);
-                    System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                     if(windowType == MAIN_WINDOW){
                         highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
                     }else{
                         highlightComponent.getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 1);
 
                     }
                     partNumber = new Integer(selectedItem2.substring(1, selectedItem2.indexOf(".")));
-                    System.out.println("partNumber:"+partNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
                     layerNumber = new Integer(selectedItem2.substring(selectedItem2.indexOf("L")+1,selectedItem2.indexOf(".", selectedItem2.indexOf("L"))));
-                    System.out.println("layerNumber"+layerNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("layerNumber"+layerNumber);
                     moduleNumber = new Integer(selectedItem2.substring(selectedItem2.indexOf("M")+1,selectedItem2.indexOf(".", selectedItem2.indexOf("M"))));
-                    System.out.println("moduleNumber"+moduleNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("moduleNumber"+moduleNumber);
                     componentNumber = new Integer(selectedItem2.substring(selectedItem2.indexOf("C")+1,selectedItem2.indexOf(".", selectedItem2.indexOf("C"))));
-                    System.out.println("componentNumber"+componentNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("componentNumber"+componentNumber);
                     portNumber = new Integer(selectedItem2.substring(selectedItem2.indexOf("p")+1,selectedItem2.length()));
-                    System.out.println("portNumber"+portNumber);
-                    System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
+                    if(DEBUG_LINKDIALOG) System.out.println("portNumber"+portNumber);
+                    if(DEBUG_LINKDIALOG) System.out.println("highlight component ComponentNumber:"+highlightComponent.getComponentNumber()+" Adding IML");
                     if(windowType == MAIN_WINDOW){
                         highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theMainApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theMainApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theMainApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
                     }else{
                         highlightComponent.getOutputConnectorsMap().get(2).addInterModuleLink(theChildApp.getModel().getPartsMap().get(partNumber), layerNumber, moduleNumber, componentNumber, portNumber);
-                        System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
+                        if(DEBUG_LINKDIALOG) System.out.println("back link to other component ComponentNumber:"+componentNumber+" Adding IML");
                         theChildApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber).getInputConnectorsMap().get(1).addInterModuleLink(theChildApp.getModel().getPartsMap().get(highlightModule.getPartNumber()), highlightModule.getLayerNumber(), highlightModule.getModuleNumber(), highlightComponent.getComponentNumber(), 2);
                     }
                     
                     
                 }else{//normal component
                     int sourcePort = 1;
-                    System.out.println("okButton click highlightComponent is a normal component");
+                    if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent is a normal component");
                     while(comboListItr.hasNext()) {
                         String selectedItem = (String)comboListItr.next().getSelectedItem();
-                        System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort+" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
+                        if(DEBUG_LINKDIALOG) System.out.println("selectedItem:"+selectedItem+" sourcePort:"+sourcePort+" highlightComponent.getComponentNumber():"+highlightComponent.getComponentNumber());
                         if(selectedItem != "    ") {
                             if(highlightComponent.getComponentType()== OPTICAL_INPUT_PORT){
-                                System.out.println("okButton click highlightComponent = OPTICAL_INPUT_PORT");
+                                if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent = OPTICAL_INPUT_PORT");
                                 updateList(selectedItem,1,highlightComponent);
                             }else
                             if(highlightComponent.getComponentType()== RAM8 || highlightComponent.getComponentType()== RAM16 || highlightComponent.getComponentType()== RAM20 || highlightComponent.getComponentType()== RAM24 || highlightComponent.getComponentType()== RAM30){//remember sourcePort here counts the comboBoxs not ports
@@ -2195,7 +2195,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                 
                                 if(sourcePort >= (highlightComponent.getInputConnectorsMap().size()+1) && sourcePort <= (highlightComponent.getInputConnectorsMap().size()+ highlightComponent.getOutputConnectorsMap().size()+1)){
                                     //sourcePort = sourcePort - 8;//8 bit databus
-                                    System.out.println("okButton click RAM");
+                                    if(DEBUG_LINKDIALOG) System.out.println("okButton click RAM");
                                     updateList(selectedItem, sourcePort - 8, highlightComponent);
                                 }else
                                 if(sourcePort > (numberOfAddressBusPins + 1) && sourcePort <= highlightComponent.getInputConnectorsMap().size()) {
@@ -2205,7 +2205,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     updateList(selectedItem, sourcePort, highlightComponent); 
                                 }
                             }else{
-                                System.out.println("okButton click highlightComponent != OPTICAL_INPUT_PORT");
+                                if(DEBUG_LINKDIALOG) System.out.println("okButton click highlightComponent != OPTICAL_INPUT_PORT");
                                 updateList(selectedItem,sourcePort,highlightComponent);
                             }
                             //updateList(selectedItem,sourcePort,highlightComponent);//ctr = port itr is a diagram itr
@@ -2214,10 +2214,10 @@ public class LinkDialog extends JDialog implements ActionListener {
                     }//end while
 
                     Iterator<componentLinkage> itrDestinationConnectors = componentLinkages.iterator();
-                    System.out.println("componentLinkages.size():"+componentLinkages.size());
+                    if(DEBUG_LINKDIALOG) System.out.println("componentLinkages.size():"+componentLinkages.size());
                     while(itrDestinationConnectors.hasNext()) {
                         componentLinkage tDConnector = itrDestinationConnectors.next();
-                        System.out.println("creating optical waveguide");
+                        if(DEBUG_LINKDIALOG) System.out.println("creating optical waveguide");
                         CircuitComponent tempComponent =null;
                         if(tDConnector.getsourceComponentPortType() == OUTPUT){//needed???
                             tempComponent = CircuitComponent.createComponent(OPTICAL_WAVEGUIDE, Color.BLUE, tDConnector.getsourcePhysicalLocation(), tDConnector.getdestinationPhysicalLocation());
@@ -2226,23 +2226,23 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                         //tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         double angle = tempComponent.getRotation();
-                        System.out.println("LinkDialog angle:"+angle);
+                        if(DEBUG_LINKDIALOG) System.out.println("LinkDialog angle:"+angle);
                         if(angle >= 0 && angle <= (Math.PI/2)){
-                            System.out.println("LinkDialog between 0 and 90 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog between 0 and 90 degrees");
                             tempComponent.setPosition(tDConnector.getsourcePhysicalLocation());
                         }else
                         if(angle > (Math.PI/2) && angle <= Math.PI){
-                            System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater then 90 degrees and less then 180 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y);
                             tempComponent.setPosition(tempPosition); 
                         }else
                         if(angle > -(Math.PI/2) && angle <= 0){
-                            System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 180 degrees and less then 270 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x,tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }else
                         if(angle < 0 && angle <= -(Math.PI/2)){
-                            System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
+                            if(DEBUG_LINKDIALOG) System.out.println("LinkDialog greater than 270 degrees and less then 360 degrees");
                             Point tempPosition = new Point(tDConnector.getsourcePhysicalLocation().x-tempComponent.getComponentWidth(),tDConnector.getsourcePhysicalLocation().y-tempComponent.getComponentBreadth());
                             tempComponent.setPosition(tempPosition);
                         }
@@ -2266,7 +2266,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                         cLink.setDestinationPortNumber(tDConnector.getdestinationComponentPort());
                         cLink.setDestinationPortLinkNumber(1);//temp solution
                         cLink.setDestinationPhysicalLoctaion(tDConnector.getsourcePhysicalLocation());
-                        System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourcePhysicalLocation():"+tDConnector.getsourcePhysicalLocation());
 
                         cLink1.setLinkNumber(1);//there can only be 1 link
                         cLink1.setConnectsToComponentNumber(tDConnector.getdestinationComponentNumber());
@@ -2275,14 +2275,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                         cLink1.setDestinationPortNumber(tDConnector.getsourceComponentPort());
                         cLink1.setDestinationPortLinkNumber(1);//temp solution
                         cLink1.setDestinationPhysicalLoctaion(tDConnector.getdestinationPhysicalLocation());
-                        System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
+                        if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationPhysicalLocation():"+tDConnector.getdestinationPhysicalLocation());
 
                         if(tDConnector.getsourceComponentPortType() == OUTPUT){
-                            System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType OUTPUT"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink);//cLink1
                             tempComponent.addComponentLink(cLink1);//cLink
                         }else{
-                            System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
+                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getsourceComponentPortType else"+tDConnector.getsourceComponentPortType());
                             tempComponent.addComponentLink(cLink1);//cLink1
                             tempComponent.addComponentLink(cLink);//cLink
                         }
@@ -2292,15 +2292,15 @@ public class LinkDialog extends JDialog implements ActionListener {
                         tDConnector.setLinksToComponentViaLineNumber(tempComponent.getComponentNumber());
                         if(tDConnector.getsourceComponentNumber() == highlightComponent.getComponentNumber()){//port number determines which is used
                             highlightComponent.setInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());
-                            System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())"+highlightComponent.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort())+" componentLink.getLinkNumber():"+componentLink.getLinkNumber()+" tDConnector.getsourceComponentPort():"+tDConnector.getsourceComponentPort()+" tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
                             highlightComponent.setOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort(), tempComponent.getComponentNumber());//might need changing??
-                            System.out.println("highlightComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()):"+highlightComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()));
+                            if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()):"+highlightComponent.getOutputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),tDConnector.getsourceComponentPort()));
                             for(CircuitComponent tmpComponent : highlightModule.getComponentsMap().values()){
                                 if(tmpComponent.getComponentNumber() == tDConnector.getdestinationComponentNumber()){
                                     for(InputConnector inputConnector :tmpComponent.getInputConnectorsMap().values() ){
                                         for(ComponentLink componentLnk : inputConnector.getComponentLinks()){
                                             tmpComponent.setInputConnectorConnectsToComponentNumber(componentLnk.getLinkNumber(),tDConnector.getdestinationComponentPort(),tempComponent.getComponentNumber());
-                                            System.out.println("tDConnector.getdestinationComponentPort():"+tDConnector.getdestinationComponentPort()+" tmpComponent.getInputConnectorConnectsToComponentNumber(componentLnk.getLinkNumber(),tDConnector.getdestinationComponentPort()):"+tmpComponent.getInputConnectorConnectsToComponentNumber(componentLnk.getLinkNumber(),tDConnector.getdestinationComponentPort()));
+                                            if(DEBUG_LINKDIALOG) System.out.println("tDConnector.getdestinationComponentPort():"+tDConnector.getdestinationComponentPort()+" tmpComponent.getInputConnectorConnectsToComponentNumber(componentLnk.getLinkNumber(),tDConnector.getdestinationComponentPort()):"+tmpComponent.getInputConnectorConnectsToComponentNumber(componentLnk.getLinkNumber(),tDConnector.getdestinationComponentPort()));
                                         }
                                     }
                                     for(OutputConnector outputConnector :tmpComponent.getOutputConnectorsMap().values() ){
@@ -2347,23 +2347,23 @@ public class LinkDialog extends JDialog implements ActionListener {
     public void updateList(String selectedItem,int sourcePort,CircuitComponent highlightComponent) {
 
         if(selectedItem.substring(0, 2).equals("BP")){//put in clause for bm
-            System.out.println("updateList Block Model Part if selectedItem = BP selectedItem:"+selectedItem.substring(0, 2));
+            if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP selectedItem:"+selectedItem.substring(0, 2));
             int partNumber = new Integer(selectedItem.substring(2,selectedItem.indexOf(".")));
-            System.out.println("partNumber:"+partNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("partNumber:"+partNumber);
             int portNumber = new Integer(selectedItem.substring(selectedItem.indexOf("p")+1,selectedItem.length()));
-            System.out.println("portNumber:"+portNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("portNumber:"+portNumber);
             //portNumber = 1; //this is complex as you are linking to DLIMLSTART thus the portNumber is always 1
             
             int highLightComponentSourcePortNumberForDLIMLST = 2;
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == false){
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
-                        System.out.println("testing updateList BP here 1");
-                        System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
+                        if(DEBUG_LINKDIALOG) System.out.println("testing updateList BP here 1");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
-                            System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
-                                System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
                                 if(tempComponent.getBlockModelPortNumber()== portNumber){
                                     componentLink = new ComponentLink();
                                     iConnector.addComponentLink(componentLink);
@@ -2379,7 +2379,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }else{
                                             if(oConnector.getPortNumber() == sourcePort){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2387,7 +2387,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                                 iConnector.getComponentLinks().getLast().setDestinationPortLinkNumber(1);
                                             }else
                                             if(oConnector.getPortNumber() == 2){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 //componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2412,7 +2412,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
 
                                     }
-                                    System.out.println("pt:"+pt);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt:"+pt);
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     //cLinkage.setsourceComponentPortType(OUTPUT);//??
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());//highlightComponent
@@ -2420,7 +2420,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     Point pt2 = iConnector.getPhysicalLocation();
 
                                     if(highlightComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END ){
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,pt2.x,pt2.y);
 
                                         highlightComponent.setOConnectorDestinationComponentNumber(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,tempComponent.getComponentNumber());//source Port,destination componentNumber
@@ -2456,12 +2456,12 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }else
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                        System.out.println("testing updateList BP here 2");
-                        System.out.println("updateList Block Model Part if selectedItem = BP SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
+                        if(DEBUG_LINKDIALOG) System.out.println("testing updateList BP here 2");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
-                            System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
-                                System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
                                 if(tempComponent.getBlockModelPortNumber()== portNumber){
                                     componentLink = new ComponentLink();
                                     iConnector.addComponentLink(componentLink);
@@ -2477,7 +2477,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }else{
                                             if(oConnector.getPortNumber() == sourcePort){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2485,7 +2485,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                                 iConnector.getComponentLinks().getLast().setDestinationPortLinkNumber(oConnector.getComponentLinks().getLast().getLinkNumber());
                                             }else
                                             if(oConnector.getPortNumber() == 2){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2510,7 +2510,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
 
                                     }
-                                    System.out.println("pt:"+pt);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt:"+pt);
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());
                                     cLinkage.setsourceComponentPortType(OUTPUT);//??
@@ -2518,7 +2518,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     Point pt2 = iConnector.getPhysicalLocation();
 
                                     if(highlightComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END || highlightComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,pt2.x,pt2.y);
 
                                         highlightComponent.setOConnectorDestinationComponentNumber(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,tempComponent.getComponentNumber());//source Port,destination componentNumber
@@ -2554,11 +2554,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }else//new added here 28/2/19
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                        System.out.println("testing updateList BP here 3");
-                        System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("testing updateList BP here 3");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                             for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
-                                System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
 
                                 if ( tempComponent.getBlockModelPortNumber() == portNumber) {
                                     //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
@@ -2576,7 +2576,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }
 //                                        if(oConnector.getPortNumber() == 2){//2
-//                                                System.out.println("sourcePort:"+sourcePort);
+//                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
 //                                                componentLink = new ComponentLink();
 //                                                oConnector.addComponentLink(componentLink);
 //                                                componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2626,17 +2626,17 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }else
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                        System.out.println("testing updateList BP here 4");
-                        System.out.println("updateList Block Model Part if selectedItem = BP SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("testing updateList BP here 4");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
                         //if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
 
                             for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
-                                System.out.println("1 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("1 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
 
                                 //if ( tempComponent.getBlockModelPortNumber() == portNumber) {
                                 if ( tempComponent.getBlockModelPortNumber() == portNumber) {
-                                    System.out.println("Here SLIMLED portNumber:"+portNumber);
+                                    if(DEBUG_LINKDIALOG) System.out.println("Here SLIMLED portNumber:"+portNumber);
                                     //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
                                         componentLink = new ComponentLink();
                                         oConnector.addComponentLink(componentLink);
@@ -2653,7 +2653,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             
                                         }
                                         if(oConnector.getPortNumber() == 2){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2721,11 +2721,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 
                 for(CircuitComponent tempComponent : moduleLinked.getComponentsMap().values()){
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START || tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                        System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_START ||  SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_START ||  SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2)); 
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
-                            System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("differnet layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber()+" partNumber:"+partNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
-                                System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
                                 if(tempComponent.getBlockModelPortNumber()== portNumber){
                                     componentLink = new ComponentLink();
                                     iConnector.addComponentLink(componentLink);
@@ -2741,7 +2741,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }else{
                                             if(oConnector.getPortNumber() == sourcePort){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2749,7 +2749,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                                 iConnector.getComponentLinks().getLast().setDestinationPortLinkNumber(oConnector.getComponentLinks().getLast().getLinkNumber());
                                             }else
                                             if(oConnector.getPortNumber() == 2){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2758,7 +2758,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }
                                     }
-                                    System.out.println("highlightComponentTYpe:"+highlightComponent.getComponentType());
+                                    if(DEBUG_LINKDIALOG) System.out.println("highlightComponentTYpe:"+highlightComponent.getComponentType());
                                     componentLinkage cLinkage = null;
                                     if(highlightComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END || highlightComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END){
                                         cLinkage = new componentLinkage(highlightComponent.getComponentNumber(),highLightComponentSourcePortNumberForDLIMLST,tempComponent.getComponentNumber(),1);//1??
@@ -2775,7 +2775,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
 
                                     }
-                                    System.out.println("pt:"+pt);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt:"+pt);
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     cLinkage.setsourceComponentPortType(OUTPUT);//??
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());
@@ -2783,7 +2783,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     Point pt2 = iConnector.getPhysicalLocation();
 
                                     if(highlightComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END || highlightComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END ){
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,pt2.x,pt2.y);
 
                                         highlightComponent.setOConnectorDestinationComponentNumber(componentLinkCtr,highLightComponentSourcePortNumberForDLIMLST,tempComponent.getComponentNumber());//source Port,destination componentNumber
@@ -2820,10 +2820,10 @@ public class LinkDialog extends JDialog implements ActionListener {
                     }
 
                     if(tempComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END || tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                        System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_END || SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Part if selectedItem = BP DIFFERENT_LAYER_INTER_MODULE_LINK_END || SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == partNumber){
                             for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
-                                System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" partNumber:"+partNumber);
 
                                 if ( tempComponent.getBlockModelPortNumber() == portNumber) {
                                     //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
@@ -2875,11 +2875,11 @@ public class LinkDialog extends JDialog implements ActionListener {
            
         }else
         if(selectedItem.substring(0, 2).equals("BM")){//put in clause for bm
-            System.out.println("testing here 1.0 updateList Block Model Module selectedItem = BM selectedItem:"+selectedItem.substring(0, 2));
+            if(DEBUG_LINKDIALOG) System.out.println("testing here 1.0 updateList Block Model Module selectedItem = BM selectedItem:"+selectedItem.substring(0, 2));
             int moduleNumber = new Integer(selectedItem.substring(2,selectedItem.indexOf(".")));
-            System.out.println("moduleNumber:"+moduleNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("moduleNumber:"+moduleNumber);
             int portNumber = new Integer(selectedItem.substring(selectedItem.indexOf("p")+1,selectedItem.length()));
-            System.out.println("portNumber:"+portNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("portNumber:"+portNumber);
             int partNumber = highlightModule.getPartNumber();
             //portNumber = 1; //this is complex as you are linking to DLIMLSTART thus the portNumber is always 1
             
@@ -2904,12 +2904,12 @@ public class LinkDialog extends JDialog implements ActionListener {
                 //for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                 for(CircuitComponent tempComponent : highlightPart.getLayersMap().get(layerNumber).getModulesMap().get(moduleLinked).getComponentsMap().values()){
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                        System.out.println("testing here 1");
-                        System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("testing here 1");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleNumber){
-                            System.out.println("same layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" moduleNumber:"+moduleNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("same layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" moduleNumber:"+moduleNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
-                                System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
                                 if(tempComponent.getBlockModelPortNumber()== portNumber){
                                     componentLink = new ComponentLink();
                                     iConnector.addComponentLink(componentLink);
@@ -2925,7 +2925,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }else{
                                             if(oConnector.getPortNumber() == sourcePort){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -2950,7 +2950,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
 
                                     }
-                                    System.out.println("pt:"+pt);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt:"+pt);
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     //cLinkage.setsourceComponentPortType(OUTPUT);//??
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());
@@ -2958,7 +2958,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     Point pt2 = iConnector.getPhysicalLocation();
 
                                     if(highlightComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END){
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,highLightComponentSourcePortNumberForSLIMLST,pt2.x,pt2.y);
 
                                         highlightComponent.setOConnectorDestinationComponentNumber(componentLinkCtr,highLightComponentSourcePortNumberForSLIMLST,tempComponent.getComponentNumber());//source Port,destination componentNumber
@@ -2994,14 +2994,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }else
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                        System.out.println("testing here 2");
-                        System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("testing here 2");
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleNumber){
                             for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
-                                System.out.println("2 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" moduleNumber:"+moduleNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("2 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" moduleNumber:"+moduleNumber);
 
                                 if ( tempComponent.getBlockModelPortNumber() == portNumber) {
-                                    System.out.println("here testing portNumber found:"+portNumber);
+                                    if(DEBUG_LINKDIALOG) System.out.println("here testing portNumber found:"+portNumber);
                                     //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
                                         componentLink = new ComponentLink();
                                         oConnector.addComponentLink(componentLink);
@@ -3071,11 +3071,11 @@ public class LinkDialog extends JDialog implements ActionListener {
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
                     
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
-                        System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_START selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleNumber){
-                            System.out.println("same layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" moduleNumber:"+moduleNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
+                            if(DEBUG_LINKDIALOG) System.out.println("same layer inter module link start tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+tempComponent.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber()+" moduleNumber:"+moduleNumber+" tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber());
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
-                                System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
+                                if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort);
                                 if(tempComponent.getBlockModelPortNumber()== portNumber){
                                     componentLink = new ComponentLink();
                                     iConnector.addComponentLink(componentLink);
@@ -3091,7 +3091,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                             }
                                         }else{
                                             if(oConnector.getPortNumber() == sourcePort){//2
-                                                System.out.println("sourcePort:"+sourcePort);
+                                                if(DEBUG_LINKDIALOG) System.out.println("sourcePort:"+sourcePort);
                                                 componentLink = new ComponentLink();
                                                 oConnector.addComponentLink(componentLink);
                                                 componentLinkCtr = oConnector.getComponentLinks().getLast().getLinkNumber();
@@ -3116,7 +3116,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
 
                                     }
-                                    System.out.println("pt:"+pt);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt:"+pt);
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     cLinkage.setsourceComponentPortType(OUTPUT);//??
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());
@@ -3124,7 +3124,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                                     Point pt2 = iConnector.getPhysicalLocation();
 
                                     if(highlightComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END || highlightComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
+                                        if(DEBUG_LINKDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,highLightComponentSourcePortNumberForSLIMLST,pt2.x,pt2.y);
 
                                         highlightComponent.setOConnectorDestinationComponentNumber(componentLinkCtr,highLightComponentSourcePortNumberForSLIMLST,tempComponent.getComponentNumber());//source Port,destination componentNumber
@@ -3160,10 +3160,10 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }else
                     if(tempComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                        System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
+                        if(DEBUG_LINKDIALOG) System.out.println("updateList Block Model Module selectedItem = BM SAME_LAYER_INTER_MODULE_LINK_END selectedItem:"+selectedItem.substring(0, 2));
                         if(tempComponent.getBlockModelPortNumber()==portNumber && tempComponent.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleNumber){
                             for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
-                                System.out.println("3 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" moduleNumber:"+moduleNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("3 SAME_LAYER_INTER_MODULE_LINK_END tempComponent.getBlockModelPortNumber():"+tempComponent.getBlockModelPortNumber()+" portNumber:"+portNumber+" sourcePort:"+sourcePort+" moduleNumber:"+moduleNumber);
 
                                 if ( tempComponent.getBlockModelPortNumber() == portNumber) {
                                     //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
@@ -3229,21 +3229,21 @@ public class LinkDialog extends JDialog implements ActionListener {
             }
            
         }else{//need to test if highlightComponent is DLIMLST or DLIMLED and based on this setIconnectors or setOConnectors
-            System.out.println("updateList else not BP not BM");
-            System.out.println("selectedItem:"+selectedItem.substring(0, 2));
+            if(DEBUG_LINKDIALOG) System.out.println("updateList else not BP not BM");
+            if(DEBUG_LINKDIALOG) System.out.println("selectedItem:"+selectedItem.substring(0, 2));
             String componentNoStr = selectedItem.substring(0,selectedItem.indexOf("."));				
             String componentNo = componentNoStr.substring(1,componentNoStr.length());
             int componentNumber = new Integer(componentNo); 
             String portNoStr = selectedItem.substring(selectedItem.indexOf("."),selectedItem.length());
             String portNo = portNoStr.substring(1,portNoStr.length());
             int portNumber = new Integer(portNo);
-            System.out.println("updateList portNumber:"+portNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("updateList portNumber:"+portNumber);
             portNumber = Integer.parseInt(portNo);
             componentNumber = Integer.parseInt(componentNo);
-            System.out.println("updateList componentNumber:"+componentNumber);
+            if(DEBUG_LINKDIALOG) System.out.println("updateList componentNumber:"+componentNumber);
             //if highlightComponent==DLIMLED
             if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true && highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                System.out.println("updateList else highlightPart.getBlockModelExistsBoolean == true highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightPart.getBlockModelExistsBoolean == true highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
 
                     int compNo = tempComponent.getComponentNumber();
@@ -3302,7 +3302,7 @@ public class LinkDialog extends JDialog implements ActionListener {
  
             }else
             if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true && highlightComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && findBlockModelContents == NO){
-                System.out.println("updateList else highlightPart.getBlockModelExistsBoolean == true highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_START and findBlockModelContents= NO");
+                if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightPart.getBlockModelExistsBoolean == true highlightComponent = DIFFERENT_LAYER_INTER_MODULE_LINK_START and findBlockModelContents= NO");
                 for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
 
                     int compNo = tempComponent.getComponentNumber();
@@ -3365,7 +3365,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 //need to put blockModelModule code here
             }else
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true && highlightComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-                System.out.println("ipdateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_END");
+                if(DEBUG_LINKDIALOG) System.out.println("ipdateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_END");
                 int moduleNumber =0;
                 for(CircuitComponent c : highlightModule.getComponentsMap().values()){//needed?? given highlightComponent
                     if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
@@ -3430,7 +3430,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                 }
             }else
             if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true && highlightComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && findBlockModelContents == NO){
-                System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO");
+                if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO");
                 int moduleNumber =0;
                 for(CircuitComponent c : highlightModule.getComponentsMap().values()){//needed?? given highlightComponent
                     if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
@@ -3450,14 +3450,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                         }
                     }
                 }
-                System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO moduleNumber:"+moduleNumber);
+                if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO moduleNumber:"+moduleNumber);
                 for(CircuitComponent tempComponent : highlightPart.getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().values()){
-                    System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO tempComponentNumber:"+tempComponent.getComponentNumber());
+                    if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO tempComponentNumber:"+tempComponent.getComponentNumber());
                     int compNo = tempComponent.getComponentNumber();
                     if(compNo == componentNumber) {
                         for(OutputConnector oConnector : tempComponent.getOutputConnectorsMap().values()){
                             if ( oConnector.getPortNumber() == portNumber) {
-                                System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO portNumber:"+portNumber);
+                                if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExists = true highlightcomponent = SAME_LAYER_INTER_MODULE_LINK_START findBlockModelContents = NO portNumber:"+portNumber);
                                 //if(highlightComponent.getComponentType() != OPTICAL_INPUT_PORT){//OUTPUT_PORT ) {
                                     componentLink = new ComponentLink();
                                     oConnector.addComponentLink(componentLink);
@@ -3498,7 +3498,7 @@ public class LinkDialog extends JDialog implements ActionListener {
 
                                     int componentLinkCtr2 = oConnector.getComponentLinks().getLast().getLinkNumber();
 
-                                    System.out.println("tempComponentNumber:"+tempComponent.getComponentNumber()+" portNumber:"+portNumber);
+                                    if(DEBUG_LINKDIALOG) System.out.println("tempComponentNumber:"+tempComponent.getComponentNumber()+" portNumber:"+portNumber);
                                     
                                     tempComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr2,portNumber,pt.x,pt.y);
 
@@ -3515,14 +3515,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                 }
                 
             }else{//normal component
-                System.out.println("updateList else normal component");
+                if(DEBUG_LINKDIALOG) System.out.println("updateList else normal component");
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == false){
-                    System.out.println("updateList else highlightModule.getBlockModelExistsBoolean= false");
+                    if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExistsBoolean= false");
                     for(CircuitComponent tempComponent : highlightModule.getComponentsMap().values()){
 
                         int compNo = tempComponent.getComponentNumber();
                         if(compNo == componentNumber) {
-                            System.out.println("Normal Component sourcePort:"+sourcePort);
+                            if(DEBUG_LINKDIALOG) System.out.println("Normal Component sourcePort:"+sourcePort);
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                                 if(iConnector.getPortNumber() == portNumber){
                                     componentLink = new ComponentLink();
@@ -3559,15 +3559,15 @@ public class LinkDialog extends JDialog implements ActionListener {
                                         pt = highlightComponent.getOConnectorPhysicalLocation(1);
                                     }else{
                                         pt = highlightComponent.getOConnectorPhysicalLocation(sourcePort);
-                                        System.out.println("highlightComponent.getOConnectorPhysicalLocation(sourcePort):"+highlightComponent.getOConnectorPhysicalLocation(sourcePort));
+                                        if(DEBUG_LINKDIALOG) System.out.println("highlightComponent.getOConnectorPhysicalLocation(sourcePort):"+highlightComponent.getOConnectorPhysicalLocation(sourcePort));
                                     }
                                     cLinkage.setsourcePhysicalLocation(pt.x,pt.y);
                                     cLinkage.setsourceComponentNumber(highlightComponent.getComponentNumber());
-                                    System.out.println("Setting sourceComponentPortType: to OUTPUT");
+                                    if(DEBUG_LINKDIALOG) System.out.println("Setting sourceComponentPortType: to OUTPUT");
                                     cLinkage.setsourceComponentPortType(OUTPUT);
                                     Point pt2 = iConnector.getPhysicalLocation();
                                     
-                                    System.out.println("pt2:"+pt2);
+                                    if(DEBUG_LINKDIALOG) System.out.println("pt2:"+pt2);
 
                                     if(highlightComponent.getComponentType() == OPTICAL_INPUT_PORT){
                                         highlightComponent.setOConnectorDestinationPhysicalLocation(componentLinkCtr,1,pt2.x,pt2.y);
@@ -3650,7 +3650,7 @@ public class LinkDialog extends JDialog implements ActionListener {
                     }//end diagram for loop
                 }else
                 if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
-                    System.out.println("updateList else highlightModule.getBlockModelExistsBoolean= true");
+                    if(DEBUG_LINKDIALOG) System.out.println("updateList else highlightModule.getBlockModelExistsBoolean= true");
                     int moduleNumber =0;
                     for(CircuitComponent c : highlightModule.getComponentsMap().values()){
                         if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
@@ -3667,7 +3667,7 @@ public class LinkDialog extends JDialog implements ActionListener {
 
                         int compNo = tempComponent.getComponentNumber();
                         if(compNo == componentNumber) {
-                            System.out.println("Normal Component sourcePort:"+sourcePort);
+                            if(DEBUG_LINKDIALOG) System.out.println("Normal Component sourcePort:"+sourcePort);
                             for(InputConnector iConnector : tempComponent.getInputConnectorsMap().values()){
                                 if(iConnector.getPortNumber() == portNumber){
                                     componentLink = new ComponentLink();
@@ -3790,14 +3790,14 @@ public class LinkDialog extends JDialog implements ActionListener {
                     }//end diagram for loop
                 
                 }else{
-                    System.out.println("updatelist case not found!!!");
+                    if(DEBUG_LINKDIALOG) System.out.println("updatelist case not found!!!");
                 }
             }
         }
     }//end updateList method
 
     public boolean checkIfAlreadyInArray(String str, String[] ArrayStr){
-        System.out.println("ArrayStr.length:"+ArrayStr.length);
+        if(DEBUG_LINKDIALOG) System.out.println("ArrayStr.length:"+ArrayStr.length);
         if(ArrayStr!=null && ArrayStr.length>0){
             for(String s: ArrayStr){
                 if(s!=null){

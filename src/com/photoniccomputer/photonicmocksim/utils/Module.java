@@ -354,24 +354,24 @@ public abstract class Module implements Serializable {
         //create partNumber attribute
         Attr attr = doc.createAttribute("partNumber");
         attr.setValue(String.valueOf(getPartNumber()));
-        System.out.println("PartNumber:"+getPartNumber());
+        if(DEBUG_MODULE) System.out.println("PartNumber:"+getPartNumber());
         packageModelForPartElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partName");
         attr.setValue(String.valueOf(getPartName()));
-        System.out.println("partName:"+getPartName());
+        if(DEBUG_MODULE) System.out.println("partName:"+getPartName());
         packageModelForPartElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partType");
         attr.setValue(String.valueOf(getPartType()));
-        System.out.println("partType:"+getPartType());
+        if(DEBUG_MODULE) System.out.println("partType:"+getPartType());
         packageModelForPartElement.setAttributeNode(attr);
 
         org.w3c.dom.Element boardTypeElement = doc.createElement("BoardType");
 
         attr = doc.createAttribute("boardType");
         attr.setValue(String.valueOf(getBoardType()));
-        System.out.println("boardType:"+getBoardType());
+        if(DEBUG_MODULE) System.out.println("boardType:"+getBoardType());
         boardTypeElement.setAttributeNode(attr);
 
         packageModelForPartElement.appendChild(boardTypeElement);
@@ -382,12 +382,12 @@ public abstract class Module implements Serializable {
 
         attr = doc.createAttribute("partWidth");
         attr.setValue(String.valueOf(getModuleWidth()));
-        System.out.println("partWidth:"+getModuleWidth()+":"+attr.getValue());
+        if(DEBUG_MODULE) System.out.println("partWidth:"+getModuleWidth()+":"+attr.getValue());
         boardDimensionsElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("partBreadth");
         attr.setValue(String.valueOf(getModuleBreadth()));
-        System.out.println("partBreadth:"+getModuleBreadth()+":"+attr.getValue());
+        if(DEBUG_MODULE) System.out.println("partBreadth:"+getModuleBreadth()+":"+attr.getValue());
         boardDimensionsElement.setAttributeNode(attr);
 
         packageModelForPartElement.appendChild(boardDimensionsElement);
@@ -396,7 +396,7 @@ public abstract class Module implements Serializable {
 
         attr = doc.createAttribute("moduleNumber");
         attr.setValue(String.valueOf(getModuleNumber()));
-        System.out.println("moduleNumber:"+getModuleNumber());
+        if(DEBUG_MODULE) System.out.println("moduleNumber:"+getModuleNumber());
         moduleElement.setAttributeNode(attr);
                 
         packageModelForPartElement.appendChild(moduleElement);
@@ -404,30 +404,30 @@ public abstract class Module implements Serializable {
         org.w3c.dom.Element positionElement = doc.createElement("Position");
         attr = doc.createAttribute("x");
         attr.setValue(String.valueOf(getPosition().x));
-        System.out.println("position.x:"+getPosition().x);
+        if(DEBUG_MODULE) System.out.println("position.x:"+getPosition().x);
         positionElement.setAttributeNode(attr);
 
         attr = doc.createAttribute("y");
         attr.setValue(String.valueOf(getPosition().y));
-        System.out.println("position.y:"+getPosition().y);
+        if(DEBUG_MODULE) System.out.println("position.y:"+getPosition().y);
         positionElement.setAttributeNode(attr);
         
         packageModelForPartElement.appendChild(positionElement);
 
         if(getBlockModelExistsBoolean()==true){
-            System.out.println("BlockModelEnabled");
+            if(DEBUG_MODULE) System.out.println("BlockModelEnabled");
             NodeList nodeList = getBlockModelNodeList();
             int numberOfNodes = nodeList.getLength();
-            System.out.println("numberOfNodes:"+numberOfNodes);
+            if(DEBUG_MODULE) System.out.println("numberOfNodes:"+numberOfNodes);
             Node currentNode = null;
             Element elementNodeList=null;
             
             org.w3c.dom.Element blockModelElement = doc.createElement("BlockModel");
             Node firstDocImportedNode = null;
             for(int i=0;i<numberOfNodes;i++){
-                System.out.println("---- getNodeName: "+nodeList.item(i).getNodeName()+" ----");
+                if(DEBUG_MODULE) System.out.println("---- getNodeName: "+nodeList.item(i).getNodeName()+" ----");
                 if(nodeList.item(i).getNodeName().equals("BlockModelPosition")){
-                    System.out.println("++++ BlockModelPosition ++++ this.BlockModelPosition.x:"+this.BlockModelPosition.x+" this.BlockModelPosition.y:"+this.BlockModelPosition.y);
+                    if(DEBUG_MODULE) System.out.println("++++ BlockModelPosition ++++ this.BlockModelPosition.x:"+this.BlockModelPosition.x+" this.BlockModelPosition.y:"+this.BlockModelPosition.y);
                     nodeList.item(i).getAttributes().getNamedItem("x").setNodeValue(Integer.toString(this.BlockModelPosition.x));
                     nodeList.item(i).getAttributes().getNamedItem("y").setNodeValue(Integer.toString(this.BlockModelPosition.y));
                 }
@@ -443,9 +443,9 @@ public abstract class Module implements Serializable {
     }
 
     public void createModuleModelFromXML(Node node){
-            System.out.println("Module createModuleModelFromXML");
+        if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML");
             NamedNodeMap attrs = node.getAttributes();
-            System.out.println("rootNode:"+node.getNodeName());
+        if(DEBUG_MODULE) System.out.println("rootNode:"+node.getNodeName());
             setPartType(Integer.valueOf(((Attr)(attrs.getNamedItem("partType"))).getValue()));
             setPartNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("partNumber"))).getValue()));
             setPartName(String.valueOf(((Attr)(attrs.getNamedItem("partName"))).getValue()));
@@ -455,17 +455,17 @@ public abstract class Module implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("Module createModuleModelFromXML aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "Position":
                         attrs = aNode.getAttributes();
                         setPosition(new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue())));
-                        System.out.println("Module createModuleModelFromXML getPosition:"+getPosition());
+                        if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML getPosition:"+getPosition());
                         break;
                     case "BoardType":
                         attrs = aNode.getAttributes();
                         setBoardType(Integer.valueOf(((Attr)(attrs.getNamedItem("boardType"))).getValue()));
-                        System.out.println("Module createModuleModelFromXML getBoardType:"+getBoardType());
+                        if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML getBoardType:"+getBoardType());
                     break;
                     
                     case "BoardDimensions":
@@ -475,27 +475,27 @@ public abstract class Module implements Serializable {
                         
                         //setModuleBlockModelBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("partBreadth"))).getValue()));
                         setModuleBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("partBreadth"))).getValue()));
-                        
-                        System.out.println("Module createModuleModelFromXML getModuleWidth:"+getModuleWidth()+" moduleBreadth:"+getModuleBreadth());
+
+                        if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML getModuleWidth:"+getModuleWidth()+" moduleBreadth:"+getModuleBreadth());
                     break;
                     case "BlockModel":
                         //bounds = new java.awt.Rectangle(getPosition().x,getPosition().y,getModuleBlockModelWidth(),getModuleBlockModelBreadth());
                         setBlockModelExistsBoolean(true);
-                        System.out.println("Module createModuleModelFromXML BlockModelExists");
+                        if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML BlockModelExists");
                         NodeList nodeList = aNode.getChildNodes();
                         setBlockModelNodeList(nodeList);
-                        System.out.println("createModuleModelFromXML nodeList.length:"+nodeList.getLength());
+                        if(DEBUG_MODULE) System.out.println("createModuleModelFromXML nodeList.length:"+nodeList.getLength());
                         for(int v=0;v<nodeList.getLength();v++){
                             if(nodeList.item(v).getNodeName().equals("BlockModelPosition")){
-                                System.out.println("Setting Block Model position");
+                                if(DEBUG_MODULE) System.out.println("Setting Block Model position");
                                 BlockModelPosition = new Point(new Integer(nodeList.item(v).getAttributes().getNamedItem("x").getNodeValue()) , new Integer(nodeList.item(v).getAttributes().getNamedItem("y").getNodeValue()) );
-                                
-                                System.out.println("BlockModelPosition:"+BlockModelPosition);
+
+                                if(DEBUG_MODULE) System.out.println("BlockModelPosition:"+BlockModelPosition);
                                 
                             }
                             if(nodeList.item(v).getNodeName().equals("BlockModelModuleLibraryNumber")){
                                 setModuleLibraryNumber(String.valueOf(nodeList.item(v).getAttributes().getNamedItem("MLN").getNodeValue()));
-                                System.out.println("setting BlockModelModuleLibraryNumber():"+getModuleLibraryNumber());
+                                if(DEBUG_MODULE) System.out.println("setting BlockModelModuleLibraryNumber():"+getModuleLibraryNumber());
                                 //break;
                             }
                             if(nodeList.item(v).getNodeName().equals("Rectangle")){
@@ -504,7 +504,7 @@ public abstract class Module implements Serializable {
                                     setModuleBlockModelWidth(new Integer(nodeList.item(v).getAttributes().getNamedItem("width").getNodeValue())+1);
                                     setModuleBlockModelBreadth(new Integer(nodeList.item(v).getAttributes().getNamedItem("breadth").getNodeValue())+1);
                                     blockModelbounds = new java.awt.Rectangle( BlockModelPosition.x, BlockModelPosition.y,getModuleBlockModelWidth(),getModuleBlockModelBreadth());
-                                    System.out.println("BlockModelBounds:"+blockModelbounds);
+                                    if(DEBUG_MODULE) System.out.println("BlockModelBounds:"+blockModelbounds);
                                 }
                             }
                             
@@ -516,7 +516,7 @@ public abstract class Module implements Serializable {
                     
                 }
             }
-            System.out.println("just set values for module");
+        if(DEBUG_MODULE) System.out.println("just set values for module");
     }
     
     
@@ -619,7 +619,7 @@ public abstract class Module implements Serializable {
                 }
                 rectangle = new Rectangle2D.Double(origin.x, origin.y,moduleWidth, moduleBreadth);// Width & height
                 bounds = new java.awt.Rectangle(start.x ,start.y,moduleWidth+1, moduleBreadth+1);
-                System.out.println("Module constructor1 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+            if(DEBUG_MODULE) System.out.println("Module constructor1 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
             //}else{     
         }
         
@@ -642,11 +642,11 @@ public abstract class Module implements Serializable {
                 rectangle = new Rectangle2D.Double(origin.x, origin.y,getModuleWidth(), getModuleBreadth());// Width & height
                 
                 bounds = new java.awt.Rectangle(start.x ,start.y,moduleWidth+1, moduleBreadth+1);
-                System.out.println("Module constructor nodeList Bounds:"+bounds);
-                System.out.println("Module constructor 2 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
-                        
-            
-            System.out.println("Rectangle module start.x:"+start.x+" start.y:"+start.y);
+            if(DEBUG_MODULE) System.out.println("Module constructor nodeList Bounds:"+bounds);
+            if(DEBUG_MODULE) System.out.println("Module constructor 2 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+
+
+            if(DEBUG_MODULE) System.out.println("Rectangle module start.x:"+start.x+" start.y:"+start.y);
             //setPosition(start);
             setBlockModelNodeList(blockModelNodeList);
             Node aNode;
@@ -668,40 +668,40 @@ public abstract class Module implements Serializable {
                                 attrs = aNode.getAttributes();
                                 String type1 = ((Attr)(attrs.getNamedItem("blockModelEnabled"))).getValue();
                                 if(type1.equals("true")){
-                                    System.out.println("Setting block model enabled2");
+                                    if(DEBUG_MODULE) System.out.println("Setting block model enabled2");
                                     setBlockModelExistsBoolean(true);
                                 }
                                 break;
                             case "BlockModelPosition":
                                 attrs = aNode.getAttributes();
                                 BlockModelPosition = new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
-                                System.out.println("Module createModuleModelFromXML BlockModelPosition:"+BlockModelPosition);
+                                if(DEBUG_MODULE) System.out.println("Module createModuleModelFromXML BlockModelPosition:"+BlockModelPosition);
                                 break;
                             case "Rectangle":
-                                System.out.println("Rectangle2");
+                                if(DEBUG_MODULE) System.out.println("Rectangle2");
                                 attrs = aNode.getAttributes();
                                 int width = (Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                                 int breadth = (Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue()));
                                 x1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()));
                                 y1 = (Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
                                 String type2 = ((Attr)(attrs.getNamedItem("Type"))).getValue();
-                                System.out.println("Main type2:"+type2);
+                                if(DEBUG_MODULE) System.out.println("Main type2:"+type2);
                                 if(type2.equals(MAIN)){
                                     blockModelWidth = width;
                                     blockModelBreadth = breadth; 
                                     setModuleBlockModelWidth(width);
                                     setModuleBlockModelBreadth(breadth);
-                                    System.out.println("Setting blockModelbounds 2");
+                                    if(DEBUG_MODULE) System.out.println("Setting blockModelbounds 2");
                                     blockModelbounds = new java.awt.Rectangle( start.x, start.y,blockModelWidth+1,blockModelBreadth+1);
                                     //blockModelbounds = new java.awt.Rectangle( BlockModelPosition.x, BlockModelPosition.y,blockModelWidth+1,blockModelBreadth+1);
-                                    System.out.println("blockModelbounds:"+blockModelbounds);
+                                    if(DEBUG_MODULE) System.out.println("blockModelbounds:"+blockModelbounds);
                                     //BlockModelPosition = new Point(500 - blockModelWidth/2,500 - blockModelBreadth/2);//panel width/2 - blockModelWidth/2
                                 }
                                 //g2D.drawRect(x, y, width, breadth);
                                 //g2D.drawRect(origin.x, origin.y, width, breadth);
                                 break;
                             case "Line":
-                                System.out.println("Line");
+                                if(DEBUG_MODULE) System.out.println("Line");
                                 attrs = aNode.getAttributes();
                                 int endx = (Integer.valueOf(((Attr)(attrs.getNamedItem("endx"))).getValue()));
                                 int endy = (Integer.valueOf(((Attr)(attrs.getNamedItem("endy"))).getValue()));
@@ -710,9 +710,9 @@ public abstract class Module implements Serializable {
                                 String type3 = ((Attr)(attrs.getNamedItem("Type"))).getValue();
                                 int blockModelPortNumber = new Integer(((Attr)(attrs.getNamedItem("portNumber"))).getValue());
                                 Point BlockModelEnd = new Point(blockModelWidth/2+500, blockModelBreadth/2+500);
-                                System.out.println("BlockModelModule Line portNumber:"+blockModelPortNumber+" type:"+type3);
+                                if(DEBUG_MODULE) System.out.println("BlockModelModule Line portNumber:"+blockModelPortNumber+" type:"+type3);
                                 if(type3.equals("INPUT_PORT")){
-                                    System.out.println("INPUT_PORT adding blockModelPort blockModelPortNumber:"+blockModelPortNumber+" position:"+origin.x+":"+(origin.y+y-y1));
+                                    if(DEBUG_MODULE) System.out.println("INPUT_PORT adding blockModelPort blockModelPortNumber:"+blockModelPortNumber+" position:"+origin.x+":"+(origin.y+y-y1));
                                     BlockModelPort bMP = new BlockModelPort();
                                     bMP.setBlockModelPortType(type3);
                                     bMP.setBlockModelPortNumber(blockModelPortNumber);
@@ -730,7 +730,7 @@ public abstract class Module implements Serializable {
                     }
                 }
             }
-            System.out.println("Module constructor 3 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+            if(DEBUG_MODULE) System.out.println("Module constructor 3 getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
         }
         
                     // Display the rectangle
@@ -759,8 +759,8 @@ public abstract class Module implements Serializable {
                 modify(position,new Point(position.x+getModuleWidth(),position.y+getModuleBreadth())); 
                 g2D.draw(rectangle);
                 //bounds = new java.awt.Rectangle(position.x , position.y,getModuleWidth()+1, getModuleBreadth()+1);
-                System.out.println("Module draw nodeList Bounds:"+bounds);
-                System.out.println("Module draw getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+            if(DEBUG_MODULE) System.out.println("Module draw nodeList Bounds:"+bounds);
+            if(DEBUG_MODULE) System.out.println("Module draw getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
                 //g2D.drawString("testing module", 30, 40);
                 //rectangle = new Rectangle2D.Double(20, 20,400, 400);// Width & height
                 //g2D.draw(rectangle);
@@ -774,8 +774,8 @@ public abstract class Module implements Serializable {
             g2D.setPaint(highlighted ? HIGHLIGHT_MODULE_COLOR : color);
             AffineTransform old = g2D.getTransform();
             Font oldFont = g2D.getFont();
-            System.out.println("block model BlockModelPosition:"+BlockModelPosition);
-            System.out.println("Module drawBlockModel top getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+            if(DEBUG_MODULE) System.out.println("block model BlockModelPosition:"+BlockModelPosition);
+            if(DEBUG_MODULE) System.out.println("Module drawBlockModel top getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
             
                 g2D.translate(BlockModelPosition.x, BlockModelPosition.y);
                 g2D.setFont(DEFAULT_MODULE_FONT);
@@ -794,7 +794,7 @@ public abstract class Module implements Serializable {
                         aNode = nodes.item(i);
                         switch(aNode.getNodeName()){
                             case "Rectangle":
-                                System.out.println("Rectangle");
+                                if(DEBUG_MODULE) System.out.println("Rectangle");
                                 attrs = aNode.getAttributes();
                                 int width = (Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()));
                                 int breadth = (Integer.valueOf(((Attr)(attrs.getNamedItem("breadth"))).getValue()));
@@ -812,7 +812,7 @@ public abstract class Module implements Serializable {
                                 //g2D.drawRect(stPt.x, stPt.y, width, breadth);
                                 break;
                             case "Line":
-                                System.out.println("Line");
+                                if(DEBUG_MODULE) System.out.println("Line");
                                 attrs = aNode.getAttributes();
                                 int endx = (Integer.valueOf(((Attr)(attrs.getNamedItem("endx"))).getValue()));
                                 int endy = (Integer.valueOf(((Attr)(attrs.getNamedItem("endy"))).getValue()));
@@ -831,7 +831,7 @@ public abstract class Module implements Serializable {
                                 }
                                 break;
                             case "Text":
-                                System.out.println("Text");
+                                if(DEBUG_MODULE) System.out.println("Text");
                                 Point pos = new Point(0,0);
                                 int pointSize=0;
                                 int fontStyle=0;
@@ -866,7 +866,7 @@ public abstract class Module implements Serializable {
                                             break;
                                         case "TextString":
 
-                                            System.out.println("text Content:"+aNode2.getTextContent());
+                                            if(DEBUG_MODULE) System.out.println("text Content:"+aNode2.getTextContent());
                                             text = aNode2.getTextContent();
                                             break;
                                         case "Bounds":
@@ -894,7 +894,7 @@ public abstract class Module implements Serializable {
                 g2D.translate(-BlockModelPosition.x, -BlockModelPosition.y);
             g2D.setFont(oldFont);
             g2D.setTransform(old);
-            System.out.println("Module drawBlockModel nottom getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
+            if(DEBUG_MODULE) System.out.println("Module drawBlockModel nottom getModuleWidth:"+getModuleWidth()+"  getModuleBreadth:"+getModuleBreadth());
             
             
         }

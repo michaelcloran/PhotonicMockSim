@@ -4,6 +4,8 @@ package com.photoniccomputer.photonicmocksim.dialogs;
 import com.photoniccomputer.photonicmocksim.utils.Layer;
 import com.photoniccomputer.photonicmocksim.utils.Module;
 import com.photoniccomputer.photonicmocksim.utils.Part;
+
+import static Constants.PhotonicMockSimConstants.DEBUG_LOADHTMLEDITORWITHDESCRIPTIONDIALOG;
 import static Constants.PhotonicMockSimConstants.MOTHERBOARD;
 import com.photoniccomputer.htmleditor.tabbedhtmleditordialog.TabbedHTMLEditorDialog;
 import com.photoniccomputer.photonicmocksim.PhotonicMockSim;
@@ -149,7 +151,7 @@ public class LoadHTMLEditorWithDescriptionDialog extends JDialog{
                            JComboBox<Integer> layerCombo = new JComboBox();
                            layerCombo.removeAllItems();
                            for(Layer layer : theApp.getModel().getPartsMap().get(partSelectedNumber).getLayersMap().values()){
-                               System.out.println("Layer added:"+layer.getLayerNumber());
+                               if(DEBUG_LOADHTMLEDITORWITHDESCRIPTIONDIALOG) System.out.println("Layer added:"+layer.getLayerNumber());
                                layerCombo.addItem(layer.getLayerNumber());
                            }
                            
@@ -171,7 +173,7 @@ public class LoadHTMLEditorWithDescriptionDialog extends JDialog{
                                    moduleCombo.removeAllItems();
                                    
                                     for(Module module : theApp.getModel().getPartsMap().get(partSelectedNumber).getLayersMap().get(layerSelectedNumber).getModulesMap().values()){
-                                        System.out.println("Module added:"+module.getModuleNumber());
+                                        if(DEBUG_LOADHTMLEDITORWITHDESCRIPTIONDIALOG) System.out.println("Module added:"+module.getModuleNumber());
                                         moduleCombo.addItem(module.getModuleNumber());
                                     }
                                    

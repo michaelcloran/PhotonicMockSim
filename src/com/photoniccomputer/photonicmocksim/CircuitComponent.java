@@ -645,19 +645,19 @@ public abstract class CircuitComponent implements Serializable {
     }
 
     public void setOutputConnectorConnectsToComponentNumber(int componentLinkNumber, int port,int componentNumber){
-        System.out.println("-- testing setOutputConnectorConnectsToComponentNumber --");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- testing setOutputConnectorConnectsToComponentNumber --");
         OutputConnector portNumber = OutputConnectorsMap.get(port);
-        if(portNumber == null) System.out.println("PortNumber not found!");
+        if(portNumber == null) if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("PortNumber not found!");
         if(portNumber!= null){
-            System.out.println("portNumber:"+portNumber.getPortNumber());
+            if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("portNumber:"+portNumber.getPortNumber());
             for(ComponentLink componentLink : portNumber.getComponentLinks()){
                 if(componentLink.getLinkNumber() == componentLinkNumber){
-                    System.out.println("setting componentlink 1 to componentNumber:"+componentNumber);
+                    if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("setting componentlink 1 to componentNumber:"+componentNumber);
                     componentLink.setConnectsToComponentNumber(componentNumber);
                 }
             }
         }
-        System.out.println("-- End testing setOutputConnectorConnectsToComponentNumber --");
+        if(DEBUG_PHOTONICMOCKSIMVIEW) System.out.println("-- End testing setOutputConnectorConnectsToComponentNumber --");
     }
 
     public int getOutputConnectorConnectsToComponentNumber(int componentLinkNumber, int port){
@@ -814,7 +814,7 @@ public abstract class CircuitComponent implements Serializable {
     protected void setPositionFromXML(Node node){
         NamedNodeMap attrs = node.getAttributes();
         position = new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
-        System.out.println("setPositionFromXML:"+position);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("setPositionFromXML:"+position);
     }
 
     //set color field from a node
@@ -824,22 +824,22 @@ public abstract class CircuitComponent implements Serializable {
     }
     
     protected void createInputFromXML(Node aNode){
-        System.out.println("InputConnector");
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector");
         NamedNodeMap attrs = aNode.getAttributes();
         int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber);
         InputConnector iConnector1 = new InputConnector();
 
         iConnector1.setPortNumber(portNumber);
 
         int inputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputWavelength"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
         int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
         int inputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("InputIntensitylevelThreshold"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
         int inputBitLevel = Integer.valueOf(((Attr)(attrs.getNamedItem("InputBitLevel"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
 
         iConnector1.setInputWavelength(inputWavelength);
         iConnector1.setInputThresholdWavelength(inputThresholdWavelength);
@@ -848,13 +848,13 @@ public abstract class CircuitComponent implements Serializable {
 
         NodeList childNodes2 = aNode.getChildNodes();
         Node aNode2 = null;
-        System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
         for(int a=0; a<childNodes2.getLength(); ++a){
-            System.out.println("a:"+a);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("a:"+a);
                 aNode2 = childNodes2.item(a);
                 switch(aNode2.getNodeName()){
                     case "PhysicalLocation":{
-                        System.out.println("PhysicalLocation");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLocation");
                         NamedNodeMap attrs2 = aNode2.getAttributes();
                         iConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                     }break;
@@ -863,17 +863,17 @@ public abstract class CircuitComponent implements Serializable {
                         ComponentLink cLink = new ComponentLink();
 
                         int linkNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue());
-                        System.out.println("linkNumber:"+linkNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("linkNumber:"+linkNumber);
                         int destinationPortNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue());
-                        System.out.println("destinationPortNumber:"+destinationPortNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortNumber:"+destinationPortNumber);
                         int destinationPortLinkNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue());
-                        System.out.println("destinationPortLinkNumber:"+destinationPortLinkNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortLinkNumber:"+destinationPortLinkNumber);
                         int destinationComponentNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue());
-                        System.out.println("destinationComponentNumber:"+destinationComponentNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationComponentNumber:"+destinationComponentNumber);
                         int connectsToComponentPortNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentPortNumber"))).getValue());
-                        System.out.println("connectsToComponentPortNumber:"+connectsToComponentPortNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("connectsToComponentPortNumber:"+connectsToComponentPortNumber);
                         int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue());
-                        System.out.println("connectsToComponentNumber:"+connectsToComponentNumber);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("connectsToComponentNumber:"+connectsToComponentNumber);
 
                         cLink.setLinkNumber(linkNumber);
                         cLink.setDestinationPortNumber(destinationPortNumber);
@@ -890,7 +890,7 @@ public abstract class CircuitComponent implements Serializable {
                                 NamedNodeMap attrs3 = aNode3.getAttributes();
                                 Point destinationPhysicalLocation = new Point(Integer.valueOf(((Attr)(attrs3.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs3.getNamedItem("y"))).getValue()));
                                 cLink.setDestinationPhysicalLoctaion(destinationPhysicalLocation);  
-                                System.out.println("destinationPhysicalLocation.x:"+destinationPhysicalLocation.x+" destinationPhysicalLocation.y:"+destinationPhysicalLocation.y);
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPhysicalLocation.x:"+destinationPhysicalLocation.x+" destinationPhysicalLocation.y:"+destinationPhysicalLocation.y);
                             }   
                         }
                         iConnector1.addComponentLink(cLink);
@@ -904,13 +904,13 @@ public abstract class CircuitComponent implements Serializable {
     }
     
     public void createOutputConnectorFromXML(Node aNode){
-        System.out.println("OutputConnector");
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector");
         NamedNodeMap attrs = aNode.getAttributes();
         int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
         OutputConnector oConnector1 = new OutputConnector();
 
         oConnector1.setPortNumber(portNumber);
-        System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
         //int outputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue());
         //int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue()));
         //int outputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputIntensitylevelThreshold"))).getValue());
@@ -924,17 +924,17 @@ public abstract class CircuitComponent implements Serializable {
         NodeList childNodes2 = aNode.getChildNodes();
         Node aNode2 = null;
         for(int c=0; c<childNodes2.getLength(); ++c ){
-            System.out.println("c:"+c);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("c:"+c);
             aNode2 = childNodes2.item(c);
             switch(aNode2.getNodeName()){
                 case "PhysicalLocation":{
-                    System.out.println("PhysicalLoc");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLoc");
                     NamedNodeMap attrs2 = aNode2.getAttributes();
                     oConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
-                    System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                 }break;
                 case "ComponentLink":
-                    System.out.println("ComponentLink");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentLink");
                     ComponentLink cLink = new ComponentLink();
                     NamedNodeMap attrs2 = aNode2.getAttributes();
                     //int linkNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("LinkNumber"))).getValue());
@@ -945,15 +945,15 @@ public abstract class CircuitComponent implements Serializable {
                     //int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("ConnectsToComponentNumber"))).getValue());
 
                     cLink.setLinkNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
-                    System.out.println("LinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("LinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
                     cLink.setDestinationPortNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
-                    System.out.println("DestinationPortNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationPortNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
                     cLink.setDestinationPortLinkNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
-                    System.out.println("destinationPortLinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortLinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
                     cLink.setDestinationComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
-                    System.out.println("DestinationComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
                     cLink.setConnectsToComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
-                    System.out.println("ConnectsToComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ConnectsToComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
 
 
                     NodeList childNodes3 = aNode2.getChildNodes();
@@ -961,7 +961,7 @@ public abstract class CircuitComponent implements Serializable {
                     aNode3 = childNodes3.item(1);
                     for(int d=0; d<childNodes3.getLength(); ++d ){
                         if(aNode3.getNodeName() == "DestinationPhysicalLocation"){
-                            System.out.println("oConnector DestinationPhysicalLoc");
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector DestinationPhysicalLoc");
                             NamedNodeMap attrs3 = aNode3.getAttributes();
                             //Point destinationPhysicalLocation = new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
                             cLink.setDestinationPhysicalLoctaion(new Point(Integer.valueOf(((Attr)(attrs3.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs3.getNamedItem("y"))).getValue())));                                                                   
@@ -976,22 +976,22 @@ public abstract class CircuitComponent implements Serializable {
     }
     
     public void createInputConnectorWithIMLFromXML(Node aNode){
-        System.out.println("InputConnector");
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector");
         NamedNodeMap attrs = aNode.getAttributes();
         int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber);
         InputConnector iConnector1 = new InputConnector();
 
         iConnector1.setPortNumber(portNumber);
 
         int inputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputWavelength"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
         int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
         int inputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("InputIntensitylevelThreshold"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
         int inputBitLevel = Integer.valueOf(((Attr)(attrs.getNamedItem("InputBitLevel"))).getValue());
-        System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
 
         iConnector1.setInputWavelength(inputWavelength);
         iConnector1.setInputThresholdWavelength(inputThresholdWavelength);
@@ -1000,18 +1000,18 @@ public abstract class CircuitComponent implements Serializable {
 
         NodeList childNodes2 = aNode.getChildNodes();
         Node aNode2 = null;
-        System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
         for(int a=0; a<childNodes2.getLength(); ++a){
-            System.out.println("a:"+a);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("a:"+a);
                 aNode2 = childNodes2.item(a);
                 switch(aNode2.getNodeName()){
                     case "PhysicalLocation":{
-                        System.out.println("PhysicalLocation");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLocation");
                         NamedNodeMap attrs2 = aNode2.getAttributes();
                         iConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                     }break;
                     case "IML":
-                        System.out.println("IML");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("IML");
                         //ComponentLink cLink = new ComponentLink();
                         InterModuleLink IML = new InterModuleLink();
                         NamedNodeMap attrs2 = aNode2.getAttributes();
@@ -1023,15 +1023,15 @@ public abstract class CircuitComponent implements Serializable {
                         //int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("ConnectsToComponentNumber"))).getValue());
 
                         IML.setPartLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
-                        System.out.println("partLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("partLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
                         IML.setModuleLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
-                        System.out.println("ModuleLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("ModuleLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
                         IML.setLayerLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
-                        System.out.println("layerLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("layerLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
                         IML.setComponentTypeLinked(Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
-                        System.out.println("ComponentTypeLinked:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentTypeLinked:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
                         IML.setComponentLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
-                        System.out.println("ComponentLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
 
 
                         iConnector1.addInterModuleLink(IML);
@@ -1045,40 +1045,40 @@ public abstract class CircuitComponent implements Serializable {
     }
      
     public void createOutputConnectorWithIMLFromXML(Node aNode){
-        System.out.println("OutputConnector");
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector");
         NamedNodeMap attrs = aNode.getAttributes();
         int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
         OutputConnector oConnector1 = new OutputConnector();
 
         oConnector1.setPortNumber(portNumber);
-        System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
         //int outputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue());
         //int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue()));
         //int outputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputIntensitylevelThreshold"))).getValue());
         //int outputBitLevel = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputBitLevel"))).getValue());
 
         oConnector1.setOutputWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue()));
-        System.out.println("OutputWavelength:"+ oConnector1.getOutputWavelength());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputWavelength:"+ oConnector1.getOutputWavelength());
         //oConnector1.setOutputThresholdWavelength(inputThresholdWavelength);
         oConnector1.setOutputIntensityLevelThreshold(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputIntensitylevelThreshold"))).getValue()));
-        System.out.println("OutputIntensitylevelThreshold:"+oConnector1.getOutputIntensityLevelThreshold());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputIntensitylevelThreshold:"+oConnector1.getOutputIntensityLevelThreshold());
         oConnector1.setOutputBitLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputBitLevel"))).getValue()));
-        System.out.println("OutputBitLevel:"+oConnector1.getOutputBitLevel());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputBitLevel:"+oConnector1.getOutputBitLevel());
 
         NodeList childNodes2 = aNode.getChildNodes();
         Node aNode2 = null;
         for(int c=0; c<childNodes2.getLength(); ++c ){
-            System.out.println("c:"+c);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("c:"+c);
             aNode2 = childNodes2.item(c);
             switch(aNode2.getNodeName()){
                 case "PhysicalLocation":{
-                    System.out.println("PhysicalLoc");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLoc");
                     NamedNodeMap attrs2 = aNode2.getAttributes();
                     oConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
-                    System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                 }break;
                 case "IML":
-                    System.out.println("IML");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("IML");
                     //ComponentLink cLink = new ComponentLink();
                     InterModuleLink IML = new InterModuleLink();
                     NamedNodeMap attrs2 = aNode2.getAttributes();
@@ -1090,26 +1090,26 @@ public abstract class CircuitComponent implements Serializable {
                     //int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("ConnectsToComponentNumber"))).getValue());
 
                     IML.setPartLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
-                    System.out.println("partLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("partLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("PartLinkedToNumber"))).getValue()));
                     IML.setModuleLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
-                    System.out.println("ModuleLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ModuleLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ModuleLinkedToNumber"))).getValue()));
                     IML.setLayerLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
-                    System.out.println("layerLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("layerLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LayerLinkedToNumber"))).getValue()));
                     IML.setComponentTypeLinked(Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
-                    System.out.println("ComponentTypeLinked:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentTypeLinked:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentTypeLinked"))).getValue()));
                     IML.setComponentLinkedToNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
-                    System.out.println("ComponentLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentLinkedToNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ComponentLinkedToNumber"))).getValue()));
 
 
                     oConnector1.addInterModuleLink(IML);
-                    System.out.println("oConnector1.getIMLSForComponent().size():"+oConnector1.getIMLSForComponent().size());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector1.getIMLSForComponent().size():"+oConnector1.getIMLSForComponent().size());
                     //oConnector1.addInterModuleLink(part , portNumber, portNumber, componentNumber, portNumber);addComponentLink(cLink);
 
                 break;
             }
         }
         getOutputConnectorsMap().put(oConnector1.getPortNumber(),oConnector1);
-        System.out.println("getOutputConnectorsMap().lastKey():"+getOutputConnectorsMap().lastKey());
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("getOutputConnectorsMap().lastKey():"+getOutputConnectorsMap().lastKey());
     }
     
     public void addIMLInputElements(Document doc, Element componentElement){
@@ -1632,47 +1632,47 @@ public abstract class CircuitComponent implements Serializable {
                 case "ComponentNumber":
                     attrs = aNode.getAttributes();
                     setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                     break;
                 case "ComponentAngle":
                     attrs = aNode.getAttributes();
                     setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                     break;
                 case "ComponentType":
                     attrs = aNode.getAttributes();
                     setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                     break;
                 case "color":
                     setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                     break;
                 case "position":
                     setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                     break;
                 case "bounds":
                     setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                     break;
                 case "InputConnector":{
-                    System.out.println("InputConnector");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector");
                     attrs = aNode.getAttributes();
                     int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
-                    System.out.println("InputConnector portNumber:"+portNumber);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber);
                     InputConnector iConnector1 = new InputConnector();
 
                     iConnector1.setPortNumber(portNumber);
 
                     int inputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputWavelength"))).getValue());
-                    System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" InputWavelength:"+inputWavelength);
                     int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue());
-                    System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+"inputThresholdWavelength:"+inputThresholdWavelength);
                     int inputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("InputIntensitylevelThreshold"))).getValue());
-                    System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputIntensitylevelThreshold:"+inputIntensitylevelThreshold);
                     int inputBitLevel = Integer.valueOf(((Attr)(attrs.getNamedItem("InputBitLevel"))).getValue());
-                    System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("InputConnector portNumber:"+portNumber+" inputBitLevel:"+inputBitLevel);
 
                     iConnector1.setInputWavelength(inputWavelength);
                     iConnector1.setInputThresholdWavelength(inputThresholdWavelength);
@@ -1681,33 +1681,33 @@ public abstract class CircuitComponent implements Serializable {
 
                     NodeList childNodes2 = aNode.getChildNodes();
                     Node aNode2 = null;
-                    System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("iConnector childNodes2.getLength():"+childNodes2.getLength());
                     for(int a=0; a<childNodes2.getLength(); ++a){
                         //System.out.println("a:"+a);
                             aNode2 = childNodes2.item(a);
                             switch(aNode2.getNodeName()){
                                 case "PhysicalLocation":{
-                                    System.out.println("PhysicalLocation");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLocation");
                                     NamedNodeMap attrs2 = aNode2.getAttributes();
                                     iConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                                 }break;
                                 case "ComponentLink":
-                                    System.out.println("---- input ComponentLink for componentNumber:"+getComponentNumber()+" ----");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- input ComponentLink for componentNumber:"+getComponentNumber()+" ----");
                                     NamedNodeMap attrs2 = aNode2.getAttributes();
                                     ComponentLink cLink = new ComponentLink();
 
                                     int linkNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue());
-                                    System.out.println("linkNumber:"+linkNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("linkNumber:"+linkNumber);
                                     int destinationPortNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue());
-                                    System.out.println("destinationPortNumber:"+destinationPortNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortNumber:"+destinationPortNumber);
                                     int destinationPortLinkNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue());
-                                    System.out.println("destinationPortLinkNumber:"+destinationPortLinkNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortLinkNumber:"+destinationPortLinkNumber);
                                     int destinationComponentNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue());
-                                    System.out.println("destinationComponentNumber:"+destinationComponentNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationComponentNumber:"+destinationComponentNumber);
                                     int connectsToComponentPortNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentPortNumber"))).getValue());
-                                    System.out.println("connectsToComponentPortNumber:"+connectsToComponentPortNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("connectsToComponentPortNumber:"+connectsToComponentPortNumber);
                                     int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue());
-                                    System.out.println("connectsToComponentNumber:"+connectsToComponentNumber);
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("connectsToComponentNumber:"+connectsToComponentNumber);
 
                                     cLink.setLinkNumber(linkNumber);
                                     cLink.setDestinationPortNumber(destinationPortNumber);
@@ -1724,11 +1724,11 @@ public abstract class CircuitComponent implements Serializable {
                                             NamedNodeMap attrs3 = aNode3.getAttributes();
                                             Point destinationPhysicalLocation = new Point(Integer.valueOf(((Attr)(attrs3.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs3.getNamedItem("y"))).getValue()));
                                             cLink.setDestinationPhysicalLoctaion(destinationPhysicalLocation);  
-                                            System.out.println("destinationPhysicalLocation.x:"+destinationPhysicalLocation.x+" destinationPhysicalLocation.y:"+destinationPhysicalLocation.y);
+                                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPhysicalLocation.x:"+destinationPhysicalLocation.x+" destinationPhysicalLocation.y:"+destinationPhysicalLocation.y);
                                         }   
                                     }
                                     iConnector1.addComponentLink(cLink);
-                                    System.out.println("---- end input ComponentLink for componentNumber:"+getComponentNumber()+" ----");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- end input ComponentLink for componentNumber:"+getComponentNumber()+" ----");
                                     break;
                             }
 
@@ -1738,13 +1738,13 @@ public abstract class CircuitComponent implements Serializable {
                     }break;
 
                 case "OutputConnector":
-                    System.out.println("OutputConnector");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector");
                     attrs = aNode.getAttributes();
                     int portNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("PortNumber"))).getValue());
                     OutputConnector oConnector1 = new OutputConnector();
 
                     oConnector1.setPortNumber(portNumber);
-                    System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("OutputConnector portNumber"+oConnector1.getPortNumber());  
                     //int outputWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue());
                     //int inputThresholdWavelength = Integer.valueOf(((Attr)(attrs.getNamedItem("InputThresholdWavelength"))).getValue()));
                     //int outputIntensitylevelThreshold = Integer.valueOf(((Attr)(attrs.getNamedItem("OutputIntensitylevelThreshold"))).getValue());
@@ -1762,13 +1762,13 @@ public abstract class CircuitComponent implements Serializable {
                         aNode2 = childNodes2.item(c);
                         switch(aNode2.getNodeName()){
                             case "PhysicalLocation":{
-                                System.out.println("PhysicalLoc");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("PhysicalLoc");
                                 NamedNodeMap attrs2 = aNode2.getAttributes();
                                 oConnector1.setPhysicalLocation(Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
-                                System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Integer.valueOf(((Attr)(attrs2.getNamedItem(\"x\"))).getValue()):"+Integer.valueOf(((Attr)(attrs2.getNamedItem("x"))).getValue())+" Integer.valueOf(((Attr)(attrs2.getNamedItem(\"y\"))).getValue()):"+ Integer.valueOf(((Attr)(attrs2.getNamedItem("y"))).getValue()));
                             }break;
                             case "ComponentLink":
-                                System.out.println("---- output ComponentLink for componentNumber:"+getComponentNumber()+" ----");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- output ComponentLink for componentNumber:"+getComponentNumber()+" ----");
                                 ComponentLink cLink = new ComponentLink();
                                 NamedNodeMap attrs2 = aNode2.getAttributes();
                                 //int linkNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("LinkNumber"))).getValue());
@@ -1779,15 +1779,15 @@ public abstract class CircuitComponent implements Serializable {
                                 //int connectsToComponentNumber = Integer.valueOf(((Attr)(attrs.getNamedItem("ConnectsToComponentNumber"))).getValue());
 
                                 cLink.setLinkNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
-                                System.out.println("LinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("LinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("LinkNumber"))).getValue()));
                                 cLink.setDestinationPortNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
-                                System.out.println("DestinationPortNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationPortNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
                                 cLink.setDestinationPortLinkNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
-                                System.out.println("destinationPortLinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("destinationPortLinkNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortLinkNumber"))).getValue()));
                                 cLink.setDestinationComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
-                                System.out.println("DestinationComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
                                 cLink.setConnectsToComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
-                                System.out.println("ConnectsToComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("ConnectsToComponentNumber:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
 
 
                                 NodeList childNodes3 = aNode2.getChildNodes();
@@ -1795,15 +1795,15 @@ public abstract class CircuitComponent implements Serializable {
                                 aNode3 = childNodes3.item(1);
                                 for(int d=0; d<childNodes3.getLength(); ++d ){
                                     if(aNode3.getNodeName() == "DestinationPhysicalLocation"){
-                                        System.out.println("oConnector DestinationPhysicalLoc");
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector DestinationPhysicalLoc");
                                         NamedNodeMap attrs3 = aNode3.getAttributes();
                                         //Point destinationPhysicalLocation = new Point(Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()));
                                         cLink.setDestinationPhysicalLoctaion(new Point(Integer.valueOf(((Attr)(attrs3.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs3.getNamedItem("y"))).getValue())));  
-                                        System.out.println("oConnector DestinationPhysicalLocation:"+cLink.getDestinationPhysicalLocation());
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector DestinationPhysicalLocation:"+cLink.getDestinationPhysicalLocation());
                                     } 
                                 }
                                 oConnector1.addComponentLink(cLink);
-                                System.out.println("---- end output ComponentLink for componentNumber"+getComponentNumber()+" ----");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- end output ComponentLink for componentNumber"+getComponentNumber()+" ----");
                             break;
                         }
                     }
@@ -1820,7 +1820,7 @@ public abstract class CircuitComponent implements Serializable {
     protected void setBoundsFromXML(Node node){
         NamedNodeMap attrs = node.getAttributes();
         bounds = new java.awt.Rectangle( Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("height"))).getValue()));
-        System.out.println("setBoundsFromXML:"+bounds);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("setBoundsFromXML:"+bounds);
     }
 
     protected Element createBoundsElement(Document doc){
@@ -1849,7 +1849,7 @@ public abstract class CircuitComponent implements Serializable {
         NamedNodeMap attrs = node.getAttributes();
         bounds = new java.awt.Rectangle( Integer.valueOf(((Attr)(attrs.getNamedItem("x"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("y"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("width"))).getValue()), Integer.valueOf(((Attr)(attrs.getNamedItem("height"))).getValue()));
         angle = Double.valueOf(((Attr)(attrs.getNamedItem("angle"))).getValue());
-        System.out.println("setLineBoundsFromXML:"+bounds);
+        if(DEBUG_CIRCUITCOMPONENT) System.out.println("setLineBoundsFromXML:"+bounds);
     }
         
     protected Element createLineBoundsElement(Document doc){
@@ -2181,7 +2181,7 @@ public abstract class CircuitComponent implements Serializable {
                 compPos.translate(deltaX, deltaY);
                 component.setPosition(compPos);
                 component.translateBounds(Math.abs(getPosition().x+lengthx),Math.abs(getPosition().y +lengthy));
-                System.out.println("componentNumber:"+component.getComponentNumber()+" Text Position:"+component.getPosition());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" Text Position:"+component.getPosition());
             }else
             if(component.getComponentType() != OPTICAL_WAVEGUIDE && component.getComponentType() != TEXT){
                 int lengthx = Math.abs(start.x - component.getPosition().x);
@@ -2200,7 +2200,7 @@ public abstract class CircuitComponent implements Serializable {
                         Point pt = component.getIConnectorPhysicalLocation(i);
                         pt.translate(deltaX, deltaY);
                         component.setIConnectorPhysicalLocation(i,pt.x,pt.y);
-                    System.out.println("componentNumber:"+component.getComponentNumber()+" i:"+i+"inputConnectorPhysicalPosition:"+component.getIConnectorPhysicalLocation(i));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" i:"+i+"inputConnectorPhysicalPosition:"+component.getIConnectorPhysicalLocation(i));
 
                 }
                 //System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
@@ -2209,9 +2209,9 @@ public abstract class CircuitComponent implements Serializable {
                         Point pt = component.getOConnectorPhysicalLocation(z);
                         pt.translate(deltaX, deltaY);
                         component.setOConnectorPhysicalLocation(z,pt.x,pt.y);
-                    System.out.println("componentNumber:"+component.getComponentNumber()+" z:"+z+"outputConnectorPhysicalPosition:"+component.getOConnectorPhysicalLocation(z));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" z:"+z+"outputConnectorPhysicalPosition:"+component.getOConnectorPhysicalLocation(z));
                 }
-                System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
                 moveOpticalWaveguide(highlightModule, component);
             }
         }
@@ -2233,7 +2233,7 @@ public abstract class CircuitComponent implements Serializable {
                 compPos.translate(deltaX, deltaY);
                 component.setPosition(compPos);
                 component.translateBounds(Math.abs(getPosition().x+lengthx),Math.abs(getPosition().y +lengthy));
-                System.out.println("componentNumber:"+component.getComponentNumber()+" Text Position:"+component.getPosition());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" Text Position:"+component.getPosition());
             }else
             if(component.getComponentType() != OPTICAL_WAVEGUIDE && component.getComponentType() != TEXT){
                 int lengthx = Math.abs(start.x - component.getPosition().x);
@@ -2252,7 +2252,7 @@ public abstract class CircuitComponent implements Serializable {
                         Point pt = component.getIConnectorPhysicalLocation(i);
                         pt.translate(deltaX, deltaY);
                         component.setIConnectorPhysicalLocation(i,pt.x,pt.y);
-                    System.out.println("componentNumber:"+component.getComponentNumber()+" i:"+i+"inputConnectorPhysicalPosition:"+component.getIConnectorPhysicalLocation(i));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" i:"+i+"inputConnectorPhysicalPosition:"+component.getIConnectorPhysicalLocation(i));
 
                 }
                 //System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
@@ -2261,9 +2261,9 @@ public abstract class CircuitComponent implements Serializable {
                         Point pt = component.getOConnectorPhysicalLocation(z);
                         pt.translate(deltaX, deltaY);
                         component.setOConnectorPhysicalLocation(z,pt.x,pt.y);
-                    System.out.println("componentNumber:"+component.getComponentNumber()+" z:"+z+"outputConnectorPhysicalPosition:"+component.getOConnectorPhysicalLocation(z));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentNumber:"+component.getComponentNumber()+" z:"+z+"outputConnectorPhysicalPosition:"+component.getOConnectorPhysicalLocation(z));
                 }
-                System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("moveOpticalWaveguide componentNumber:"+component.getComponentNumber());
                 moveOpticalWaveguide(highlightModule, component);
             }
         }
@@ -2274,7 +2274,7 @@ public abstract class CircuitComponent implements Serializable {
         for(InputConnector iConnector : (comp.getInputConnectorsMap()).values()){
             for(ComponentLink componentLink : iConnector.getComponentLinks()){
                 int compNumber = comp.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),iConnector.getPortNumber());//line
-               System.out.println("input compNumber:"+compNumber);
+               if(DEBUG_CIRCUITCOMPONENT) System.out.println("input compNumber:"+compNumber);
                 if(compNumber != 0){
 
                     for(CircuitComponent component : module.getComponentsMap().values()){
@@ -2283,25 +2283,25 @@ public abstract class CircuitComponent implements Serializable {
                             component.modify(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()),comp.getIConnectorDestinationPhysicalLocation(1,iConnector.getPortNumber()));//start and last needed??wrong want destinationphysicallocation
                            //component.setPosition(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()));  
                             
-                            System.out.println("input connector loop angle:"+angle);
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("input connector loop angle:"+angle);
                             double angle = component.getRotation();
                             if(angle >= 0.0 && angle <= (Math.PI/2)){
-                                System.out.println("between 0 and 90 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("between 0 and 90 degrees");
                                 component.setPosition(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber())); 
                             }else
                             if(angle > (Math.PI/2) && angle <= Math.PI){
-                                System.out.println("greater then 90 degrees and less then 180 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater then 90 degrees and less then 180 degrees");
                                 Point tempPosition = new Point(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
                                 component.setPosition(tempPosition); 
                                 
                             }else
                             if(angle > -(Math.PI/2) && angle <= 0.0){
-                                System.out.println("greater than 180 degrees and less then 270 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 180 degrees and less then 270 degrees");
                                 Point tempPosition = new Point(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                 component.setPosition(tempPosition); 
                             }else
                             if(angle < 0.0 && angle <= -(Math.PI/2)){
-                                System.out.println("greater than 270 degrees and less then 360 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 270 degrees and less then 360 degrees");
                                 Point tempPosition = new Point(comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x-component.getComponentWidth(),comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y-component.getComponentBreadth());
                                 component.setPosition(tempPosition); 
                             }
@@ -2314,7 +2314,7 @@ public abstract class CircuitComponent implements Serializable {
                                         for(ComponentLink componentLnk : oConnector.getComponentLinks()){
                                             if(oConnector.getPortNumber() == comp.getIConnectorDestinationPort(1,iConnector.getPortNumber())){
                                                 tempComponent.setOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber(),comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
-                                                System.out.println("tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()):"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
+                                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()):"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
                                                 /*if(iConnectorCtr<iConnectorCtrSize){
                                                     iConnectorCtr = iConnectorCtr +1;
                                                 }else{
@@ -2332,35 +2332,35 @@ public abstract class CircuitComponent implements Serializable {
         }
 
         for(OutputConnector oConnector : (comp.getOutputConnectorsMap()).values()){
-            System.out.println("Here oConnector:"+oConnector.getPortNumber());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Here oConnector:"+oConnector.getPortNumber());
             for(ComponentLink componentLink : oConnector.getComponentLinks()){
                 int compNumber = comp.getOutputConnectorConnectsToComponentNumber(1,oConnector.getPortNumber());//??
-                System.out.println("output compNumber:"+compNumber);
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("output compNumber:"+compNumber);
                 if(compNumber != 0){
                     for(CircuitComponent tmpcomponent : module.getComponentsMap().values()){
                         if(compNumber == tmpcomponent.getComponentNumber()){
                             tmpcomponent.modify(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()),comp.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
                             //tmpcomponent.setPosition(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                             
-                            System.out.println("output connector loop angle:"+angle);
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("output connector loop angle:"+angle);
                             double angle = tmpcomponent.getRotation();
                             if(angle >= 0.0 && angle <= (Math.PI/2)){
-                                System.out.println("between 0 and 90 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("between 0 and 90 degrees");
                                 tmpcomponent.setPosition(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()));
                             }else
                             if(angle > (Math.PI/2) && angle <= Math.PI){
-                                System.out.println("greater then 90 degrees and less then 180 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater then 90 degrees and less then 180 degrees");
                                 Point tempPosition = new Point(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);
                                 tmpcomponent.setPosition(tempPosition); 
                                 
                             }else
                             if(angle > -(Math.PI/2) && angle <= 0.0){
-                                System.out.println("greater than 180 degrees and less then 270 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 180 degrees and less then 270 degrees");
                                 Point tempPosition = new Point(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                 tmpcomponent.setPosition(tempPosition);
                             }else
                             if(angle < 0.0 && angle <= -(Math.PI/2)){
-                                System.out.println("greater than 270 degrees and less then 360 degrees");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 270 degrees and less then 360 degrees");
                                 Point tempPosition = new Point(comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x-tmpcomponent.getComponentWidth(),comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y-tmpcomponent.getComponentBreadth());
                                 tmpcomponent.setPosition(tempPosition);
                             }
@@ -2372,7 +2372,7 @@ public abstract class CircuitComponent implements Serializable {
                                         for(ComponentLink componentLnk : inConnector.getComponentLinks()){
                                             if(inConnector.getPortNumber() == comp.getOConnectorDestinationPort(1,oConnector.getPortNumber())){
                                                 tempComponent.setIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber(),comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);        
-                                                System.out.println("tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()):"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()));
+                                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()):"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()));
                                             }
                                         }
                                     }
@@ -2391,7 +2391,7 @@ public abstract class CircuitComponent implements Serializable {
         for(InputConnector iConnector : (comp.getInputConnectorsMap()).values()){
             for(ComponentLink componentLink : iConnector.getComponentLinks()){
                 int compNumber = comp.getInputConnectorConnectsToComponentNumber(componentLink.getLinkNumber(),iConnector.getPortNumber());//line
-               System.out.println("input compNumber:"+compNumber);
+               if(DEBUG_CIRCUITCOMPONENT) System.out.println("input compNumber:"+compNumber);
                 if(compNumber != 0){
 
                     for(CircuitComponent component : module.getComponentsMap().values()){
@@ -2408,7 +2408,7 @@ public abstract class CircuitComponent implements Serializable {
                                         for(ComponentLink componentLnk : oConnector.getComponentLinks()){
                                             if(oConnector.getPortNumber() == comp.getIConnectorDestinationPort(1,iConnector.getPortNumber())){
                                                 tempComponent.setOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber(),comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).x,comp.getIConnectorPhysicalLocation(iConnector.getPortNumber()).y);
-                                                System.out.println("tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()):"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
+                                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()):"+tempComponent.getOConnectorDestinationPhysicalLocation(1,oConnector.getPortNumber()));
                                                 /*if(iConnectorCtr<iConnectorCtrSize){
                                                     iConnectorCtr = iConnectorCtr +1;
                                                 }else{
@@ -2426,10 +2426,10 @@ public abstract class CircuitComponent implements Serializable {
         }
 
         for(OutputConnector oConnector : (comp.getOutputConnectorsMap()).values()){
-            System.out.println("Here oConnector:"+oConnector.getPortNumber());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Here oConnector:"+oConnector.getPortNumber());
             for(ComponentLink componentLink : oConnector.getComponentLinks()){
                 int compNumber = comp.getOutputConnectorConnectsToComponentNumber(1,oConnector.getPortNumber());//??
-                System.out.println("output compNumber:"+compNumber);
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("output compNumber:"+compNumber);
                 if(compNumber != 0){
                     for(CircuitComponent tmpcomponent : module.getComponentsMap().values()){
                         if(compNumber == tmpcomponent.getComponentNumber()){
@@ -2443,7 +2443,7 @@ public abstract class CircuitComponent implements Serializable {
                                         for(ComponentLink componentLnk : inConnector.getComponentLinks()){
                                             if(inConnector.getPortNumber() == comp.getOConnectorDestinationPort(1,oConnector.getPortNumber())){
                                                 tempComponent.setIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber(),comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).x,comp.getOConnectorPhysicalLocation(oConnector.getPortNumber()).y);        
-                                                System.out.println("tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()):"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()));
+                                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()):"+tempComponent.getIConnectorDestinationPhysicalLocation(1,inConnector.getPortNumber()));
                                             }
                                         }
                                     }
@@ -2536,10 +2536,10 @@ public abstract class CircuitComponent implements Serializable {
             componentWidth = R;
             componentBreadth = 3;
             */
-            System.out.println("start.x:"+start.x);
-            System.out.println("start.y:"+start.y);
-            System.out.println("end.x:"+end.x);
-            System.out.println("end.y:"+end.y);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("start.x:"+start.x);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("start.y:"+start.y);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("end.x:"+end.x);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("end.y:"+end.y);
             
             bounds = new java.awt.Rectangle((start.x), (start.y), R, 3);
             //bounds = getLineBounds();
@@ -2549,8 +2549,8 @@ public abstract class CircuitComponent implements Serializable {
             componentWidth =  R;
             componentBreadth =3; 
 
-            System.out.println("componentWidth: "+ componentWidth);
-            System.out.println("componentBreadth: "+componentBreadth);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentWidth: "+ componentWidth);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentBreadth: "+componentBreadth);
 
             if(end.x>start.x && start.y>end.y) {
                 angle = -Math.atan((O)/(A));//coordinates to get lengths
@@ -2568,7 +2568,7 @@ public abstract class CircuitComponent implements Serializable {
                 angle = 0;
             }else
             if(start.x > end.x && start.y == end.y){
-                System.out.println("setting angle to PI 1");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("setting angle to PI 1");
                 angle = Math.PI;
             }else
             if(start.x == end.x && (start.y <= end.y)){
@@ -2580,16 +2580,16 @@ public abstract class CircuitComponent implements Serializable {
             componentType = OPTICAL_WAVEGUIDE;
 
             if(angle >= 0 && angle <= (Math.PI/2)){
-                System.out.println("between 0 and 90 degrees");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("between 0 and 90 degrees");
             }else
             if(angle > (Math.PI/2) && angle <= Math.PI){
-                System.out.println("greater then 90 degrees and less then 180 degrees");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater then 90 degrees and less then 180 degrees");
             }else
             if(angle > -Math.PI && angle <= -(Math.PI+(Math.PI/2))){
-                System.out.println("greater than 180 degrees and less then 270 degrees");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 180 degrees and less then 270 degrees");
             }else
             if(angle > -(Math.PI+(Math.PI/2)) && angle <= -(Math.PI)){
-                System.out.println("greater than 270 degrees and less then 360 degrees");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("greater than 270 degrees and less then 360 degrees");
             }
         }
 
@@ -2642,7 +2642,7 @@ public abstract class CircuitComponent implements Serializable {
                 angle = 0;
             }else
             if(start.x > last.x && start.y == last.y){
-                System.out.println("setting angle to pi 2");
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("setting angle to pi 2");
                 angle = Math.PI;
             }else
             if(start.x == last.x && (start.y <= last.y)){
@@ -2771,7 +2771,7 @@ public abstract class CircuitComponent implements Serializable {
                 //lineManagementElement.appendChild(componentLinkElement);
 
                 Point tempPt = new Point(getComponentLinks().get(0).getDestinationPhysicalLocation().x,getComponentLinks().get(0).getDestinationPhysicalLocation().y);
-                System.out.println("CreatingXMLFile AddElementNode Line:"+getComponentNumber()+" cLink:"+tempPt);
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("CreatingXMLFile AddElementNode Line:"+getComponentNumber()+" cLink:"+tempPt);
                 componentLinkElement.appendChild(createPointTypeElement(doc, "DestinationPhysicalLocation", String.valueOf(tempPt.x), String.valueOf(tempPt.y)));
                 //componentLinkElement.appendChild(createPointTypeElement(doc, "DestinationPhysicalLocation", String.valueOf(getPosition().x), String.valueOf(getPosition().y)));
 
@@ -2805,7 +2805,7 @@ public abstract class CircuitComponent implements Serializable {
                 //lineManagementElement.appendChild(componentLinkElement);
 
                 tempPt = new Point(getComponentLinks().get(1).getDestinationPhysicalLocation().x,getComponentLinks().get(1).getDestinationPhysicalLocation().y);
-                System.out.println("CreatingXMLFile AddElementNode Line:"+getComponentNumber()+" cLink:"+tempPt);
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("CreatingXMLFile AddElementNode Line:"+getComponentNumber()+" cLink:"+tempPt);
                 componentLinkElement.appendChild(createPointTypeElement(doc, "DestinationPhysicalLocation", String.valueOf(tempPt.x), String.valueOf(tempPt.y)));
                 //componentLinkElement.appendChild(createPointTypeElement(doc, "DestinationPhysicalLocation", String.valueOf(getPosition().x), String.valueOf(getPosition().y)));
 
@@ -2851,7 +2851,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
             
-            System.out.println("ComponentNumber:"+getComponentNumber());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
 
             CircuitComponent tempComponent = null;
             NodeList childNodes = node.getChildNodes();
@@ -2867,24 +2867,24 @@ public abstract class CircuitComponent implements Serializable {
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                        System.out.println("Rotation:"+getRotation());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                        System.out.println("type:"+getComponentType());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                        System.out.println("color:"+getColor());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                        System.out.println("position x:"+position.x+" position y:"+position.y);
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setLineBoundsFromXML(aNode);
-                        System.out.println("Bounds test");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "endPoint":
                         NamedNodeMap attrs1 = aNode.getAttributes();
@@ -2899,17 +2899,17 @@ public abstract class CircuitComponent implements Serializable {
                         //setPosition(origin);
 
                         //LineManagement LM = new LineManagement();
-                        System.out.println("Just after creating LM for optical waveguide");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Just after creating LM for optical waveguide");
 
                         LM.setSourceComponentNumber(Integer.valueOf(((Attr)(attrs1.getNamedItem("SourceComponentNumber"))).getValue()));
-                        System.out.println("Just after first LM");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Just after first LM");
                         LM.setSourcePortNumber(Integer.valueOf(((Attr)(attrs1.getNamedItem("SourcePortNumber"))).getValue()));
                         LM.setSourceLinkNumber(1);//should only be 1 link
 
                         LM.setDestinationComponentNumber(Integer.valueOf(((Attr)(attrs1.getNamedItem("DestinationComponentNumber"))).getValue()));
                         LM.setDestinationPortNumber(Integer.valueOf(((Attr)(attrs1.getNamedItem("DestinationPortNumber"))).getValue()));
                         LM.setDestinationLinkNumber(1);//should only be 1 link
-                        System.out.println("Just after setting LM stuff");
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Just after setting LM stuff");
 
                         Node aNode1 = null;
                         
@@ -2921,7 +2921,7 @@ public abstract class CircuitComponent implements Serializable {
                             //System.out.println("aNode1.getNodeName()++++:"+aNode1.getNodeName());
                             switch(aNode1.getNodeName()){
                                 case "LineLinks":
-                                    System.out.println("LineLinks");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("LineLinks");
                                    NodeList childNodes2 = aNode1.getChildNodes();
                                     //System.out.println("childNodes2.getLength():"+childNodes2.getLength());
                                     Node aNode2 = null;
@@ -2932,12 +2932,12 @@ public abstract class CircuitComponent implements Serializable {
                                         if(aNode2.getNodeName() == "LineLink"){
                                             NamedNodeMap attrs3 = aNode2.getAttributes();
                                             LM.addLineLink(Integer.valueOf(((Attr)(attrs3.getNamedItem("LineLink"))).getValue()));
-                                            System.out.println("Integer.valueOf(((Attr)(attrs3.getNamedItem(\"LineLink\"))).getValue()):"+Integer.valueOf(((Attr)(attrs3.getNamedItem("LineLink"))).getValue()));
+                                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Integer.valueOf(((Attr)(attrs3.getNamedItem(\"LineLink\"))).getValue()):"+Integer.valueOf(((Attr)(attrs3.getNamedItem("LineLink"))).getValue()));
                                         }
                                     }
                                     break;
                                 case "ComponentLink":
-                                    System.out.println("---- optical waveguide ComponentLink for componentNumber:"+getComponentNumber()+" ----");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- optical waveguide ComponentLink for componentNumber:"+getComponentNumber()+" ----");
                                     NamedNodeMap attrs2 = aNode1.getAttributes();
                                     ComponentLink cLink = new ComponentLink();
                                     childNodes2 = aNode1.getChildNodes();
@@ -2945,26 +2945,26 @@ public abstract class CircuitComponent implements Serializable {
                                     NamedNodeMap attrs3 = aNode2.getAttributes();
                                     
                                     cLink.setLinkNumber(1);//there can only be 1 link
-                                    System.out.println("LinkNumber:"+cLink.getLinkNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("LinkNumber:"+cLink.getLinkNumber());
 
                                     cLink.setConnectsToComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentNumber"))).getValue()));
-                                    System.out.println("ConnectsToComponentNumber:"+cLink.getConnectsToComponentNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ConnectsToComponentNumber:"+cLink.getConnectsToComponentNumber());
 
                                     cLink.setConnectsToComponentPortNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("ConnectsToComponentPortNumber"))).getValue()));
-                                    System.out.println("ConnectsToComponentPortNumber:"+cLink.getConnectsToComponentPortNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ConnectsToComponentPortNumber:"+cLink.getConnectsToComponentPortNumber());
                                     
                                     cLink.setDestinationComponentNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationComponentNumber"))).getValue()));
-                                    System.out.println("DestinationComponentNumber:"+cLink.getDestinationComponentNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationComponentNumber:"+cLink.getDestinationComponentNumber());
 
                                     cLink.setDestinationPortNumber(Integer.valueOf(((Attr)(attrs2.getNamedItem("DestinationPortNumber"))).getValue()));
-                                    System.out.println("DestinationPortNumber:"+cLink.getDestinationPortNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationPortNumber:"+cLink.getDestinationPortNumber());
 
                                     cLink.setDestinationPortLinkNumber(1);//temp solution there can only be one link
-                                    System.out.println("DestinationPortLinkNumber:"+cLink.getDestinationPortLinkNumber());
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationPortLinkNumber:"+cLink.getDestinationPortLinkNumber());
                                     
                                     if(aNode2.getNodeName() == "DestinationPhysicalLocation"){
                                         cLink.setDestinationPhysicalLoctaion(new Point(Integer.valueOf(((Attr)(attrs3.getNamedItem("x"))).getValue()),Integer.valueOf(((Attr)(attrs3.getNamedItem("y"))).getValue())));
-                                        System.out.println("DestinationPhysicalLoctaion.x:"+cLink.getDestinationPhysicalLocation().x+ " DestinationPhysicalLoctaion.y:"+cLink.getDestinationPhysicalLocation().y);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("DestinationPhysicalLoctaion.x:"+cLink.getDestinationPhysicalLocation().x+ " DestinationPhysicalLoctaion.y:"+cLink.getDestinationPhysicalLocation().y);
                                     }
 
                                     if(firstCall == false){
@@ -2973,7 +2973,7 @@ public abstract class CircuitComponent implements Serializable {
                                     }else{
                                         addComponentLink(1,cLink);
                                     }
-                                    System.out.println("---- end optical waveguide ComponentLink for componentNumber:"+getComponentNumber()+" ----");
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("---- end optical waveguide ComponentLink for componentNumber:"+getComponentNumber()+" ----");
                                     break;
                             }
                         }
@@ -2998,7 +2998,7 @@ public abstract class CircuitComponent implements Serializable {
             }
 
             //Point 
-            System.out.println("creating line startPt:"+startPt);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("creating line startPt:"+startPt);
             //graphics redefinitions
             st = new Point(0,0);
             st.x = startPt.x;//getComponentLinks().getLast().getDestinationPhysicalLocation().x;
@@ -3009,7 +3009,7 @@ public abstract class CircuitComponent implements Serializable {
             
             setEndPosition(endPoint);
             
-            System.out.println("creating line endPoint:"+endPoint);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("creating line endPoint:"+endPoint);
 
             double A = Math.abs(startPt.x -endPoint.x);
             double O = Math.abs(endPoint.y-startPt.y);
@@ -3054,9 +3054,9 @@ public abstract class CircuitComponent implements Serializable {
             }
             //end graphics
             for(ComponentLink cL : getComponentLinks()){
-                System.out.println("opticalWaveGuide opticalWaveguide DestinationComponentNumber:"+cL.getDestinationComponentNumber()+" DestinationPhysicalLocation:"+cL.getDestinationPhysicalLocation());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("opticalWaveGuide opticalWaveguide DestinationComponentNumber:"+cL.getDestinationComponentNumber()+" DestinationPhysicalLocation:"+cL.getDestinationPhysicalLocation());
             }
-            System.out.println("First:"+getComponentLinks().get(0).getDestinationPhysicalLocation()+" Second:"+getComponentLinks().get(1).getDestinationPhysicalLocation());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("First:"+getComponentLinks().get(0).getDestinationPhysicalLocation()+" Second:"+getComponentLinks().get(1).getDestinationPhysicalLocation());
         }//end function
           
         public Point getEndPoint(){
@@ -3138,7 +3138,7 @@ public abstract class CircuitComponent implements Serializable {
         }
 
         public Rectangle(Node node){
-            System.out.println("In Rectangle CircuitComponent");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent");
             //setAngleFromXML(node);
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -3147,15 +3147,15 @@ public abstract class CircuitComponent implements Serializable {
                 switch(aNode.getNodeName()){
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setPosition");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setPosition");
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setColor");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setColor");
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setBounds");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setBounds");
                         break;
                     default:
                         System.err.println("Invalide node in <rectangle>: "+aNode);
@@ -3164,19 +3164,19 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             //rectangle = new Rectangle2D.Double();
             componentType = Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue());
-            System.out.println("componentType:"+componentType);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentType:"+componentType);
             //System.out.println("In Rectangle CircuitComponent set x and y"+getBounds().x);
 
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentWidth = Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue());
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentBreadth = Integer.valueOf(((Attr)(attrs.getNamedItem("Height"))).getValue());
-            System.out.println("Set width height");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width height");
             //rectangle.x = (int)getBounds().x;
             //rectangle.y = (int)getBounds().y;
             rectangle = new java.awt.Rectangle(origin.x,origin.y,componentWidth,componentBreadth);
             bounds = new java.awt.Rectangle(position.x, position.y, componentWidth,componentBreadth); 
-            System.out.println("In Rectangle CircuitComponent set x and y");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent set x and y");
         }
 
         private java.awt.Rectangle rectangle;
@@ -3253,11 +3253,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             //NodeList childNodes = node.getChildNodes();
             //Node aNode = null;
             //for(int i=0; i<childNodes.getLength(); ++i){
@@ -3886,11 +3886,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
@@ -3898,10 +3898,10 @@ public abstract class CircuitComponent implements Serializable {
                 aNode = childNodes.item(i);
                 //System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
             //all the redefinitions of the graphics
@@ -4585,22 +4585,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -5268,22 +5268,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -5978,22 +5978,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -6169,22 +6169,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -6751,22 +6751,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -6975,22 +6975,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7127,22 +7127,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7279,22 +7279,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7431,22 +7431,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7583,22 +7583,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7740,23 +7740,23 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -7919,23 +7919,23 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8088,23 +8088,23 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue()));
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8245,23 +8245,23 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue()));
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8405,23 +8405,23 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8534,22 +8534,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setOutputWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous outputWavelength:"+getOutputWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous outputWavelength:"+getOutputWavelength());
                 }
             }
 
@@ -8658,22 +8658,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8788,22 +8788,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -8921,22 +8921,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setStopbandWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("StopbandWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getStopbandWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getStopbandWavelength());
                 }
             }
 
@@ -9058,24 +9058,24 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setStopbandWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("StopbandWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous stopbandwavelength:"+getStopbandWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous stopbandwavelength:"+getStopbandWavelength());
                     setPassbandWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("PassbandWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous passbandWavelength:"+getPassbandWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous passbandWavelength:"+getPassbandWavelength());
                 }
             }
 
@@ -9191,22 +9191,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setPassbandWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("PassbandWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous passbandWavelength:"+getPassbandWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous passbandWavelength:"+getPassbandWavelength());
                 }
             }
 
@@ -9322,11 +9322,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
@@ -9334,16 +9334,16 @@ public abstract class CircuitComponent implements Serializable {
                 aNode = childNodes.item(i);
                 //System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
 
                     attrs = aNode.getAttributes();
-                    System.out.println("Integer.valueOf(((Attr)(attrs.getNamedItem(OutputWavelength))).getValue()):"+Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue()));
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Integer.valueOf(((Attr)(attrs.getNamedItem(OutputWavelength))).getValue()):"+Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue()));
                     portNumber = getOutputConnectorsMap().get(1);
-                    System.out.println("oConnector.getPortNumber:"+portNumber.getPortNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector.getPortNumber:"+portNumber.getPortNumber());
                     portNumber.setOutputWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous outputWavelength:"+portNumber.getOutputWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous outputWavelength:"+portNumber.getOutputWavelength());
                     portNumber.setOutputBitLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("OutputBitLevel"))).getValue())); 
-                    System.out.println("Miscellaneous setOutputBitLevel:"+portNumber.getOutputBitLevel());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous setOutputBitLevel:"+portNumber.getOutputBitLevel());
                 }
             }
 
@@ -9439,11 +9439,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
@@ -9451,10 +9451,10 @@ public abstract class CircuitComponent implements Serializable {
                 aNode = childNodes.item(i);
                 //System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -9561,22 +9561,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -9682,22 +9682,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -9907,7 +9907,7 @@ public abstract class CircuitComponent implements Serializable {
                     for(int x=0;x<bitValueArr.length;x++){
                         str2 = str2+bitValueArr[x];
                     }
-                    System.out.println("Address:"+i+" BitIntensityStr:"+str2);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Address:"+i+" BitIntensityStr:"+str2);
                     attr.setValue(str2);
                     memoryAddressDecimal.setAttributeNode(attr);
                 }
@@ -9954,11 +9954,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
 
             switch(getComponentType()){
             case ROM8:
@@ -9977,7 +9977,7 @@ public abstract class CircuitComponent implements Serializable {
                 numberOfInputPorts = 30;
                 break;
             }
-            System.out.println("numberOfInputPorts:"+numberOfInputPorts);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("numberOfInputPorts:"+numberOfInputPorts);
             //redefinitions of graphics
             origin_pt = new Point(origin.x,origin.y);
 
@@ -10019,25 +10019,25 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
 
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
 
                     NodeList bChildNodes = aNode.getChildNodes();
                     for(int x=0;x<bChildNodes.getLength(); ++x){
-                        System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
 
                        if(bChildNodes.item(x).getNodeType() == Node.ELEMENT_NODE){
                            bNode =  bChildNodes.item(x);
 
-                            System.out.println("bNode.getNodeName:"+bNode.getNodeName());
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("bNode.getNodeName:"+bNode.getNodeName());
                             if(bNode.getNodeName().equals("MemoryAddresses")){
 
-                                        System.out.println("MemoryAddresses");
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("MemoryAddresses");
                                         attrs = bNode.getAttributes();
                                         String memoryAddressValueString = String.valueOf(((Attr)attrs.getNamedItem("MemoryAddressValue")).getValue());
-                                        System.out.println("memoryAddressValueString:"+memoryAddressValueString);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressValueString:"+memoryAddressValueString);
 //                                            bitIntensityArray[0] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(0)));
 //                                            bitIntensityArray[1] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(1)));
 //                                            bitIntensityArray[2] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(2)));
@@ -10057,23 +10057,23 @@ public abstract class CircuitComponent implements Serializable {
                                         bitIArray[6] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(6)));
                                         bitIArray[7] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(7)));
 
-                                        System.out.println("bitIntensityArray:"+bitIArray[0]+bitIArray[1]+bitIArray[2]+bitIArray[3]+bitIArray[4]+bitIArray[5]+bitIArray[6]+bitIArray[7]);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("bitIntensityArray:"+bitIArray[0]+bitIArray[1]+bitIArray[2]+bitIArray[3]+bitIArray[4]+bitIArray[5]+bitIArray[6]+bitIArray[7]);
                                         int memoryAddressDecimal = Integer.valueOf(((Attr)attrs.getNamedItem("MemoryAddress")).getValue());
-                                        System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
                                         //int[] test = {0,0,0,0 ,0,0,0,0};
                                         //memoryAddress.put(1,test);
                                         //setMemoryAddress(memoryAddressDecimal,bitIntensityArray);
                                         memoryAddress.put(memoryAddressDecimal,bitIArray);
-                                        System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
                                         if(memoryAddressDecimal >= 1){
                                            int[] test1 = getMemoryAddress(1);
-                                           System.out.println("MemoryAddress 1:"+test1[0]+test1[1]+test1[2]+test1[3]+test1[4]+test1[5]+test1[6]+test1[7]);
+                                           if(DEBUG_CIRCUITCOMPONENT) System.out.println("MemoryAddress 1:"+test1[0]+test1[1]+test1[2]+test1[3]+test1[4]+test1[5]+test1[6]+test1[7]);
                                         }
 
                             }else
                             if(bNode.getNodeName().equals("WavelengthInformation")){
                                 attrs = bNode.getAttributes();
-                                System.out.println("WavelengthInformation");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("WavelengthInformation");
 
                                 wavelengthArray[0] = Integer.valueOf(((Attr)attrs.getNamedItem("w1")).getValue());
                                 wavelengthArray[1] = Integer.valueOf(((Attr)attrs.getNamedItem("w2")).getValue());
@@ -10084,7 +10084,7 @@ public abstract class CircuitComponent implements Serializable {
                                 wavelengthArray[6] = Integer.valueOf(((Attr)attrs.getNamedItem("w7")).getValue());
                                 wavelengthArray[7] = Integer.valueOf(((Attr)attrs.getNamedItem("w8")).getValue());
                             }else{
-                                System.out.println("Unknown:"+bNode.getNodeName());
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Unknown:"+bNode.getNodeName());
                             }
                         }
                     }
@@ -10341,7 +10341,7 @@ public abstract class CircuitComponent implements Serializable {
                     for(int x=0;x<bitValueArr.length;x++){
                         str2 = str2+bitValueArr[x];
                     }
-                    System.out.println("Address:"+i+" BitIntensityStr:"+str2);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Address:"+i+" BitIntensityStr:"+str2);
                     attr.setValue(str2);
                     memoryAddressDecimal.setAttributeNode(attr);
                 }
@@ -10480,11 +10480,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
 
             switch(getComponentType()){
             case CROM8x16:
@@ -10504,7 +10504,7 @@ public abstract class CircuitComponent implements Serializable {
                 numberOfOutputPorts = 30;
                 break;
             }
-            System.out.println("numberOfInputPorts:"+numberOfInputPorts);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("numberOfInputPorts:"+numberOfInputPorts);
             //redefinitions of graphics
             origin_pt = new Point(origin.x,origin.y);
 
@@ -10537,25 +10537,25 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
 
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
 
                     NodeList bChildNodes = aNode.getChildNodes();
                     for(int x=0;x<bChildNodes.getLength(); ++x){
-                        System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
 
                        if(bChildNodes.item(x).getNodeType() == Node.ELEMENT_NODE){
                            bNode =  bChildNodes.item(x);
 
-                            System.out.println("bNode.getNodeName:"+bNode.getNodeName());
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("bNode.getNodeName:"+bNode.getNodeName());
                             if(bNode.getNodeName().equals("MemoryAddresses")){
 
-                                System.out.println("MemoryAddresses");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("MemoryAddresses");
                                 attrs = bNode.getAttributes();
                                 String memoryAddressValueString = String.valueOf(((Attr)attrs.getNamedItem("MemoryAddressValue")).getValue());
-                                System.out.println("memoryAddressValueString:"+memoryAddressValueString);
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressValueString:"+memoryAddressValueString);
 
                                 int[] bitIArray = new int[numberOfOutputPorts];
                                 for(int k=0; k< numberOfOutputPorts; k++){
@@ -10566,12 +10566,12 @@ public abstract class CircuitComponent implements Serializable {
 				for(int k=0; k< numberOfOutputPorts; k++){
                                     System.out.print("bitIArray[k]:"+bitIArray[k]);
 				}
-				System.out.println();
+				if(DEBUG_CIRCUITCOMPONENT) System.out.println();
                                 int memoryAddressDecimal = Integer.valueOf(((Attr)attrs.getNamedItem("MemoryAddress")).getValue());
-                                System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
                                         
 				memoryAddress.put(memoryAddressDecimal,bitIArray);
-                                System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
                                 if(memoryAddressDecimal >= 1){
                                     int[] test1 = getMemoryAddress(1);
                                           
@@ -10581,14 +10581,14 @@ public abstract class CircuitComponent implements Serializable {
                                         System.out.print(test1[k]);
 				                  
                                     }
-                                    System.out.println();
+                                    if(DEBUG_CIRCUITCOMPONENT) System.out.println();
 
                                 }
 
                             }else
                             if(bNode.getNodeName().equals("WavelengthInformation")){
                                 attrs = bNode.getAttributes();
-                                System.out.println("WavelengthInformation");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("WavelengthInformation");
                                 
                                 if(getComponentType() == CROM8x16){
                                     wavelengthArray = new int[16];
@@ -10640,7 +10640,7 @@ public abstract class CircuitComponent implements Serializable {
                                     wavelengthArray[29] = Integer.valueOf(((Attr)attrs.getNamedItem("w30")).getValue());
                                 }
                             }else{
-                                System.out.println("Unknown:"+bNode.getNodeName());
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Unknown:"+bNode.getNodeName());
                             }
                         }
                     }
@@ -10737,22 +10737,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -10878,25 +10878,25 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setSimulationDelayTime(Integer.valueOf(((Attr)(attrs.getNamedItem("SimulatorDelayTime"))).getValue()));
                     setBitWidthNumberWavelengths(Integer.valueOf(((Attr)(attrs.getNamedItem("NumberWavelengths"))).getValue()));
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                     
                     
                 }
@@ -11032,33 +11032,33 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
 
                     setSpatialLightModulatorRepeatBoolean(Boolean.valueOf(((Attr)(attrs.getNamedItem("SpatialLightModulatorRepeatBoolean"))).getValue()));
-                    System.out.println("Miscellaneous getSpatialLightModulatorRepeatBoolean:"+getSpatialLightModulatorRepeatBoolean());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getSpatialLightModulatorRepeatBoolean:"+getSpatialLightModulatorRepeatBoolean());
                     
                     setSpatialLightModulatorIntensityLevelString(String.valueOf(((Attr)(attrs.getNamedItem("SpatialLightModulatorIntensityLevelString"))).getValue()));
-                    System.out.println("Miscellaneous getSpatialLightModulatorIntensityLevelString:"+getSpatialLightModulatorIntensityLevelString());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getSpatialLightModulatorIntensityLevelString:"+getSpatialLightModulatorIntensityLevelString());
                     
                     setSimulationDelayTime(Integer.valueOf(((Attr)(attrs.getNamedItem("SimulatorDelayTime"))).getValue()));
                     
                     setBitWidthNumberWavelengths(Integer.valueOf(((Attr)(attrs.getNamedItem("NumberWavelengths"))).getValue()));
                     
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
 
                     setInternalIntensityLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalIntensityLevel"))).getValue()));
 
@@ -11148,22 +11148,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -11257,22 +11257,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setInternalWavelength(Integer.valueOf(((Attr)(attrs.getNamedItem("InternalWavelength"))).getValue())); 
-                    System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous getInternalWavelength:"+getInternalWavelength());
                 }
             }
 
@@ -11384,7 +11384,7 @@ public abstract class CircuitComponent implements Serializable {
                             oConnector = new OutputConnector();
                             oConnector.setPortNumber((i+numberOfAddressBusInputPorts+1));
                             oConnector.setPhysicalLocation(start.x+65, stOutputpty);
-                            System.out.println("oConnector.getPhysicalLocation:"+oConnector.getPhysicalLocation());
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("oConnector.getPhysicalLocation:"+oConnector.getPhysicalLocation());
                             getOutputConnectorsMap().put(oConnector.getPortNumber(),oConnector);
                             oConnector = null;
                     }
@@ -11408,7 +11408,7 @@ public abstract class CircuitComponent implements Serializable {
             //stpty = start.y;
             int stptx = start.x + 10+(7*5);
             int numberOutputPorts = getOutputConnectorsMap().size();
-            System.out.println("numberOutputPorts:"+numberOutputPorts);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("numberOutputPorts:"+numberOutputPorts);
 
             for(int i=1; i<=numberOfDataBusInputPorts;i++){
                 iConnector = new InputConnector();
@@ -11524,7 +11524,7 @@ public abstract class CircuitComponent implements Serializable {
                     for(int x=0;x<bitValueArr.length;x++){
                         str2 = str2+bitValueArr[x];
                     }
-                    System.out.println("Address:"+i+" BitIntensityStr:"+str2);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Address:"+i+" BitIntensityStr:"+str2);
                     attr.setValue(str2);
                     memoryAddressDecimal.setAttributeNode(attr);
                 }
@@ -11570,11 +11570,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             //NodeList childNodes = node.getChildNodes();
             //Node aNode = null;
             //for(int i=0; i<childNodes.getLength(); ++i){
@@ -11649,25 +11649,25 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
 
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
 
                     NodeList bChildNodes = aNode.getChildNodes();
                     for(int x=0;x<bChildNodes.getLength(); ++x){
-                        System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
+                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("bChildNodes.getLength():"+bChildNodes.getLength());
 
                        if(bChildNodes.item(x).getNodeType() == Node.ELEMENT_NODE){
                            bNode =  bChildNodes.item(x);
 
-                            System.out.println("bNode.getNodeName:"+bNode.getNodeName());
+                            if(DEBUG_CIRCUITCOMPONENT) System.out.println("bNode.getNodeName:"+bNode.getNodeName());
                             if(bNode.getNodeName().equals("MemoryAddresses")){
 
-                                        System.out.println("MemoryAddresses");
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("MemoryAddresses");
                                         attrs = bNode.getAttributes();
                                         String memoryAddressValueString = String.valueOf(((Attr)attrs.getNamedItem("MemoryAddressValue")).getValue());
-                                        System.out.println("memoryAddressValueString:"+memoryAddressValueString);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressValueString:"+memoryAddressValueString);
 //                                            bitIntensityArray[0] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(0)));
 //                                            bitIntensityArray[1] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(1)));
 //                                            bitIntensityArray[2] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(2)));
@@ -11687,23 +11687,23 @@ public abstract class CircuitComponent implements Serializable {
                                         bitIArray[6] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(6)));
                                         bitIArray[7] = Integer.parseInt(String.valueOf(memoryAddressValueString.charAt(7)));
 
-                                        System.out.println("bitIntensityArray:"+bitIArray[0]+bitIArray[1]+bitIArray[2]+bitIArray[3]+bitIArray[4]+bitIArray[5]+bitIArray[6]+bitIArray[7]);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("bitIntensityArray:"+bitIArray[0]+bitIArray[1]+bitIArray[2]+bitIArray[3]+bitIArray[4]+bitIArray[5]+bitIArray[6]+bitIArray[7]);
                                         int memoryAddressDecimal = Integer.valueOf(((Attr)attrs.getNamedItem("MemoryAddress")).getValue());
-                                        System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("memoryAddressDecimal:"+memoryAddressDecimal);
                                         //int[] test = {0,0,0,0 ,0,0,0,0};
                                         //memoryAddress.put(1,test);
                                         //setMemoryAddress(memoryAddressDecimal,bitIntensityArray);
                                         memoryAddress.put(memoryAddressDecimal,bitIArray);
-                                        System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
+                                        if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set memory address:");//+getMemoryAddress(memoryAddressDecimal));
                                         if(memoryAddressDecimal >= 1){
                                            int[] test1 = getMemoryAddress(1);
-                                           System.out.println("MemoryAddress 1:"+test1[0]+test1[1]+test1[2]+test1[3]+test1[4]+test1[5]+test1[6]+test1[7]);
+                                           if(DEBUG_CIRCUITCOMPONENT) System.out.println("MemoryAddress 1:"+test1[0]+test1[1]+test1[2]+test1[3]+test1[4]+test1[5]+test1[6]+test1[7]);
                                         }
 
                             }else
                             if(bNode.getNodeName().equals("WavelengthInformation")){
                                 attrs = bNode.getAttributes();
-                                System.out.println("WavelengthInformation");
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("WavelengthInformation");
 
                                 wavelengthArray[0] = Integer.valueOf(((Attr)attrs.getNamedItem("w1")).getValue());
                                 wavelengthArray[1] = Integer.valueOf(((Attr)attrs.getNamedItem("w2")).getValue());
@@ -11714,7 +11714,7 @@ public abstract class CircuitComponent implements Serializable {
                                 wavelengthArray[6] = Integer.valueOf(((Attr)attrs.getNamedItem("w7")).getValue());
                                 wavelengthArray[7] = Integer.valueOf(((Attr)attrs.getNamedItem("w8")).getValue());
                             }else{
-                                System.out.println("Unknown:"+bNode.getNodeName());
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Unknown:"+bNode.getNodeName());
                             }
                         }
                     }
@@ -11931,11 +11931,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             //NodeList childNodes = node.getChildNodes();
             //Node aNode = null;
             //for(int i=0; i<childNodes.getLength(); ++i){
@@ -12216,11 +12216,11 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             //NodeList childNodes = node.getChildNodes();
             //Node aNode = null;
             //for(int i=0; i<childNodes.getLength(); ++i){
@@ -12392,22 +12392,22 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             createGenericComponentFromXML(node);
 
-            System.out.println("Testing after createGenericComponentFromXML");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Testing after createGenericComponentFromXML");
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println(aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous");
                     attrs = aNode.getAttributes();
                     setOutputAmplificationLevel(Integer.valueOf(((Attr)(attrs.getNamedItem("AmplifierOutputAmplitude"))).getValue())); 
-                    System.out.println("Miscellaneous setAmplifierOutputAmplitude:"+getOutputAmplificationLevel());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous setAmplifierOutputAmplitude:"+getOutputAmplificationLevel());
                 }
             }
 
@@ -12455,7 +12455,7 @@ public abstract class CircuitComponent implements Serializable {
 
 
             //bounds = new java.awt.Rectangle(start.x, start.y, fm.stringWidth(text)+4, maxAscent+fm.getMaxDescent()+4);
-            System.out.println(bounds);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println(bounds);
         }
 
         public void draw(Graphics2D g2D){
@@ -12738,7 +12738,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -12746,34 +12746,34 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "ComponentNumber":
                         attrs = aNode.getAttributes();
                         setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                         break;
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "InputConnector":
                         createInputFromXML(aNode);
@@ -12901,7 +12901,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -12909,34 +12909,34 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "ComponentNumber":
                         attrs = aNode.getAttributes();
                         setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                         break;
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "InputConnector":
                         createInputConnectorWithIMLFromXML(aNode);
@@ -13059,7 +13059,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -13067,34 +13067,34 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "ComponentNumber":
                         attrs = aNode.getAttributes();
                         setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                         break;
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "InputConnector":
                         createInputFromXML(aNode);
@@ -13223,7 +13223,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -13231,34 +13231,34 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "ComponentNumber":
                         attrs = aNode.getAttributes();
                         setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                         break;
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "InputConnector":
                         createInputConnectorWithIMLFromXML(aNode);
@@ -13380,7 +13380,7 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             setComponentWidth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentWidth"))).getValue()));
             setComponentBreadth(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentBreadth"))).getValue()));
-            System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentWidth:"+getComponentWidth()+" ComponentBreadth:"+getComponentBreadth());
 
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -13388,34 +13388,34 @@ public abstract class CircuitComponent implements Serializable {
             for(int i=0; i<childNodes.getLength(); ++i){
 
                 aNode = childNodes.item(i);
-                System.out.println("aNode.getNodeName():"+aNode.getNodeName());
+                if(DEBUG_CIRCUITCOMPONENT) System.out.println("aNode.getNodeName():"+aNode.getNodeName());
                 switch(aNode.getNodeName()){
                     case "ComponentNumber":
                         attrs = aNode.getAttributes();
                         setComponentNumber(Integer.valueOf(((Attr)(attrs.getNamedItem("ComponentNumber"))).getValue()));
-                    System.out.println("ComponentNumber:"+getComponentNumber());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("ComponentNumber:"+getComponentNumber());
                         break;
                     case "ComponentAngle":
                         attrs = aNode.getAttributes();
                         setRotation(Double.valueOf(((Attr)(attrs.getNamedItem("Angle"))).getValue()));
-                    System.out.println("Rotation:"+getRotation());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Rotation:"+getRotation());
                         break;
                     case "ComponentType":
                         attrs = aNode.getAttributes();
                         setComponentType(Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue()));
-                    System.out.println("type:"+getComponentType());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("type:"+getComponentType());
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("color:"+getColor());
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("color:"+getColor());
                         break;
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("position x:"+position.x+" position y:"+position.y);
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("position x:"+position.x+" position y:"+position.y);
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("Bounds test");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Bounds test");
                         break;
                     case "InputConnector":
                         createInputConnectorWithIMLFromXML(aNode);
@@ -13668,7 +13668,7 @@ public abstract class CircuitComponent implements Serializable {
         }
 
         public keyboardHub(Node node){
-            System.out.println("In Rectangle CircuitComponent");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent");
             //setAngleFromXML(node);
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -13677,15 +13677,15 @@ public abstract class CircuitComponent implements Serializable {
                 switch(aNode.getNodeName()){
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setPosition");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setPosition");
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setColor");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setColor");
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setBounds");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setBounds");
                         break;
                     default:
                         System.err.println("Invalide node in <rectangle>: "+aNode);
@@ -13693,13 +13693,13 @@ public abstract class CircuitComponent implements Serializable {
             }
             NamedNodeMap attrs = node.getAttributes();
             componentType = Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue());
-            System.out.println("componentType:"+componentType);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentType:"+componentType);
 
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentWidth = Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue());
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentBreadth = Integer.valueOf(((Attr)(attrs.getNamedItem("Height"))).getValue());
-            System.out.println("Set width height");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width height");
                         
             createGenericComponentFromXML(node);   
             
@@ -13710,20 +13710,20 @@ public abstract class CircuitComponent implements Serializable {
                 aNode = childNodes.item(i);
                 //System.out.println(aNode.getNodeName());
                 if(aNode.getNodeName() == "Miscellaneous"){
-                    System.out.println("Miscellaneous started");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("Miscellaneous started");
                     NodeList childNodes2 = aNode.getChildNodes();
                     for(int y=0; y<childNodes2.getLength();++y){
                         Node aNode2 = childNodes2.item(y);
                         switch(aNode2.getNodeName()){
                             case "ASCIICode":{
                                 NamedNodeMap attrs2 = aNode2.getAttributes();
-                                System.out.println("Index:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Index"))).getValue())+" Wavelength:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue())+" bitIntensity:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("BitIntensity"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("Index:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Index"))).getValue())+" Wavelength:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue())+" bitIntensity:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("BitIntensity"))).getValue()));
                                 wavelengthArray[Integer.valueOf(((Attr)(attrs2.getNamedItem("Index"))).getValue())] = Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue());
                                 bitIntensityArray[Integer.valueOf(((Attr)(attrs2.getNamedItem("Index"))).getValue())] = Integer.valueOf(((Attr)(attrs2.getNamedItem("BitIntensity"))).getValue());
                             }break;
                             case "Interrupts":{
                                 NamedNodeMap attrs2 = aNode2.getAttributes();
-                                System.out.println("keyboardInterrupt wavelength:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue())+" intensity:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Intensity"))).getValue()));
+                                if(DEBUG_CIRCUITCOMPONENT) System.out.println("keyboardInterrupt wavelength:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue())+" intensity:"+Integer.valueOf(((Attr)(attrs2.getNamedItem("Intensity"))).getValue()));
                                 keyboardInterruptArray[0] = Integer.valueOf(((Attr)(attrs2.getNamedItem("Wavelength"))).getValue());
                                 keyboardInterruptArray[1] = Integer.valueOf(((Attr)(attrs2.getNamedItem("Intensity"))).getValue());
                             }break;
@@ -13735,7 +13735,7 @@ public abstract class CircuitComponent implements Serializable {
             
             rectangle = new java.awt.Rectangle(origin.x,origin.y,componentWidth,componentBreadth);
             bounds = new java.awt.Rectangle(position.x, position.y, componentWidth,componentBreadth); 
-            System.out.println("In Rectangle CircuitComponent set x and y");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent set x and y");
             
             line1 = new Line2D.Double(origin.x+80, origin.y, origin.x+80, origin.y+5);
             line2 = new Line2D.Double(origin.x+110,origin.y, origin.x+110, origin.y+5);
@@ -13941,7 +13941,7 @@ public abstract class CircuitComponent implements Serializable {
         }
 
         public textModeMonitorHub(Node node){
-            System.out.println("In Rectangle CircuitComponent");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent");
             //setAngleFromXML(node);
             NodeList childNodes = node.getChildNodes();
             Node aNode = null;
@@ -13950,15 +13950,15 @@ public abstract class CircuitComponent implements Serializable {
                 switch(aNode.getNodeName()){
                     case "position":
                         setPositionFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setPosition");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setPosition");
                         break;
                     case "color":
                         setColorFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setColor");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setColor");
                         break;
                     case "bounds":
                         setBoundsFromXML(aNode);
-                    System.out.println("In Rectangle CircuitComponent setBounds");
+                    if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent setBounds");
                         break;
                     default:
                         System.err.println("Invalide node in <rectangle>: "+aNode);
@@ -13967,17 +13967,17 @@ public abstract class CircuitComponent implements Serializable {
             NamedNodeMap attrs = node.getAttributes();
             
             componentType = Integer.valueOf(((Attr)(attrs.getNamedItem("Type"))).getValue());
-            System.out.println("componentType:"+componentType);
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("componentType:"+componentType);
             
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentWidth = Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue());
-            System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width"+Integer.valueOf(((Attr)(attrs.getNamedItem("Width"))).getValue()));
             componentBreadth = Integer.valueOf(((Attr)(attrs.getNamedItem("Height"))).getValue());
-            System.out.println("Set width height");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("Set width height");
             
             rectangle = new java.awt.Rectangle(origin.x,origin.y,componentWidth,componentBreadth);
             bounds = new java.awt.Rectangle(position.x, position.y, componentWidth,componentBreadth); 
-            System.out.println("In Rectangle CircuitComponent set x and y");
+            if(DEBUG_CIRCUITCOMPONENT) System.out.println("In Rectangle CircuitComponent set x and y");
             
             createGenericComponentFromXML(node);
             

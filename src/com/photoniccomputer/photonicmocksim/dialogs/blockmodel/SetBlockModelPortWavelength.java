@@ -38,7 +38,7 @@ public class SetBlockModelPortWavelength {
         this.selectedBlockModelComponent    = highlightedBlockModelComponent;
         this.g2D                            = g2D;
         
-        System.out.println("BlockModelApp.getBlockModelTypeString():"+BlockModelApp.getBlockModelTypeString());
+        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("BlockModelApp.getBlockModelTypeString():"+BlockModelApp.getBlockModelTypeString());
         if(BlockModelApp.getBlockModelTypeString().equals("CHIP")){
             setPortWavelengthsForBlockModelPart();
         }else {//MODULE
@@ -54,7 +54,7 @@ public class SetBlockModelPortWavelength {
         Point componentPosition = selectedBlockModelComponent.getPosition();
         Point portPosition = new Point(componentPosition.x,(componentPosition.y ));
         int portSpacing = BlockModelApp.getPortSpacing();
-        System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
+        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
         int inputPortCtr = 0;
         for(Part part : theApp.getModel().getPartsMap().values()){
             if(part.getPartNumber() == partNumber){
@@ -129,7 +129,7 @@ public class SetBlockModelPortWavelength {
         Point outputPortStartPoint = new Point(portPosition.x+selectedBlockModelComponent.getComponentWidth()-10,outputPortStartYPosition);
         componentPosition = selectedBlockModelComponent.getPosition();
         portPosition = outputPortStartPoint;//new Point(componentPosition.x,(componentPosition.y ));
-        System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
+        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
         int outputPortCtr = inputPortCtr;
         for(Part part : theApp.getModel().getPartsMap().values()){
             for(Layer layer : part.getLayersMap().values()){
@@ -182,7 +182,7 @@ public class SetBlockModelPortWavelength {
         Point componentPosition = selectedBlockModelComponent.getPosition();
         Point portPosition = new Point(componentPosition.x,(componentPosition.y ));
         int portSpacing = BlockModelApp.getPortSpacing();
-        System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
+        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
         int inputPortCtr = 0;
         for(Part part : theApp.getModel().getPartsMap().values()){
             if(part.getPartNumber() == partNumber){
@@ -252,7 +252,7 @@ public class SetBlockModelPortWavelength {
         Point outputPortStartPoint = new Point(portPosition.x+selectedBlockModelComponent.getComponentWidth()-10,outputPortStartYPosition);
         componentPosition = selectedBlockModelComponent.getPosition();
         portPosition = outputPortStartPoint;//new Point(componentPosition.x,(componentPosition.y ));
-        System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
+        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("componentPosition:"+componentPosition+" portPosition:"+portPosition);
         int outputPortCtr = inputPortCtr;
         for(Part part : theApp.getModel().getPartsMap().values()){
             for(Layer layer : part.getLayersMap().values()){
@@ -305,21 +305,21 @@ public class SetBlockModelPortWavelength {
         //for(Part part : theApp.getModel().getPartsMap().values()){
             //if(part.getPartNumber() == partNumber){
                 for(Layer layer : theApp.getModel().getPartsMap().get(partNumber).getLayersMap().values()){
-                    System.out.println("layer");
+                    if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("layer");
                     for(Module module : layer.getModulesMap().values()){
-                        System.out.println("module");
+                        if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("module");
                         for(CircuitComponent component : module.getComponentsMap().values()){
-                            System.out.println("Component");
+                            if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("Component");
                             if(component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                                if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                                 if(component.getBlockModelPortNumber() != 0){
                                     portNumbersArray[ctr] = component.getBlockModelPortNumber();
-                                    System.out.println("portNumbersArray:"+portNumbersArray[ctr]);
+                                    if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("portNumbersArray:"+portNumbersArray[ctr]);
                                     ctr = ctr +1;
                                 }else{
                                     //JOptionPane.showMessageDialog(null, "You must set the BlockModelPortNumber in the main window via a context menu for P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+component.getComponentNumber());
                                     SetBlockModelPortNumberDialog temp = null;
-                                    System.out.println("calling SetBlockModelPortNumberDialog");
+                                    if(DEBUG_SETBLOCKMODELPORTWAVELENGTH) System.out.println("calling SetBlockModelPortNumberDialog");
                                    temp = new SetBlockModelPortNumberDialog(theApp, BlockModelApp, theApp.getModel().getPartsMap().get(partNumber), component,g2D,selectedBlockModelComponent);
                                    //if(temp  != null){
                                      //  recursiveLoopThroughBlockModelPorts(theApp, BlockModelApp, portNumbersArray, ctr );

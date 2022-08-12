@@ -174,7 +174,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == createRectangleItem){
             new CreateBlockModelRectangleDialog(blockModelApp);
-            System.out.println("creating Rectangle");
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("creating Rectangle");
           return;
         }else
         if(e.getSource() == generateLNMenuItem){
@@ -190,7 +190,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                     }else{
                         PLNInt = 1000000;
                     }
-                    System.out.println("PLNInt:"+PLNInt);
+                    if(DEBUG_BLOCKMODELFRAME) System.out.println("PLNInt:"+PLNInt);
                     BlockModelComponent tempComp = new BlockModelComponent.Text(""+PLNInt, DEFAULT_PLN_POS, Color.black, blockModelApp.getWindow().getFontMetrics(DEFAULT_BLOCK_COMPONENT_FONT));
                     tempComp.setType(PLN);
                     blockModelApp.getModel().add(tempComp);
@@ -213,7 +213,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                     }else{
                         MLNInt = 1000000;
                     }
-                    System.out.println("MLNInt:"+MLNInt);
+                    if(DEBUG_BLOCKMODELFRAME) System.out.println("MLNInt:"+MLNInt);
                     BlockModelComponent tempComp = new BlockModelComponent.Text(""+MLNInt, DEFAULT_PLN_POS, Color.black, blockModelApp.getWindow().getFontMetrics(DEFAULT_BLOCK_COMPONENT_FONT));
                     tempComp.setType(MLN);
                     blockModelApp.getModel().add(tempComp);
@@ -254,10 +254,10 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                         File sourcePath = null;
                         //subProjectFolder = fileProjectFolder.list();
                         if(blockModelApp.getPartNumber() != 0){
-                            //System.out.println("first Sub Project folder:"+subProjectFolder[0]);
-                            System.out.println("BlockModelPartNumber:P"+blockModelApp.getPartNumber());
+                            //if(DEBUG_BLOCKMODELFRAME) System.out.println("first Sub Project folder:"+subProjectFolder[0]);
+                            if(DEBUG_BLOCKMODELFRAME) System.out.println("BlockModelPartNumber:P"+blockModelApp.getPartNumber());
                             sourcePath = new File(fileProjectFolder+"\\P"+blockModelApp.getPartNumber());//note a part/chip can only have one part
-                            System.out.println("SourcePath"+sourcePath.toString());
+                            if(DEBUG_BLOCKMODELFRAME) System.out.println("SourcePath"+sourcePath.toString());
                         }else{
                             JOptionPane.showMessageDialog(null, "No part folder in project directory!!");
                             return ;
@@ -266,16 +266,16 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                         try{
                             if(blockModelApp.getPartNumber() != 0){
                                 FileUtils.moveToDirectory(sourcePath, newFilePath,true);
-                                System.out.println(newFilePath.toString());
+                                if(DEBUG_BLOCKMODELFRAME) System.out.println(newFilePath.toString());
                                 File dir = new File(newFilePath+"\\P"+blockModelApp.getPartNumber());
-                                System.out.println(dir.toString());
+                                if(DEBUG_BLOCKMODELFRAME) System.out.println(dir.toString());
                                 if(!dir.isDirectory()){
                                     JOptionPane.showMessageDialog(null, "No part folder in project directory!!");
                                     return ;
                                 }else{
                                     File newDir = new File(newFilePath+"\\P1");
                                     dir.renameTo(newDir);
-                                    System.out.println(dir.toString()+" renamed to "+newDir.toString());
+                                    if(DEBUG_BLOCKMODELFRAME) System.out.println(dir.toString()+" renamed to "+newDir.toString());
                                 }
                                 //fileProjectFolder.delete();//works but problem with another part present
                                 FileUtils.deleteDirectory(fileProjectFolder);//should recursive delete if another part is present
@@ -293,7 +293,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                 }
             }else
             if(blockModelApp.getBlockModelTypeString().equals("MODULE")){
-                System.out.println("Saving module to module library");
+                if(DEBUG_BLOCKMODELFRAME) System.out.println("Saving module to module library");
                 
                 boolean mlnPresent = false;
                 String MLNStr = "";
@@ -315,10 +315,10 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                         File sourcePath = null;
                         //subProjectFolder = fileProjectFolder.list();
                         if(blockModelApp.getPartNumber() != 0){
-                            //System.out.println("first Sub Project folder:"+subProjectFolder[0]);
-                            System.out.println("BlockModelPartNumber:P"+blockModelApp.getPartNumber());
+                            //if(DEBUG_BLOCKMODELFRAME) System.out.println("first Sub Project folder:"+subProjectFolder[0]);
+                            if(DEBUG_BLOCKMODELFRAME) System.out.println("BlockModelPartNumber:P"+blockModelApp.getPartNumber());
                             sourcePath = new File(fileProjectFolder+"\\P"+blockModelApp.getPartNumber()+"\\L"+blockModelApp.getLayerNumber()+"\\M"+blockModelApp.getModuleNumber());//note a part/chip can only have one part
-                            System.out.println("SourcePath"+sourcePath.toString());
+                            if(DEBUG_BLOCKMODELFRAME) System.out.println("SourcePath"+sourcePath.toString());
                         }else{
                             JOptionPane.showMessageDialog(null, "No module folder in project directory!!");
                             return ;
@@ -327,16 +327,16 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                         try{
                             if(blockModelApp.getModuleNumber() != 0){
                                 FileUtils.moveToDirectory(sourcePath, newFilePath,true);
-                                System.out.println(newFilePath.toString());
+                                if(DEBUG_BLOCKMODELFRAME) System.out.println(newFilePath.toString());
                                 File dir = new File(newFilePath+"\\M"+blockModelApp.getModuleNumber());
-                                System.out.println(dir.toString());
+                                if(DEBUG_BLOCKMODELFRAME) System.out.println(dir.toString());
                                 if(!dir.isDirectory()){
                                     JOptionPane.showMessageDialog(null, "No module folder in library directory!!");
                                     return ;
                                 }else{
                                     File newDir = new File(newFilePath+"\\M1");
                                     dir.renameTo(newDir);
-                                    System.out.println(dir.toString()+" renamed to "+newDir.toString());
+                                    if(DEBUG_BLOCKMODELFRAME) System.out.println(dir.toString()+" renamed to "+newDir.toString());
                                 }
                                 //fileProjectFolder.delete();//works but problem with another part present
                                 FileUtils.deleteDirectory(fileProjectFolder);//should recursive delete if another part is present
@@ -356,7 +356,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
         }else
         if(e.getSource() == closeItem){
             //todo
-            System.out.println("closing window");
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("closing window");
             setVisible(false);
             dispose();
           return;
@@ -398,7 +398,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                         
         }else
         if(e.getSource() == setPortWavelengthItem){
-            System.out.println("Deprecated!!!!");
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("Deprecated!!!!");
             //new SetBlockModelPortWavelengthDialog(blockModelApp);
             //Graphics2D g2D = (Graphics2D)getGraphics();
             //new SetBlockModelPortWavelength(blockModelApp, blockModelApp.getTheApp(), highlightedBlockModelComponent, g2D);
@@ -456,7 +456,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
             if(file.isFile()){
                 //String str = file.toString().substring(file.toString().lastIndexOf("\\"), file.toString().length());
                 //File newFilePath1 = new File(newFilePath + "\\"+ str);
-                //System.out.println("newFilePath:"+newFilePath1.toString());
+                //if(DEBUG_BLOCKMODELFRAME) System.out.println("newFilePath:"+newFilePath1.toString());
                 try{
                     File file2 = new File(destinationPartFolder.toString() + "\\"+file.getName());
                     copyFile(file, file2);
@@ -469,7 +469,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
     
     /*public void traverseDirTree(File dirFile, File destinationPartFolder, File sourceFullPath){
         //File f = new File(sourceFullPath+"\\"+dirFile);
-        //System.out.println("f:"+f.toString());
+        //if(DEBUG_BLOCKMODELFRAME) System.out.println("f:"+f.toString());
         File files[] = dirFile.listFiles();
         
         for(File file: files){
@@ -499,7 +499,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
                     //copyOverFiles(file, newFilePath,  fileProjectFolder);
                     String str = file.toString().substring(file.toString().lastIndexOf("\\"), file.toString().length());
                     File newFilePath1 = new File(newFilePath + "\\"+ str);
-                    System.out.println("newFilePath:"+newFilePath1.toString());
+                    if(DEBUG_BLOCKMODELFRAME) System.out.println("newFilePath:"+newFilePath1.toString());
                     try{
                         copyFile(file, newFilePath1);
                     }catch(IOException ioe){
@@ -536,7 +536,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
     }*/
     
     public void saveBlockModelDiagram(){
-        System.out.println("Save Block Model project for partNumber:"+blockModelApp.getPartNumber());
+        if(DEBUG_BLOCKMODELFRAME) System.out.println("Save Block Model project for partNumber:"+blockModelApp.getPartNumber());
         Part selectedPart = blockModelApp.getTheApp().getModel().getPartsMap().get(blockModelApp.getPartNumber());
         String xmlString = "";
         Module selectedModule = null;
@@ -591,7 +591,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
         xmlString = xmlString +"<SnapToGridEnabledBoolean snapToGridEnabledBoolean='"+blockModelApp.getGridSnapStatus()+"' />\n";
         xmlString = xmlString +"</Settings>\n";
         xmlString = xmlString +"</BlockModel>\n";
-        System.out.println("xmlString:"+xmlString);
+        if(DEBUG_BLOCKMODELFRAME) System.out.println("xmlString:"+xmlString);
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try{
@@ -599,7 +599,7 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
             
             Document doc2 = factory.newDocumentBuilder().parse(is);
             Element elementNodeList = doc2.getDocumentElement();
-            System.out.println("Elements:"+elementNodeList.getTagName());
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("Elements:"+elementNodeList.getTagName());
             NodeList nodeList =null;
             nodeList = elementNodeList.getChildNodes();
             if(blockModelApp.getBlockModelTypeString().equals("CHIP")) {
@@ -628,11 +628,11 @@ public class BlockModelFrame extends JFrame implements ActionListener, Observer{
     /*public void copyOverFiles(File sourceFile, File destinationFilePath, File fileProjectFolder){
         try{
             String tempStr = sourceFile.getName().toString();
-            System.out.println("str:"+tempStr);
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("str:"+tempStr);
             //String fileStr = file.getName().substring(file.getName().lastIndexOf('\\'),file.getName().toString().length());
             destinationFilePath = new File(destinationFilePath+"\\"+tempStr);
             
-            System.out.println("newFilePath:"+destinationFilePath.toString());
+            if(DEBUG_BLOCKMODELFRAME) System.out.println("newFilePath:"+destinationFilePath.toString());
             Files.copy(fileProjectFolder.toPath(), destinationFilePath.toPath());
         }catch(IOException ioe){
             ioe.printStackTrace();

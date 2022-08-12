@@ -62,7 +62,7 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
         
         char uniwavelength = new Character('\u03bb');
         String str= ""; 
-        System.out.println("highlightPartNumber:"+highlightPartNumber);
+        if(DEBUG_VIEWVALUESDIALOG) System.out.println("highlightPartNumber:"+highlightPartNumber);
         //Part highlightPart = null;
         if(windowType == MAIN_WINDOW){
             highlightPart = theMainApp.getModel().getPartsMap().get(highlightPartNumber);
@@ -71,12 +71,12 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
         }
 
         if(highlightPart != null && highlightPart.getBlockModelExistsBoolean() == true){
-            System.out.println("highlightPart != null");
+            if(DEBUG_VIEWVALUESDIALOG) System.out.println("highlightPart != null");
             for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
-                System.out.println("comp.getComponentType():"+comp.getComponentType());
+                if(DEBUG_VIEWVALUESDIALOG) System.out.println("comp.getComponentType():"+comp.getComponentType());
                 if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START) System.out.println("compType:"+comp.getComponentType()+" compNumber:"+comp.getComponentNumber()+" comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber());
                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
-                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START");
                     for(InputConnector iConnector : comp.getInputConnectorsMap().values()){
                         int[] inputPortValues = comp.getInputPortValues(iConnector.getPortNumber());
                         int i=1;
@@ -98,7 +98,7 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
                     }
                 }else
                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getPartLinkedToNumber() == highlightPart.getPartNumber()){
-                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END");
                     for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                         int[] outputPortValues = comp.getOutputPortValues(oConnector.getPortNumber());
                         int i=1;
@@ -126,9 +126,9 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
             }
         }else
         if(highlightModule != null && highlightModule.getBlockModelExistsBoolean() == true){
-            System.out.println("highlightModule != null");
+            if(DEBUG_VIEWVALUESDIALOG) System.out.println("highlightModule != null");
             for(CircuitComponent comp : highlightModule.getComponentsMap().values()){
-                System.out.println("comp.getComponentType():"+comp.getComponentType());
+                if(DEBUG_VIEWVALUESDIALOG) System.out.println("comp.getComponentType():"+comp.getComponentType());
                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START) System.out.println("view Values comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
                 if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END) System.out.println("view Values comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
                 Module moduleLinked = null;
@@ -136,7 +136,7 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
                 if(comp.getBlockModelPortNumber() != 0){//for testing only
                     for(InputConnector iConnector : comp.getInputConnectorsMap().values()){
                         int[] testInputPortValues = comp.getInputPortValues(iConnector.getPortNumber());
-                        System.out.println("View Values Dialog testInputPortValues:"+testInputPortValues[0]+":"+testInputPortValues[1]+":"+testInputPortValues[2]+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
+                        if(DEBUG_VIEWVALUESDIALOG) System.out.println("View Values Dialog testInputPortValues:"+testInputPortValues[0]+":"+testInputPortValues[1]+":"+testInputPortValues[2]+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
                     }
                 }
                 
@@ -149,18 +149,18 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
                     }
                     if(c.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){
                         if(c.getOutputConnectorsMap().get(2).getIMLSForComponent().size() > 0){
-                            System.out.println("highlightModule.getLayerNumber():"+highlightModule.getLayerNumber());
-                            System.out.println(" highlightPartNumber:"+highlightModule.getPartNumber());
-                            System.out.println(" c.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+c.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
+                            if(DEBUG_VIEWVALUESDIALOG) System.out.println("highlightModule.getLayerNumber():"+highlightModule.getLayerNumber());
+                            if(DEBUG_VIEWVALUESDIALOG) System.out.println(" highlightPartNumber:"+highlightModule.getPartNumber());
+                            if(DEBUG_VIEWVALUESDIALOG) System.out.println(" c.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber():"+c.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
                             moduleLinked = highlightPart.getLayersMap().get(highlightModule.getLayerNumber()).getModule(c.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber());
                             break;
                         }
                     }
                 }
-                System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
+                if(DEBUG_VIEWVALUESDIALOG) System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber());
                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleLinked.getModuleNumber()){
-                    System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber()+" SAME_LAYER_INTER_MODULE_LINK_START compNumber:"+comp.getComponentNumber()+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
-                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_START");
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber()+" SAME_LAYER_INTER_MODULE_LINK_START compNumber:"+comp.getComponentNumber()+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START");
                     for(InputConnector iConnector : comp.getInputConnectorsMap().values()){
                         int[] inputPortValues = comp.getInputPortValues(iConnector.getPortNumber());
                         int i=1;
@@ -178,13 +178,13 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
                                 i=i+1;
                             }
                         }
-                        System.out.println(str);
+                        if(DEBUG_VIEWVALUESDIALOG) System.out.println(str);
                         outputComboBox.addItem(str);
                     }
                 }else
                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END && comp.getInputConnectorsMap().get(1).getIMLSForComponent().getFirst().getModuleLinkedToNumber() == moduleLinked.getModuleNumber()){
-                    System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber()+" SAME_LAYER_INTER_MODULE_LINK_END compNumber:"+comp.getComponentNumber()+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
-                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("moduleLinkedNumber:"+moduleLinked.getModuleNumber()+" SAME_LAYER_INTER_MODULE_LINK_END compNumber:"+comp.getComponentNumber()+" blockModelPortNumber:"+comp.getBlockModelPortNumber());
+                    if(DEBUG_VIEWVALUESDIALOG) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END");
                     for(OutputConnector oConnector : comp.getOutputConnectorsMap().values()){
                         int[] outputPortValues = comp.getOutputPortValues(oConnector.getPortNumber());
                         int i=1;
@@ -202,7 +202,7 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
                                 i=i+1;
                             }
                         }
-                        System.out.println(str);
+                        if(DEBUG_VIEWVALUESDIALOG) System.out.println(str);
                         inputComboBox.addItem(str);
                     }
                 }else if(theChildApp!=null){//normal component port on child window??
@@ -242,7 +242,7 @@ public class ViewValuesDialog extends JDialog implements ActionListener {
     
     public void putValuesInComboBoxes()
     {
-        System.out.println("Normal Component highlighted compNumber:"+highlightComponent.getComponentNumber());
+        if(DEBUG_VIEWVALUESDIALOG) System.out.println("Normal Component highlighted compNumber:"+highlightComponent.getComponentNumber());
         String str = "";
         char uniwavelength = new Character('\u03bb');
         for(InputConnector iConnector : highlightComponent.getInputConnectorsMap().values()){

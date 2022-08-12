@@ -63,7 +63,7 @@ public class BlockModel extends Observable implements Serializable{
         }else {
             comp.setComponentNumber(componentsMap.lastKey()+1);
         }
-        //System.out.println("Part part number:"+comp.getCompoentnNumber());
+        //if(DEBUG_BLOCKMODEL) System.out.println("Part part number:"+comp.getCompoentnNumber());
         componentsMap.put(comp.getComponentNumber(), comp);
         setChanged();
     }

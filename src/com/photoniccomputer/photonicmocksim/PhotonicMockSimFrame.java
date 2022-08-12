@@ -773,7 +773,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             
             String str = "";
             for(LinkedList<ExecutionQueueNode> eQNList_11 : executionQueueList){
-                if(DEBUG_SIMULATEDIALOG)System.out.println("PhotonicMockSimFrame simulateDialog eQNList.values");
+                if(DEBUG_SIMULATEDIALOG)if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame simulateDialog eQNList.values");
                 for(ExecutionQueueNode eQN11 : eQNList_11){
 
                     if(eQN11.getComponentType() == OUTPUT_PORT){
@@ -782,7 +782,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                     }
                     str = str+ "P"+eQN11.getPartNumber()+"L"+eQN11.getLayerNumber()+"M"+eQN11.getModuleNumber()+"C"+eQN11.getComponentNumber()+"p"+eQN11.getPortNumber()+"->";
                 }
-                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue ExecutionQueue pathways:"+str+"\n");
+                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)System.out.println("PhotonicMockSimFrame buildExecutionQueue ExecutionQueue pathways:"+str+"\n");
                 inputList.addItem(str);
                 str="";
             }
@@ -1004,13 +1004,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 ctr = ctr +1;
                 
                 if(ctr == memoryAddressesTreeMap.size()){
-                    System.out.println("ctr = memoryAddressesTreeMap.size returning true");
+                    if(DEBUG_PHOTONICMOCKSIM) System.out.println("ctr = memoryAddressesTreeMap.size returning true");
                     return true;
                 }
                 
                 if(checkedList.size()==numberOutputs){
                     checkedList.clear();
-                    System.out.println("Address:"+ctr+" byte checkedList Clearing and continue");
+                    if(DEBUG_PHOTONICMOCKSIM) System.out.println("Address:"+ctr+" byte checkedList Clearing and continue");
                     continue;
                 }  
             }
@@ -1049,29 +1049,29 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     || (comp.getComponentType() == ROM8) || (comp.getComponentType() == ROM16) || (comp.getComponentType() == ROM20) || (comp.getComponentType() == ROM24) || (comp.getComponentType() == ROM30)){
                                 if(checkIfBitIntensityArraySet(comp.memoryAddress,8) == false){
                                     memoryChipsUninitialised.add(comp.getComponentNumber());
-                                    System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
+                                    if(DEBUG_PHOTONICMOCKSIM) System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
                                 }
                             }else if((comp.getComponentType() == CROM8x16) || (comp.getComponentType() == CROM8x20) || (comp.getComponentType() == CROM8x24) || (comp.getComponentType() == CROM8x30)){
 				switch(comp.getComponentType()){
 				case CROM8x16:
                                     if(checkIfBitIntensityArraySet(comp.memoryAddress,16) == false){
 				        memoryChipsUninitialised.add(comp.getComponentNumber());
-				        System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
+				        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
                                     }break;
 				case CROM8x20:
                                     if(checkIfBitIntensityArraySet(comp.memoryAddress,20) == false){
 				        memoryChipsUninitialised.add(comp.getComponentNumber());
-				        System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
+				        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
 				    }break;
 				case CROM8x24:
                                     if(checkIfBitIntensityArraySet(comp.memoryAddress,24) == false){
 				        memoryChipsUninitialised.add(comp.getComponentNumber());
-				        System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
+				        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
 				    }break;
 				case CROM8x30:
                                     if(checkIfBitIntensityArraySet(comp.memoryAddress,30) == false){
 				        memoryChipsUninitialised.add(comp.getComponentNumber());
-				        System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
+				        if(DEBUG_PHOTONICMOCKSIM) System.out.println("Memory uninitialised for component:"+comp.getComponentNumber());
 				    }break;
 				}
 				
@@ -1237,9 +1237,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         JOptionPane.showMessageDialog(PhotonicMockSimFrame.this, "This is going to take a while! watch the console!.");
                                         firstTimeBool = true; 
                                     }
-                                    System.out.println("initialiseSystem memory addressSize:"+addressSize+" for component:"+comp.getComponentNumber()+"\n");
+                                    if(DEBUG_PHOTONICMOCKSIM) System.out.println("initialiseSystem memory addressSize:"+addressSize+" for component:"+comp.getComponentNumber()+"\n");
                                     for(int address=1 ; address<=addressSize; address++){
-                                        System.out.println("initialiseSystem memory address:"+address+" for component:"+comp.getComponentNumber()+"\n");
+                                        if(DEBUG_PHOTONICMOCKSIM) System.out.println("initialiseSystem memory address:"+address+" for component:"+comp.getComponentNumber()+"\n");
                                         comp.setMemoryAddress(address, bitIntensityArray);
                                     }
 
@@ -1286,10 +1286,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 				        JOptionPane.showMessageDialog(PhotonicMockSimFrame.this, "This is going to take a while! watch the console!.");
 				        firstTimeBool = true; 
 				    }
-				    System.out.println("initialiseSystem memory addressSize:"+addressSize+" for component:"+comp.getComponentNumber()+"\n");
+				    if(DEBUG_PHOTONICMOCKSIM) System.out.println("initialiseSystem memory addressSize:"+addressSize+" for component:"+comp.getComponentNumber()+"\n");
 				    
                                     for(int address=1 ; address<=addressSize; address++){
-				        System.out.println("initialiseSystem memory address:"+address+" for component:"+comp.getComponentNumber()+"\n");
+				        if(DEBUG_PHOTONICMOCKSIM) System.out.println("initialiseSystem memory address:"+address+" for component:"+comp.getComponentNumber()+"\n");
 				        comp.setMemoryAddress(address, bitIntensityArray);
                                     }
 				
@@ -1305,7 +1305,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
         
        private void buildLayout(){
-           System.out.println("Simulator buildLayout");
+           if(DEBUG_PHOTONICMOCKSIM) System.out.println("Simulator buildLayout");
            JLabel label;
 
            label = new JLabel("Step Number", JLabel.LEFT);
@@ -1345,7 +1345,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 }
 
                 if(timer == null) stepNumber = stepNumber + 1;
-                if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulationDialog performSimulation stepNumber:"+stepNumber+"\n");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulationDialog performSimulation stepNumber:"+stepNumber+"\n");
                 completeLabel.setText(Integer.toString(stepNumber));
                  
                 
@@ -1389,9 +1389,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                         for(LogicAnalyzerModel.LogicTrace logicTrace1: logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                                             logicAnalyzerApp.getView().clearLogicTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber());
-                                            System.out.println("1testpoing done clear function");
+                                            if(DEBUG_PHOTONICMOCKSIM) System.out.println("1testpoing done clear function");
                                             logicAnalyzerApp.getView().addComponentToTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber(),logicTrace1.getIntensityLevel());
-                                            System.out.println("1testpoing added a component to the trace Map");   
+                                            if(DEBUG_PHOTONICMOCKSIM) System.out.println("1testpoing added a component to the trace Map");   
                                         }
 
 
@@ -1458,7 +1458,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                     if(theApp.getSimulationDelayTime() != 0){//getSimulationDelayTime()
                         //timer = new Timer(theApp.getSimulationDelayTime(),timerListener);//getSimulationDelayTime()
                         long timeLeft;
-                        System.out.println("++++++++++++++++++++++++++++++ timer +++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_PHOTONICMOCKSIM) System.out.println("++++++++++++++++++++++++++++++ timer +++++++++++++++++++++++++++++++++++++++++++++");
                         timer = new Timer(theApp.getSimulationDelayTime(),timerListener);
                         
                         logicAnalyzerTimer = new Timer( (theApp.getSimulationDelayTime()) ,logicAnalyzerTimerListener);///10 ??
@@ -1511,7 +1511,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         public void stepSimulation(){
             simulateSystem();
             stepNumber = stepNumber + 1;
-            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulationDialog stepSimulation stepNumber:"+stepNumber+"\n");
+            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulationDialog stepSimulation stepNumber:"+stepNumber+"\n");
             if(stepNumber <= breakPointStepNumber) completeLabel.setText(""+stepNumber+"");
 
         }
@@ -1519,7 +1519,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         public void  setBreakPoint(){
             //breakPointStepNumber = 0;
             String breakpoint = (String)JOptionPane.showInputDialog(theApp.getWindow(),"Set Breakpoint Step Number:","Customized Dialog",JOptionPane.PLAIN_MESSAGE,null,null,breakPointStepNumber);
-            if(DEBUG_SIMULATEDIALOG) theApp.printToLogFile("PhotonicMockSimFrame SimulateDialog setBreakPointButton breakpoint:"+breakpoint+"\n");
+            if(DEBUG_SIMULATEDIALOG) System.out.println("PhotonicMockSimFrame SimulateDialog setBreakPointButton breakpoint:"+breakpoint+"\n");
             if(breakpoint != null ){
                 breakPointStepNumber = Integer.parseInt(breakpoint);
                 breakPointStepNumberLabel.setText(""+breakPointStepNumber+"");
@@ -1624,12 +1624,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //executionQueueMap.put(""+cComponent.getComponentNumber()+"."+1+"", eQNMap);
 
                                         Integer connectedLineNumber = cComponent.getOutputConnectorConnectsToComponentNumber(1, outputPort.getPortNumber());//only one link and 1 port
-                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)System.out.println("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
 
                                         TreeMap<Integer, CircuitComponent> componentsMap = theApp.getModel().getPartsMap().get(part.getPartNumber()).getLayersMap().get(layer.getLayerNumber()).getModulesMap().get(module.getModuleNumber()).getComponentsMap();
                                         CircuitComponent lineComp = componentsMap.get(connectedLineNumber);
-                                        System.out.println("Part:"+part.getPartNumber());
-                                        System.out.println("module:"+module.getModuleNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("Part:"+part.getPartNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("module:"+module.getModuleNumber());
                                         if(lineComp!=null && connectedLineNumber!=0)propagate(connectedLineNumber, lineComp, eQNList, part.getPartNumber(), layer.getLayerNumber(), module, cComponent.getComponentNumber(),outputPort.getPortNumber());
                                         
                                         boolean alreadyInList = false;
@@ -1640,9 +1640,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             }
                                         }
                                         
-                                        System.out.println("----++++ eQNList dump 1 ++++----\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("----++++ eQNList dump 1 ++++----\n");
                                     for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
                                                 + "\neqn componentType:"+eqn.getComponentType()
                                                 + "\neqn portNumber:"+eqn.getPortNumber()
                                                 + "\neqn partNumber:"+ eqn.getPartNumber()
@@ -1651,7 +1651,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         );
                                     }
                                         
-                                        System.out.println("KEYBOARDHUB entering into exectution queue alreadyInList:"+alreadyInList);
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("KEYBOARDHUB entering into exectution queue alreadyInList:"+alreadyInList);
                                         if(alreadyInList==false && eQNList.size() > 0) executionQueueList.add( eQNList);
                                     }
                                 }else{
@@ -1668,9 +1668,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQNList.add(eQN);
                                     //executionQueueMap.put(""+cComponent.getComponentNumber()+"."+1+"", eQNMap);
 
-                                    System.out.println("----++++ eQNList dump 2_1 ++++----\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("----++++ eQNList dump 2_1 ++++----\n");
                                     for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
                                                 + "\neqn componentType:"+eqn.getComponentType()
                                                 + "\neqn portNumber:"+eqn.getPortNumber()
                                                 + "\neqn partNumber:"+ eqn.getPartNumber()
@@ -1680,17 +1680,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     }
                                     
                                     Integer connectedLineNumber = cComponent.getOutputConnectorConnectsToComponentNumber(1, 1);//only one link and 1 port
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)System.out.println("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
 
                                     TreeMap<Integer, CircuitComponent> componentsMap = theApp.getModel().getPartsMap().get(part.getPartNumber()).getLayersMap().get(layer.getLayerNumber()).getModulesMap().get(module.getModuleNumber()).getComponentsMap();
                                     CircuitComponent lineComp = componentsMap.get(connectedLineNumber);
-                                    System.out.println("Part:"+part.getPartNumber());
-                                    System.out.println("module:"+module.getModuleNumber());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("Part:"+part.getPartNumber());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("module:"+module.getModuleNumber());
                                     if(lineComp!=null && connectedLineNumber!=0)propagate(connectedLineNumber, lineComp, eQNList, part.getPartNumber(), layer.getLayerNumber(), module, cComponent.getComponentNumber(),1);
                                 
-                                    System.out.println("----++++ eQNList dump 2 ++++----\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("----++++ eQNList dump 2 ++++----\n");
                                     for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
                                                 + "\neqn componentType:"+eqn.getComponentType()
                                                 + "\neqn portNumber:"+eqn.getPortNumber()
                                                 + "\neqn partNumber:"+ eqn.getPartNumber()
@@ -1699,10 +1699,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         );
                                     }
                                     
-                                    System.out.println("++++ ExecutionQueueList ++++\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("++++ ExecutionQueueList ++++\n");
                                     for(LinkedList<ExecutionQueueNode> eqnList : executionQueueList){
                                         for(ExecutionQueueNode eqn : eqnList){
-                                            System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
                                                 + "\neqn componentType:"+eqn.getComponentType()
                                                 + "\neqn portNumber:"+eqn.getPortNumber()
                                                 + "\neqn partNumber:"+ eqn.getPartNumber()
@@ -1715,13 +1715,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     
                                     boolean alreadyInList = false;
                                     for(LinkedList<ExecutionQueueNode> eqn : executionQueueList){
-                                        System.out.println("eqn.getLast().getPartNumber():"+eqn.getLast().getPartNumber()+" eqn.getLast().getLayerNumber():"+eqn.getLast().getLayerNumber()+" eqn.getLast().getModuleNumber():"+eqn.getLast().getModuleNumber()+" eqn.getLast().getComponentNumber():"+eqn.getLast().getComponentNumber()+" eqn.getLast().getPortNumber():"+eqn.getLast().getPortNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn.getLast().getPartNumber():"+eqn.getLast().getPartNumber()+" eqn.getLast().getLayerNumber():"+eqn.getLast().getLayerNumber()+" eqn.getLast().getModuleNumber():"+eqn.getLast().getModuleNumber()+" eqn.getLast().getComponentNumber():"+eqn.getLast().getComponentNumber()+" eqn.getLast().getPortNumber():"+eqn.getLast().getPortNumber());
                                         if(eqn == eQNList || (eqn.getLast().getPartNumber() == eQNList.getLast().getPartNumber() && eqn.getLast().getLayerNumber() == eQNList.getLast().getLayerNumber() && eqn.getLast().getModuleNumber() == eQNList.getLast().getModuleNumber() && eqn.getLast().getComponentNumber() == eQNList.getLast().getComponentNumber() && eqn.getLast().getPortNumber() == eQNList.getLast().getPortNumber() )) {
                                             alreadyInList = true;
                                             break;
                                         }
                                     }
-                                    System.out.println("checking exectution queue alreadyInList:"+alreadyInList);
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("checking exectution queue alreadyInList:"+alreadyInList);
                                     if(alreadyInList==false && eQNList.size() > 0) executionQueueList.add( eQNList);
                                     
 
@@ -1766,7 +1766,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQN.setPortNumber(oConnector.getPortNumber());
                                     eQN.setComponentType(component.getComponentType());
                                     if(checkNodeIsInExecutionQueue(eQN)==false){
-                                        System.out.println("++++ Node not in executionQueueList propogating part:"+part.getPartNumber()+" layer:"+layer.getLayerNumber()+" module:"+module.getModuleNumber()+" component:"+component.getComponentNumber()+" port:"+oConnector.getPortNumber()+" ++++");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("++++ Node not in executionQueueList propogating part:"+part.getPartNumber()+" layer:"+layer.getLayerNumber()+" module:"+module.getModuleNumber()+" component:"+component.getComponentNumber()+" port:"+oConnector.getPortNumber()+" ++++");
                                         LinkedList<ExecutionQueueNode> eQNList = new LinkedList<ExecutionQueueNode>();
                                         eQNList.add(eQN);
                                         Integer connectedLineNumber_1 = component.getOutputConnectorConnectsToComponentNumber(1, oConnector.getPortNumber());//only one link and 1 port
@@ -1775,9 +1775,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                         propagate(connectedLineNumber_1, lineComp_1, eQNList, part.getPartNumber(), layer.getLayerNumber(), module, component.getComponentNumber() ,oConnector.getPortNumber());
 
-                                        System.out.println("----++++ eQNList dump 3 ++++----\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("----++++ eQNList dump 3 ++++----\n");
                                         for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn componentNumber:"+eqn.getComponentNumber()
                                                 + "\neqn componentType:"+eqn.getComponentType()
                                                 + "\neqn portNumber:"+eqn.getPortNumber()
                                                 + "\neqn partNumber:"+ eqn.getPartNumber()
@@ -1788,13 +1788,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         
                                         boolean alreadyInList = false;
                                         for(LinkedList<ExecutionQueueNode> eqn : executionQueueList){
-                                            System.out.println("eqn.getLast().getPartNumber():"+eqn.getLast().getPartNumber()+" eqn.getLast().getLayerNumber():"+eqn.getLast().getLayerNumber()+" eqn.getLast().getModuleNumber():"+eqn.getLast().getModuleNumber()+" eqn.getLast().getComponentNumber():"+eqn.getLast().getComponentNumber()+" eqn.getLast().getPortNumber():"+eqn.getLast().getPortNumber());
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("eqn.getLast().getPartNumber():"+eqn.getLast().getPartNumber()+" eqn.getLast().getLayerNumber():"+eqn.getLast().getLayerNumber()+" eqn.getLast().getModuleNumber():"+eqn.getLast().getModuleNumber()+" eqn.getLast().getComponentNumber():"+eqn.getLast().getComponentNumber()+" eqn.getLast().getPortNumber():"+eqn.getLast().getPortNumber());
                                             if(eqn == eQNList || (eqn.getLast().getPartNumber() == eQNList.getLast().getPartNumber() && eqn.getLast().getLayerNumber() == eQNList.getLast().getLayerNumber() && eqn.getLast().getModuleNumber() == eQNList.getLast().getModuleNumber() && eqn.getLast().getComponentNumber() == eQNList.getLast().getComponentNumber() && eqn.getLast().getPortNumber() == eQNList.getLast().getPortNumber() )) {
                                                 alreadyInList = true;
                                                 break;
                                             }
                                         }
-                                        System.out.println("checking exectution queue alreadyInList:"+alreadyInList);
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("checking exectution queue alreadyInList:"+alreadyInList);
                                         if(alreadyInList==false && eQNList.size() > 0) executionQueueList.add( eQNList);
                                         
                                     }
@@ -1907,7 +1907,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 eQNList.add(eQnNode);
                 
                 Integer connectedLineNumber = theApp.getModel().getPartsMap().get(eQnNode.getPartNumber()).getLayersMap().get(eQnNode.getLayerNumber()).getModulesMap().get(eQnNode.getModuleNumber()).getComponentsMap().get(eQnNode.getComponentNumber()).getOutputConnectorConnectsToComponentNumber(1, eQnNode.getPortNumber());//only one link and 1 port
-                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
+                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE)System.out.println("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber+"\n");
 
                 Module module = theApp.getModel().getPartsMap().get(eQnNode.getPartNumber()).getLayersMap().get(eQnNode.getLayerNumber()).getModulesMap().get(eQnNode.getModuleNumber());
                 TreeMap<Integer, CircuitComponent> componentsMap = theApp.getModel().getPartsMap().get(eQnNode.getPartNumber()).getLayersMap().get(eQnNode.getLayerNumber()).getModulesMap().get(eQnNode.getModuleNumber()).getComponentsMap();
@@ -1972,25 +1972,25 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         
         public LinkedList<ExecutionQueueNode> searchBackwardThroughListForARepeatedNode(LinkedList<ExecutionQueueNode> tempConnectedComponentsList, ExecutionQueueNode startNode, LinkedList<ExecutionQueueNode> eQNList ){
             //LinkedList<ExecutionQueueNode> tempInputComponentsList = getInputENodeComponentsList();
-            System.out.println("searchBackwardThroughListForARepeatedNode test 1");
+            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode test 1");
             LinkedList<ExecutionQueueNode> tempComponentsList = getENodeComponentsList();
-            System.out.println("searchBackwardThroughListForARepeatedNode test 2");
+            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode test 2");
            // LinkedList<ExecutionQueueNode> test = new LinkedList<ExecutionQueueNode>();
             //LinkedList<ExecutionQueueNode> tempConnectedComponentsList = new LinkedList<ExecutionQueueNode>();
            // for(ExecutionQueueNode INode :  tempInputComponentsList){//wrong
            
            
                 Integer connectedInputLineNumber = theApp.getModel().getPartsMap().get(startNode.getPartNumber()).getLayersMap().get(startNode.getLayerNumber()).getModulesMap().get(startNode.getModuleNumber()).getComponentsMap().get(startNode.getComponentNumber()).getInputConnectorConnectsToComponentNumber(1, startNode.getPortNumber());
-                System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber:"+connectedInputLineNumber+" componentNumber:"+startNode.getComponentNumber()+" portNumber:"+startNode.getPortNumber());
+                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber:"+connectedInputLineNumber+" componentNumber:"+startNode.getComponentNumber()+" portNumber:"+startNode.getPortNumber());
                 Module module = theApp.getModel().getPartsMap().get(startNode.getPartNumber()).getLayersMap().get(startNode.getLayerNumber()).getModulesMap().get(startNode.getModuleNumber());
                 if(connectedInputLineNumber==0){
-                    System.out.println("searchBackwardThroughListForARepeatedNode connectedLineNumber = 0");
+                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode connectedLineNumber = 0");
                     //connected node is a output port
                     ExecutionQueueNode eQn = getInputENodeComponentsList(startNode.getComponentNumber());//get the input node of the connected output node
                     if(eQn != null){
                         connectedInputLineNumber = theApp.getModel().getPartsMap().get(eQn.getPartNumber()).getLayersMap().get(eQn.getLayerNumber()).getModulesMap().get(eQn.getModuleNumber()).getComponentsMap().get(eQn.getComponentNumber()).getInputConnectorConnectsToComponentNumber(1, eQn.getPortNumber());
                         module = theApp.getModel().getPartsMap().get(eQn.getPartNumber()).getLayersMap().get(eQn.getLayerNumber()).getModulesMap().get(eQn.getModuleNumber());
-                        System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber:"+connectedInputLineNumber);
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber:"+connectedInputLineNumber);
                     }else{
                         connectedInputLineNumber=0;
                     }
@@ -2011,7 +2011,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                     eQn.setPortNumber(lineComp.getLM().getSourcePortNumber());
                     eQn.setComponentType((int)module.getComponentsMap().get(connectedComponentNumber).getComponentType());
                     
-                    System.out.println("---- searchBackwardThroughListForARepeatedNode node for comparision to tempComponentList ----"
+                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("---- searchBackwardThroughListForARepeatedNode node for comparision to tempComponentList ----"
                                     +"\t eQn.getPartNumber:"+eQn.getPartNumber()
                                     +"\t eQn.getLayerNumber:"+eQn.getLayerNumber()
                                     +"\t eQn.getModuleNumber:"+eQn.getModuleNumber()
@@ -2021,22 +2021,22 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 );
                     
                    if(checkNodeIsInList(tempComponentsList,eQn)==true){//tests if node is in the components list not in the executionQueue list
-                        System.out.println("searchBackwardThroughListForARepeatedNode Node is in tempComponentsList componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode Node is in tempComponentsList componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
                         if(checkNodeIsInList(tempConnectedComponentsList,eQn)==false){//tests if node is in the backward connected components list test case C6
-                            System.out.println("searchBackwardThroughListForARepeatedNode Node is not in tempConnectedComponentsList so adding to it. componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
+                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode Node is not in tempConnectedComponentsList so adding to it. componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
                             tempConnectedComponentsList.add(eQn);
                             searchBackwardThroughListForARepeatedNode(tempConnectedComponentsList,eQn,eQNList);
                         }else{
-                           System.out.println("searchBackwardThroughListForARepeatedNode Loop found not adding to tempConnectedComponentsList componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
+                           if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode Loop found not adding to tempConnectedComponentsList componentNumber:"+eQn.getComponentNumber()+" componentPort:"+eQn.getPortNumber());
                            eQNList.add(eQn);
                            return eQNList;
                         }
                    }else{
-                        System.out.println("searchBackwardThroughListForARepeatedNode Node not in tempComponentsList not adding to tempConnectedComponentsList");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode Node not in tempComponentsList not adding to tempConnectedComponentsList");
                         
                    } 
                 }else{
-                    System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber is 0");
+                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE) System.out.println("searchBackwardThroughListForARepeatedNode connectedInputLineNumber is 0");
                 }
             //}//wrong
             return eQNList;
@@ -2543,10 +2543,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //            
             
             if(executionQueueList != null && eQNList != null){
-                System.out.println("---- checkListIsInExecutionQueue executionQueueListSize:"+executionQueueList.size()+"\t eQNListSize:"+eQNList.size()+" ----");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue executionQueueListSize:"+executionQueueList.size()+"\t eQNListSize:"+eQNList.size()+" ----");
                 for(LinkedList<ExecutionQueueNode> eqnList : executionQueueList){
                     for(ExecutionQueueNode node : eqnList){
-                        System.out.println("---- checkListIsInExecutionQueue Checking if executionQueueList contains eQNList ----\n"
+                        if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue Checking if executionQueueList contains eQNList ----\n"
                                 +"---- node ----\n"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
@@ -2556,7 +2556,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 +"\t node componentType:"+node.getComponentType()
                         );
                         for(ExecutionQueueNode eQNNode : eQNList){
-                            System.out.println("---- checkListIsInExecutionQueue Checking if executionQueueList contains eQNList ----\n"
+                            if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue Checking if executionQueueList contains eQNList ----\n"
                                 +"---- eQNNode ----\n"
                                 +"\t eQNNode partNumber:"+eQNNode.getPartNumber()
                                 +"\t eQNNode layerNumber:"+eQNNode.getLayerNumber()
@@ -2566,24 +2566,24 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 +"\t eQNNode componentType:"+eQNNode.getComponentType()
                         );
                             if(node.getPartNumber() == eQNNode.getPartNumber() && node.getLayerNumber() == eQNNode.getLayerNumber() && node.getModuleNumber() == eQNNode.getModuleNumber() && node.getComponentNumber() == eQNNode.getComponentNumber() && node.getPortNumber() == eQNNode.getPortNumber() && ((int)(node.getComponentType()) == (int)(eQNNode.getComponentType()) ) ){
-                                System.out.println("\t checkListIsInExecutionQueue eQNNode in executionQueueList");
+                                if(DEBUG_SIMULATESYSTEM) System.out.println("\t checkListIsInExecutionQueue eQNNode in executionQueueList");
                                 return true;//already in list
                             }
                         }
-                        System.out.println("---- checkListIsInExecutionQueue end eQNNode ----\n");
+                        if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue end eQNNode ----\n");
                     }
-                    System.out.println("---- checkListIsInExecutionQueue end node ----\n");
+                    if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue end node ----\n");
                 }
-                System.out.println("---- checkListIsInExecutionQueue end executionQueueList  ----\n---- Not in executionQueueList ----\n");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkListIsInExecutionQueue end executionQueueList  ----\n---- Not in executionQueueList ----\n");
             }else{
-                System.out.println("checkIfListisInExecutionQueue passing a null!!");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("checkIfListisInExecutionQueue passing a null!!");
                 return false;
             }
             return false;//not in list
         }
         
         public boolean checkNodeIsInExecutionQueue(ExecutionQueueNode node){
-            /*System.out.println("---- checkNodeIsInExecutionQueue Checking if executionQueueList contains eQNList ----"
+            /*if(DEBUG_SIMULATESYSTEM)System.out.println("---- checkNodeIsInExecutionQueue Checking if executionQueueList contains eQNList ----"
                                 +"---- node ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
@@ -2596,7 +2596,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             if(executionQueueList != null && node != null){
                 for(LinkedList<ExecutionQueueNode> eQNNodeList : executionQueueList){
                     for(ExecutionQueueNode eQNNode : eQNNodeList){
-                            /*System.out.println("---- Checking if executionQueueList contains node ----\n"
+                            /*if(DEBUG_SIMULATESYSTEM)System.out.println("---- Checking if executionQueueList contains node ----\n"
                                 +"---- checkNodeIsInExecutionQueue eQNNode ----\n"
                                 +"\t eQNNode partNumber:"+eQNNode.getPartNumber()
                                 +"\t eQNNode layerNumber:"+eQNNode.getLayerNumber()
@@ -2607,17 +2607,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                         );*/
                             
                         if(node.getPartNumber() == eQNNode.getPartNumber() && node.getLayerNumber() == eQNNode.getLayerNumber() && node.getModuleNumber() == eQNNode.getModuleNumber() && node.getComponentNumber() == eQNNode.getComponentNumber() && node.getPortNumber() == eQNNode.getPortNumber() && (int)(node.getComponentType()) == (int)(eQNNode.getComponentType()) ){
-                            System.out.println("partNumber:"+node.getPartNumber()+" layerNumber:"+ node.getLayerNumber() +" moduleNumber:"+ node.getModuleNumber() + " componentNumber:"+node.getComponentNumber() +" portNumber:"+ node.getPortNumber() +" componentType:"+ ((int)node.getComponentType())+"\n");
-                            System.out.println("\t checkNodeIsInExecutionQueue eQNNode in executionQueueList");
+                            if(DEBUG_SIMULATESYSTEM) System.out.println("partNumber:"+node.getPartNumber()+" layerNumber:"+ node.getLayerNumber() +" moduleNumber:"+ node.getModuleNumber() + " componentNumber:"+node.getComponentNumber() +" portNumber:"+ node.getPortNumber() +" componentType:"+ ((int)node.getComponentType())+"\n");
+                            if(DEBUG_SIMULATESYSTEM) System.out.println("\t checkNodeIsInExecutionQueue eQNNode in executionQueueList");
                             return true;//already in list
                         }
                     }
-                    System.out.println("---- checkNodeIsInExecutionQueue end eQNNode ----\n");
+                    if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkNodeIsInExecutionQueue end eQNNode ----\n");
                 }
-                System.out.println("---- checkNodeIsInExecutionQueue end executionQueueList  ----\n---- Not in executionQueueList ----\n");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- checkNodeIsInExecutionQueue end executionQueueList  ----\n---- Not in executionQueueList ----\n");
                         
             }else{
-                System.out.println("checkNodeIsInExecutionQueue passing a null!!");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("checkNodeIsInExecutionQueue passing a null!!");
                 return false;
             }
             return false;
@@ -2625,8 +2625,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         
         public boolean checkNodeIsInList(LinkedList<ExecutionQueueNode> eQNList, ExecutionQueueNode eQNNode )  {
             if(eQNList != null){
-                /*System.out.println("---- eQNListSize:"+eQNList.size()+" ----");
-                System.out.println("---- Checking if eQNList contains eQNNode ----"
+                /*if(DEBUG_SIMULATESYSTEM)System.out.println("---- eQNListSize:"+eQNList.size()+" ----");
+                if(DEBUG_SIMULATESYSTEM)System.out.println("---- Checking if eQNList contains eQNNode ----"
                                 +"---- eQNNode ----"
                                 +"\t eQNNode partNumber:"+eQNNode.getPartNumber()
                                 +"\t eQNNode layerNumber:"+eQNNode.getLayerNumber()
@@ -2636,7 +2636,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 +"\t eQNNode componentType:"+eQNNode.getComponentType()
                         );*/
                 for(ExecutionQueueNode node : eQNList){
-                    /*System.out.println("---- Checking if eQNList contains eQNNode ----"
+                    /*if(DEBUG_SIMULATESYSTEM)System.out.println("---- Checking if eQNList contains eQNNode ----"
                                 +"---- eQNList node ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
@@ -2645,17 +2645,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 +"\t node portNumber:"+node.getPortNumber()
                                 +"\t node componentType:"+node.getComponentType()
                         );*/
-                    if( (eQNNode.getPartNumber() == node.getPartNumber()) && (eQNNode.getLayerNumber() == node.getLayerNumber()) && (eQNNode.getModuleNumber() == node.getModuleNumber()) && (eQNNode.getComponentNumber() == node.getComponentNumber()) && (eQNNode.getPortNumber() == node.getPortNumber()) && ((int)eQNNode.getComponentType() == (int)node.getComponentType()) ) System.out.println("---------------------- found part ------------------------");
+                    if( (eQNNode.getPartNumber() == node.getPartNumber()) && (eQNNode.getLayerNumber() == node.getLayerNumber()) && (eQNNode.getModuleNumber() == node.getModuleNumber()) && (eQNNode.getComponentNumber() == node.getComponentNumber()) && (eQNNode.getPortNumber() == node.getPortNumber()) && ((int)eQNNode.getComponentType() == (int)node.getComponentType()) ) if(DEBUG_PHOTONICMOCKSIM) System.out.println("---------------------- found part ------------------------");
                     if((eQNNode.getPartNumber() == node.getPartNumber()) && (eQNNode.getLayerNumber() == node.getLayerNumber()) && (eQNNode.getModuleNumber() == node.getModuleNumber()) && (eQNNode.getComponentNumber() == node.getComponentNumber()) && (eQNNode.getPortNumber() == node.getPortNumber()) && ((int)eQNNode.getComponentType() == (int)node.getComponentType()) ){
-                        /*System.out.println("eQNNode.getPartNumber():"+eQNNode.getPartNumber()+" eQNNode.getLayerNumber():"+eQNNode.getLayerNumber()+" eQNNode.getModuleNumber():"+eQNNode.getModuleNumber()+" eQNNode.getComponentNumber():"+eQNNode.getComponentNumber()+" eQNNode.getPortNumber():"+eQNNode.getPortNumber()+" (int)eQNNode.getComponentType():"+(int)eQNNode.getComponentType());        
-                        System.out.println("\t eQNNode already in eQNList");
+                        /*if(DEBUG_SIMULATESYSTEM)System.out.println("eQNNode.getPartNumber():"+eQNNode.getPartNumber()+" eQNNode.getLayerNumber():"+eQNNode.getLayerNumber()+" eQNNode.getModuleNumber():"+eQNNode.getModuleNumber()+" eQNNode.getComponentNumber():"+eQNNode.getComponentNumber()+" eQNNode.getPortNumber():"+eQNNode.getPortNumber()+" (int)eQNNode.getComponentType():"+(int)eQNNode.getComponentType());
+                        if(DEBUG_SIMULATESYSTEM)System.out.println("\t eQNNode already in eQNList");
                         */
                                 return true;//already in list
                     }
                 }
-                /*System.out.println("---- end eQNList ----\n");*/
+                /*if(DEBUG_SIMULATESYSTEM)System.out.println("---- end eQNList ----\n");*/
             }else{
-                /*System.out.println("checkINodeIsInList passing a null!!");*/
+                /*if(DEBUG_SIMULATESYSTEM)System.out.println("checkINodeIsInList passing a null!!");*/
                 return false;
             }
             return false;
@@ -2676,13 +2676,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN.setPortNumber(iConnector.getPortNumber());
                                 eQN.setComponentType(component.getComponentType());
                                 if(checkNodeIsInExecutionQueue(eQN)==false){
-                                    //System.out.println("Node not in executionQueueList");
-                                    System.out.println("getInputENodeComponentsList Node not in executionQueueList componentNumber:"+component.getComponentNumber()+" componentType:"+component.getComponentType()+" returning node");
+                                    //if(DEBUG_SIMULATESYSTEM)System.out.println("Node not in executionQueueList");
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getInputENodeComponentsList Node not in executionQueueList componentNumber:"+component.getComponentNumber()+" componentType:"+component.getComponentType()+" returning node");
                                     if( eQN.getComponentNumber() ==  componentNumber){
                                         return eQN;
                                     }
                                 }else{
-                                    System.out.println("getInputENodeComponentsList Node in executionQueueList!");
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getInputENodeComponentsList Node in executionQueueList!");
                                 }
 
                             }
@@ -2709,10 +2709,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN.setPortNumber(iConnector.getPortNumber());
                                 eQN.setComponentType(component.getComponentType());
                                 if(checkNodeIsInExecutionQueue(eQN)==false){
-                                    System.out.println("getInputENodeComponentsList Node not in executionQueueList adding to tempInputList:"+component.getComponentNumber()+" componentType:"+component.getComponentType());
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getInputENodeComponentsList Node not in executionQueueList adding to tempInputList:"+component.getComponentNumber()+" componentType:"+component.getComponentType());
                                     tempInputEQNList.add(eQN);
                                 }else{
-                                    System.out.println("getInputENodeComponentsList Node in executionQueueList not adding!");
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getInputENodeComponentsList Node in executionQueueList not adding!");
                                 }
 
                             }
@@ -2721,7 +2721,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 }
             }
             for(ExecutionQueueNode node: tempInputEQNList){
-                System.out.println("---- getInputENodeComponentsList node in tempInputEQNList ----"
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- getInputENodeComponentsList node in tempInputEQNList ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
                                 +"\t node moduleNumber:"+node.getModuleNumber()
@@ -2749,10 +2749,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN.setPortNumber(iConnector.getPortNumber());
                                 eQN.setComponentType(component.getComponentType());
                                 if(checkNodeIsInExecutionQueue(eQN)==false){
-                                    System.out.println("getENodeComponentsList Node not in executionQueueList adding to tempComponentsList componentNumber:"+component.getComponentNumber()+" componentIPort:"+iConnector.getPortNumber());
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getENodeComponentsList Node not in executionQueueList adding to tempComponentsList componentNumber:"+component.getComponentNumber()+" componentIPort:"+iConnector.getPortNumber());
                                     tempComponentsList.add(eQN);
                                 }else{
-                                    System.out.println("getENodeComponentsList Node in executionQueueList not adding!");
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getENodeComponentsList Node in executionQueueList not adding!");
                                 }
 
                             }
@@ -2765,10 +2765,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN.setPortNumber(oConnector.getPortNumber());
                                 eQN.setComponentType(component.getComponentType());
                                 if(checkNodeIsInExecutionQueue(eQN)==false){
-                                    System.out.println("getENodeComponentsList Node not in executionQueueList adding to tempComponentsList componentNumber:"+component.getComponentNumber()+" componentOPort:"+oConnector.getPortNumber());
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getENodeComponentsList Node not in executionQueueList adding to tempComponentsList componentNumber:"+component.getComponentNumber()+" componentOPort:"+oConnector.getPortNumber());
                                     tempComponentsList.add(eQN);
                                 }else{
-                                    System.out.println("getENodeComponentsList Node in executionQueueList not adding!");
+                                    if(DEBUG_SIMULATESYSTEM) System.out.println("getENodeComponentsList Node in executionQueueList not adding!");
                                 }
                             }
                         }
@@ -2776,7 +2776,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 }
             }
             for(ExecutionQueueNode node: tempComponentsList){
-                System.out.println("---- getENodeComponentsList node in getENodeComponentsList ----"
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- getENodeComponentsList node in getENodeComponentsList ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
                                 +"\t node moduleNumber:"+node.getModuleNumber()
@@ -2807,10 +2807,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQN.setPortNumber(iConnector.getPortNumber());
                                     eQN.setComponentType(component.getComponentType());
                                     if(checkNodeIsInExecutionQueue(eQN)==false){
-                                        System.out.println("Node not in executionQueueList adding to tempInputList");
+                                        if(DEBUG_SIMULATESYSTEM) System.out.println("Node not in executionQueueList adding to tempInputList");
                                         tempInputEQNList.add(eQN);
                                     }else{
-                                        System.out.println("Node in executionQueueList not adding!");
+                                        if(DEBUG_SIMULATESYSTEM) System.out.println("Node in executionQueueList not adding!");
                                     }
 
                                 }
@@ -2824,23 +2824,23 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQN.setComponentType(component.getComponentType());
                                     if(checkNodeIsInExecutionQueue(eQN)==false){
                                         if(component.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END || component.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-                                            System.out.println("Node not in executionQueueList adding to tempOutputIMLStEQNList");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("Node not in executionQueueList adding to tempOutputIMLStEQNList");
                                             tempOutputIMLStEQNList.add(eQN);
                                         }else{
-                                            System.out.println("Node not in executionQueueList adding to tempOutputList");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("Node not in executionQueueList adding to tempOutputList");
                                             tempOutputEQNList.add(eQN);
                                         }
                                     }else{
-                                        System.out.println("Node in executionQueueList not adding!");
+                                        if(DEBUG_SIMULATESYSTEM) System.out.println("Node in executionQueueList not adding!");
                                     }
                                 }
                             }
                         }
                     }
                 }
-                System.out.println("---- Input nodes not in ExecutionQueueList ----\n");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- Input nodes not in ExecutionQueueList ----\n");
                 for(ExecutionQueueNode node : tempInputEQNList){
-                    System.out.println("---- node not in ExecutionQueueList ----"
+                    if(DEBUG_SIMULATESYSTEM) System.out.println("---- node not in ExecutionQueueList ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
                                 +"\t node moduleNumber:"+node.getModuleNumber()
@@ -2850,9 +2850,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 +" ---- End Node ----\n"
                     );
                 }
-                System.out.println("---- Output nodes not in ExecutionQueueList ----\n");
+                if(DEBUG_SIMULATESYSTEM) System.out.println("---- Output nodes not in ExecutionQueueList ----\n");
                 for(ExecutionQueueNode node : tempOutputEQNList){
-                    System.out.println("---- node not in ExecutionQueueList ----"
+                    if(DEBUG_SIMULATESYSTEM) System.out.println("---- node not in ExecutionQueueList ----"
                                 +"\t node partNumber:"+node.getPartNumber()
                                 +"\t node layerNumber:"+node.getLayerNumber()
                                 +"\t node moduleNumber:"+node.getModuleNumber()
@@ -2863,7 +2863,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                     );
                 }
                 for(ExecutionQueueNode node1 : tempOutputIMLStEQNList){
-                    System.out.println("---- IML node not in ExecutionQueueList ----"
+                    if(DEBUG_SIMULATESYSTEM) System.out.println("---- IML node not in ExecutionQueueList ----"
                                 +"\t node partNumber:"+node1.getPartNumber()
                                 +"\t node layerNumber:"+node1.getLayerNumber()
                                 +"\t node moduleNumber:"+node1.getModuleNumber()
@@ -2901,14 +2901,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 */
                     if(lineComp.getLM().getSourceComponentNumber()==currentComponentNumber || sourceComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_START || sourceComponent.getComponentType()== SAME_LAYER_INTER_MODULE_LINK_END || sourceComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_END || sourceComponent.getComponentType()== DIFFERENT_LAYER_INTER_MODULE_LINK_START){//|| (sourceComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && lineComp.getLM().getDestinationComponentNumber()==currentComponentNumber)){
 
-                        System.out.println("---- lineComp.getLM().getSourceComponentNumber()=currentComponentNumber currentComponent Number:"+currentComponentNumber+"\n");
-                        System.out.println("partNumber:"+partNumber);
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- lineComp.getLM().getSourceComponentNumber()=currentComponentNumber currentComponent Number:"+currentComponentNumber+"\n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("partNumber:"+partNumber);
                       //if(lineComp.getLM().getSourcePortNumber() == portNumber ){//might fix the feedback problem
                         CircuitComponent destComp = diagramMap.get(lineComp.getLM().getDestinationComponentNumber());
                         int destPortNumber = lineComp.getLM().getDestinationPortNumber();
-                        System.out.println("destPortNumber:"+destPortNumber+" destComponentType:"+destComp.getComponentType()+"\n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destPortNumber:"+destPortNumber+" destComponentType:"+destComp.getComponentType()+"\n");
                         ExecutionQueueNode eQN1 = new ExecutionQueueNode();
-                        System.out.println("---entering 1st switch statement ----\n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---entering 1st switch statement ----\n");
                         eQN1.setCategory(LOGICAL3PORT);//category needed??
                         switch(destComp.getComponentType()){
                             case AND_GATE_2INPUTPORT: 
@@ -2946,7 +2946,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                             case EXOR_GATE_6INPUTPORT:
                             case EXOR_GATE_7INPUTPORT:
                             case EXOR_GATE_8INPUTPORT:{
-                                System.out.println("LOGIC GATE 1st loop");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC GATE 1st loop");
                                 eQN1.setComponentType(destComp.getComponentType());
                                 eQN1.setComponentNumber(destComp.getComponentNumber());
                                 eQN1.setPortNumber(lineComp.getLM().getDestinationPortNumber());
@@ -2954,7 +2954,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN1.setLayerNumber(layerNumber);
                                 eQN1.setModuleNumber(module.getModuleNumber());
                                 
-                                System.out.println("----1st loop ----\neQN1.getComponentType:"+eQN1.getComponentType()
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("----1st loop ----\neQN1.getComponentType:"+eQN1.getComponentType()
                                                     +"\neQN1.getComponentNumber"+eQN1.getComponentNumber()
                                                     +"\neQN1.getPortNumber:"+eQN1.getPortNumber()
                                                     +"\neQN1.getPartNumber:"+eQN1.getPartNumber()
@@ -2963,21 +2963,21 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     );
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("LOGIC GATE 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC GATE 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("LOGIC GATE 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC GATE 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("LOGIC GATE 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC GATE 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("LOGIC GATE 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC GATE 1st Node already in list not adding breaking;");
                                     break;
                                 }
-                                System.out.println("----1st loop eQnList----\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("----1st loop eQnList----\n");
                                 for(ExecutionQueueNode eqn : eQNList){
-                                System.out.println("eqn.getComponentType:"+eqn.getComponentType()
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("eqn.getComponentType:"+eqn.getComponentType()
                                                     +"\neqn.getComponentNumber"+eqn.getComponentNumber()
                                                     +"\neqn.getPortNumber:"+eqn.getPortNumber()
                                                     +"\neqn.getPartNumber:"+eqn.getPartNumber()
@@ -2986,42 +2986,42 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     );
                                 }
                                 
-                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN1.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)  System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN1.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==1){//1
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
                                          lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)  System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                    //if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                         if(lineComp1!=null && (destComp.getComponentType() != OUTPUT_PORT) && connectedLineNumber!=0) propagate(connectedLineNumber, lineComp1, eQNList,partNumber, layerNumber, module,  destComp.getComponentNumber(),destComp.getInputConnectorsMap().size()+1);
                                    //}
                                    //executionQueueList.add( eQNList);
                                }else{ 
-                                System.out.println("logic gate checkListIsInExecutionQueue eQNList");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate checkListIsInExecutionQueue eQNList");
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("logic gate Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                }
                                 
-                                //if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                //if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                             }break;
                             case OPTICAL_INPUT_PORT:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue optical input port:"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue optical input port:"+destComp.getComponentNumber()+"\n");
                                 break;
                             case CLOCK:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue Clock"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue Clock"+destComp.getComponentNumber()+"\n");
                                 break;
                             case SLM:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue SpatialLightModulator"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue SpatialLightModulator"+destComp.getComponentNumber()+"\n");
                                 break;
                             case OUTPUT_PORT:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue optical output port:"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue optical output port:"+destComp.getComponentNumber()+"\n");
                                 eQN1.setComponentType(destComp.getComponentType());
                                 eQN1.setComponentNumber(destComp.getComponentNumber());
                                 eQN1.setPortNumber(lineComp.getLM().getDestinationPortNumber());
@@ -3031,23 +3031,23 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OUTPUT_PORT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OUTPUT_PORT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OUTPUT_PORT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OUTPUT_PORT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 if(checkListIsInExecutionQueue(eQNList)==false)executionQueueList.add( eQNList);
                                 //executionQueueList.add( eQNList);
                                 break;
                             case TEXTMODEMONITORHUB:{
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue optical output port:"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)  System.out.println("PhotonicMockSimFrame buildExecutionQueue optical output port:"+destComp.getComponentNumber()+"\n");
                                 eQN1.setComponentType(destComp.getComponentType());
                                 eQN1.setComponentNumber(destComp.getComponentNumber());
                                 eQN1.setPortNumber(lineComp.getLM().getDestinationPortNumber());
@@ -3057,23 +3057,23 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("TEXTMODEMONITORHUB 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("TEXTMODEMONITORHUB 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("TEXTMODEMONITORHUB 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("TEXTMODEMONITORHUB 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(eQN1.getPortNumber() == 1){
                                     Integer connectedLineNumber1 = destComp.getOutputConnectorConnectsToComponentNumber(1, 9);
                                     CircuitComponent lineComp11 = diagramMap.get(connectedLineNumber1);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("TextModeMonitorHub PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TextModeMonitorHub PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp11!=null ) propagate(connectedLineNumber1, lineComp11, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),9);
                                 }
                             //executionQueueList.add( eQNList);
@@ -3088,16 +3088,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("KEYBOARDHUB 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("KEYBOARDHUB 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("KEYBOARDHUB 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("KEYBOARDHUB 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3135,22 +3135,22 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("NOT_GATE 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("NOT_GATE 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("NOT_GATE 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("NOT_GATE 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 1st Node already in list not adding breaking;");
                                     break;
                                 }
 
                                 Integer connectedLineNumber1 = destComp.getOutputConnectorConnectsToComponentNumber(1, 2);
                                 CircuitComponent lineComp11 = diagramMap.get(connectedLineNumber1);
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                 if(lineComp11!=null ) propagate(connectedLineNumber1, lineComp11, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                             //executionQueueList.add( eQNList);
                                 break;
@@ -3164,27 +3164,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("MEMORY_UNIT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("MEMORY_UNIT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("MEMORY_UNIT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("MEMORY_UNIT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==1){
                                     Integer connectedLineNumber2 = destComp.getOutputConnectorConnectsToComponentNumber(1, 4);//only one link and 1 port
                                         CircuitComponent lineComp2 = diagramMap.get(connectedLineNumber2);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp2!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber2, lineComp2, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                    // executionQueueList.add( eQNList);
                                 }//else{ break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case OPTICAL_SWITCH:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -3196,27 +3196,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_SWITCH 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_SWITCH 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_SWITCH 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_SWITCH 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==1){
                                     Integer connectedLineNumber3 = destComp.getOutputConnectorConnectsToComponentNumber(1, 3);//only one link and 1 port
                                         CircuitComponent lineComp3 = diagramMap.get(connectedLineNumber3);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp3!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber3, lineComp3, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                     //executionQueueList.add( eQNList);
                                 }//else{ break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case MACH_ZEHNER:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -3228,27 +3228,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("MACH_ZEHNER 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("MACH_ZEHNER 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("MACH_ZEHNER 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("MACH_ZEHNER 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==2){
                                     Integer connectedLineNumber4 = destComp.getOutputConnectorConnectsToComponentNumber(1, 3);//only one link and 1 port
                                         CircuitComponent lineComp4 = diagramMap.get(connectedLineNumber4);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp4!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber4, lineComp4, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                     //executionQueueList.add( eQNList);
                                 }//else{ break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case OPTICAL_COUPLER1X2:
                             case OPTICAL_COUPLER1X3:
@@ -3272,16 +3272,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_COUPLER1XM 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_COUPLER1XM 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_COUPLER1XM 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_COUPLER1XM 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node already in list not adding breaking;");
                                     break;
                                 }
 
@@ -3291,7 +3291,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     
                                     
                                     int connectedLineNumber_1 = opticalCoupler.getOutputConnectorConnectsToComponentNumber(1, oConnector.getPortNumber());//only one link and 1 port
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber_1+"destComp.getComponentNumber():"+destComp.getComponentNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber_1+"destComp.getComponentNumber():"+destComp.getComponentNumber()+"\n");
                                     CircuitComponent lineComp_1 = diagramMap.get(connectedLineNumber_1);
 
                                     //if(checkListIsInExecutionQueue(eQNList)==false){
@@ -3303,14 +3303,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                     //test for already in list??
                                     {//else?? 
-                                        System.out.println("opticalcoupler1xM checkListIsInExecutionQueue eQNList");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("opticalcoupler1xM Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("opticalcoupler1xM 1st loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM 1st loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -3328,22 +3328,22 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQN1_1.setModuleNumber(module.getModuleNumber());
                                     
                                     if(checkNodeIsInList(eQNList,eQN1_1)==false){
-                                        System.out.println("OPTICAL_COUPLER1XM 1st Node not in eQNList adding node!!");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node not in eQNList adding node!!");
                                         if(checkNodeIsInExecutionQueue(eQN1_1)==false){
-                                            System.out.println("OPTICAL_COUPLER1XM 1st Node not in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node not in executionQueue");
                                             eQNList.add(eQN1_1);
                                         }else{
-                                            System.out.println("OPTICAL_COUPLER1XM 1st Node already in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node already in executionQueue");
                                             break;
                                         }
                                     }else{
-                                        System.out.println("OPTICAL_COUPLER1XM 1st Node already in list not adding breaking;");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 1st Node already in list not adding breaking;");
                                         break;
                                     }
                                 }
 //
                                 //tempEQNList = eQNList;
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue OPTICAL_COUPLER1XM"+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue OPTICAL_COUPLER1XM"+"\n");
                             }break;
                             case ROM8:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -3355,27 +3355,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM8 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM8 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM8 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM8 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                 connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (8+eQN1.getPortNumber()));//only one link and 1 port
                                 lineComp1 = diagramMap.get(connectedLineNumber);
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                 if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(8+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                 //}//else{ break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case ROM16:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -3387,16 +3387,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM16 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM16 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM16 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM16 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3404,11 +3404,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (16+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(16+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                     //}//else{ break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM20:
@@ -3421,16 +3421,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM20 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM20 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM20 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM20 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3438,11 +3438,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (20+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(20+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                     //}//else{ break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM24:
@@ -3455,16 +3455,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM24 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM24 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM24 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM24 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM24 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM24 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM24 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM24 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3472,11 +3472,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (24+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(24+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                     //}//else{ break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM30:
@@ -3489,16 +3489,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM30 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM30 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM30 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM30 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM30 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM30 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM30 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM30 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3506,11 +3506,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (30+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(30+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                     //}//else{ break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case CROM8x16:
@@ -3527,16 +3527,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("CROM8 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("CROM8 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("CROM8 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("CROM8 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("CROM8 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("CROM8 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("CROM8 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("CROM8 1st Node already in list not adding breaking;");
                                     break;
                                 }
                              
@@ -3555,16 +3555,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("RAM 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("RAM 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("RAM 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("RAM 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("RAM 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("RAM 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("RAM 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("RAM 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3572,11 +3572,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(30+eQN1.getPortNumber()));
                                     //executionQueueList.add( eQNList);
                                     //}//else{ break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case OPTICAL_COUPLER2X1:
@@ -3595,41 +3595,41 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_COUPLERMX1 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLERMX1 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_COUPLERMX1 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLERMX1 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_COUPLERMX1 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLERMX1 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_COUPLERMX1 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLERMX1 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
-                                System.out.println("opticalCouplerMx eQN1.getPortNumber:"+eQN1.getPortNumber()+" destPortNumber:"+destPortNumber);
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalCouplerMx eQN1.getPortNumber:"+eQN1.getPortNumber()+" destPortNumber:"+destPortNumber);
                                 //if(destPortNumber == 1){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+1));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(destComp.getInputConnectorsMap().size()+1));
                                 //}
                                 {//else?? 
-                                System.out.println("opticalCouplerMx1 checkListIsInExecutionQueue eQNList");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalCouplerMx1 checkListIsInExecutionQueue eQNList");
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("opticalCouplerMx1 Node not in eQNList adding node!!");
+                                    if(DEBUG_PHOTONICMOCKSIM) System.out.println("opticalCouplerMx1 Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                }
                                 //executionQueueList.add( eQNList);
                                 //}//else{ break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case SR_LATCH:
                             case JK_LATCH:
@@ -3650,16 +3650,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3686,16 +3686,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                    //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
                                   
                                    if(checkNodeIsInList(eQNList,eQN1_1)==false){
-                                        System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
                                         if(checkNodeIsInExecutionQueue(eQN1_1)==false){
-                                            System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
                                             eQNList.add(eQN1_1);
                                         }else{
-                                            System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
                                             break;
                                         }
                                     }else{
-                                        System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
                                         break;
                                     }
                                     
@@ -3730,16 +3730,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                    eQN1_1.setPortNumber(outputport2);
                                    //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
                                    if(checkNodeIsInList(eQNList,eQN1_1)==false){
-                                        System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in eQNList adding node!!");
                                         if(checkNodeIsInExecutionQueue(eQN1_1)==false){
-                                            System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node not in executionQueue");
                                             eQNList.add(eQN1_1);
                                         }else{
-                                            System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in executionQueue");
                                             break;
                                         }
                                     }else{
-                                        System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Latch/FlipFlop 1st Node already in list not adding breaking;");
                                         break;
                                     }
                                   //eQNList.add(eQN1);
@@ -3772,16 +3772,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -3798,29 +3798,29 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     
 
                                    connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, outputport);//only one link and 1 port
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1:connectedLineNumber:"+connectedLineNumber);
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1:connectedLineNumber:"+connectedLineNumber);
                                    lineComp1 = diagramMap.get(connectedLineNumber);
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 destComp.getComponentType():"+destComp.getComponentType()+" currentComponetType:"+diagramMap.get(currentComponentNumber).getComponentType()+"\n");
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 destComp.getComponentType():"+destComp.getComponentType()+" currentComponetType:"+diagramMap.get(currentComponentNumber).getComponentType()+"\n");
                                    if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                    //if( diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
 
-                                       if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1feedback test\n");
+                                       if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1feedback test\n");
                                        //eQNList.getLast().setPortNumber(4);
                                        if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),outputport);
                                    }
                                    //executionQueueList.add( eQNList);
                                    //}//else{ break;}
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 getDestinationComponentNumber:"+destComp.getComponentNumber()+" eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 getDestinationComponentNumber:"+destComp.getComponentNumber()+" eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 
                                    {//else?? 
-                                        System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("JK5Input Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -3851,26 +3851,26 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                    //eQNList.add(eQN1_1);
                                    
                                    if(checkNodeIsInList(eQNList,eQN1_1)==false){
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                    
                                   //eQNList.add(eQN1);
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 12 eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 12 eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 
                                    connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, outputport2);//only one link and 1 port
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 12:connectedLineNumber:"+connectedLineNumber);
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 12:connectedLineNumber:"+connectedLineNumber);
                                    lineComp1 = diagramMap.get(connectedLineNumber);
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                    if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                     //if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                    //if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber()){
@@ -3880,17 +3880,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                    }
                                    //executionQueueList.add( eQNList);
                                    //}//else{ break;}
-                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 getDestinationComponentNumber:"+destComp.getComponentNumber()+" eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+                                   if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 getDestinationComponentNumber:"+destComp.getComponentNumber()+" eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 
                                    {//else?? 
-                                        System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("JK5Input Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -3900,7 +3900,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                     //for(int i=1;i<=2;i++){
 //                                    for(OutputConnector  oConnector: destComp.getOutputConnectorsMap().values()){
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else oConnector.getPortNumber():"+oConnector.getPortNumber()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else oConnector.getPortNumber():"+oConnector.getPortNumber()+"\n");
 //                                        //outputport = destComp.getInputConnectorsMap().size()+i;
 //                                        if(oConnector.getPortNumber()== outputport2){
 //                                            eQNList = null;
@@ -3911,21 +3911,21 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //                                            eQN1_1.setPortNumber(oConnector.getPortNumber());
 //                                            //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
 //                                            eQNList.add(eQN1_1);
-//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 //
 //                                        }else{
 //                                            eQNList.getFirst().setPortNumber(4);
 //                                        }
 //                                        connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, oConnector.getPortNumber());//only one link and 1 port
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1:connectedLineNumber:"+connectedLineNumber);
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1:connectedLineNumber:"+connectedLineNumber);
 //                                        lineComp1 = diagramMap.get(connectedLineNumber);
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 destComp.getComponentType():"+destComp.getComponentType()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 destComp.getComponentType():"+destComp.getComponentType()+"\n");
 //                                        if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
 //                                            if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, destComp.getComponentNumber(),oConnector.getPortNumber());
 //                                        }
 //                                        //executionQueueList.add( eQNList);
 //                                        //}//else{ break;}
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 getDestinationComponentNumber eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 //                                        if(oConnector.getPortNumber() == outputport)eQNList.getFirst().setPortNumber(4);
 //                                        boolean alreadyInList = false;
 //                                        for(LinkedList<ExecutionQueueNode> eqn : executionQueueList){
@@ -3946,13 +3946,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //                                            eQNList.add(eQN1_1);
 //                                        }
 //
-//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 1 eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 //
 //                                    }
                                    destComp.setSimulationPortsCalledCounter((0)); 
                                     //tempEQNList = eQNList;
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue  loop 12 Latch or flipflop 2\n");
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue  loop 12 Latch or flipflop 2\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue propagate loop 12 eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 
 
 
@@ -3969,16 +3969,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("JK_FLIPFLOP_5INPUT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4048,30 +4048,30 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("TEST_POINT 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEST_POINT 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("TEST_POINT 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEST_POINT 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("TEST_POINT 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEST_POINT 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("TEST_POINT 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEST_POINT 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==1){
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
                                      lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                    //executionQueueList.add( eQNList);
                                 }//else{ break;}
                                 break;
                             case DIFFERENT_LAYER_INTER_MODULE_LINK_START:{
                                 //need to get DIFFERENT_LAYER_INTER_MODULE_LINK_START into list for execution Queue
-                                System.out.println("---- DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop----\n"
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop----\n"
                                                     +"---- destComp.getComponentType() :"+destComp.getComponentType()+"----\n"
                                                     +"---- destComp.getComponentNumber() :"+destComp.getComponentNumber()+"----\n"
                                                     +"---- lineComp.getLM().getDestinationPortNumber() :"+lineComp.getLM().getDestinationPortNumber()+"----\n" 
@@ -4090,32 +4090,32 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("DLIMLST 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DLIMLST 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("DLIMLST 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DLIMLST 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("DLIMLST 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DLIMLST 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("DLIMLST 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DLIMLST 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                  
-                                System.out.println("checkListIsInExecutionQueue eQNList");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("checkListIsInExecutionQueue eQNList");
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                    // CircuitComponent DLIMLED = diagramMap.get(destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentLinkedToNumber());
-                                    System.out.println("destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size:"+destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size());
-                                    System.out.println("++++ destComp componentNumber:"+destComp.getComponentNumber()+" destComp.getComponentType:"+destComp.getComponentType());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size:"+destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("++++ destComp componentNumber:"+destComp.getComponentNumber()+" destComp.getComponentType:"+destComp.getComponentType());
                                     //System.out.println("++++ DLIMLED componentNumber:"+DLIMLED.getComponentNumber()+" DLIMLED.getComponentType:"+DLIMLED.getComponentType()+" destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentType:"+destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentTypeLinked());
                                     eQNList = null;
                                     eQNList = new LinkedList<ExecutionQueueNode>();
@@ -4134,7 +4134,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                     LinkedList<InterModuleLink> iMLList = module.getComponentsMap().get(destComp.getComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent();
-                                    System.out.println("---- 1st loop ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- 1st loop ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber()+"\n"
@@ -4142,7 +4142,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                         );
                                     
                                     if(iMLList.getFirst().getComponentTypeLinked() == DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE){
-                                        System.out.println("first loop DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first loop DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
                                         CircuitComponent throughHole = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber());
                                         
                                         LinkedList<InterModuleLink> throughHoleIMLList = throughHole.getOutputConnectorsMap().get(2).getIMLSForComponent();
@@ -4151,40 +4151,40 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //throughhole
                                         ExecutionQueueNode eQN_1 = new ExecutionQueueNode();
                                         eQN_1.setComponentType(iMLList.getFirst().getComponentTypeLinked());
-                                        System.out.println("iMLList.getFirst().getComponentTypeLinked(): "+iMLList.getFirst().getComponentTypeLinked());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getComponentTypeLinked(): "+iMLList.getFirst().getComponentTypeLinked());
                                         eQN_1.setComponentNumber(iMLList.getFirst().getComponentLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber());
                                         eQN_1.setPortNumber(2);
                                         eQN_1.setPartNumber(iMLList.getFirst().getPartLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
                                         eQN_1.setLayerNumber(iMLList.getFirst().getLayerLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
                                         eQN_1.setModuleNumber(iMLList.getFirst().getModuleLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
                                         
                                         boolean alreadyInList = false;
                                         if((eQN_1.getPartNumber() == eQNList.getLast().getPartNumber() && eQN_1.getLayerNumber() == eQNList.getLast().getLayerNumber() && eQN_1.getModuleNumber() == eQNList.getLast().getModuleNumber() && eQN_1.getComponentNumber() == eQNList.getLast().getComponentNumber() && eQN_1.getPortNumber() == eQNList.getLast().getPortNumber() )) {
-                                            System.out.println("Already in list!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Already in list!");
                                             alreadyInList = true;
                                         }
                                     
                                         if(alreadyInList==false && eQNList.size() > 1 ){
-                                            System.out.println("Adding eQN_1 to eQNList");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("Adding eQN_1 to eQNList");
                                             eQNList.add( eQN_1);
                                         }
                                         //tetsing this out
                                         ExecutionQueueNode eQN_11 = new ExecutionQueueNode();
                                         eQN_11.setComponentType(throughHole.getComponentType());
-                                        System.out.println("throughHole.getComponentType(): "+throughHole.getComponentType());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("throughHole.getComponentType(): "+throughHole.getComponentType());
                                         eQN_11.setComponentNumber(throughHole.getComponentNumber());
-                                        System.out.println("throughHole.getComponentNumber(): "+throughHole.getComponentNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("throughHole.getComponentNumber(): "+throughHole.getComponentNumber());
                                         eQN_11.setPortNumber(2);
                                         eQN_11.setPartNumber(iMLList.getFirst().getPartLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
                                         eQN_11.setLayerNumber(iMLList.getFirst().getLayerLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
                                         eQN_11.setModuleNumber(iMLList.getFirst().getModuleLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
                                         
                                         eQNList.add( eQN_11);
                                          executionQueueList.add( eQNList);
@@ -4195,7 +4195,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         
                                         lineComp1 = theApp.getModel().getPartsMap().get(throughHoleIMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(throughHoleIMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(throughHoleIMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(lineafterDLIMLED);
                                         
-                                        System.out.println("lincomp1 componentNumber:"+lineComp1.getComponentNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("lincomp1 componentNumber:"+lineComp1.getComponentNumber());
                                         
                                         if(lineComp1!=null ) propagate(lineafterDLIMLED, lineComp1, eQNList, throughHoleIMLList.getFirst().getPartLinkedToNumber(), throughHoleIMLList.getFirst().getLayerLinkedToNumber(), theApp.getModel().getPartsMap().get(throughHoleIMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(throughHoleIMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(throughHoleIMLList.getFirst().getModuleLinkedToNumber()), lineComp1.getLM().getDestinationComponentNumber(),1);//lineComp1.getLM().getDestinationPortNumber());
 
@@ -4205,9 +4205,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         int layerLinkedNumber = destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getLayerLinkedToNumber();
                                         int moduleLinkedNumber = destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getModuleLinkedToNumber();
                                         int componentLinkedToNumber = destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentLinkedToNumber();
-                                        System.out.println("partLinkedToNumber:"+partLinkedNumber+" layerLinkedNumber:"+layerLinkedNumber+" moduleLinkedNumber:"+moduleLinkedNumber+" componentLinkedNumber:"+componentLinkedToNumber+" componentLinkedType:"+destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentTypeLinked());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("partLinkedToNumber:"+partLinkedNumber+" layerLinkedNumber:"+layerLinkedNumber+" moduleLinkedNumber:"+moduleLinkedNumber+" componentLinkedNumber:"+componentLinkedToNumber+" componentLinkedType:"+destComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getComponentTypeLinked());
                                         //connectedLineNumber = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber()).getOutputConnectorConnectsToComponentNumber(1, 2);
-                                        System.out.println("first loop connectedLineNumber:"+connectedLineNumber);
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first loop connectedLineNumber:"+connectedLineNumber);
                                         
                                         connectedLineNumber = theApp.getModel().getPartsMap().get(partLinkedNumber).getLayersMap().get(layerLinkedNumber).getModulesMap().get(moduleLinkedNumber).getComponentsMap().get(componentLinkedToNumber).getOutputConnectorConnectsToComponentNumber(1, 2);
 
@@ -4215,16 +4215,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                        
                                         lineComp1 = theApp.getModel().getPartsMap().get(partLinkedNumber).getLayersMap().get(layerLinkedNumber).getModulesMap().get(moduleLinkedNumber).getComponentsMap().get(connectedLineNumber);
 
-                                        System.out.println("lineComp1:"+lineComp1.getComponentNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("lineComp1:"+lineComp1.getComponentNumber());
                                         
                                                                                 
-                                        System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                        System.out.println("lineComp1.getLM().getDestinationComponentNumber():"+lineComp1.getLM().getDestinationComponentNumber()+" lineComp1.getLM().getDestinationPortNumber():"+lineComp1.getLM().getDestinationPortNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("lineComp1.getLM().getDestinationComponentNumber():"+lineComp1.getLM().getDestinationComponentNumber()+" lineComp1.getLM().getDestinationPortNumber():"+lineComp1.getLM().getDestinationPortNumber());
                                         
                                         
                                         
-                                        System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
                                                             +"lineComp1:"+lineComp1.getComponentNumber()+"\n"
                                                             //+"eQNList:"+eQNList+"\n"
                                                             +"iMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber()+"\n"
@@ -4234,9 +4234,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                             +"lineComp1.getLM().getDestinationPortNumber():"+lineComp1.getLM().getDestinationPortNumber()+"\n"
                                                             +"--------------------------------------end propagate DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop ------------------------------------------------------\n");
                                         
-                                        System.out.println("---- start of nodes list ----\n");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- start of nodes list ----\n");
                                         for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
                                                             +"eqn.getComponentNumber():"+eqn.getComponentNumber()+"\n"
                                                             +"eqn.getPortNumber():"+eqn.getPortNumber()+"\n"
                                                             +"eqn.getPartNumber():"+eqn.getPartNumber()+"\n"
@@ -4252,7 +4252,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 
                             }
-                            System.out.println("------- end DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop--------");
+                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("------- end DIFFERENT_LAYER_INTER_MODULE_LINK_START 1st loop--------");
                             break;
 
                             case SAME_LAYER_INTER_MODULE_LINK_START:{
@@ -4266,26 +4266,26 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                     
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("SLIMLST Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SLIMLST Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("SLIMLST Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SLIMLST Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("SLIMLST Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SLIMLST Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("SLIMLST Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SLIMLST Node already in list not adding breaking;");
                                     break;
                                 }
                                                                
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                 
@@ -4305,7 +4305,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 if(lineComp.getLM().getDestinationPortNumber()==1){
                                     LinkedList<InterModuleLink> iMLList = theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(module.getModuleNumber()).getComponentsMap().get(destComp.getComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent();
-                                    System.out.println("---- 1st loop SLIMLST ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- 1st loop SLIMLST ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber()+"\n"
@@ -4313,11 +4313,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                         );
                                     connectedLineNumber = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber()).getOutputConnectorConnectsToComponentNumber(1, 2);
 
-                                     System.out.println("first loop connectedLineNumber:"+connectedLineNumber);
+                                     if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(connectedLineNumber);
                                      
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                    System.out.println("theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()):"+iMLList.getFirst().getModuleLinkedToNumber()+" iMLList.getFirst().getComponentLinkedToNumber():"+iMLList.getFirst().getComponentLinkedToNumber()+" iMLList.getFirst().getPortLinkedToNumber():"+iMLList.getFirst().getPortLinkedToNumber());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()):"+iMLList.getFirst().getModuleLinkedToNumber()+" iMLList.getFirst().getComponentLinkedToNumber():"+iMLList.getFirst().getComponentLinkedToNumber()+" iMLList.getFirst().getPortLinkedToNumber():"+iMLList.getFirst().getPortLinkedToNumber());
                                     if(lineComp1!=null ) propagate(connectedLineNumber, lineComp1, eQNList, iMLList.getFirst().getPartLinkedToNumber(), iMLList.getFirst().getLayerLinkedToNumber(), theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()), lineComp1.getLM().getDestinationComponentNumber(),lineComp1.getLM().getDestinationPortNumber());
                                 }
                                 
@@ -4338,7 +4338,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 //LinkedList<InterModuleLink> iMLList = module.getComponentsMap().get(destComp.getComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent();
                                 LinkedList<InterModuleLink> iMLList = module.getComponentsMap().get(destComp.getComponentNumber()).getInputConnectorsMap().get(1).getIMLSForComponent();
-                                    System.out.println("---- 1st loop ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- 1st loop ----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber()+"\n"
@@ -4354,16 +4354,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4372,11 +4372,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
 
-                                     System.out.println("first first loop connectedLineNumber:"+connectedLineNumber);
+                                     if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first first loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = diagramMap.get(connectedLineNumber);
                                      
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                    System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_END 1st loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
                                                             +"lineComp1:"+lineComp1.getComponentNumber()+"\n"
                                                             +"eQNList:"+eQNList+"\n"
                                                             +"partNumber:"+partNumber+"\n"
@@ -4389,11 +4389,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     
 //                                    destComp = diagramMap.get(lineComp1.getLM().getDestinationComponentNumber());
                                     
-                                    System.out.println("destComp.getComponetType:"+destComp.getComponentType());
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destComp.getComponetType:"+destComp.getComponentType());
                                                                     
-                                    System.out.println("--------------- start eQNList ----------------------");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("--------------- start eQNList ----------------------");
                                     for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("---- start of list node ----\n"
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- start of list node ----\n"
                                                             +"eqn.getComponentType():"+eqn.getComponentType()+"\n"
                                                             +"eqn.getComponentNumber():"+eqn.getComponentNumber()+"\n"
                                                             +"eqn.getPortNumber():"+eqn.getPortNumber()+"\n"
@@ -4409,8 +4409,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     }
                                 //}
                                    
-                                System.out.println("destComp.getComponentType:"+destComp.getComponentType());
-                                System.out.println("----- first loop DIFFERENT_LAYER_INTER_MODULE_LINK_END -----");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destComp.getComponentType:"+destComp.getComponentType());
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("----- first loop DIFFERENT_LAYER_INTER_MODULE_LINK_END -----");
                                 break;
                             case SAME_LAYER_INTER_MODULE_LINK_END:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -4422,46 +4422,46 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 1st Node already in list not adding breaking;");
                                     break;
                                 }
                                                      
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
 
-                                     System.out.println("first first loop connectedLineNumber:"+connectedLineNumber);
+                                     if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first first loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = diagramMap.get(connectedLineNumber);
                                      
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                 //}
                                     
                                 
-                                System.out.println("first loop SAME_LAYER_INTER_MODULE_LINK_END");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("first loop SAME_LAYER_INTER_MODULE_LINK_END");
                                 break;
                         }//end switch
                     }else
                     if(lineComp.getLM().getDestinationComponentNumber()==currentComponentNumber ){
-                        System.out.println("----- loop 1 not found component -----");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("----- loop 1 not found component -----");
                     
                     //}//experimental feedback loop check
                 //}else
                 //if(lineComp.getLM().getDestinationPortNumber() == portNumber){
-                    System.out.println("second loop lineComp.getLM().getDestinationPortNumber() == portNumber:"+portNumber+"\n lineComp.getLM().getDestinationComponentNumber():"+lineComp.getLM().getDestinationComponentNumber());
+                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("second loop lineComp.getLM().getDestinationPortNumber() == portNumber:"+portNumber+"\n lineComp.getLM().getDestinationComponentNumber():"+lineComp.getLM().getDestinationComponentNumber());
                     CircuitComponent destinationComponent = diagramMap.get(lineComp.getLM().getDestinationComponentNumber());
-                    System.out.println("destinationComponentNumber:"+destinationComponent.getComponentNumber()+" destinationComponentType:"+destinationComponent.getComponentType()+" currentComponentNumber:"+currentComponentNumber+" lineComp.getLM().getSourceComponentNumber():"+lineComp.getLM().getSourceComponentNumber());
+                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destinationComponentNumber:"+destinationComponent.getComponentNumber()+" destinationComponentType:"+destinationComponent.getComponentType()+" currentComponentNumber:"+currentComponentNumber+" lineComp.getLM().getSourceComponentNumber():"+lineComp.getLM().getSourceComponentNumber());
                     //if(lineComp.getLM().getDestinationComponentNumber()==currentComponentNumber){//|| (sourceComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END && lineComp.getLM().getSourceComponentNumber()==currentComponentNumber)){//{
                     //if(lineComp.getLM().getSourceComponentNumber() == currentComponentNumber){
-                        System.out.println("lineComp.getLM().getDestinationComponentNumber()==currentComponentNumber:"+currentComponentNumber+"\n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("lineComp.getLM().getDestinationComponentNumber()==currentComponentNumber:"+currentComponentNumber+"\n");
                       //if(lineComp.getLM().getDestinationPortNumber() == portNumber){//for feedback stability
                        
                       CircuitComponent destComp;
@@ -4471,17 +4471,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                         
                         
                         
-                        System.out.println("destCompNumber:"+destComp.getComponentNumber()+" destCompType:"+destComp.getComponentType());
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("destCompNumber:"+destComp.getComponentNumber()+" destCompType:"+destComp.getComponentType());
                         //CircuitComponent destComp = diagramMap.get(lineComp.getLM().getDestinationComponentNumber());
                         int destPortNumber = lineComp.getLM().getSourcePortNumber();
-                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else \n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else \n");
                         ExecutionQueueNode eQN1 = new ExecutionQueueNode();
                         eQN1.setCategory(LOGICAL3PORT);//needed??
                         eQN1.setComponentType(destComp.getComponentType());
                         eQN1.setPartNumber(partNumber);
                         eQN1.setLayerNumber(layerNumber);
                         eQN1.setModuleNumber(module.getModuleNumber());
-                        System.out.println("---- entering 2nd switch statement ----\n");
+                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("---- entering 2nd switch statement ----\n");
                         switch(destComp.getComponentType()){
                             case AND_GATE_2INPUTPORT: 
                             case AND_GATE_3INPUTPORT:  
@@ -4527,52 +4527,52 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("LOGIC_GATE 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC_GATE 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("LOGIC_GATE 2nd Node not in executionQueue adding node!!");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC_GATE 2nd Node not in executionQueue adding node!!");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("LOGIC_GATE 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC_GATE 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("LOGIC_GATE 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("LOGIC_GATE 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getSourcePortNumber()==1){// && diagramMap.get(currentComponentNumber).getComponentType() != OPTICAL_COUPLER1X2 ){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+1));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     //if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                         if(lineComp1!=null && (destComp.getComponentType() != OUTPUT_PORT) && (connectedLineNumber!=0)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(destComp.getInputConnectorsMap().size()+1));
                                     //}
                                     //executionQueueList.add( eQNList);
                                 }else{ 
-                                System.out.println("logic gate checkListIsInExecutionQueue eQNList");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate checkListIsInExecutionQueue eQNList");
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("logic gate Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                }
-                                //if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                //if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case OPTICAL_INPUT_PORT:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else optical input port2:"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else optical input port2:"+destComp.getComponentNumber()+"\n");
                                 break;
                             case CLOCK:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue  else Clock"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue  else Clock"+destComp.getComponentNumber()+"\n");
                                 break;
                             case SLM:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue  else SpatialLightModulator"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue  else SpatialLightModulator"+destComp.getComponentNumber()+"\n");
                                 break;
                             case OUTPUT_PORT:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else optical output port2:"+destComp.getComponentNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else optical output port2:"+destComp.getComponentNumber()+"\n");
                                 eQN1.setComponentType(destComp.getComponentType());
                                 eQN1.setComponentNumber(destComp.getComponentNumber());
                                 eQN1.setPortNumber(lineComp.getLM().getSourcePortNumber());
@@ -4582,16 +4582,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OUTPUT_PORT 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OUTPUT_PORT 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OUTPUT_PORT 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OUTPUT_PORT 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OUTPUT_PORT 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4607,23 +4607,23 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("TEXTMODEMONITORHUB 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("TEXTMODEMONITORHUB 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("TEXTMODEMONITORHUB 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("TEXTMODEMONITORHUB 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("TEXTMODEMONITORHUB 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(eQN1.getPortNumber() == 1){
                                     Integer connectedLineNumber1 = destComp.getOutputConnectorConnectsToComponentNumber(1, 9);
                                     CircuitComponent lineComp11 = diagramMap.get(connectedLineNumber1);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("TextModeMonitorHub PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("TextModeMonitorHub PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp11!=null ) propagate(connectedLineNumber1, lineComp11, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),9);
                                 }
                                 
@@ -4638,16 +4638,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("KEYBOARDHUB 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("KEYBOARDHUB 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("KEYBOARDHUB 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("KEYBOARDHUB 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("KEYBOARDHUB 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4676,7 +4676,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                             case HIPASS_FILTER:
                             case OPTICAL_AMPLIFIER:
                             case NOT_GATE:
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else optical:"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else optical:"+destComp.getComponentType()+"\n");
                                 eQN1.setComponentType(destComp.getComponentType());
                                 eQN1.setComponentNumber(destComp.getComponentNumber());
                                 eQN1.setPortNumber(lineComp.getLM().getSourcePortNumber());
@@ -4686,22 +4686,22 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("NOT_GATE 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("NOT_GATE 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("NOT_GATE 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("NOT_GATE 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("NOT_GATE 2nd Node already in list not adding breaking;");
                                     break;
                                 }
 
                                 Integer connectedLineNumber1 = destComp.getOutputConnectorConnectsToComponentNumber(1, 2);
                                 CircuitComponent lineComp11 = diagramMap.get(connectedLineNumber1);
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                 if(lineComp11!=null) propagate(connectedLineNumber1, lineComp11, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                 //executionQueueList.add( eQNList);
                                 break;
@@ -4715,27 +4715,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("MEMORY_UNIT 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("MEMORY_UNIT 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("MEMORY_UNIT 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("MEMORY_UNIT 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MEMORY_UNIT 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getSourcePortNumber()==1){
                                     Integer connectedLineNumber2 = destComp.getOutputConnectorConnectsToComponentNumber(1, 4);//only one link and 1 port
                                         CircuitComponent lineComp2 = diagramMap.get(connectedLineNumber2);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp2!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber2, lineComp2, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                     //executionQueueList.add( eQNList);
                                 }//else{break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case OPTICAL_SWITCH:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -4747,27 +4747,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_SWITCH 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_SWITCH 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_SWITCH 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_SWITCH 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_SWITCH 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getSourcePortNumber()==1){
                                     Integer connectedLineNumber3 = destComp.getOutputConnectorConnectsToComponentNumber(1, 3);//only one link and 1 port
                                     CircuitComponent lineComp3 = diagramMap.get(connectedLineNumber3);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp3!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber3, lineComp3, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                    // executionQueueList.add( eQNList);
                                 }//else{break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case MACH_ZEHNER:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -4779,27 +4779,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("MACH_ZEHNER 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("MACH_ZEHNER 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("MACH_ZEHNER 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("MACH_ZEHNER 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("MACH_ZEHNER 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getSourcePortNumber()==2){
                                     Integer connectedLineNumber4 = destComp.getOutputConnectorConnectsToComponentNumber(1, 3);//only one link and 1 port
                                     CircuitComponent lineComp4 = diagramMap.get(connectedLineNumber4);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp4!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber4, lineComp4, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                    // executionQueueList.add( eQNList);
                                 }//else{break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case OPTICAL_COUPLER1X2:
                             case OPTICAL_COUPLER1X3:
@@ -4824,16 +4824,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_COUPLER1XM 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_COUPLER1XM 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_COUPLER1XM 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_COUPLER1XM 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("OPTICAL_COUPLER1XM 2nd Node already in list not adding breaking;");
                                     break;
                                 }
 
@@ -4841,7 +4841,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 for(OutputConnector  oConnector: opticalCoupler.getOutputConnectorsMap().values()){
 
                                     Integer connectedLineNumber_1 = opticalCoupler.getOutputConnectorConnectsToComponentNumber(1, oConnector.getPortNumber());//only one link and 1 port
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber_1+"destComp.getComponentNumber():"+destComp.getComponentNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue connectedLineNumber:"+connectedLineNumber_1+"destComp.getComponentNumber():"+destComp.getComponentNumber()+"\n");
                                     CircuitComponent lineComp_1 = diagramMap.get(connectedLineNumber_1);
 
                                         propagate(connectedLineNumber_1, lineComp_1, eQNList, partNumber, layerNumber, module, opticalCoupler.getComponentNumber() ,oConnector.getPortNumber());
@@ -4849,14 +4849,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                     //test for already in list??
                                     {//else ??
-                                        System.out.println("opticalcoupler1xM checkListIsInExecutionQueue eQNList");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("opticalcoupler1xM Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("opticalcoupler1xM 2nd loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("opticalcoupler1xM 2nd loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -4876,8 +4876,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 }
 
                                 tempEQNList = eQNList;
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue OPTICAL_COUPLER 2 \n");
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue OPTICAL_COUPLER 2 \n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case ROM8:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -4889,27 +4889,27 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM8 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM8 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM8 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM8 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM8 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 //if(lineComp.getLM().getSourcePortNumber()==1){
                                 connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (8+eQN1.getPortNumber()));//only one link and 1 port
                                 lineComp1 = diagramMap.get(connectedLineNumber);
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                 if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                    // executionQueueList.add( eQNList);
                                 //}//else{break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case ROM16:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -4921,16 +4921,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM16 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM16 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM16 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM16 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM16 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4938,11 +4938,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (16+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(16+eQN1.getPortNumber()));
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM20:
@@ -4955,16 +4955,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM20 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM20 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM20 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM20 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM20 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -4972,11 +4972,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (20+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(20+eQN1.getPortNumber()));
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM24:
@@ -4989,16 +4989,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM24 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE) System.out.println("ROM24 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM24 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM24 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM24 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM24 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM24 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM24 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5006,11 +5006,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (24+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(24+eQN1.getPortNumber()));
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                                 break;
                             case ROM30:
@@ -5023,16 +5023,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("ROM30 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM30 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("ROM30 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM30 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("ROM30 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM30 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("ROM30 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("ROM30 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5061,16 +5061,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("CROM8 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("CROM8 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("CROM8 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("CROM8 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("CROM8 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("CROM8 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("CROM8 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("CROM8 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5089,16 +5089,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("RAM 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("RAM 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("RAM 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("RAM 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("RAM 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("RAM 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("RAM 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("RAM 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5106,11 +5106,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 if(eQN1.getPortNumber()<=8){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+eQN1.getPortNumber()));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(30+eQN1.getPortNumber()));
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
                             break;
                             case OPTICAL_COUPLER2X1:
@@ -5129,38 +5129,38 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("OPTICAL_COUPLERMX1 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("OPTICAL_COUPLERMX1 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("OPTICAL_COUPLERMX1 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("OPTICAL_COUPLERMX1 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("OPTICAL_COUPLERMX1 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("OPTICAL_COUPLERMX1 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("OPTICAL_COUPLERMX1 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("OPTICAL_COUPLERMX1 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+1));//only one link and 1 port
                                 lineComp1 = diagramMap.get(connectedLineNumber);
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                 if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),(destComp.getInputConnectorsMap().size()+1));
                                    // executionQueueList.add( eQNList);
                                 //}//else{break;}
                                 { //else??
                                 System.out.println("opticalCouplerMx1 checkListIsInExecutionQueue eQNList");
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("opticalCouplerMx1 Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("opticalCouplerMx1 Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("logic gate 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                }
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case SR_LATCH:
                             case JK_LATCH:
@@ -5181,16 +5181,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("Latch_flipflop 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("Latch_flipflop 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("Latch_flipflop 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("Latch_flipflop 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("Latch_flipflop 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("Latch_flipflop 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("Latch_flipflop 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("Latch_flipflop 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5271,39 +5271,39 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                  int outputport = destComp.getInputConnectorsMap().size()+1;
                                  int outputport2 =  destComp.getInputConnectorsMap().size()+2;
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 2 outputport 2:" + outputport2+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 2 outputport 2:" + outputport2+"\n");
                                 destComp.setSimulationPortsCalledCounter((destComp.getSimulationPortsCalledCounter()+1));
 
-                                System.err.println("propagate JK 5 input test point 2nd loop 1.1 lineComp.getLM().getSourcePortNumber():"+lineComp.getLM().getSourcePortNumber());
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.err.println("propagate JK 5 input test point 2nd loop 1.1 lineComp.getLM().getSourcePortNumber():"+lineComp.getLM().getSourcePortNumber());
                                 //if(destComp.getSimulationPortsCalledCounter() == 1){
                                 if(lineComp.getLM().getSourcePortNumber()==2  ){
                                     System.err.println("propagate JK 5 input 2nd loop test point 2.1" );
                                     //eQN1.setPortNumber(6);
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, outputport);//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop2 destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop2 destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                        // eQNList.getLast().setPortNumber(4);
                                         if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),outputport);
                                     }
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 
 
                                    /* boolean alreadyInList = false;
@@ -5319,12 +5319,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                    {//else?? 
                                         System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("JK5Input Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK5Input Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -5332,7 +5332,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 }else
                                 if(lineComp.getLM().getSourcePortNumber()==4 ){
 
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 22 outputport2:"+outputport2+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 22 outputport2:"+outputport2+"\n");
                                     eQNList = null;
                                     eQNList = new LinkedList<ExecutionQueueNode>();
                                     ExecutionQueueNode eQN1_1 = new ExecutionQueueNode();
@@ -5345,17 +5345,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     eQN1_1.setModuleNumber(module.getModuleNumber());
                                     //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
                                     eQNList.add(eQN1_1);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 22 eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 22 eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, outputport2);//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 22 destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 22 destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
                                         if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),outputport2);
                                     }
                                        // executionQueueList.add( eQNList);
                                     //}//else{break;}
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else loop 22 eQN.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE )System.out.println("PhotonicMockSimFrame buildExecutionQueue else loop 22 eQN.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 
                                     ///if(oConnector.getPortNumber() == outputport)eQNList.getFirst().setPortNumber(4);
                                    /* boolean  alreadyInList = false;
@@ -5368,14 +5368,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     }
                                     if(alreadyInList==false) executionQueueList.add( eQNList);  */
                                    {//else?? 
-                                        System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
+                                       if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK5Input checkListIsInExecutionQueue eQNList");
                                         if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                            System.out.println("JK5Input Node not in eQNList adding node!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK5Input Node not in eQNList adding node!!");
                                             //eQNList.add(eQN1);
                                             executionQueueList.add( eQNList);
 
                                         }else{
-                                            System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK5Input 1st loop\n Node in eQNList not adding!!!!");
                                             break;
                                         }
                                     }
@@ -5383,11 +5383,11 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                     //CircuitComponent flipFlop = diagramMap.get(destComp.getComponentNumber());    
 //                                    for(OutputConnector  oConnector: destComp.getOutputConnectorsMap().values()){
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else oConnector.getPortNumber():"+oConnector.getPortNumber()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else oConnector.getPortNumber():"+oConnector.getPortNumber()+"\n");
 //
 //                                       // outputport = destComp.getInputConnectorsMap().size()+i;
 //                                       if(oConnector.getPortNumber() == outputport2){
-//                                           if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else outputport2:"+outputport2+"\n");
+//                                           if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else outputport2:"+outputport2+"\n");
 //                                           eQNList = null;
 //                                           eQNList = new LinkedList<ExecutionQueueNode>();
 //                                           ExecutionQueueNode eQN1_1 = new ExecutionQueueNode();
@@ -5396,20 +5396,20 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //                                           eQN1_1.setPortNumber(oConnector.getPortNumber());
 //                                           //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
 //                                           eQNList.add(eQN1_1);
-//                                           if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
+//                                           if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN1_1.getCategory():"+eQN1_1.getCategory()+" eQN1_1.getComponentType():"+eQN1_1.getComponentType()+" eQN1_1.getComponentNumber():"+eQN1_1.getComponentNumber()+" eQN1_1.getPortNumber():"+eQN1_1.getPortNumber()+"\n");
 //
 //                                       }else{
 //                                        eQNList.getFirst().setPortNumber(4);
 //                                       }
 //                                        connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, oConnector.getPortNumber());//only one link and 1 port
 //                                        lineComp1 = diagramMap.get(connectedLineNumber);
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else destComp.getComponentType():"+destComp.getComponentType()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else destComp.getComponentType():"+destComp.getComponentType()+"\n");
 //                                        if(diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getSourceComponentNumber() && diagramMap.get(currentComponentNumber).getComponentNumber() != lineComp1.getLM().getDestinationComponentNumber()){
 //                                            if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, destComp.getComponentNumber(),oConnector.getPortNumber());
 //                                        }
 //                                           // executionQueueList.add( eQNList);
 //                                        //}//else{break;}
-//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+//                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 //
 //                                        if(oConnector.getPortNumber() == outputport)eQNList.getFirst().setPortNumber(4);
 //                                        boolean alreadyInList = false;
@@ -5431,14 +5431,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //                                            //eQN1_1.setPortNumber(lineComp1.getLM().getDestinationPortNumber());
 //                                            eQNList.add(eQN1_1);
 //                                        }
-//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+//                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE && oConnector.getPortNumber() == outputport)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
 //
 //                                    }
                                     //}
                                     destComp.setSimulationPortsCalledCounter((0));
                                     tempEQNList = eQNList;
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else Latch or flipflop 2 \n");
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else Latch or flipflop 2 \n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue else eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 }
 
                                 break;
@@ -5451,16 +5451,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN1.setModuleNumber(module.getModuleNumber());
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("JK_FLIPFLOP_5INPUT 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5530,30 +5530,30 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN1.setModuleNumber(module.getModuleNumber());
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("TEST_POINT 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("TEST_POINT 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("TEST_POINT 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("TEST_POINT 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("TEST_POINT 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("TEST_POINT 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("TEST_POINT 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("TEST_POINT 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
                                 if(lineComp.getLM().getSourcePortNumber()==1){
                                     connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, (destComp.getInputConnectorsMap().size()+1));//only one link and 1 port
                                     lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue TEST_POINT destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue TEST_POINT destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                     //executionQueueList.add( eQNList);
                                 }//else{break;}
-                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue eQN.getCategory():"+eQN1.getCategory()+" eQN.getComponentType():"+eQN1.getComponentType()+" eQN.getComponentNumber():"+eQN1.getComponentNumber()+" eQN.getPortNumber():"+eQN1.getPortNumber()+"\n");
                                 break;
                             case DIFFERENT_LAYER_INTER_MODULE_LINK_START:{
-                                System.out.println("---- 2nd loop ----\n---- DIFFERENT_LAYER_INTER_MODULE_LINK_START ----\n"
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("---- 2nd loop ----\n---- DIFFERENT_LAYER_INTER_MODULE_LINK_START ----\n"
                                                     +"---- destComp.getComponentType() :"+destComp.getComponentType()+"----\n"
                                                     +"---- destComp.getComponentNumber() :"+destComp.getComponentNumber()+"----\n"
                                                     +"---- lineComp.getLM().getDestinationPortNumber() :"+portNumber+"----\n" 
@@ -5573,26 +5573,26 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("DLIMLST 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DLIMLST 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("DLIMLST 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DLIMLST 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("DLIMLST 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DLIMLST 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("DLIMLST 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DLIMLST 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                                                
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START 2nd loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_START 2nd loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                 
@@ -5613,7 +5613,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                     LinkedList<InterModuleLink> iMLList = module.getComponentsMap().get(destComp.getComponentNumber()).getOutputConnectorsMap().get(2).getIMLSForComponent();
-                                    System.out.println("----2nd loop----\niMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber()+"\n"
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("----2nd loop----\niMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber()+"\n"
                                                         +"iMLList.getFirst().getLayerLinkedToNumber():"+iMLList.getFirst().getLayerLinkedToNumber()+"\n"
                                                         +"iMLList.getFirst().getModuleLinkedToNumber():"+iMLList.getFirst().getModuleLinkedToNumber()+"\n"
                                                         +"iMLList.getFirst().getComponentLinkedToNumber():"+iMLList.getFirst().getComponentLinkedToNumber()+"\n"
@@ -5621,7 +5621,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                         );
                                     
                                     if(iMLList.getFirst().getComponentTypeLinked() == DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE){
-                                        System.out.println("second loop DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("second loop DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE");
                                         CircuitComponent throughHole = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber());
                                         
                                         LinkedList<InterModuleLink> throughHoleIMLList = throughHole.getOutputConnectorsMap().get(2).getIMLSForComponent();
@@ -5630,16 +5630,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //throughhole
                                         ExecutionQueueNode eQN_1 = new ExecutionQueueNode();
                                         eQN_1.setComponentType(iMLList.getFirst().getComponentTypeLinked());
-                                        System.out.println("iMLList.getFirst().getComponentTypeLinked():"+iMLList.getFirst().getComponentTypeLinked());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getComponentTypeLinked():"+iMLList.getFirst().getComponentTypeLinked());
                                         eQN_1.setComponentNumber(iMLList.getFirst().getComponentLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getComponentLinkedToNumber():"+iMLList.getFirst().getComponentLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getComponentLinkedToNumber():"+iMLList.getFirst().getComponentLinkedToNumber());
                                         eQN_1.setPortNumber(2);
                                         eQN_1.setPartNumber(iMLList.getFirst().getPartLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber());
                                         eQN_1.setLayerNumber(iMLList.getFirst().getLayerLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getLayerLinkedToNumber()"+iMLList.getFirst().getLayerLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getLayerLinkedToNumber()"+iMLList.getFirst().getLayerLinkedToNumber());
                                         eQN_1.setModuleNumber(iMLList.getFirst().getModuleLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getModuleLinkedToNumber():"+iMLList.getFirst().getModuleLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getModuleLinkedToNumber():"+iMLList.getFirst().getModuleLinkedToNumber());
                                         
                                         boolean alreadyInList = false;
                                         if((eQN_1.getPartNumber() == eQNList.getLast().getPartNumber() && eQN_1.getLayerNumber() == eQNList.getLast().getLayerNumber() && eQN_1.getModuleNumber() == eQNList.getLast().getModuleNumber() && eQN_1.getComponentNumber() == eQNList.getLast().getComponentNumber() && eQN_1.getPortNumber() == eQNList.getLast().getPortNumber() )) {
@@ -5653,16 +5653,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //testing this out
                                         ExecutionQueueNode eQN_11 = new ExecutionQueueNode();
                                         eQN_11.setComponentType(throughHole.getComponentType());
-                                        System.out.println("throughHole.getComponentType(): "+throughHole.getComponentType());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("throughHole.getComponentType(): "+throughHole.getComponentType());
                                         eQN_11.setComponentNumber(throughHole.getComponentNumber());
-                                        System.out.println("throughHole.getComponentNumber(): "+throughHole.getComponentNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("throughHole.getComponentNumber(): "+throughHole.getComponentNumber());
                                         eQN_11.setPortNumber(2);
                                         eQN_11.setPartNumber(iMLList.getFirst().getPartLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber());
                                         eQN_11.setLayerNumber(iMLList.getFirst().getLayerLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber());
                                         eQN_11.setModuleNumber(iMLList.getFirst().getModuleLinkedToNumber());
-                                        System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber());
                                         
                                         eQNList.add( eQN_11);
                                         executionQueueList.add( eQNList);
@@ -5677,13 +5677,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                     }else{
                                         connectedLineNumber = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber()).getOutputConnectorConnectsToComponentNumber(1, 2);
-                                         System.out.println("Second loop connectedLineNumber:"+connectedLineNumber);
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("Second loop connectedLineNumber:"+connectedLineNumber);
                                          lineComp1 = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(connectedLineNumber);
-                                         System.out.println("lineComp1:"+lineComp1.getComponentNumber());
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("lineComp1:"+lineComp1.getComponentNumber());
                                                       
-                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                        
-                                        System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_START 2nd loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_START 2nd loop --------\n connectedlinenumber:"+connectedLineNumber+"\n"
                                                             +"lineComp1:"+lineComp1.getComponentNumber()+"\n"
                                                             
                                                             +"iMLList.getFirst().getPartLinkedToNumber():"+iMLList.getFirst().getPartLinkedToNumber()+"\n"
@@ -5692,10 +5692,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                             +"lineComp1.getLM().getDestinationComponentNumber():"+lineComp1.getLM().getDestinationComponentNumber()+"\n"
                                                             +"lineComp1.getLM().getDestinationPortNumber():"+lineComp1.getLM().getDestinationPortNumber()+"\n"
                                                             +"--------------------------------------end propagate ------------------------------------------------------\n");
-                                        
-                                        System.out.println("---- start of list node ----\n");
+
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("---- start of list node ----\n");
                                         for(ExecutionQueueNode eqn : eQNList){
-                                            System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
                                                             +"eqn.getComponentNumber():"+eqn.getComponentNumber()+"\n"
                                                             +"eqn.getPortNumber():"+eqn.getPortNumber()+"\n"
                                                             +"eqn.getPartNumber():"+eqn.getPartNumber()+"\n"
@@ -5704,8 +5704,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                             +" ---- end of list node ----\n"
                                                             );
                                         }
-                                        
-                                        System.out.println("destComp.getComponentType:"+destComp.getComponentType());
+
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("destComp.getComponentType:"+destComp.getComponentType());
                                         
                                         if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, iMLList.getFirst().getPartLinkedToNumber(), iMLList.getFirst().getLayerLinkedToNumber(), theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()), lineComp1.getLM().getDestinationComponentNumber(),lineComp1.getLM().getDestinationPortNumber());
 
@@ -5725,26 +5725,26 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 eQN1.setModuleNumber(module.getModuleNumber());
                                 //eQNList.add(eQN1);
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("SLIMLST Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SLIMLST Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("SLIMLST Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SLIMLST Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("SLIMLST Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SLIMLST Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("SLIMLST Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SLIMLST Node already in list not adding breaking;");
                                     break;
                                 }
                                                                
                                 if(checkListIsInExecutionQueue(eQNList)==false){//, eQN1) == false){
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_START Node not in eQNList adding node!!");
                                     //eQNList.add(eQN1);
                                     executionQueueList.add( eQNList);
                                     
                                 }else{
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_START 1st loop\n Node in eQNList not adding!!!!");
                                     break;
                                 }
                                 
@@ -5766,7 +5766,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     connectedLineNumber = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber()).getOutputConnectorConnectsToComponentNumber(1, 2);
                                      System.out.println("Second loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = diagramMap.get(connectedLineNumber);
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, iMLList.getFirst().getPartLinkedToNumber(), iMLList.getFirst().getLayerLinkedToNumber(), theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()), iMLList.getFirst().getComponentLinkedToNumber(),iMLList.getFirst().getPortLinkedToNumber());
                                 }
 //                                alreadyInList = false;
@@ -5780,13 +5780,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                             }break;
                             case DIFFERENT_LAYER_INTER_MODULE_LINK_END:
                                 LinkedList<InterModuleLink> iMLList = module.getComponentsMap().get(destComp.getComponentNumber()).getInputConnectorsMap().get(1).getIMLSForComponent();
-                                    System.out.println("----2nd loop----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("----2nd loop----\niMLList.getFirst().getPartLinkedToNumber(): "+iMLList.getFirst().getPartLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getLayerLinkedToNumber(): "+iMLList.getFirst().getLayerLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getModuleLinkedToNumber(): "+iMLList.getFirst().getModuleLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getComponentLinkedToNumber(): "+iMLList.getFirst().getComponentLinkedToNumber()+"\n"
                                                         +" iMLList.getFirst().getPort: "+iMLList.getFirst().getPortLinkedToNumber()+"\n"
                                                         );
-                                System.out.println("---- DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop----\n"
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("---- DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop----\n"
                                                     +"---- destComp.getComponentType() :"+destComp.getComponentType() +"----\n"
                                                     +"---- destComp.getComponentNumber() :"+destComp.getComponentNumber()+"----\n"
                                                     +"---- lineComp.getLM().getDestinationPortNumber() :"+portNumber+"----\n"
@@ -5809,16 +5809,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5826,14 +5826,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
-                                     System.out.println("destCompType:"+destComp.getComponentType());
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("destCompType:"+destComp.getComponentType());
 
-                                     System.out.println("second loop connectedLineNumber:"+connectedLineNumber);
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("second loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = diagramMap.get(connectedLineNumber);
                                      
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
-                                    
-                                    System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop--------\n connectedlinenumber:"+connectedLineNumber+"\n"
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("-------- propagate DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop--------\n connectedlinenumber:"+connectedLineNumber+"\n"
                                                             +"lineComp1:"+lineComp1.getComponentNumber()+"\n"
                                                             
                                                             +"partNumber:"+partNumber+"\n"
@@ -5843,12 +5843,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                             +"DestinationPortNumber():"+2+"\n"
                                                             +"--------------------------------------end propagate ------------------------------------------------------\n");
 //                                    destComp = diagramMap.get(lineComp1.getLM().getDestinationComponentNumber());
-                                    
-                                    System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END destComp.getComponentType:"+destComp.getComponentType());
-                                    
-                                    System.out.println("---- start of nodes list ----\n");
+
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("DIFFERENT_LAYER_INTER_MODULE_LINK_END destComp.getComponentType:"+destComp.getComponentType());
+
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("---- start of nodes list ----\n");
                                         for(ExecutionQueueNode eqn : eQNList){
-                                        System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
+                                            if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("eqn.getComponentType():"+eqn.getComponentType()+"\n"
                                                             +"eqn.getComponentNumber():"+eqn.getComponentNumber()+"\n"
                                                             +"eqn.getPortNumber():"+eqn.getPortNumber()+"\n"
                                                             +"eqn.getPartNumber():"+eqn.getPartNumber()+"\n"
@@ -5864,10 +5864,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, currentComponentNumber,1);
                                     }
                                 //}
-                                
-                                
-                                    
-                                System.out.println("---- end second loop DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop---- portNumber:"+portNumber);
+
+
+
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("---- end second loop DIFFERENT_LAYER_INTER_MODULE_LINK_END 2nd loop---- portNumber:"+portNumber);
                                 break;
                             case SAME_LAYER_INTER_MODULE_LINK_END:
                                 eQN1.setComponentType(destComp.getComponentType());
@@ -5879,16 +5879,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //eQNList.add(eQN1);
                                 
                                 if(checkNodeIsInList(eQNList,eQN1)==false){
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node not in eQNList adding node!!");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node not in eQNList adding node!!");
                                     if(checkNodeIsInExecutionQueue(eQN1)==false){
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node not in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node not in executionQueue");
                                         eQNList.add(eQN1);
                                     }else{
-                                        System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node already in executionQueue");
+                                        if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node already in executionQueue");
                                         break;
                                     }
                                 }else{
-                                    System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node already in list not adding breaking;");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("SAME_LAYER_INTER_MODULE_LINK_END 2nd Node already in list not adding breaking;");
                                     break;
                                 }
                                 
@@ -5908,21 +5908,21 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //if(lineComp.getLM().getDestinationPortNumber()==1){
                                      connectedLineNumber = destComp.getOutputConnectorConnectsToComponentNumber(1, destComp.getInputConnectorsMap().size()+1);//only one link and 1 port
 
-                                     System.out.println("second loop connectedLineNumber:"+connectedLineNumber);
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("second loop connectedLineNumber:"+connectedLineNumber);
                                      lineComp1 = diagramMap.get(connectedLineNumber);
                                      
-                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)theApp.printToLogFile("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
+                                    if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("PhotonicMockSimFrame buildExecutionQueue destComp.getComponentType():"+destComp.getComponentType()+"\n");
                                     if(lineComp1!=null || (destComp.getComponentType() != OUTPUT_PORT)) propagate(connectedLineNumber, lineComp1, eQNList, partNumber, layerNumber, module, destComp.getComponentNumber(),2);
                                 //}
-                                
-                                System.out.println("second loop SAME_LAYER_INTER_MODULE_LINK_END");
+
+                                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("second loop SAME_LAYER_INTER_MODULE_LINK_END");
                                 break;
                                 
                         }
                     //}end feedback check for stability 
                 }  
             }else{//end if optical waveGuide lineComp
-                System.out.println("----- loop 2 not found component!! -----");
+                if(DEBUG_SIMULATEDIALOG_BUILDEXECUTIONQUEUE_PROPAGATE)System.out.println("----- loop 2 not found component!! -----");
                         
             }
         }
@@ -5972,10 +5972,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                 //TreeMap<Integer, CircuitComponent> diagramMap = module.getComponentsMap();//this is local to a module
                                 TreeMap<Integer, CircuitComponent> diagramMap = theApp.getModel().getPartsMap().get(eQN11.getPartNumber()).getLayersMap().get(eQN11.getLayerNumber()).getModulesMap().get(eQN11.getModuleNumber()).getComponentsMap();
                                 CircuitComponent cComp = diagramMap.get(eQN11.getComponentNumber());
-                                System.out.println("cComp.getComponentType():"+cComp.getComponentType()+" cComp.getComponentNumber:"+cComp.getComponentNumber()+" eQN11.getComponentType():"+eQN11.getComponentType()+" eQN11.getPartNumber():"+eQN11.getPartNumber()+" eQN11.getLayerNumber():"+eQN11.getLayerNumber()+" eQN11.getModuleNumber():"+eQN11.getModuleNumber());
+                                if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentType():"+cComp.getComponentType()+" cComp.getComponentNumber:"+cComp.getComponentNumber()+" eQN11.getComponentType():"+eQN11.getComponentType()+" eQN11.getPartNumber():"+eQN11.getPartNumber()+" eQN11.getLayerNumber():"+eQN11.getLayerNumber()+" eQN11.getModuleNumber():"+eQN11.getModuleNumber());
                                 if(cComp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){
-                                    System.out.println("cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size:"+cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size());
-                                    System.out.println("cCompNumber:"+cComp.getComponentNumber()+" cCompType:"+cComp.getComponentType()+" cComp.partLinkedToNumber:"+cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber());
+                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size:"+cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().size());
+                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cCompNumber:"+cComp.getComponentNumber()+" cCompType:"+cComp.getComponentType()+" cComp.partLinkedToNumber:"+cComp.getOutputConnectorsMap().get(2).getIMLSForComponent().getFirst().getPartLinkedToNumber());
                                 }
                                 //cComp.setInputPortValues(eQN11.getPortNumber(), opticlalInputWavelength, opticalBitLevel);
                                 switch(eQN11.getComponentType()){
@@ -6045,7 +6045,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         if(portNumber.getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), portNumber.getPortNumber(), opticalBitLevel);
                                         
                                         //theApp.getModel().simulationNotifyObservers();
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength+"\n");
                                         if(opticlalInputWavelength==0){
                                             JOptionPane.showMessageDialog(null,"the Input wavelength must be set on component number:"+cComp.getComponentNumber());
                                             break;
@@ -6058,7 +6058,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                          
                                         //logicAnalyzerApp.getView().addComponent(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), portNumber.getPortNumber(), opticalBitLevel);
 
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength);
                                         ActionListener timerListener = new ActionListener(){
                                             public void actionPerformed(ActionEvent evt){
                                                 if(stepNumber <breakPointStepNumber && timer.isRunning() == true){
@@ -6066,14 +6066,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     //if(portNumber.getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), portNumber.getPortNumber(), cComp.getOutputConnectorsMap().get(1).getOutputBitLevel());                 
 
                                                     cComp.setClockStepNumber(cComp.getClockStepNumber()+1);
-                                                     
-                                                    
-                                                    System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
+
+
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
                                                     theApp.getModel().simulationNotifyObservers();
                                                 }else
                                                 if(cComp.getTimer().isRunning()){
                                                     cComp.getTimer().stop();
-                                                    System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" stop Timer");
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" stop Timer");
                                                 }
                                                 
 //                                                if(isSuspended()==true){//deprecated
@@ -6114,26 +6114,26 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         opticlalInputWavelength = portNumber.getOutputWavelength();
                                         opticalBitLevel = portNumber.getOutputBitLevel();
 
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength);
                                         ActionListener timerListener1 = new ActionListener(){
                                             public void actionPerformed(ActionEvent evt){
                                                 if(stepNumber <breakPointStepNumber && timer.isRunning() == true && cComp.getClockStepNumber()<cComp.getSpatialLightModulatorIntensityLevelString().length()){
                                                     iSM.spatialLightModulatorModel(cComp);
-                                                    
-                                                    System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
+
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
                                                     theApp.getModel().simulationNotifyObservers();
                                                 }else
                                                 if(stepNumber <breakPointStepNumber && timer.isRunning() == true && cComp.getClockStepNumber()==cComp.getSpatialLightModulatorIntensityLevelString().length() && cComp.getSpatialLightModulatorRepeatBoolean()==true){
                                                     cComp.setClockStepNumber(0);
                                                     iSM.spatialLightModulatorModel(cComp);
-                                                    
-                                                    System.out.println("else loop cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
+
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("else loop cComp.getComponentNumber:"+cComp.getComponentNumber()+" cComp.getClockStepNumber():"+cComp.getClockStepNumber());
                                                     theApp.getModel().simulationNotifyObservers();
                                                 }else
                                                 if(stepNumber == breakPointStepNumber && cComp.getTimer().isRunning() || (cComp.getClockStepNumber()==cComp.getSpatialLightModulatorIntensityLevelString().length() && cComp.getSpatialLightModulatorRepeatBoolean() == false)){
                                                     cComp.getTimer().stop();
                                                     if(cComp.getClockStepNumber()==cComp.getSpatialLightModulatorIntensityLevelString().length() && cComp.getSpatialLightModulatorRepeatBoolean()==true) cComp.setClockStepNumber(0);
-                                                    System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" stop Timer");
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" stop Timer");
                                                 }
                                                 
 //                                                if(isSuspended()==true){//deprecated
@@ -6157,7 +6157,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 
                                                 //setSuspended(true);
                                                 cComp.getTimer().start();
-                                                System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" start timer");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getComponentNumber:"+cComp.getComponentNumber()+" start timer");
                                             }else{
                                                 JOptionPane.showMessageDialog(null,"The simulation delay time has to be set on component number:"+cComp.getComponentNumber());
                                                 break;
@@ -6202,7 +6202,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             System.out.println("eQN11.getPortNumber:"+eQN11.getPortNumber()+" sourcePort.getOutputWavelength:"+sourcePort.getOutputWavelength()+" sourcePort.getOutputBitLevel"+sourcePort.getOutputBitLevel());
                                             if(eQN11.getPortNumber() == 1){//if port 1
                                                 int[] keyboardReadArray = {sourcePort.getOutputWavelength(),sourcePort.getOutputBitLevel()};
-                                                System.out.println("keyboardReadArray:"+keyboardReadArray[0]+" :"+keyboardReadArray[1]);
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println("keyboardReadArray:"+keyboardReadArray[0]+" :"+keyboardReadArray[1]);
                                                 cComp.setKeyboardReadArray(keyboardReadArray);
                                             }else{//if port 2
                                                 int[] keyboardClearArray = {sourcePort.getOutputWavelength(),sourcePort.getOutputBitLevel()};
@@ -6322,7 +6322,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     case OR_GATE_8INPUTPORT:{
                                         InputConnector portNumber = cComp.getInputConnectorsMap().get(eQN11.getPortNumber());
                                         int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,eQN11.getPortNumber());
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("OR gate");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("OR gate");
                                         if(connectedLineNumber != 0){
                                             CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
                                             CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
@@ -6345,7 +6345,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     break;
                                                 }
                                             }
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("OR gate allPortsCalled:"+allPortsCalled);
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("OR gate allPortsCalled:"+allPortsCalled);
                                             if(allPortsCalled){
                                                 iSM.orGateModel(cComp);
 
@@ -6408,7 +6408,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 }
                                             }
                                             //if(eQN11.getPortNumber()<=cComp.getInputConnectorsMap().size()){
-                                                if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
                                                 cComp.setInputPortValues(eQN11.getPortNumber(), sourcePort.getOutputWavelength(), sourcePort.getOutputBitLevel());
                                                 //theApp.getModel().simulationNotifyObservers();
                                                 //cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
@@ -6559,9 +6559,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getDestinationPortNumber());
                                                 }
                                             }
-                                            System.out.println("notGate simulation node connectedLineNumber:"+connectedLineNumber);
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("notGate simulation node connectedLineNumber:"+connectedLineNumber);
                                             cComp.setInputPortValues(eQN11.getPortNumber(), sourcePort.getOutputWavelength(), sourcePort.getOutputBitLevel());
-                                            System.out.println("notGate simulation node eQN11.getPortNumber():"+eQN11.getPortNumber()+" sourcePort.getOutputWavelength():"+sourcePort.getOutputWavelength()+" sourcePort.getOutputBitLevel():"+sourcePort.getOutputBitLevel());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("notGate simulation node eQN11.getPortNumber():"+eQN11.getPortNumber()+" sourcePort.getOutputWavelength():"+sourcePort.getOutputWavelength()+" sourcePort.getOutputBitLevel():"+sourcePort.getOutputBitLevel());
 
                                             if(cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getInputBitLevel());                 
 
@@ -6611,7 +6611,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     //opticlalInputWavelength =  cComp.getInternalWavelength();
                                                     //opticalBitLevel = 0;
 
-                                                    if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("portNumber1.getInputBitLevel():"+portNumber1.getInputBitLevel()+" portNumber1.getInputWavelength():"+portNumber1.getInputWavelength()+" cComp.getInternalWavelength():"+cComp.getInternalWavelength()+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("portNumber1.getInputBitLevel():"+portNumber1.getInputBitLevel()+" portNumber1.getInputWavelength():"+portNumber1.getInputWavelength()+" cComp.getInternalWavelength():"+cComp.getInternalWavelength()+"\n");
                                                 }else
                                                 if(portNumber2.getInputBitLevel() == 0 && portNumber3.getInputBitLevel() == 1){//read
                                                     if(cComp.getInternalWavelength() != 0){
@@ -6620,7 +6620,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                                         //opticlalInputWavelength =  cComp.getInternalWavelength();
                                                         //opticalBitLevel = cComp.getInternalIntensityLevel();
-                                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("portNumber4.getOutputBitLevel():"+portNumber4.getOutputBitLevel()+"  portNumber4.getOutputWavelength()"+ portNumber4.getOutputWavelength()+"\n");
+                                                        if(DEBUG_SIMULATESYSTEM)System.out.println("portNumber4.getOutputBitLevel():"+portNumber4.getOutputBitLevel()+"  portNumber4.getOutputWavelength()"+ portNumber4.getOutputWavelength()+"\n");
                                                     }else{
                                                         JOptionPane.showMessageDialog(null,"The internal memory unit must be initialised with a write wavelength and bit level on component number:"+cComp.getComponentNumber());
                                                         //opticlalInputWavelength =  0;
@@ -6628,7 +6628,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                         break;
                                                     }
                                                 }else {
-                                                    if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("final else on memoryUnit"+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("final else on memoryUnit"+"\n");
                                                     //opticlalInputWavelength =  0;
                                                     //opticalBitLevel = 0;
                                                 }
@@ -6702,7 +6702,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     case OPTICAL_COUPLER1X20:
                                     case OPTICAL_COUPLER1X24:
                                     case OPTICAL_COUPLER1X30:{
-                                    if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop 1 OPTICAL_COUPLER1xM component number:"+cComp.getComponentNumber()+"\n");
+                                    if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop 1 OPTICAL_COUPLER1xM component number:"+cComp.getComponentNumber()+"\n");
 
                                     cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
 
@@ -6725,7 +6725,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 
                                                 //theApp.getModel().simulationNotifyObservers();
 
-                                                if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 OPTICAL_COUPLER1xM sourcePort.getOutputBitLevel():"+sourcePort.getOutputBitLevel()+" sourcePort.getOutputWavelength():"+sourcePort.getOutputWavelength()+"\n");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 OPTICAL_COUPLER1xM sourcePort.getOutputBitLevel():"+sourcePort.getOutputBitLevel()+" sourcePort.getOutputWavelength():"+sourcePort.getOutputWavelength()+"\n");
                                                 
                                                 for(InputConnector iConnector: cComp.getInputConnectorsMap().values()){
                                                 //    System.err.println("and gate input connector logic probe present?"+cComp.getInputConnectorsMap().get(iConnector.getPortNumber()).getLogicProbeBool());
@@ -6741,7 +6741,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 }
 
                                                 //if(cComp.getSimulationPortsCalledCounter() == cComp.getOutputConnectorsMap().size()){
-                                                    if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 OPTICAL_COUPLER1xM resetting SimulationPortsCalledCounter"+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 OPTICAL_COUPLER1xM resetting SimulationPortsCalledCounter"+"\n");
                                                 cComp.setSimulationPortsCalledCounter(0);
                                                 //}
                                             }
@@ -6802,12 +6802,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
                                         if(eQN11.getPortNumber() <= 8){
                                              cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
-                                             System.err.println("----------------------------------------------- cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter());
+                                            if(DEBUG_SIMULATESYSTEM)System.err.println("----------------------------------------------- cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter());
                                             //for(InputConnector iConnector : cComp.getInputConnectorsMap().values()){
 
                                                 InputConnector portNumber = cComp.getInputConnectorsMap().get(eQN11.getPortNumber());
                                                 int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,eQN11.getPortNumber());
-                                                System.out.println("connectedLineNumber:"+connectedLineNumber);
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("connectedLineNumber:"+connectedLineNumber);
 
                                                 if(connectedLineNumber != 0){
                                                     CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
@@ -6838,7 +6838,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     if(iConnector.getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), iConnector.getPortNumber(), iConnector.getInputBitLevel());    
                                                 }
 
-                                                System.out.println("cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter());
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println("cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter());
                                                 iSM.cromModel(cComp);
 
                                                 for(OutputConnector oConnector: cComp.getOutputConnectorsMap().values()){
@@ -7207,7 +7207,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,eQN11.getPortNumber());
                                         if(connectedLineNumber != 0){
                                             CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
                                             CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                             OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                             if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7216,21 +7216,21 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getDestinationPortNumber());
                                                 }
                                             }
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
                                             if(eQN11.getPortNumber() == 1|| eQN11.getPortNumber() == 2 || eQN11.getPortNumber() == 3) cComp.setInputPortValues(eQN11.getPortNumber(), sourcePort.getOutputWavelength(), sourcePort.getOutputBitLevel());
                                             
                                             theApp.getModel().simulationNotifyObservers();
                                             cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
 
                                             if(cComp.portsCalled.get(1)&& cComp.portsCalled.get(2) && cComp.portsCalled.get(3)){
-                                                if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
+                                                if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
                                                 
                                                 iSM.jkFlipFlopModel(cComp);
                                                 
                                                // theApp.getModel().simulationNotifyObservers();
                                                 if(DEBUG_SIMULATESYSTEM) outputPortValues = cComp.getOutputPortValues((1+cComp.getInputConnectorsMap().size()));
-                                                if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
 
                                                 cComp.setSimulationPortsCalledCounter(0);
                                                 for(int i = 1; i<=3; i++){
@@ -7247,7 +7247,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,1);
                                                 if(connectedLineNumber != 0){
                                                     CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                                    if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
                                                     CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                                     OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                                     if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7264,7 +7264,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,3);
                                                 if(connectedLineNumber != 0){
                                                     CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                                    if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
                                                     CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                                     OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                                     if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7282,7 +7282,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             
                                             //theApp.getModel().simulationNotifyObservers();
                                            // cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
                                             
                                             if(eQN11.getPortNumber()==4 || eQN11.getPortNumber() == 5) cComp.portsCalled.put(eQN11.getPortNumber(),true);
                                             boolean allPortsCalled = true;
@@ -7301,7 +7301,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,2);
                                                 if(connectedLineNumber != 0){
                                                     CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                                    if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP component line number:"+lineComp.getComponentNumber()+"\n");
                                                     CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                                     OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                                     if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7310,7 +7310,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                             sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getDestinationPortNumber());
                                                         }
                                                     }
-                                                    if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
                                                     cComp.setInputPortValues(2, sourcePort.getOutputWavelength(), sourcePort.getOutputBitLevel());
                                                 }
                                                 
@@ -7322,7 +7322,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 
                                                 
                                                 
-                                                if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
+                                                if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
                                                 iSM.jkFlipFlopModel(cComp);
                                                // theApp.getModel().simulationNotifyObservers();
                                                 for(OutputConnector oConnector: cComp.getOutputConnectorsMap().values()){
@@ -7347,7 +7347,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         int connectedLineNumber = cComp.getInputConnectorConnectsToComponentNumber(1,eQN11.getPortNumber());
                                         if(connectedLineNumber != 0){
                                             CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP 5 INPUT component line number:"+lineComp.getComponentNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP 5 INPUT component line number:"+lineComp.getComponentNumber()+"\n");
                                             CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                             OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                             if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7356,7 +7356,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getDestinationPortNumber());
                                                 }
                                             }
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  component number:"+cComp.getComponentNumber()+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
                                             cComp.setInputPortValues(eQN11.getPortNumber(), sourcePort.getOutputWavelength(), sourcePort.getOutputBitLevel());
                                         }
                                         
@@ -7364,9 +7364,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                             theApp.getModel().simulationNotifyObservers();
                                             cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
 
-                                            System.out.println("---------------- JK 5 input portNumber:"+eQN11.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("---------------- JK 5 input portNumber:"+eQN11.getPortNumber());
                                             boolean allPortsCalled = true;
                                             if(eQN11.getPortNumber() == 1  || eQN11.getPortNumber() == 2 || eQN11.getPortNumber() == 3 || eQN11.getPortNumber() == 4 || eQN11.getPortNumber() == 5){
                                                 cComp.portsCalled.put(eQN11.getPortNumber(),true);
@@ -7384,7 +7384,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             
                                             if(allPortsCalled == true){
                                             
-                                                if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
+                                                if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
 
                                                 for(InputConnector iConnector: cComp.getInputConnectorsMap().values()){
                                                     //System.err.println("JK flipFlop 5 input connector logic probe present?"+cComp.getInputConnectorsMap().get(iConnector.getPortNumber()).getLogicProbeBool());
@@ -7404,7 +7404,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                                 }
 
-                                                if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP 5 INPUT  outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP 5 INPUT  outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
 
                                                 cComp.setSimulationPortsCalledCounter(0);
                                                 int[] ports = {1,2,3,4,5};
@@ -7438,7 +7438,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                          System.out.println("ARITH_SHIFT_RIGHT line:"+connectedLineNumber);
                                         if(connectedLineNumber != 0){
                                             CircuitComponent lineComp = diagramMap.get(connectedLineNumber);
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP 5 INPUT component line number:"+lineComp.getComponentNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 0 JK_FLIPFLOP 5 INPUT component line number:"+lineComp.getComponentNumber()+"\n");
                                             CircuitComponent sourceComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                             OutputConnector sourcePort = sourceComp.getOutputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
                                             if(lineComp.getLM().getSourceComponentNumber()==cComp.getComponentNumber()){
@@ -7453,10 +7453,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             if(cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getInputBitLevel());                 
 
                                             cComp.setSimulationPortsCalledCounter((cComp.getSimulationPortsCalledCounter()+1));
-                                            if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 1 JK_FLIPFLOP 5 INPUT  cComp.getSimulationPortsCalledCounter():"+cComp.getSimulationPortsCalledCounter()+"\n");
 
                                             if(cComp.portsCalled.get(3)&& cComp.portsCalled.get(2) && cComp.portsCalled.get(4) ){
-                                                if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
+                                                if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 portOneCalled:"+cComp.portsCalled.get(1)+" portTwoCalled:"+cComp.portsCalled.get(2)+" portThreeCalled:"+cComp.portsCalled.get(3)); 
                                                 
                                                 for(InputConnector iConnector: cComp.getInputConnectorsMap().values()){
                                                 //    System.err.println("and gate input connector logic probe present?"+cComp.getInputConnectorsMap().get(iConnector.getPortNumber()).getLogicProbeBool());
@@ -7472,7 +7472,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     }
                                                 
                                                 if(DEBUG_SIMULATESYSTEM) outputPortValues = cComp.getOutputPortValues((1+cComp.getInputConnectorsMap().size()));
-                                                if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP 5 INPUT  outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
+                                                if(DEBUG_SIMULATESYSTEM)System.out.println(" PhotonicMockSimFrame simulateSystem 1 2 JK_FLIPFLOP 5 INPUT  outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]+" (1+cComp.getInputConnectorsMap().size()):"+(1+cComp.getInputConnectorsMap().size())+"\n");
 
                                                 cComp.setSimulationPortsCalledCounter(0);
                                                 for(int i = 2; i<=4; i++){
@@ -7537,7 +7537,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                     }
                                                     
                                                     if(DEBUG_SIMULATESYSTEM) outputPortValues = cComp.getOutputPortValues((1+cComp.getInputConnectorsMap().size()));//port 4
-                                                    if(DEBUG_SIMULATESYSTEM) theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop 1 3  D_FLIPFLOP outputPortValues1:"+outputPortValues[1]+"outputPortValues2:"+outputPortValues[2]+"\n");
+                                                    if(DEBUG_SIMULATESYSTEM) System.out.println("PhotonicMockSimFrame simulateSystem loop 1 3  D_FLIPFLOP outputPortValues1:"+outputPortValues[1]+"outputPortValues2:"+outputPortValues[2]+"\n");
 
                                                     cComp.setSimulationPortsCalledCounter(0);
                                                     for(int i =3; i<= 4; i++){
@@ -7617,8 +7617,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             if(cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getInputBitLevel());                 
 
                                              int[] inputPortValues11 = cComp.getInputPortValues(1);
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
 
                                              for(InputConnector iConnector: cComp.getInputConnectorsMap().values()){
                                                 //    System.err.println("and gate input connector logic probe present?"+cComp.getInputConnectorsMap().get(iConnector.getPortNumber()).getLogicProbeBool());
@@ -7632,7 +7632,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                                 if(cComp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), oConnector.getPortNumber(), cComp.getOutputConnectorsMap().get(oConnector.getPortNumber()).getOutputBitLevel());                 
                                            }
 
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
                                         
                                         }
                                     }break;
@@ -7655,16 +7655,16 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         outputPortValues = cComp.getInputPortValues(1);
                                         cComp.setInputPortValues(1, outputPortValues[1], outputPortValues[2]);
                                         
-                                        if(cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getInputBitLevel());                 
+                                        if(cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getInputConnectorsMap().get(eQN11.getPortNumber()).getInputBitLevel());
 
-                                        System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
                                         destComp.getOutputConnectorsMap().get(2).setOutputWavelength(outputPortValues[1]);
                                         destComp.getOutputConnectorsMap().get(2).setOutputBitLevel(outputPortValues[2]);
 
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
                                            
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
 
                                         
                                     }break;
@@ -7690,12 +7690,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                              
                                              if(cComp.getOutputConnectorsMap().get(eQN11.getPortNumber()).getLogicProbeBool()==true) logicAnalyzerApp.getView().updateTraces(part.getPartNumber(), layer.getLayerNumber(), module.getModuleNumber(), cComp.getComponentNumber(), eQN11.getPortNumber(), cComp.getOutputConnectorsMap().get(eQN11.getPortNumber()).getOutputBitLevel());                 
 
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
 
                                            iSM.sLIMLEDModel(cComp);
 
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
                                         
                                         }
 
@@ -7715,7 +7715,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         
                                         if(iMLList != null) System.out.println("Not null iMLList.size:"+iMLList.size());
 
-                                        System.out.println("---- iMLList DIFFERENT_LAYER_INTER_MODULE_LINK_START simulate system ----\n"
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("---- iMLList DIFFERENT_LAYER_INTER_MODULE_LINK_START simulate system ----\n"
                                                             +" getPartLinkedToNumber():"+partLinkedNumber
                                                             +" getLayerLinkedToNumber():"+layerLinkedNumber
                                                             +" getModuleLinkedToNumber():"+moduleLinkedNumber
@@ -7724,19 +7724,19 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         
                                         
                                         CircuitComponent destComp = theApp.getModel().getPartsMap().get(partLinkedNumber).getLayersMap().get(layerLinkedNumber).getModulesMap().get(moduleLinkedNumber).getComponentsMap().get(componentLinkedNumber);
-                                        System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
 
                                         
                                         InputConnector destPort = destComp.getInputConnectorsMap().get(1);
-                                        System.out.println("destComp:"+destComp.getComponentNumber());
-                                        System.out.println("destPort:"+destPort.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
                                         
                                         int destCompNumber = destComp.getComponentNumber();
                                         int destPortNumber = destPort.getPortNumber();
             
                                         //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                         outputPortValues = cComp.getInputPortValues(1);
-                                        System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
                                         destComp.getOutputConnectorsMap().get(2).setOutputWavelength(outputPortValues[1]);
                                         destComp.getOutputConnectorsMap().get(2).setOutputBitLevel(outputPortValues[2]);
 
@@ -7750,43 +7750,43 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             LinkedList<InterModuleLink> iMLListThroughHole = destComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                             CircuitComponent DLIMLEDComp = theApp.getModel().getPartsMap().get(iMLListThroughHole.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLListThroughHole.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLListThroughHole.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLListThroughHole.getFirst().getComponentLinkedToNumber());
 
-                                            System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
 
 
                                             destPort = DLIMLEDComp.getInputConnectorsMap().get(1);
-                                            System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
-                                            System.out.println("destPort:"+destPort.getPortNumber());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
 
                                             destCompNumber = DLIMLEDComp.getComponentNumber();
                                             destPortNumber = destPort.getPortNumber();
 
                                             //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                             outputPortValues = cComp.getInputPortValues(1);
-                                            System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
                                         }
 
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
                                     }break;  
                                     case DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE:{
                                         LinkedList<InterModuleLink> iMLListThroughHole = cComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                             CircuitComponent DLIMLEDComp = theApp.getModel().getPartsMap().get(iMLListThroughHole.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLListThroughHole.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLListThroughHole.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLListThroughHole.getFirst().getComponentLinkedToNumber());
 
-                                            System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
 
 
                                             InputConnector destPort = DLIMLEDComp.getInputConnectorsMap().get(1);
-                                            System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
-                                            System.out.println("destPort:"+destPort.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
 
                                             int destCompNumber = DLIMLEDComp.getComponentNumber();
                                             int destPortNumber = destPort.getPortNumber();
 
                                             //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                             outputPortValues = cComp.getInputPortValues(1);
-                                            System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
@@ -7807,12 +7807,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 //                                            //theApp.getModel().simulationNotifyObservers();
 //
 //                                             int[] inputPortValues11 = cComp.getInputPortValues(1);
-//                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
-//                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+//                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT inportportvalues[2]:"+inputPortValues11[2]+" eQN11.getPortNumber():"+eQN11.getPortNumber()+"\n");
+//                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
 //
 //                                           iSM.dLIMLEDModel(cComp);
 //
-//                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
+//                                            if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop1 TEST_POINT component number:"+cComp.getComponentNumber()+" opticlalInputWavelength:"+opticlalInputWavelength+" opticalBitLevel:"+opticalBitLevel+"\n");
 //                                        
 //                                        }
 //                                        break;
@@ -7836,7 +7836,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
                                     } break;
                                             
                                 }
@@ -7945,7 +7945,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         destPort.setInputBitLevel(outputPortValues[2]);
 
 
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateDialog simulateSystem opticlalInputWavelength:"+opticlalInputWavelength+"\n");
                                         if(opticlalInputWavelength==0){
                                             JOptionPane.showMessageDialog(null,"the Input wavelength must be set on component number:"+cComp.getComponentNumber());
                                             break;
@@ -7977,7 +7977,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateDialog simulateSystem opticalInputWavelength:"+opticlalInputWavelength+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateDialog simulateSystem opticalInputWavelength:"+opticlalInputWavelength+"\n");
                                         if(opticlalInputWavelength==0){
                                             JOptionPane.showMessageDialog(null,"the Input wavelength must be set on component number:"+cComp.getComponentNumber());
                                             break;
@@ -8167,13 +8167,13 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                     case OPTICAL_COUPLER1X16:
                                     case OPTICAL_COUPLER1X24:
                                     case OPTICAL_COUPLER1X30:
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 OPTICAL_COUPLER1xM component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 OPTICAL_COUPLER1xM component number:"+cComp.getComponentNumber()+"\n");
                                         //if(eQN11.getPortNumber() != 1){
                                         //CircuitComponent ccComp = theApp.getModel().getPartsMap().get(eQN11.getPartNumber()).getLayersMap().get(eQN11.getLayerNumber()).getModulesMap().get(eQN11.getModuleNumber()).getComponentsMap().get(eQN11.getComponentNumber());
                                         //connectedLineNumber = ccComp.getOutputConnectorConnectsToComponentNumber(1, eQN11.getPortNumber());
                                         connectedLineNumber = cComp.getOutputConnectorConnectsToComponentNumber(1, eQN11.getPortNumber());
                                         lineComp = diagramMap.get(connectedLineNumber);
-                                        System.out.println("cCompNumber:"+cComp.getComponentNumber()+" connectedLineNumber:"+connectedLineNumber+" eQN11.getPortNumber():"+eQN11.getPortNumber()+" eQN11.getComponentNumber:"+eQN11.getComponentNumber()+" eQN11.getPartNumber:"+eQN11.getPartNumber()+" eQN11.getComponentType():"+eQN11.getComponentType());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("cCompNumber:"+cComp.getComponentNumber()+" connectedLineNumber:"+connectedLineNumber+" eQN11.getPortNumber():"+eQN11.getPortNumber()+" eQN11.getComponentNumber:"+eQN11.getComponentNumber()+" eQN11.getPartNumber:"+eQN11.getPartNumber()+" eQN11.getComponentType():"+eQN11.getComponentType());
                                         //System.out.println("lineComp.getLM().getSourceComponentNumber():"+lineComp.getLM().getSourceComponentNumber()+" cComp.getComponentNumber():"+cComp.getComponentNumber()+" eQN11.getPartNumber:"+eQN11.getPartNumber());
                                         destComp = diagramMap.get(lineComp.getLM().getSourceComponentNumber());
                                         destPort = destComp.getInputConnectorsMap().get(lineComp.getLM().getSourcePortNumber());
@@ -8469,7 +8469,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             int[] inputPortValues1 = cComp.getInputPortValues(1);//rW line
                                             int[] inputPortValues2 = cComp.getInputPortValues(2);
                                             int[] inputPortValues3 = cComp.getInputPortValues(3);
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop2 1 JK_FLIPFLOP component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2]+"\n" );                                    
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop2 1 JK_FLIPFLOP component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2]+"\n" );                                    
 
 
                                                 destPort.setInputWavelength(outputPortValues[1]);
@@ -8487,7 +8487,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             destCompNumber = destComp.getComponentNumber();//cComp.getOConnectorDestinationComponentNumber(1, cComp.getInputConnectorsMap().size()+1);
                                             destPortNumber = destPort.getPortNumber();//cComp.getO
                                             outputPortValues = cComp.getOutputPortValues(5);
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop2 2 JK_FLIPFLOP component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2] +"\n");                                    
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop2 2 JK_FLIPFLOP component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2] +"\n");                                    
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
@@ -8518,7 +8518,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             int[] inputPortValues3 = cComp.getInputPortValues(3);
                                                int[] inputPortValues4 = cComp.getInputPortValues(4);
                                                int[] inputPortValues5 = cComp.getInputPortValues(5);
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop2 1 JK_FLIPFLOP 5 INPUT  component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2]+" inputPortValues4[2]:"+inputPortValues4[2]+" inputPortValues5[2]:"+inputPortValues5[2]+"\n" );                                    
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop2 1 JK_FLIPFLOP 5 INPUT  component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2]+" inputPortValues4[2]:"+inputPortValues4[2]+" inputPortValues5[2]:"+inputPortValues5[2]+"\n" );                                    
 
 
                                                 destPort.setInputWavelength(outputPortValues[1]);
@@ -8536,7 +8536,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                             destCompNumber = destComp.getComponentNumber();//cComp.getOConnectorDestinationComponentNumber(1, cComp.getInputConnectorsMap().size()+1);
                                             destPortNumber = destPort.getPortNumber();//cComp.getO
                                             outputPortValues = cComp.getOutputPortValues(7);
-                                            if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("PhotonicMockSimFrame simulateSystem loop2 2 JK_FLIPFLOP 5 INPUT  component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2] +"\n");                                    
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("PhotonicMockSimFrame simulateSystem loop2 2 JK_FLIPFLOP 5 INPUT  component Number:"+cComp.getComponentNumber()+" inputPortValues1[2]:"+inputPortValues1[2]+" inputPortValues2[2]:"+inputPortValues2[2]+" inputPortValues3[2]:"+inputPortValues3[2] +"\n");                                    
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
@@ -8762,29 +8762,29 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
 
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
                                         break;
                                     case SAME_LAYER_INTER_MODULE_LINK_START:{
                                         
                                         LinkedList<InterModuleLink> iMLList= cComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                         destComp = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber());
-                                        System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
 
                                         destPort = destComp.getInputConnectorsMap().get(1);
-                                        System.out.println("destComp:"+destComp.getComponentNumber());
-                                        System.out.println("destPort:"+destPort.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
                                         
                                         destCompNumber = destComp.getComponentNumber();
                                         destPortNumber = destPort.getPortNumber();
 
                                         //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                         outputPortValues = cComp.getInputPortValues(1);
-                                        System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
                                         cComp.setInputPortValues(1, outputPortValues[1], outputPortValues[2]);
                                         cComp.setOutputPortValues(2,outputPortValues[1], outputPortValues[2]);
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_START component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_START component number:"+cComp.getComponentNumber()+"\n");
                                     }break;
                                     case SAME_LAYER_INTER_MODULE_LINK_END:{
                                         connectedLineNumber = cComp.getOutputConnectorConnectsToComponentNumber(1, 2);
@@ -8804,17 +8804,17 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         cComp.setInputPortValues(1, outputPortValues[1], outputPortValues[2]);
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_END component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_END component number:"+cComp.getComponentNumber()+"\n");
                                     }break;
                                     case DIFFERENT_LAYER_INTER_MODULE_LINK_START:{
                                         LinkedList<InterModuleLink> iMLList= cComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                         destComp = theApp.getModel().getPartsMap().get(iMLList.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLList.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLList.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLList.getFirst().getComponentLinkedToNumber());
-                                        System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp.getComponentNumber:"+destComp.getComponentNumber());
 
                                         
                                         destPort = destComp.getInputConnectorsMap().get(1);
-                                        System.out.println("destComp:"+destComp.getComponentNumber());
-                                        System.out.println("destPort:"+destPort.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destComp:"+destComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
                                         
                                         destCompNumber = destComp.getComponentNumber();
                                         destPortNumber = destPort.getPortNumber();
@@ -8822,7 +8822,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                         outputPortValues = cComp.getInputPortValues(1);
                                         //outputPortValues = cComp.getOutputPortValues(1);
-                                        System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
 
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
@@ -8830,44 +8830,44 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         if(destComp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE){
                                             LinkedList<InterModuleLink> iMLListThroughHole = destComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                             CircuitComponent DLIMLEDComp = theApp.getModel().getPartsMap().get(iMLListThroughHole.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLListThroughHole.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLListThroughHole.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLListThroughHole.getFirst().getComponentLinkedToNumber());
-                                            
-                                            System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
+
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
 
                                         
                                             destPort = DLIMLEDComp.getInputConnectorsMap().get(1);
-                                            System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
-                                            System.out.println("destPort:"+destPort.getPortNumber());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
 
                                             destCompNumber = DLIMLEDComp.getComponentNumber();
                                             destPortNumber = destPort.getPortNumber();
 
                                             //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                             outputPortValues = cComp.getInputPortValues(1);
-                                            System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                            if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
                                         }
                                         
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_START component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 SAME_LAYER_INTER_MODULE_LINK_START component number:"+cComp.getComponentNumber()+"\n");
                                     }break;
                                     case DIFFERENT_LAYER_INTER_MODULE_LINK_THROUGHHOLE:{
                                         LinkedList<InterModuleLink> iMLListThroughHole = cComp.getOutputConnectorsMap().get(2).getIMLSForComponent();
                                             CircuitComponent DLIMLEDComp = theApp.getModel().getPartsMap().get(iMLListThroughHole.getFirst().getPartLinkedToNumber()).getLayersMap().get(iMLListThroughHole.getFirst().getLayerLinkedToNumber()).getModulesMap().get(iMLListThroughHole.getFirst().getModuleLinkedToNumber()).getComponentsMap().get(iMLListThroughHole.getFirst().getComponentLinkedToNumber());
 
-                                            System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp.getComponentNumber:"+DLIMLEDComp.getComponentNumber());
 
 
                                             destPort = DLIMLEDComp.getInputConnectorsMap().get(1);
-                                            System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
-                                            System.out.println("destPort:"+destPort.getPortNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("DLIMLEDComp:"+DLIMLEDComp.getComponentNumber());
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("destPort:"+destPort.getPortNumber());
 
                                             destCompNumber = DLIMLEDComp.getComponentNumber();
                                             destPortNumber = destPort.getPortNumber();
 
                                             //outputPortValues = cComp.getOutputPortValues(cComp.getInputConnectorsMap().size()+1);
                                             outputPortValues = cComp.getInputPortValues(1);
-                                            System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("outputPortValues[1]:"+outputPortValues[1]+"outputPortValues[2]:"+outputPortValues[2]);
 
                                             destPort.setInputWavelength(outputPortValues[1]);
                                             destPort.setInputBitLevel(outputPortValues[2]);
@@ -8890,7 +8890,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                                         cComp.setOutputPortValues(2, outputPortValues[1], outputPortValues[2]);
                                         destPort.setInputWavelength(outputPortValues[1]);
                                         destPort.setInputBitLevel(outputPortValues[2]);
-                                        if(DEBUG_SIMULATESYSTEM)theApp.printToLogFile("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
+                                        if(DEBUG_SIMULATESYSTEM)System.out.println("simulateSystem loop2 TEST_POINT component number:"+cComp.getComponentNumber()+"\n");
                                         break;
                                 }
                             }
@@ -8959,12 +8959,12 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         if(e.getSource() == saveItem){
             //saveOperation();
             saveProjectOperation();
-            System.out.println("Save project");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Save project");
             return;
         }else
         if(e.getSource() == saveAsItem){
             int projectType = theApp.getProjectType();
-            System.out.println("create Project");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("create Project");
             
             String projectNameStr="";
             String absolutePath= "";
@@ -8977,7 +8977,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 projectNameStr = chooser.getSelectedFile().getName();
                 absolutePath = chooser.getSelectedFile().getAbsolutePath();
             }
-            System.out.println("AbsolutePath:"+absolutePath+" projectName:"+projectNameStr);
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("AbsolutePath:"+absolutePath+" projectName:"+projectNameStr);
              
             
             if(!projectNameStr.equals("") || !absolutePath.equals(DEFAULT_PROJECT_ROOT.toString())){
@@ -8988,7 +8988,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 boolean created = new File(absolutePath).mkdir();
                 if(!created){
                     int result = JOptionPane.showConfirmDialog(null, "Project folder already exists!!!. Overwrite","SaveAs", JOptionPane.OK_CANCEL_OPTION);
-                    System.out.println("Project Folder already exists!!.");
+                    if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Project Folder already exists!!.");
                     if(result == JOptionPane.CANCEL_OPTION){
                         return;
                     }
@@ -9010,7 +9010,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 circuitChanged = false;
 
                 saveProjectOperation();
-                System.out.println("SaveAs project");
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("SaveAs project");
             }
             //saveAsOperation();
             return;
@@ -9237,10 +9237,10 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
         }else
         if(e.getSource() == copyAndSaveItem){
             theApp.getView().mode = COPYANDSAVE;
-            System.out.println("in frame mode = copyandsave");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("in frame mode = copyandsave");
         }else
         if(e.getSource() == createBlockModelItem){//create a part selection dialog and display a comboBox with parts in it before calling BlockModelDialog pass the part number to the BlockModelDialog
-            System.out.println("Open project");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Open project");
             new ChooseBlockModelTypeDialog(theApp);
         }else
         if(e.getSource() == showBlockModelPadsItem){
@@ -9255,7 +9255,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             new LoadHTMLEditorWithDescriptionDialog(theApp);
         }
         else if(e.getSource() == debug_testpointItem){
-            System.err.println("here");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("here");
             new AddDebugTestpointsDialog(theApp);
         }
     }
@@ -9484,7 +9484,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             currentProjectFile = selectedFile;
             return selectedFile;
         }else{
-            System.out.println("Error creating project!!");
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Error creating project!!");
             return null;
         }
     }
@@ -9510,20 +9510,20 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 }
                 //selectedFile = Paths.get(fileChooser.getCurrentDirectory().toString(), DEFAULT_FILENAME);//wrong use CreateProjectDialog() instead and set the currentProjectFile and selectedFile
             }else{
-                System.out.println("theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
                 String str = theApp.getProjectFolder().toString()+"\\P"+part.getPartNumber();
                 File f = new File(str);
                 if(!(f.exists() || f.isDirectory())){
                     selectedFile = createFolder(str,DEFAULT_PROJECT_PART_FILENAME);
                 }else{
-                    System.out.println("Directory exists "+str);
+                    if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Directory exists "+str);
                     selectedFile = Paths.get((theApp.getProjectFolder().toString()+"\\P"+part.getPartNumber()),DEFAULT_PROJECT_PART_FILENAME);
                 }
                 //selectedFile = createFolder(str, DEFAULT_PROJECT_PART_FILENAME);
                 //selectedFile = currentProjectFile;
             }
 
-            System.out.println("selectedFile:"+selectedFile.toString());
+            if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("selectedFile:"+selectedFile.toString());
             //make extension .xml
             selectedFile = setFileExtension(selectedFile, "xml");//xml extension
 
@@ -9541,14 +9541,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             
             //for layer goes here i think!!!
             for(Layer layer : part.getLayersMap().values()){
-                System.out.println("Layer theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Layer theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
                 String str = theApp.getProjectFolder().toString()+"\\P"+part.getPartNumber()+"\\L"+layer.getLayerNumber();
                 
                 File f = new File(str);
                 if(!(f.exists() || f.isDirectory())){
                     selectedFile = createFolder(str,DEFAULT_PROJECT_LAYER_FILENAME);
                 }else{
-                    System.out.println("Directory exists "+str);
+                    if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Directory exists "+str);
                     selectedFile = Paths.get(str,DEFAULT_PROJECT_LAYER_FILENAME);
                 }
                 
@@ -9568,14 +9568,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 
                 
                 for(Module module : layer.getModulesMap().values()){
-                    System.out.println("Layer theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
+                    if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Layer theApp.getProjectFolder().toString():"+theApp.getProjectFolder().toString());
                     str = theApp.getProjectFolder().toString()+"\\P"+part.getPartNumber()+"\\L"+layer.getLayerNumber()+"\\M"+module.getModuleNumber();
                     
                     f = new File(str);
                     if(!(f.exists() || f.isDirectory())){
                         selectedFile = createFolder(str,DEFAULT_PROJECT_MODULE_FILENAME);
                     }else{
-                        System.out.println("Directory exists "+str);
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Directory exists "+str);
                         selectedFile = Paths.get(str,DEFAULT_PROJECT_MODULE_FILENAME);
                     }
                     
@@ -10009,9 +10009,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             transformer.setErrorListener(this);
             transformer.transform(source, result);
             if(typeStr.equals("part")){
-                System.out.println("Frame openXMLDiagram part createPartFromXML(xmlDoc) adding part");
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Frame openXMLDiagram part createPartFromXML(xmlDoc) adding part");
                 theApp.getModel().addPart(createPartFromXML(xmlDoc));
-                System.out.println("theApp.getProjectType():"+theApp.getProjectType());
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("theApp.getProjectType():"+theApp.getProjectType());
                 if(theApp.getModel().getPartsMap().lastEntry().getValue().getPartType()== MOTHERBOARD){
                     theApp.setProjectType(MOTHERBOARD);
                 }else 
@@ -10028,14 +10028,14 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                         theApp.setProjectName(theApp.getModel().getPartsMap().lastEntry().getValue().getPartName());
                     }
                 }
-                System.out.println("PartNumber to add to model:"+theApp.getModel().getPartsMap().lastKey());
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("PartNumber to add to model:"+theApp.getModel().getPartsMap().lastKey());
             }else
             if(typeStr.equals("layer")){
-                System.out.println("Frame openXMLDiagram part createLayerFromXML(xmlDoc) adding layer");
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Frame openXMLDiagram part createLayerFromXML(xmlDoc) adding layer");
                 theApp.getModel().addLayer(theApp.getModel().getPartsMap().get(theApp.getModel().getPartsMap().lastKey()), createLayerFromXML(xmlDoc));
             }else
             if(typeStr.equals("module")){
-                System.out.println("Frame openXMLDiagram part createModuleFromXML(xmlDoc) adding module");
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Frame openXMLDiagram part createModuleFromXML(xmlDoc) adding module");
                 theApp.getModel().addModule(theApp.getModel().getPartsMap().lastKey(), theApp.getModel().getPartsMap().get(theApp.getModel().getPartsMap().lastKey()).getLayersMap().lastKey(), createModuleFromXML(xmlDoc));
             }else
             if(typeStr.equals("components")){
@@ -10085,7 +10085,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
             
             if(typeStr.equals("part")){
                 //theApp.getModel().addPart(createBlockModelPartFromXML(xmlDoc, part));
-                System.out.println("PartNumber to add to model:"+theApp.getModel().getPartsMap().lastKey());
+                if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("PartNumber to add to model:"+theApp.getModel().getPartsMap().lastKey());
             }else
             if(typeStr.equals("layer")){
                 theApp.getModel().addLayer(theApp.getModel().getPartsMap().get(theApp.getModel().getPartsMap().lastKey()), createLayerFromXML(xmlDoc));
@@ -10134,9 +10134,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "PackageModelForPart":
-                        System.out.println("1part creation from xml");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("1part creation from xml");
                         part.createBlockModelPartModelFromXML(elementNode);
-                        System.out.println("part number:"+part.getPartNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("part number:"+part.getPartNumber());
                 }
             }
         }
@@ -10154,9 +10154,9 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "PackageModelForPart":
-                        System.out.println("2part creation from xml");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("2part creation from xml");
                         part.createPartModelFromXML(elementNode);
-                        System.out.println("part number:"+part.getPartNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("part number:"+part.getPartNumber());
                 }
             }
         }
@@ -10173,7 +10173,7 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "packageModelForLayer":
-                        System.out.println("layer creation from xml");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("layer creation from xml");
                         layer.createLayerModelFromXML(elementNode);
                 }
             }
@@ -10198,8 +10198,8 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "PackageModelForPart":
-                        System.out.println("module creation from xml");
-                        System.out.println("Frame createModuleFromXML(Document xmlDoc) module.createModuleModelFromXML(elementNode)");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("module creation from xml");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("Frame createModuleFromXML(Document xmlDoc) module.createModuleModelFromXML(elementNode)");
                         module.createModuleModelFromXML(elementNode);
                 }
             }
@@ -10220,39 +10220,39 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                 elementNode = nodes.item(i);
                 switch(elementNode.getNodeName()){
                     case "AndGate2InputPort":
-                        System.out.println("In frame testing for AndGate2InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate2InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate2InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate2InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate3InputPort":
-                        System.out.println("In frame testing for AndGate3InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate3InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate3InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate3InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate4InputPort":
-                        System.out.println("In frame testing for AndGate4InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate4InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate4InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate4InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate5InputPort":
-                        System.out.println("In frame testing for AndGate5InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate5InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate5InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate5InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate6InputPort":
-                        System.out.println("In frame testing for AndGate6InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate6InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate6InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate6InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate7InputPort":
-                        System.out.println("In frame testing for AndGate7InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate7InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate7InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate7InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "AndGate8InputPort":
-                        System.out.println("In frame testing for AndGate8InputPort");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate8InputPort");
                         module.add(new CircuitComponent.andGate(elementNode));
-                        System.out.println("In frame testing for AndGate8InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for AndGate8InputPort module.getLast.getComponentNumber"+(module.getComponentsMap().get(module.getComponentsMap().lastKey())).getComponentNumber());
                         break;
                     case "NandGate2InputPort":
                         module.add(new CircuitComponent.nandGate(elementNode));
@@ -10540,19 +10540,19 @@ public class PhotonicMockSimFrame extends JFrame implements ActionListener, Obse
                         module.add(new CircuitComponent.textModeMonitorHub(elementNode));
                         break;
                     case "CROM8x16":
-                        System.out.println("In frame testing for CROM8x16");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for CROM8x16");
                         module.add(new CircuitComponent.crom(elementNode));
                         break;
                     case "CROM8x20":
-                        System.out.println("In frame testing for CROM8x20");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for CROM8x20");
                         module.add(new CircuitComponent.crom(elementNode));
                         break;
                     case "CROM8x24":
-                        System.out.println("In frame testing for CROM8x24");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for CROM8x24");
                         module.add(new CircuitComponent.crom(elementNode));
                         break;
                     case "CROM8x30":
-                        System.out.println("In frame testing for CROM8x30");
+                        if(DEBUG_PHOTONICMOCKSIMFRAME)System.out.println("In frame testing for CROM8x30");
                         module.add(new CircuitComponent.crom(elementNode));
                         break;
 

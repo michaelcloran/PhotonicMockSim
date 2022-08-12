@@ -65,7 +65,7 @@ public class CreateBlockModelRectangleDialog extends JDialog{
                             Integer breadth = new Integer(breadthTextField.getText());
                             
                             
-                            System.out.println("positionx:"+positionx);
+                            if(DEBUG_CREATEBLOCKMODELRECTANGLEDIALOG) System.out.println("positionx:"+positionx);
                             BlockModelComponent tempComp = BlockModelComponent.createBlockModelComponent(RECTANGLE, BlockModelApp.getWindow().getComponentColor(), new Point(positionx,positiony), new Point(positionx+width,positiony+breadth));
                             tempComp.setType(SUB);//defaulting to sub rectangle allowing manual setting of main rectangle
                             BlockModelApp.getModel().add(tempComp);

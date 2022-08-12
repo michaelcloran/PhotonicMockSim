@@ -50,7 +50,7 @@ public class TextModeMonitorModel extends Observable implements Serializable{
         }else {
             comp.setComponentNumber(componentsMap.lastKey()+1);
         }*/
-        //System.out.println("Part part number:"+comp.getCompoentnNumber());
+        //if(DEBUG_TEXTMODEMONITORMODEL) System.out.println("Part part number:"+comp.getCompoentnNumber());
         componentsList.add(character);
         setChanged();
     }
@@ -62,7 +62,7 @@ public class TextModeMonitorModel extends Observable implements Serializable{
         }else {
             comp.setComponentNumber(componentsMap.lastKey()+1);
         }*/
-        //System.out.println("Part part number:"+comp.getCompoentnNumber());
+        //if(DEBUG_TEXTMODEMONITORMODEL) System.out.println("Part part number:"+comp.getCompoentnNumber());
         //componentsList.add(character);
         caret = character;
         setChanged();

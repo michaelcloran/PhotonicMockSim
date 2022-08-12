@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.EventHandler;
 import javafx.application.Application;
+
+import static Constants.PhotonicMockSimConstants.DEBUG_HTMLEDITORSAMPLE;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
@@ -80,14 +82,14 @@ public class HTMLEditorSample extends Application {
         primaryStage.show();
         
         cancelButton.setOnAction((event)->{
-            System.out.println("Cancel button pressed!!!");
+            if(DEBUG_HTMLEDITORSAMPLE) System.out.println("Cancel button pressed!!!");
             primaryStage.close();
             
         });
         
         saveButton.setOnAction((event)->{
-            System.out.println("save button pressed!!!");
-            System.out.println(""+htmlEditor.getHtmlText());
+            if(DEBUG_HTMLEDITORSAMPLE) System.out.println("save button pressed!!!");
+            if(DEBUG_HTMLEDITORSAMPLE) System.out.println(""+htmlEditor.getHtmlText());
             blockModelApp.getTheApp().setCircuitDescriptionText(htmlEditor.getHtmlText());
             primaryStage.close();
             

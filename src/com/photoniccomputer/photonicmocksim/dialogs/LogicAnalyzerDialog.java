@@ -5,9 +5,6 @@
  */
 package com.photoniccomputer.photonicmocksim.dialogs;
 
-import static Constants.PhotonicMockSimConstants.BACKGROUND_COLOR;
-import static Constants.PhotonicMockSimConstants.DEFAULT_LOGICANALYZER_FILENAME;
-import static Constants.PhotonicMockSimConstants.DEFAULT_LOGICANALYZER_TRACES_DIRECTORY;
 import com.photoniccomputer.photonicmocksim.PhotonicMockSim;
 import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerFrame;
 import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerModel;
@@ -41,6 +38,8 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
+import static Constants.PhotonicMockSimConstants.*;
 
 /**
  *
@@ -126,19 +125,19 @@ public class LogicAnalyzerDialog extends JDialog implements WindowStateListener{
                     if(thewindow.getSelectedFile() != null){
                         
                         
-                        System.out.println("1bufferIndexNumber-1:"+(bufferIndexNumber));
+                        if(DEBUG_LOGICANALYZERDIALOG) System.out.println("1bufferIndexNumber-1:"+(bufferIndexNumber));
                         if(bufferIndexNumber >=1)thewindow.openXMLSketch(thewindow.getSelectedFile(), bufferIndexNumber-1);
                         label1.setText(Integer.toString(bufferIndexNumber));
                         bufferIndexNumber = bufferIndexNumber - 1;
                         
                     }else{
                         bufferIndexNumber = bufferIndexNumber - 1;
-                        System.out.println("2bufferIndexNumber-1:"+(bufferIndexNumber));
+                        if(DEBUG_LOGICANALYZERDIALOG) System.out.println("2bufferIndexNumber-1:"+(bufferIndexNumber));
                         thewindow.openXMLSketch(Paths.get(DEFAULT_LOGICANALYZER_TRACES_DIRECTORY.toString(), DEFAULT_LOGICANALYZER_FILENAME), bufferIndexNumber-1);
                         label1.setText(Integer.toString(bufferIndexNumber));
                     }
                 }else{
-                    System.out.println("3bufferIndexNumber-1:"+(bufferIndexNumber));
+                    if(DEBUG_LOGICANALYZERDIALOG) System.out.println("3bufferIndexNumber-1:"+(bufferIndexNumber));
                     bufferIndexNumber = 1;//load the first one
                     label1.setText(Integer.toString(1));
                     if(bufferIndexNumber >=1)thewindow.openXMLSketch(thewindow.getSelectedFile(), bufferIndexNumber-1);// zero indexing
@@ -152,18 +151,18 @@ public class LogicAnalyzerDialog extends JDialog implements WindowStateListener{
                if((bufferIndexNumber)  < Integer.valueOf(label3.getText())){//the index here is index+1 what is actually seen on the GUI label
                     if(thewindow.getSelectedFile() != null){
                         bufferIndexNumber = bufferIndexNumber + 1;
-                        System.out.println("4bufferIndexNumber-1:"+(bufferIndexNumber-1));
+                        if(DEBUG_LOGICANALYZERDIALOG) System.out.println("4bufferIndexNumber-1:"+(bufferIndexNumber-1));
                         thewindow.openXMLSketch(thewindow.getSelectedFile(), bufferIndexNumber-1);
                         label1.setText(Integer.toString(bufferIndexNumber));
                          
                     }else{
                         bufferIndexNumber = bufferIndexNumber + 1;
-                        System.out.println("5bufferIndexNumber-1:"+(bufferIndexNumber-1));
+                        if(DEBUG_LOGICANALYZERDIALOG) System.out.println("5bufferIndexNumber-1:"+(bufferIndexNumber-1));
                         thewindow.openXMLSketch(Paths.get(DEFAULT_LOGICANALYZER_TRACES_DIRECTORY.toString(), DEFAULT_LOGICANALYZER_FILENAME), bufferIndexNumber-1);
                         label1.setText(Integer.toString(bufferIndexNumber));
                     }
                 }else{
-                   System.out.println("6bufferIndexNumber-1:"+(bufferIndexNumber));
+                   if(DEBUG_LOGICANALYZERDIALOG) System.out.println("6bufferIndexNumber-1:"+(bufferIndexNumber));
                     bufferIndexNumber = Integer.valueOf(label3.getText());
                     label1.setText(Integer.toString(1));
                      thewindow.openXMLSketch(thewindow.getSelectedFile(), bufferIndexNumber-1);

@@ -69,7 +69,7 @@ public class CreateProjectDialog extends JDialog{
             public void windowClosing(WindowEvent e) {
                    // window.checkForSave();
                     dispose();
-                    System.out.println("Window Adapter in CreateProjectDialog Closing event!!");
+                    if(DEBUG_CREATEPROJECTDIALOG) System.out.println("Window Adapter in CreateProjectDialog Closing event!!");
                     System.exit(0);
             } 
         });
@@ -106,7 +106,7 @@ public class CreateProjectDialog extends JDialog{
                 boolean created = new File(DEFAULT_PROJECT_ROOT.toString()+"//"+projectNameStr).mkdir();
                 if(!created){
                     JOptionPane.showMessageDialog(null, "Error Project folder not created!");
-                    System.out.println("Project Folder not created");
+                    if(DEBUG_CREATEPROJECTDIALOG) System.out.println("Project Folder not created");
                 }
                 if(created) theApp.setProjectFolder(new File(DEFAULT_PROJECT_ROOT.toString()+"//"+projectNameStr));
                 

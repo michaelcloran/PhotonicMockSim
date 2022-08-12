@@ -5,10 +5,6 @@
  */
 package com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer;
 
-import static Constants.PhotonicMockSimConstants.LINE;
-import static Constants.PhotonicMockSimConstants.LOGIC_ANALYZER_STEP_LINE;
-import static Constants.PhotonicMockSimConstants.LOGIC_ANALYZER_STEP_TEXT;
-import static Constants.PhotonicMockSimConstants.TEXT;
 import com.photoniccomputer.photonicmocksim.PhotonicMockSimFrame.SimulateDialog;
 import com.photoniccomputer.photonicmocksim.dialogs.LogicAnalyzerDialog;
 import com.photoniccomputer.photonicmocksim.dialogs.logicanalyzer.LogicAnalyzerModel.LogicTrace;
@@ -31,6 +27,8 @@ import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.event.MouseInputAdapter;
+
+import static Constants.PhotonicMockSimConstants.*;
 
 /**
  *
@@ -143,10 +141,10 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                        if(getTopIndex().y >0 && getTopIndex().x <=0) {
                         g2D.translate(0, -topIndex.y);
                     }else {
-                            System.out.println("testpoint transofrm x:"+topIndex.x);
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("testpoint transofrm x:"+topIndex.x);
                         g2D.translate(-topIndex.x, 0);
                     }
-                    System.out.println("getTopIndex:"+getTopIndex());
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("getTopIndex:"+getTopIndex());
                     comp.draw(g2D);
                     g2D.setTransform(old);
                 }else{
@@ -190,9 +188,9 @@ public class LogicAnalyzerView extends JComponent implements Observer{
         if(text != null && !text.isEmpty()){
             Graphics2D g2D = (Graphics2D)getGraphics();
             LogicAnalyzerComponent tempComponent;
-                
-                
-            System.out.println("1.2testpoint here start:"+start);
+
+
+            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1.2testpoint here start:"+start);
                 
             tempComponent = new LogicAnalyzerComponent.Text(text, new Point(start.x, start.y-10), Color.GRAY, g2D.getFontMetrics(logicAnalyzerApp.getWindow().getFont()));
 
@@ -263,7 +261,7 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                 if(logicAnalyzerApp.getModel().getLogicTracesMap().size() >= 1){
                     
                     int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
-                    System.out.println("more than one trace numberTraces:"+numberTraces);  
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("more than one trace numberTraces:"+numberTraces);
                     lowIntensityPositionY = yoffset+((numberTraces+1)*40)-5;//30;//yoffset+35; 
                     highIntensityPositionY = yoffset+((numberTraces+1)*40)-25;//0;//yoffset+15
                 }else{
@@ -272,12 +270,12 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                     highIntensityPositionY = yoffset+15;//0;//yoffset+10
                 }
                 //end testing here
-                System.out.println("++++++++++++++++++++++++++++++++++++1testpoint here");
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("++++++++++++++++++++++++++++++++++++1testpoint here");
                 Point start = new Point(xoffset, lowIntensityPositionY);
                 Point currentPos = new Point(start.x+tickStepAmount, lowIntensityPositionY);
                 //if(logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber)==1) tickStartPoint.x = currentPos.x ;
-                
-                System.out.println("Adding line start:"+start+" end:"+currentPos);
+
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("Adding line start:"+start+" end:"+currentPos);
                 
                 tempComponent = new LogicAnalyzerComponent.Line(start, currentPos, Color.BLUE);
                 tempComponent.setIntensityLevel(intensityLevel);
@@ -286,20 +284,20 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                 int logicTraceNumber = logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber);
                    
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentPosition(start);
-                System.out.println("start:"+start);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("start:"+start);
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentEndPosition(currentPos);
-                System.out.println("currentPos:"+currentPos);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("currentPos:"+currentPos);
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentNumber(1);
-                System.out.println("logicTraceNumber.getPrevComponentNumber:"+ logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getPrevComponentNumber());
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("logicTraceNumber.getPrevComponentNumber:"+ logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getPrevComponentNumber());
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevIntensityLevel(intensityLevel);
-                System.out.println("intensityLevel:"+intensityLevel);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("intensityLevel:"+intensityLevel);
                 
             }else if(intensityLevel == 1){
                 //testing here
                 if(logicAnalyzerApp.getModel().getLogicTracesMap().size() >= 1){
                     
                     int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
-                    System.out.println("more than one trace numberTraces:"+numberTraces);  
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("more than one trace numberTraces:"+numberTraces);
                     lowIntensityPositionY = yoffset+((numberTraces+1)*40)-5;//30;//yoffset+35; 
                     highIntensityPositionY = yoffset+((numberTraces+1)*40)-25;//0;//yoffset+15
                 }else{
@@ -337,10 +335,10 @@ public class LogicAnalyzerView extends JComponent implements Observer{
             if(logicAnalyzerApp.getModel().getLogicTracesMap().size() > 1){
                 int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
                 start = new Point(xoffset+10, (yoffset+(40*numberTraces))-38);
-                System.out.println("1testpoint here start:"+start);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoint here start:"+start);
             }else{
                 start = new Point(xoffset+10, (yoffset+40)-38);
-                System.out.println("2testpoint here start:"+start);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("2testpoint here start:"+start);
             }
             tempComponent = new LogicAnalyzerComponent.Text(text, start, Color.black, g2D.getFontMetrics(logicAnalyzerApp.getWindow().getFont()));
                     
@@ -374,7 +372,7 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                 if(logicAnalyzerApp.getModel().getLogicTracesMap().size() > 1){
                     
                     int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
-                    System.out.println("more than one trace numberTraces:"+numberTraces);  
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("more than one trace numberTraces:"+numberTraces);
                     lowIntensityPositionY = yoffset+((logicTraceNumber)*40)-5;//30;//yoffset+35; 
                     highIntensityPositionY = yoffset+((logicTraceNumber)*40)-25;//0;//yoffset+15
                 }else{
@@ -383,12 +381,12 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                     highIntensityPositionY = yoffset+15;//0;//yoffset+10
                 }
                 //end testing here
-                System.out.println("++++++++++++++++++++++++++++++++++++1testpoint here");
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("++++++++++++++++++++++++++++++++++++1testpoint here");
                 Point start = new Point(xoffset, lowIntensityPositionY);
                 Point currentPos = new Point(start.x+tickStepAmount, lowIntensityPositionY);
                 //if(logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber)==1) tickStartPoint.x = currentPos.x ;
-                
-                System.out.println("Adding line start:"+start+" end:"+currentPos);
+
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("Adding line start:"+start+" end:"+currentPos);
                 
                 tempComponent = new LogicAnalyzerComponent.Line(start, currentPos, Color.BLUE);
                 tempComponent.setIntensityLevel(intensityLevel);
@@ -400,20 +398,20 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getLogicTraceMap().put(logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getLogicTraceMap().size()+1, tempComponent);
                    
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentPosition(start);
-                System.out.println("start:"+start);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("start:"+start);
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentEndPosition(currentPos);
-                System.out.println("currentPos:"+currentPos);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("currentPos:"+currentPos);
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentNumber(1);
-                System.out.println("logicTraceNumber.getPrevComponentNumber:"+ logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getPrevComponentNumber());
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("logicTraceNumber.getPrevComponentNumber:"+ logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).getPrevComponentNumber());
                 logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevIntensityLevel(intensityLevel);
-                System.out.println("intensityLevel:"+intensityLevel);
+                if(DEBUG_LOGICANALYZERVIEW) System.out.println("intensityLevel:"+intensityLevel);
                 
             }else if(intensityLevel == 1){
                 //testing here
                 if(logicAnalyzerApp.getModel().getLogicTracesMap().size() > 1){
                     
                     int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
-                    System.out.println("more than one trace numberTraces:"+numberTraces);  
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("more than one trace numberTraces:"+numberTraces);
                     lowIntensityPositionY = yoffset+((logicTraceNumber)*40)-5;//30;//yoffset+35; 
                     highIntensityPositionY = yoffset+((logicTraceNumber)*40)-25;//0;//yoffset+15
                 }else{
@@ -461,7 +459,7 @@ public class LogicAnalyzerView extends JComponent implements Observer{
             
             int traceNumber = logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber);
             int numberTraces = logicAnalyzerApp.getModel().getLogicTracesMap().size();
-            System.out.println("more than one trace numberTraces:"+numberTraces);  
+            if(DEBUG_LOGICANALYZERVIEW) System.out.println("more than one trace numberTraces:"+numberTraces);
             lowIntensityPositionY = yoffset+(traceNumber*40)-5;//30;//yoffset+35; 
             highIntensityPositionY = yoffset+(traceNumber*40)-25;//0;//yoffset+15
           
@@ -477,65 +475,65 @@ public class LogicAnalyzerView extends JComponent implements Observer{
             if(logicTrace.getPrevIntensityLevel() == 0){
                 if(logicTrace.getPrevComponentPosition() != new Point(0,0)){
                     Point start = new Point((logicTrace.getPrevComponentPosition().x), logicTrace.getPrevComponentPosition().y);
-                    System.out.println("1testpoint previous intensity level 0 to 0 start position:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoint previous intensity level 0 to 0 start position:"+start);
                     
                     //////////////////////////// new code ///////////////////////////
                     if(logicTrace.getPrevComponentEndPosition().x+tickStepAmount >= logicAnalyzerApp.getViewWindowWidth()-80){
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         //need to stop simulation and resume when finished
                         /*for(LogicTrace logicTrace1: logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                             clearLogicTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber());
-                            System.out.println("1testpoing done clear function");
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing done clear function");
                             addComponentToTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber(),logicTrace1.getIntensityLevel());
-                            System.out.println("1testpoing added a component to the trace Map");     
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing added a component to the trace Map");
                         }*/
                         /*if(ticksNotAlreadyClearedBool == false){
                             clearTicks();
                             ticksNotAlreadyClearedBool = true;
                         }*/
                         logicTrace = logicTracesMap.get(logicTraceNumber);
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     }
                     //////////////////////////// end new code ///////////////////////////
-                    System.out.println("++++ logicTrace.getPrevComponentEndPosition().x ++++:"+logicTrace.getPrevComponentEndPosition().x);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("++++ logicTrace.getPrevComponentEndPosition().x ++++:"+logicTrace.getPrevComponentEndPosition().x);
                     currentPos = new Point(logicTrace.getPrevComponentEndPosition().x+tickStepAmount, logicTrace.getPrevComponentEndPosition().y);
                     //if(logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber)==1) tickStartPoint.x = currentPos.x;
-                        
-                    System.out.println("1testpoint end position:"+currentPos+ " intensitylevel:"+intensityLevel+ " logicTrace.getPrevComponentNumber():"+logicTrace.getPrevComponentNumber()+" logicTrace.getPrevComponentPosition():"+logicTrace.getPrevComponentPosition()+" logicTraceNumber:"+logicTraceNumber);
-                    System.out.println(" prevComponentNumber:"+(logicAnalyzerApp.getModel().getTraceNumbersComponent(logicTraceNumber, logicTrace.getPrevComponentNumber())).getComponentNumber()) ; 
+
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoint end position:"+currentPos+ " intensitylevel:"+intensityLevel+ " logicTrace.getPrevComponentNumber():"+logicTrace.getPrevComponentNumber()+" logicTrace.getPrevComponentPosition():"+logicTrace.getPrevComponentPosition()+" logicTraceNumber:"+logicTraceNumber);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println(" prevComponentNumber:"+(logicAnalyzerApp.getModel().getTraceNumbersComponent(logicTraceNumber, logicTrace.getPrevComponentNumber())).getComponentNumber()) ;
                     (logicAnalyzerApp.getModel().getTraceNumbersComponent(logicTraceNumber, logicTrace.getPrevComponentNumber())).modify(logicTrace.getPrevComponentPosition(), currentPos);
                         
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentPosition(start);
-                    System.out.println("start of component:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("start of component:"+start);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentEndPosition(currentPos);
-                    System.out.println("start of currentPos:"+currentPos);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("start of currentPos:"+currentPos);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentNumber(logicTrace.getPrevComponentNumber());
-                    System.out.println("start of logicTrace.getPrevComponentNumber:"+logicTrace.getPrevComponentNumber());
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("start of logicTrace.getPrevComponentNumber:"+logicTrace.getPrevComponentNumber());
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevIntensityLevel(intensityLevel);
-                    System.out.println("start of intensity:"+intensityLevel);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("start of intensity:"+intensityLevel);
                         
                 }
             }else if(logicTrace.getPrevIntensityLevel() == 1){
                 if(logicTrace.getPrevComponentPosition() != new Point(0,0)){
                                                
                     Point start = new Point(logicTrace.getPrevComponentEndPosition().x, (logicTrace.getPrevComponentEndPosition().y+20));
-                    System.out.println("2testpoint previous intensity level 1 to 0 start position:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("2testpoint previous intensity level 1 to 0 start position:"+start);
                     
                     //////////////////////////// new code ///////////////////////////
                     if(logicTrace.getPrevComponentEndPosition().x+tickStepAmount >= logicAnalyzerApp.getViewWindowWidth()-80){
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         /*for(LogicTrace logicTrace1: logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                             clearLogicTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber());
-                            System.out.println("1testpoing done clear function");
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing done clear function");
                             addComponentToTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber(),logicTrace1.getIntensityLevel());
-                            System.out.println("1testpoing added a component to the trace Map");   
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing added a component to the trace Map");
                         }*/
                         /* if(ticksNotAlreadyClearedBool == false){
                             clearTicks();
                             ticksNotAlreadyClearedBool = true;
                         }*/
                         logicTrace = logicTracesMap.get(logicTraceNumber);
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     }
                     //////////////////////////// end new code ///////////////////////////
                     
@@ -577,23 +575,23 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                 if(logicTrace.getPrevComponentPosition() != new Point(0,0)){
                     
                     Point start = new Point(logicTrace.getPrevComponentEndPosition().x, logicTrace.getPrevComponentEndPosition().y-20);
-                    System.out.println("3testpoint previous intensity level 0 to 1 start position:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3testpoint previous intensity level 0 to 1 start position:"+start);
                     
                     //////////////////////////// new code ///////////////////////////
                     if(logicTrace.getPrevComponentEndPosition().x+tickStepAmount >= logicAnalyzerApp.getViewWindowWidth()-80){
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         /*for(LogicTrace logicTrace1: logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                             clearLogicTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber());
-                            System.out.println("1testpoing done clear function");
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing done clear function");
                             addComponentToTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber(),logicTrace1.getIntensityLevel());
-                            System.out.println("1testpoing added a component to the trace Map");   
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing added a component to the trace Map");
                         }*/
                         /* if(ticksNotAlreadyClearedBool == false){
                             clearTicks();
                             ticksNotAlreadyClearedBool = true;
                         }*/
                         logicTrace = logicTracesMap.get(logicTraceNumber);
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     }
                     //////////////////////////// end new code ///////////////////////////
                     
@@ -608,13 +606,13 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                     
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).addTraceComponent(tempComponent1.getComponentNumber(), tempComponent1);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentPosition(start);
-                    System.out.println("3 start:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 start:"+start);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentEndPosition(new Point(start.x, highIntensityPositionY));
-                    System.out.println("3 prevEndPosition:"+ start.x+":"+(highIntensityPositionY-10));
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 prevEndPosition:"+ start.x+":"+(highIntensityPositionY-10));
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentNumber(tempComponent1.getComponentNumber());
-                    System.out.println("3 prevcomponenrt Number:"+tempComponent1.getComponentNumber());
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 prevcomponenrt Number:"+tempComponent1.getComponentNumber());
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevIntensityLevel(intensityLevel);
-                    System.out.println("3 intensityLevel:"+intensityLevel);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 intensityLevel:"+intensityLevel);
                              
                              
                     LogicAnalyzerComponent tempComponent;
@@ -625,42 +623,42 @@ public class LogicAnalyzerView extends JComponent implements Observer{
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).addTraceComponent(tempComponent.getComponentNumber(), tempComponent);
                             
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentPosition(start);
-                    System.out.println("3 start:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 start:"+start);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentEndPosition(currentPos);
-                    System.out.println("3 currentPos:"+currentPos);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 currentPos:"+currentPos);
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevComponentNumber(tempComponent.getComponentNumber());
-                    System.out.println("3 tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 tempComponent.getComponentNumber():"+tempComponent.getComponentNumber());
                     logicAnalyzerApp.getModel().getLogicTracesMap().get(logicTraceNumber).setPrevIntensityLevel(intensityLevel);
-                    System.out.println("3 intensityLevel:"+intensityLevel);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("3 intensityLevel:"+intensityLevel);
 
                 }
             }else if(logicTrace.getPrevIntensityLevel()==1){
              
                 if(logicTrace.getPrevComponentPosition() != new Point(0,0)){   
                     Point start = new Point(logicTrace.getPrevComponentPosition().x, logicTrace.getPrevComponentPosition().y);
-                    System.out.println("4testpoint previous intensity level 1 to 1 start position:"+start);
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("4testpoint previous intensity level 1 to 1 start position:"+start);
                     
                     //////////////////////////// new code ///////////////////////////
                     if(logicTrace.getPrevComponentEndPosition().x+tickStepAmount >= logicAnalyzerApp.getViewWindowWidth()-80){
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                         /*for(LogicTrace logicTrace1: logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                             clearLogicTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber());
-                            System.out.println("1testpoing done clear function");
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing done clear function");
                             addComponentToTraceMap(logicTrace1.getPartNumber(), logicTrace1.getLayerNumber(), logicTrace1.getModuleNumber(), logicTrace1.getComponentNumber(), logicTrace1.getPortNumber(),logicTrace1.getIntensityLevel());
-                            System.out.println("1testpoing added a component to the trace Map");   
+                            if(DEBUG_LOGICANALYZERVIEW) System.out.println("1testpoing added a component to the trace Map");
                         }*/
                         /* if(ticksNotAlreadyClearedBool == false){
                             clearTicks();
                             ticksNotAlreadyClearedBool = true;
                         }*/
                         logicTrace = logicTracesMap.get(logicTraceNumber);
-                        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                        if(DEBUG_LOGICANALYZERVIEW) System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                     }
                     //////////////////////////// end new code ///////////////////////////
                     
                     currentPos = new Point(logicTrace.getPrevComponentEndPosition().x+tickStepAmount, logicTrace.getPrevComponentEndPosition().y);
                     //if(logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber)==1) tickStartPoint.x = currentPos.x;
-                    System.out.println("4testpoint end position:"+currentPos+ " intensitylevel:"+intensityLevel+" logicTrace.getPrevComponentNumber():"+logicTrace.getPrevComponentNumber());
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("4testpoint end position:"+currentPos+ " intensitylevel:"+intensityLevel+" logicTrace.getPrevComponentNumber():"+logicTrace.getPrevComponentNumber());
                             
                     (logicAnalyzerApp.getModel().getTraceNumbersComponent(logicTraceNumber, logicTrace.getPrevComponentNumber())).modify(logicTrace.getPrevComponentPosition(), currentPos);
                     
@@ -679,16 +677,16 @@ public class LogicAnalyzerView extends JComponent implements Observer{
     public void updateTraces(int partNumber, int layerNumber, int moduleNumber, int componentNumber, int portNumber, int intensityLevel){
         if(logicAnalyzerApp.getModel().getLogicTracesMap().size() == 0){
             addComponent(partNumber, layerNumber, moduleNumber, componentNumber, portNumber, intensityLevel);
-            System.out.println("logicTracesMap size == 0");
+            if(DEBUG_LOGICANALYZERVIEW) System.out.println("logicTracesMap size == 0");
         }else if(logicAnalyzerApp.getModel().checkIfLogicTraceInTracesMap(partNumber, layerNumber, moduleNumber, componentNumber, portNumber)==0){//trace not already there
             
             addComponent(partNumber, layerNumber, moduleNumber, componentNumber, portNumber, intensityLevel);
-            System.out.println("partNumber:"+partNumber+" layerNumber:"+layerNumber+" moduleNumber:"+moduleNumber+" ComponentNumber:"+componentNumber+" portNumber:"+portNumber+" intensity:"+intensityLevel);
-            System.out.println("logic traces map > 0 but not in map so adding to logicTracesMap!!");
+            if(DEBUG_LOGICANALYZERVIEW) System.out.println("partNumber:"+partNumber+" layerNumber:"+layerNumber+" moduleNumber:"+moduleNumber+" ComponentNumber:"+componentNumber+" portNumber:"+portNumber+" intensity:"+intensityLevel);
+            if(DEBUG_LOGICANALYZERVIEW) System.out.println("logic traces map > 0 but not in map so adding to logicTracesMap!!");
         }else{
             for(LogicTrace logicTrace : logicAnalyzerApp.getModel().getLogicTracesMap().values()){
                 if(partNumber == logicTrace.getPartNumber() && layerNumber == logicTrace.getLayerNumber() && moduleNumber == logicTrace.getModuleNumber() && componentNumber == logicTrace.getComponentNumber() && portNumber == logicTrace.getPortNumber()){
-                    System.out.println("modifyTraces testpoint");
+                    if(DEBUG_LOGICANALYZERVIEW) System.out.println("modifyTraces testpoint");
                     modifyTraces(partNumber, layerNumber, moduleNumber, componentNumber, portNumber, intensityLevel);
                 }
                 

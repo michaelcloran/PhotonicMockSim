@@ -110,9 +110,9 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                 String blockModelMappedPortString = Combo2.getSelectedItem().toString();
                 
                 Integer blockModelPortNumberInt = new Integer(blockModelMappedPortString.substring(1,blockModelMappedPortString.indexOf("-")));
-                System.out.println("blockModelPortNumberString:"+blockModelPortNumberInt);
+                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("blockModelPortNumberString:"+blockModelPortNumberInt);
                 selectedComponent.setBlockModelPortNumber(0);
-                System.out.println("selectedComponent.getBlockModelPortNumber:"+selectedComponent.getBlockModelPortNumber());
+                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("selectedComponent.getBlockModelPortNumber:"+selectedComponent.getBlockModelPortNumber());
                 //component.setBlockModelPortNumber(0);
                 Combo1.addItem(blockModelPortNumberInt);
                 Combo2.removeItem(blockModelMappedPortString);
@@ -126,7 +126,7 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                 Integer blockModelPortNumber = new Integer(Combo1.getSelectedItem().toString());
                 
                 selectedComponent.setBlockModelPortNumber(blockModelPortNumber);
-                System.out.println("selectedComponent.setBlockModelPortNumber:"+selectedComponent.getBlockModelPortNumber());
+                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("selectedComponent.setBlockModelPortNumber:"+selectedComponent.getBlockModelPortNumber());
                 //portNumber = component.getBlockModelPortNumber();
                
                 
@@ -155,30 +155,30 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         int inputCtr = 0;
         int outputCtr = 0;
         String inputString;
-        System.out.println("SetBlockModelPortNumberDialog partNumber:"+part.getPartNumber());
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG)  System.out.println("SetBlockModelPortNumberDialog partNumber:"+part.getPartNumber());
         for(Layer layer : part.getLayersMap().values()){
             for(Module module : layer.getModulesMap().values()){
                 for(CircuitComponent comp : module.getComponentsMap().values()){
                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){//input ports
                         if(comp.getBlockModelPortNumber() != 0 && comp.getInputConnectorsMap().get(1).getIMLSForComponent().size()==0){
-                            System.out.println("1inputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG)  System.out.println("1inputCtr:"+inputCtr);
                             inputCtr = inputCtr + 1;
-                            System.out.println("1AfterinputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfterinputCtr:"+inputCtr);
                         }else if(showBlockModelContents == YES){
-                            System.out.println("1.1inputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.1inputCtr:"+inputCtr);
                             inputCtr = inputCtr + 1;
-                            System.out.println("1.1AfterinputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.1AfterinputCtr:"+inputCtr);
                         }
                     }
                     if(comp.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_START){//output ports
                         if(comp.getBlockModelPortNumber() != 0 && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().size()==0){
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                             outputCtr = outputCtr + 1;
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                         }else if(showBlockModelContents == YES){
-                            System.out.println("1.outputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.outputCtr:"+outputCtr);
                             outputCtr = outputCtr + 1;
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                         }
                     }
                 }
@@ -196,9 +196,9 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         
         outputPortNumberMappedArray[0] = " ";
         outputPortNumberMappedIntArr[0] = 0;
-        
-        System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
-        System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
+
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
         
         int ctr = 0;//on 6/6/18 changed to 0
         int inputPortCtr = 0;
@@ -212,12 +212,12 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                             if(comp.getBlockModelPortNumber() != 0 && comp.getComponentNumber() == component.getComponentNumber()){
                                 blockModelPrtIndex = ctr;
                             }
-                            System.out.println("blockModelPrtIndex ctr:"+ctr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("blockModelPrtIndex ctr:"+ctr);
                             inputPortNumberMappedArray[ctr] = "p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber();
                             inputPortNumberMappedIntArr[ctr] = comp.getBlockModelPortNumber();
-                            System.out.println("inputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
-                            System.out.println("inputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
-                            System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                             ctr = ctr + 1;
                         }
                         inputPortCtr = inputPortCtr + 1;
@@ -227,8 +227,8 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         }
         
         if(selectedComponent.getComponentType() == SAME_LAYER_INTER_MODULE_LINK_END){
-            System.out.println("input ctr:"+ctr);
-            System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("input ctr:"+ctr);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
             Arrays.sort(inputPortNumberMappedArray,0 , ctr);
             for(String value : inputPortNumberMappedArray){
                 Combo2.addItem(value);
@@ -236,7 +236,7 @@ public class SetBlockModelPortNumberDialog extends JDialog{
 
             for(int x = 1; x<= inputPortCtr; x++){
                 if(checkIfContainsValue(x,inputPortCtr,inputPortNumberMappedIntArr)==false){
-                    System.out.println("inputPortNumberMappedIntArr x:"+x);
+                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr x:"+x);
                     Combo1.addItem(x);
                 }
             }
@@ -256,12 +256,12 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                             if(comp.getBlockModelPortNumber() != 0){
                                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentNumber() == component.getComponentNumber()){
                                     blockModelPrtIndex = ctr;
-                                    System.out.println("blockModelPrtIndex ctr:"+ctr);
+                                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("blockModelPrtIndex ctr:"+ctr);
                                 }
                                 outputPortNumberMappedArray[ctr] = "p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber();
                                 outputPortNumberMappedIntArr[ctr] = comp.getBlockModelPortNumber();
-                                System.out.println("outputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
-                                System.out.println("outputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
+                                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
+                                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
                                 ctr = ctr + 1;
                             }
                             outputPortCtr = outputPortCtr + 1;
@@ -269,8 +269,8 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                     }
                 }
             }
-            System.out.println("ctr"+ctr);
-            System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("ctr"+ctr);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
             Arrays.sort(outputPortNumberMappedArray,0,ctr);
             for(String value : outputPortNumberMappedArray){
                 Combo2.addItem(value);
@@ -278,7 +278,7 @@ public class SetBlockModelPortNumberDialog extends JDialog{
             
             for(int x = inputPortCtr+1; x< outputPortCtr; x++){
                 if(!checkIfContainsValue(x,outputPortCtr,outputPortNumberMappedIntArr)){
-                    System.out.println("outputPortNumberMappedIntArr x:"+x);
+                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedIntArr x:"+x);
                     Combo1.addItem(x);
                 }
             }
@@ -293,30 +293,30 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         int inputCtr = 0;
         int outputCtr = 0;
         String inputString;
-        System.out.println("SetBlockModelPortNumberDialog partNumber:"+part.getPartNumber());
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("SetBlockModelPortNumberDialog partNumber:"+part.getPartNumber());
         for(Layer layer : part.getLayersMap().values()){
             for(Module module : layer.getModulesMap().values()){
                 for(CircuitComponent comp : module.getComponentsMap().values()){
                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){//input ports
                         if(comp.getBlockModelPortNumber() != 0 && comp.getInputConnectorsMap().get(1).getIMLSForComponent().size()==0){
-                            System.out.println("1inputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1inputCtr:"+inputCtr);
                             inputCtr = inputCtr + 1;
-                            System.out.println("1AfterinputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfterinputCtr:"+inputCtr);
                         }else if(showBlockModelContents == YES){
-                            System.out.println("1.1inputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.1inputCtr:"+inputCtr);
                             inputCtr = inputCtr + 1;
-                            System.out.println("1.1AfterinputCtr:"+inputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.1AfterinputCtr:"+inputCtr);
                         }
                     }
                     if(comp.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_START){//output ports
                         if(comp.getBlockModelPortNumber() != 0 && comp.getOutputConnectorsMap().get(2).getIMLSForComponent().size()==0){
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                             outputCtr = outputCtr + 1;
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                         }else if(showBlockModelContents == YES){
-                            System.out.println("1.outputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1.outputCtr:"+outputCtr);
                             outputCtr = outputCtr + 1;
-                            System.out.println("1AfteroutputCtr:"+outputCtr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("1AfteroutputCtr:"+outputCtr);
                         }
                     }
                 }
@@ -334,9 +334,9 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         
         outputPortNumberMappedArray[0] = " ";
         outputPortNumberMappedIntArr[0] = 0;
-        
-        System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
-        System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
+
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
+        if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
         
         int ctr = 0;//on 6/6/18 changed to 0
         int inputPortCtr = 0;
@@ -350,12 +350,12 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                             if(comp.getBlockModelPortNumber() != 0 && comp.getComponentNumber() == component.getComponentNumber()){
                                 blockModelPrtIndex = ctr;
                             }
-                            System.out.println("blockModelPrtIndex ctr:"+ctr);
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("blockModelPrtIndex ctr:"+ctr);
                             inputPortNumberMappedArray[ctr] = "p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber();
                             inputPortNumberMappedIntArr[ctr] = comp.getBlockModelPortNumber();
-                            System.out.println("inputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
-                            System.out.println("inputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
-                            System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
+                            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("comp.getBlockModelPortNumber():"+comp.getBlockModelPortNumber());
                             ctr = ctr + 1;
                         }
                         inputPortCtr = inputPortCtr + 1;
@@ -365,8 +365,8 @@ public class SetBlockModelPortNumberDialog extends JDialog{
         }
         
         if(selectedComponent.getComponentType() == DIFFERENT_LAYER_INTER_MODULE_LINK_END){
-            System.out.println("input ctr:"+ctr);
-            System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("input ctr:"+ctr);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedArray.length:"+inputPortNumberMappedArray.length);
             Arrays.sort(inputPortNumberMappedArray,0 , ctr);
             for(String value : inputPortNumberMappedArray){
                 Combo2.addItem(value);
@@ -374,7 +374,7 @@ public class SetBlockModelPortNumberDialog extends JDialog{
 
             for(int x = 1; x<= inputPortCtr; x++){
                 if(checkIfContainsValue(x,inputPortCtr,inputPortNumberMappedIntArr)==false){
-                    System.out.println("inputPortNumberMappedIntArr x:"+x);
+                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr x:"+x);
                     Combo1.addItem(x);
                 }
             }
@@ -394,12 +394,12 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                             if(comp.getBlockModelPortNumber() != 0){
                                 if(comp.getBlockModelPortNumber() != 0 && comp.getComponentNumber() == component.getComponentNumber()){
                                     blockModelPrtIndex = ctr;
-                                    System.out.println("blockModelPrtIndex ctr:"+ctr);
+                                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("blockModelPrtIndex ctr:"+ctr);
                                 }
                                 outputPortNumberMappedArray[ctr] = "p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber();
                                 outputPortNumberMappedIntArr[ctr] = comp.getBlockModelPortNumber();
-                                System.out.println("outputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
-                                System.out.println("outputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
+                                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray["+ctr+"]: p"+comp.getBlockModelPortNumber()+"->P"+part.getPartNumber()+".L"+layer.getLayerNumber()+".M"+module.getModuleNumber()+".C"+comp.getComponentNumber());
+                                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedIntArr["+ctr+"]:"+comp.getBlockModelPortNumber());
                                 ctr = ctr + 1;
                             }
                             outputPortCtr = outputPortCtr + 1;
@@ -407,8 +407,8 @@ public class SetBlockModelPortNumberDialog extends JDialog{
                     }
                 }
             }
-            System.out.println("ctr"+ctr);
-            System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("ctr"+ctr);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedArray.length:"+outputPortNumberMappedArray.length);
             Arrays.sort(outputPortNumberMappedArray,0,ctr);
             for(String value : outputPortNumberMappedArray){
                 Combo2.addItem(value);
@@ -416,7 +416,7 @@ public class SetBlockModelPortNumberDialog extends JDialog{
             
             for(int x = inputPortCtr+1; x< outputPortCtr; x++){
                 if(!checkIfContainsValue(x,outputPortCtr,outputPortNumberMappedIntArr)){
-                    System.out.println("outputPortNumberMappedIntArr x:"+x);
+                    if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("outputPortNumberMappedIntArr x:"+x);
                     Combo1.addItem(x);
                 }
             }
@@ -430,9 +430,9 @@ public class SetBlockModelPortNumberDialog extends JDialog{
     private boolean checkIfContainsValue(int x, int inputPortCtr, int inputPortNumberMappedIntArr[]){
         boolean containsValue = false;
         for(int temp : inputPortNumberMappedIntArr){
-            System.out.println("inputPortNumberMappedIntArr i:"+x+" temp:"+temp);
+            if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr i:"+x+" temp:"+temp);
             if(temp == x){
-                System.out.println("inputPortNumberMappedIntArr contains i:"+x);
+                if(DEBUG_SETBLOCKMODELPORTNUMBERDIALOG) System.out.println("inputPortNumberMappedIntArr contains i:"+x);
                 containsValue= true;
                 return containsValue;
             }

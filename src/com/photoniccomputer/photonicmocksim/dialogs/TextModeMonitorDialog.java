@@ -6,10 +6,6 @@ import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMoni
 import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorFrame;
 import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorModel;
 import com.photoniccomputer.photonicmocksim.dialogs.textmodemonitor.TextModeMonitorView;
-import static Constants.PhotonicMockSimConstants.BACKGROUND_COLOR;
-import static Constants.PhotonicMockSimConstants.DEFAULT_VIRTUAL_MONITOR_BACKGROUND_COLOR;
-import static Constants.PhotonicMockSimConstants.DEFAULT_VIRTUAL_MONITOR_FONT;
-import static Constants.PhotonicMockSimConstants.DEFAULT_VIRTUAL_MONITOR_TEXT_COLOR;
 import com.photoniccomputer.photonicmocksim.PhotonicMockSim;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -32,6 +28,8 @@ import javax.swing.JFrame;
 import javax.swing.SwingWorker;
 import java.util.Timer;
 import java.util.TreeMap;
+
+import static Constants.PhotonicMockSimConstants.*;
 
 /*
 Copyright Michael Cloran 2013
@@ -102,11 +100,11 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
             public void run(){
                 
                 
-                System.out.println("update gui");
+                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("update gui");
                 selectedComponent = theApp.getModel().getPartsMap().get(partNumber).getLayersMap().get(layerNumber).getModulesMap().get(moduleNumber).getComponentsMap().get(componentNumber);
                 char uniwavelength = new Character('\u03bb');
-                
-                System.out.println("ASCII Code:\nLSB                                                      MSB\n"
+
+                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("ASCII Code:\nLSB                                                      MSB\n"
                                     +uniwavelength+selectedComponent.getInputConnectorsMap().get(1).getInputWavelength()+"["+selectedComponent.getInputConnectorsMap().get(1).getInputBitLevel()+"], "
                                     +uniwavelength+selectedComponent.getInputConnectorsMap().get(2).getInputWavelength()+"["+selectedComponent.getInputConnectorsMap().get(2).getInputBitLevel()+"], "
                                     +uniwavelength+selectedComponent.getInputConnectorsMap().get(3).getInputWavelength()+"["+selectedComponent.getInputConnectorsMap().get(3).getInputBitLevel()+"], "
@@ -127,11 +125,11 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
                                         +selectedComponent.getInputConnectorsMap().get(1).getInputBitLevel()+"";
                 //String str = "01100001";
                 //System.out.println("straight lookup:"+asciiCharacterLookupTableMap.get(str)+" str:"+str);
-                
-                System.out.println("ASCII BinaryString:"+byteString);
+
+                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("ASCII BinaryString:"+byteString);
                 if(!byteString.equals("00000000")){
                     if(asciiCharacterLookupTableMap.get(byteString)!=null){
-                        System.out.println("ASCII character:"+asciiCharacterLookupTableMap.get(byteString));
+                        if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("ASCII character:"+asciiCharacterLookupTableMap.get(byteString));
                         String currentCharacterString = asciiCharacterLookupTableMap.get(byteString);
                         TextModeMonitorComponent textStringComponent=null;
                         if(currentCharacterString.equals("RET")){
@@ -156,7 +154,7 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
                         selectedComponent.getInputConnectorsMap().get(1).setInputBitLevel(0);
                         
                         if( (caretTextComponent.getPosition().x+stringWidth) >=getWindowWidth() || currentCharacterString.equals("RET")){
-                            System.out.println("stringHeight:"+stringHeight);
+                            if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("stringHeight:"+stringHeight);
                             if((caretTextComponent.getPosition().y+stringHeight+4) > (getWindowHeight()-stringHeight*4)){
                                 for(TextModeMonitorComponent textComp : getModel().getComponentsList()){
                                     textComp.setPosition(new Point(textComp.getPosition().x,textComp.getPosition().y-(fm.getAscent()+fm.getDescent()+4)));
@@ -172,30 +170,30 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
                                 
                                 caretTextComponent.setPosition(new Point(2,caretTextComponent.getPosition().y));
                                 characterCount=1;
-                                System.out.println("1LineNumber:"+lineNumber+" characterNumber:"+characterCount);
+                                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("1LineNumber:"+lineNumber+" characterNumber:"+characterCount);
                                 thewindow.repaint();
                             }else{
                                 caretTextComponent.setPosition(new Point(2,(caretTextComponent.getPosition().y+fm.getAscent()+fm.getDescent()+4)));
                                 lineNumber=lineNumber+1;
                                 characterCount=1;
-                                System.out.println("2LineNumber:"+lineNumber+" characterNumber:"+characterCount);
+                                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("2LineNumber:"+lineNumber+" characterNumber:"+characterCount);
                                 thewindow.repaint();
                             }
                             
                         }else
                         if(currentCharacterString.equals("BAK")){
-                            System.out.println("Current String is BAK!!");
+                            if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("Current String is BAK!!");
                             if(caretTextComponent.getPosition().x-stringWidth>=2){
                                 caretTextComponent.setPosition(new Point( (caretTextComponent.getPosition().x-stringWidth),caretTextComponent.getPosition().y));
                                 characterCount=characterCount-1;
                                 getModel().removeLast();
-                                System.out.println("3LineNumber:"+lineNumber+" characterNumber:"+characterCount);
+                                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("3LineNumber:"+lineNumber+" characterNumber:"+characterCount);
                                 thewindow.repaint();
                             }
                         }else{
                             caretTextComponent.setPosition(new Point( (caretTextComponent.getPosition().x+textStringComponent.getFontWidth()),caretTextComponent.getPosition().y));
                             characterCount=characterCount+1;
-                            System.out.println("3LineNumber:"+lineNumber+" characterNumber:"+characterCount);
+                            if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("3LineNumber:"+lineNumber+" characterNumber:"+characterCount);
                             thewindow.repaint();
                         }
                         
@@ -230,7 +228,7 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
         @Override
         public void done(){
             if(selectedComponent!=null){
-                System.out.println("SwingWorker done setting output bit level to 0!!!!");
+                if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("SwingWorker done setting output bit level to 0!!!!");
                 selectedComponent.getOutputConnectorsMap().get(9).setOutputBitLevel(0);
                 
             }
@@ -353,7 +351,7 @@ public class TextModeMonitorDialog extends JDialog implements WindowListener, Wi
         int keyCode = e.getKeyCode();
         
         if(keyCode == KeyEvent.VK_ESCAPE){
-            System.out.println("ESC pressed");
+            if(DEBUG_TEXTMODEMONITORDIALOG) System.out.println("ESC pressed");
             if(timer!=null)timer.cancel();
             thewindow.setVisible(false);
             dispose();

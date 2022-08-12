@@ -44,12 +44,6 @@ package com.photoniccomputer.htmleditor.tabbedhtmleditordialog;
  *       derived works
  */ 
 
-import static Constants.PhotonicMockSimConstants.CHIP;
-import static Constants.PhotonicMockSimConstants.DEFAULT_PROJECT_ROOT;
-import static Constants.PhotonicMockSimConstants.DEFAULT_SPECIFICATION_FILENAME;
-import static Constants.PhotonicMockSimConstants.MODULE;
-import static Constants.PhotonicMockSimConstants.MOTHERBOARD;
-
 import com.photoniccomputer.photonicmocksim.*;
 
 //import com.photoniccomputer.photonicmocksim.dialogs.utils.DialogLayout2;
@@ -62,6 +56,8 @@ import com.photoniccomputer.photonicmocksim.*;
 //import com.sun.javafx.jmx.MXNodeAlgorithmContext;
 //import com.sun.javafx.sg.prism.NGNode;
 import java.awt.BorderLayout;
+
+import static Constants.PhotonicMockSimConstants.*;
 import static java.awt.BorderLayout.CENTER;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -301,7 +297,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         WindowListener wndCloser = new WindowAdapter(){
             public void windowClosing(WindowEvent e){
                 for(Documents docs : dl.getDocumentsList()){
-                    System.out.println("docs boolean:"+docs.getTextChanged()+" title:"+docs.getTabTitle()+" tabNumber:"+docs.getTabNumber());
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("docs boolean:"+docs.getTextChanged()+" title:"+docs.getTabTitle()+" tabNumber:"+docs.getTabNumber());
                     promptToSave(docs);
                 }
                 setVisible(false);
@@ -341,7 +337,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         WindowListener wndCloser = new WindowAdapter(){
             public void windowClosing(WindowEvent e){
                 for(Documents docs : dl.getDocumentsList()){
-                    System.out.println("docs boolean:"+docs.getTextChanged()+" title:"+docs.getTabTitle()+" tabNumber:"+docs.getTabNumber());
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("docs boolean:"+docs.getTextChanged()+" title:"+docs.getTabTitle()+" tabNumber:"+docs.getTabNumber());
                     promptToSave(docs);
                 }
                 setVisible(false);
@@ -373,9 +369,9 @@ public class TabbedHTMLEditorDialog extends JDialog{
         
         try {
                        
-            System.out.println("tempUTLStr:"+tempURLStr);
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("tempUTLStr:"+tempURLStr);
             homeURL = new File(tempURLStr).toURI().toURL();
-            System.out.println("homeURL:"+homeURL.toString());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("homeURL:"+homeURL.toString());
             String tempStr = "Specification.html";
             firstPageUrl = new URL(homeURL,tempStr);
         } catch (MalformedURLException ex) {
@@ -390,18 +386,18 @@ public class TabbedHTMLEditorDialog extends JDialog{
 //            ex.printStackTrace();
 //        }
         if(layerNumber == 0){   
-            System.out.println("firstPageUrl:"+firstPageUrl.toString());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("firstPageUrl:"+firstPageUrl.toString());
             tabbedpane.add("P"+partNumber, makePanel(firstPageUrl, documents));
             documents.setTabTitle("P"+partNumber);
         }else{
-            System.out.println("firstPageUrl:"+firstPageUrl.toString());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("firstPageUrl:"+firstPageUrl.toString());
             tabbedpane.add("P"+partNumber+".L"+layerNumber+".M"+moduleNumber, makePanel(firstPageUrl, documents));
             documents.setTabTitle("P"+partNumber+".L"+layerNumber+".M"+moduleNumber);
         }
         initTabComponent(0);
         documents.tabNumber = 0;
         documents.m_currentFile = new File(firstPageUrl.getFile());
-        System.out.println("documents.m_currentFile:"+documents.m_currentFile.toString());
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("documents.m_currentFile:"+documents.m_currentFile.toString());
         tabbedpane.setSelectedIndex(0);
         
         //documents.setTabTitle("P"+partNumber);
@@ -428,7 +424,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         documents.m_doc = (MutableHTMLDocument)m_kit.createDocument();
         if(url != null){
             try{
-                System.out.println("url:"+url.getFile());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("url:"+url.getFile());
                 InputStream is = new FileInputStream(url.getFile());
                 try {
                     m_kit.read(is, documents.m_doc, 0);
@@ -443,11 +439,11 @@ public class TabbedHTMLEditorDialog extends JDialog{
         if(url != null) documents.m_currentFile = new File(url.getFile());
         documents.m_editor.setDocument(documents.m_doc);
         try {
-            System.out.println("documents.m_editor.getDocument():"+documents.m_editor.getDocument().getText(0, documents.m_editor.getDocument().getLength()));
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("documents.m_editor.getDocument():"+documents.m_editor.getDocument().getText(0, documents.m_editor.getDocument().getLength()));
         } catch (BadLocationException ex) {
             ex.printStackTrace();
         }
-        System.out.println("documents.m_editor.getText():"+documents.m_editor.getText());
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("documents.m_editor.getText():"+documents.m_editor.getText());
         
 //        JMenuBar menuBar = createMenuBar(documents);
 //        setJMenuBar(menuBar);
@@ -464,16 +460,16 @@ public class TabbedHTMLEditorDialog extends JDialog{
         HyperlinkListener hlst = new HyperlinkListener(){
             @Override
             public void hyperlinkUpdate(HyperlinkEvent e){
-                System.out.println("hyperLinkPressed");
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("hyperLinkPressed");
                 if(e.getEventType() == HyperlinkEvent.EventType.ACTIVATED){
                     try {
-                        System.out.println("hyperLinkPressed");
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("hyperLinkPressed");
                         String str = e.getURL().toString();  
-                        System.out.println("STR:"+str);
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("STR:"+str);
                         str = str.substring(str.indexOf('/')+1,str.length());
                         str = str.replace('/', '\\');
                         
-                        System.out.println("str:"+str+" projectName:"+theApp.getProjectName()); 
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("str:"+str+" projectName:"+theApp.getProjectName());
                         
                         
                         String tabStr = str.substring(1, str.indexOf("Specification",str.indexOf(theApp.getProjectName(),0))-1);
@@ -481,7 +477,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                         //str = str.substring(str.indexOf(theApp.getProjectName(),0)+theApp.getProjectName().length(),str.length());
                         str = theApp.getProjectFolder()+str;
                         
-                        System.out.println("description:"+str);
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("description:"+str);
                         tabStr = tabStr.replace('\\', '.');
                         Documents docs = new Documents();
                         
@@ -494,13 +490,13 @@ public class TabbedHTMLEditorDialog extends JDialog{
                         docs.setTabNumber(tabbedpane.getTabCount()-1);
                         
                         //String fileStr = str.substring(str.indexOf('/')+1,str.length());
-                        System.out.println("fileStr:"+str);
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("fileStr:"+str);
                         
                         docs.m_currentFile = new File(str);
-                        System.out.println("documents.m_currentFile:"+docs.m_currentFile.toString());
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("documents.m_currentFile:"+docs.m_currentFile.toString());
                         tabbedpane.setSelectedIndex(tabbedpane.getTabCount()-1);
                         
-                        System.out.println("hyperLinkPressed setPage:"+e.getURL());
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("hyperLinkPressed setPage:"+e.getURL());
                     } catch (MalformedURLException ex) {
                         ex.printStackTrace();
                     }
@@ -515,11 +511,11 @@ public class TabbedHTMLEditorDialog extends JDialog{
             @Override
             public void mouseClicked(MouseEvent e) {
                 JTextPane editor = (JTextPane)e.getSource();
-                System.out.println("mouseClicked");
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("mouseClicked");
                 if(documents.m_editor.isEditable() && SwingUtilities.isLeftMouseButton(e)){
-                    System.out.println("mouseClicked is Editable click count "+e.getClickCount());
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("mouseClicked is Editable click count "+e.getClickCount());
                     if(e.getClickCount() == 2){
-                        System.out.println("mouseClickedTwice");
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("mouseClickedTwice");
                         documents.m_editor.setEditable(false); 
                     }
                 }else{
@@ -547,7 +543,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         
         CaretListener lst = new CaretListener(){
             public void caretUpdate(CaretEvent e){
-                System.out.println("CaretListener pos:"+e.getDot());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("CaretListener pos:"+e.getDot());
                 showAttributes(e.getDot(),documents);
             }
         };
@@ -567,7 +563,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
 
                     case KeyEvent.VK_ENTER:{
                         int p = documents.m_editor.getCaretPosition();
-                        System.out.println("Enter pressed");
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Enter pressed");
                         
                         try{                               
                             documents.m_doc.insertAfterEnd(documents.m_doc.getCharacterElement(p)," " );                               
@@ -593,7 +589,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         
         FocusListener flst = new FocusListener(){
             public void focusGained(FocusEvent e){
-                System.out.println("FocusListener focusgained");
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("FocusListener focusgained");
                 int len = documents.m_editor.getDocument().getLength();
                 if(m_xStart >= 0 && m_xFinish >= 0 && m_xStart < len && m_xFinish < len){
                     if(documents.m_editor.getCaretPosition() == m_xStart){
@@ -606,7 +602,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
             }
             
             public void focusLost(FocusEvent e){
-                System.out.println("FocusListener focuslost");
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("FocusListener focuslost");
                 m_xStart = documents.m_editor.getSelectionStart();
                 m_xFinish = documents.m_editor.getSelectionEnd();
             }
@@ -623,7 +619,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
     public String getFileName(URL url){
         String str = url.getFile();
         str = str.substring(str.lastIndexOf('/')+1, str.lastIndexOf('.'));
-        System.out.println("fileName:"+str);
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("fileName:"+str);
         return str;
     }
     
@@ -690,7 +686,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 int i = pane.indexOfTabComponent(ButtonTabComponent.this);
                 if (i != -1) {
                     pane.remove(i);
-                    System.out.println("Removing:"+i);
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Removing:"+i);
                     Documents docs = getSelectedNode(i);
                     
                     promptToSave(docs);
@@ -759,7 +755,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 if(!promptToSave(dl.getSelectedNode(tabbedpane.getSelectedIndex()))){
                     return;
                 }
-                System.out.println("New pressed");
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("New pressed");
                 Documents docs = new Documents();
                 tabbedpane.add(docs.tabTitle,makePanel(null,docs));
                 initTabComponent(tabbedpane.getTabCount()-1);
@@ -783,7 +779,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 }
                 openDocument(dl.getSelectedNode(tabbedpane.getSelectedIndex()));
                 String str = dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getText();
-                System.out.println("str:"+str);
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("str:"+str);
             }
             private static final long serialVersionUID = 1000000000; 
         };
@@ -797,7 +793,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e){
                 Documents docs = dl.getSelectedNode(tabbedpane.getSelectedIndex());
-                System.out.println("Save tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Save tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex());
                 saveFile(false,docs);
                 
             }
@@ -863,7 +859,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 MutableAttributeSet attr = new SimpleAttributeSet();
                 StyleConstants.setFontFamily(attr, m_fontName);
                 setAttributeSet(attr,dl.getSelectedNode(tabbedpane.getSelectedIndex()));
-                System.out.println("tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex());
                 (dl.getSelectedNode(tabbedpane.getSelectedIndex())).m_editor.grabFocus();
                 
             }
@@ -905,7 +901,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         lst = new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println("Bold clicked selectedIndex:"+tabbedpane.getSelectedIndex());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Bold clicked selectedIndex:"+tabbedpane.getSelectedIndex());
                 
                 MutableAttributeSet attr = new SimpleAttributeSet();
                 StyleConstants.setBold(attr, m_bBold.isSelected());
@@ -1077,7 +1073,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                     ex.printStackTrace();
                 }
                 int p = dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition();
-                System.out.println("Caret position:"+p);
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Caret position:"+p);
                 
                 try{
                         dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_doc.insertString(p, str2, dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCharacterAttributes());
@@ -1233,7 +1229,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                     }catch(Exception ex){
                         ex.printStackTrace();
                     }
-                System.out.println("p:"+p+" str.length:"+str2.length());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("p:"+p+" str.length:"+str2.length());
                 int newPos = p+str2.length();
 
                 dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.grabFocus();
@@ -1242,7 +1238,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                     dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_doc.insertAfterEnd(dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_doc.getCharacterElement(newPos),"&nbsp;");
                     
                     m_xFinish = dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition();
-                    System.out.println("Caret newPos:"+ dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition());
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Caret newPos:"+ dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition());
                    
                 }catch(Exception ex){
                     ex.printStackTrace();
@@ -1271,8 +1267,8 @@ public class TabbedHTMLEditorDialog extends JDialog{
 
                 hLH= new HyperlinkHelper();
                 ChooseHyperlinkPartDialog cHLD = new ChooseHyperlinkPartDialog(theApp,TabbedHTMLEditorDialog.this);
-                if(cHLD.getSucceeded()==true)System.out.println("after 1 dialog hyperLinkInfoObj htmlStr:"+hLH.getHyperlinkString());
-                System.out.println("2hyperLinkInfoObj htmlStr:"+hLH.getHyperlinkString());
+                if(cHLD.getSucceeded()==true)if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("after 1 dialog hyperLinkInfoObj htmlStr:"+hLH.getHyperlinkString());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("2hyperLinkInfoObj htmlStr:"+hLH.getHyperlinkString());
 
                 String newHref = "";
                 String str = "";
@@ -1296,7 +1292,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 }
 
                 m_xFinish = dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition();
-                System.out.println("Caret newPos:"+ dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Caret newPos:"+ dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.getCaretPosition());
                    
                 dl.getSelectedNode(tabbedpane.getSelectedIndex()).m_editor.setCaretPosition(m_xFinish);
             }
@@ -1426,7 +1422,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         lst = new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 Documents docs = getSelectedNode(tabbedpane.getSelectedIndex());
-                System.out.println("tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex()+" docs.meditor:"+docs.m_editor.getText());
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("tabbedpane.getSelectedIndex():"+tabbedpane.getSelectedIndex()+" docs.meditor:"+docs.m_editor.getText());
                 try{
                     StringWriter sw = new StringWriter();
                     m_kit.write(sw, docs.m_doc, 0, docs.m_doc.getLength());
@@ -1756,7 +1752,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                                    JComboBox<Integer> layerCombo = new JComboBox();
                                    layerCombo.removeAllItems();
                                    for(Layer layer : theApp.getModel().getPartsMap().get(partSelectedNumber).getLayersMap().values()){
-                                       System.out.println("Layer added:"+layer.getLayerNumber());
+                                       if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Layer added:"+layer.getLayerNumber());
                                        layerCombo.addItem(layer.getLayerNumber());
                                    }
 
@@ -1778,7 +1774,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                                            moduleCombo.removeAllItems();
 
                                             for(Module module : theApp.getModel().getPartsMap().get(partSelectedNumber).getLayersMap().get(layerSelectedNumber).getModulesMap().values()){
-                                                System.out.println("Module added:"+module.getModuleNumber());
+                                                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Module added:"+module.getModuleNumber());
                                                 moduleCombo.addItem(module.getModuleNumber());
                                             }
 
@@ -1887,15 +1883,15 @@ public class TabbedHTMLEditorDialog extends JDialog{
             documents.m_editor.setCaretPosition(xFinish);
             documents.m_editor.moveCaretPosition(xStart);
         }else{
-            System.out.println("Setting selection");
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Setting selection");
             documents.m_editor.select(xStart, xFinish);
             documents.m_editor.setSelectedTextColor(Color.red);
-            System.out.println("Selected Text:"+documents.m_editor.getSelectedText());
-            System.out.println("m_editor.getSelectionStart():"+documents.m_editor.getSelectionStart()+" m_editor.getSelectionEnd():"+documents.m_editor.getSelectionEnd());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Selected Text:"+documents.m_editor.getSelectedText());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("m_editor.getSelectionStart():"+documents.m_editor.getSelectionStart()+" m_editor.getSelectionEnd():"+documents.m_editor.getSelectionEnd());
         }
         m_xStart = documents.m_editor.getSelectionStart();
         m_xFinish = documents.m_editor.getSelectionEnd();
-        System.out.println("m_xStart:"+m_xStart+" m_xFinish:"+m_xFinish);
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("m_xStart:"+m_xStart+" m_xFinish:"+m_xFinish);
 
     }
     
@@ -1917,7 +1913,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
     }
     
     protected void newDocument(Documents documents){
-        if(documents == null) System.out.println("Documents null");
+        if(documents == null) if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Documents null");
         if(documents == null)documents.m_currentFile = null;
         if(documents.m_doc == null)documents.m_doc = (MutableHTMLDocument)m_kit.createDocument();
                 
@@ -1936,7 +1932,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 
                 documents.m_textChanged = false;
                // dl.addToDocumentsList(documents);
-                System.out.println("newly created node tab number:"+dl.getSelectedNode(0).tabNumber);
+                if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("newly created node tab number:"+dl.getSelectedNode(0).tabNumber);
             }
         });
         dl.addToDocumentsList(documents);
@@ -1951,7 +1947,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
             return;
         }
         documents.m_currentFile = f;
-        System.out.println("full file string path:"+f.toString());
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("full file string path:"+f.toString());
         String fileName = documents.m_currentFile.toString().substring(documents.m_currentFile.toString().lastIndexOf('\\')+1,documents.m_currentFile.toString().lastIndexOf('.'));
         documents.setTabTitle(fileName);
         tabbedpane.setTitleAt(tabbedpane.getSelectedIndex(), documents.tabTitle);
@@ -1960,8 +1956,8 @@ public class TabbedHTMLEditorDialog extends JDialog{
         
         try{
             InputStream in = new FileInputStream(documents.m_currentFile);
-            System.out.println("m_editor:"+documents.m_editor.getText());
-            System.out.println("m_doc:"+documents.m_doc.getText(0, documents.m_doc.getLength()));
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("m_editor:"+documents.m_editor.getText());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("m_doc:"+documents.m_doc.getText(0, documents.m_doc.getLength()));
             m_kit.read(in, documents.m_doc, 0);
             m_context = documents.m_doc.getStyleSheet();
             documents.m_editor.setDocument(documents.m_doc);
@@ -1988,7 +1984,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         if(!saveAs && !documents.m_textChanged){
             return true;
         }
-        System.out.println("documents.m_currentFile:"+documents.m_currentFile);
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("documents.m_currentFile:"+documents.m_currentFile);
         if(saveAs || documents.m_currentFile == null){
             if(m_chooser.showSaveDialog(TabbedHTMLEditorDialog.this) != JFileChooser.APPROVE_OPTION){
                 return false;
@@ -2008,7 +2004,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
         try{
             OutputStream out = new FileOutputStream(documents.m_currentFile);
 
-            System.out.println("2m_doc:"+documents.m_doc.getText(0, documents.m_doc.getLength()));
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("2m_doc:"+documents.m_doc.getText(0, documents.m_doc.getLength()));
             
             m_kit.write(out, documents.m_doc, 0, documents.m_doc.getLength());
             out.close();
@@ -2073,7 +2069,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 
         Element ep = documents.m_doc.getParagraphElement(p);
         HTML.Tag attrName = (HTML.Tag)ep.getAttributes().getAttribute(StyleConstants.NameAttribute);
-        System.out.println("attrName:"+attrName);
+        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("attrName:"+attrName);
         int index = -1;
         if(attrName != null){
             for(int k = 0; k < STYLES.length; k++){
@@ -2213,18 +2209,18 @@ public class TabbedHTMLEditorDialog extends JDialog{
         @Override
         public void insertUpdate(DocumentEvent e){
             getSelectedNode(tabbedpane.getSelectedIndex()).m_textChanged = true;
-            System.out.println("insertUpdate m_textChanged true");
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("insertUpdate m_textChanged true");
         }
         
         @Override
         public void removeUpdate(DocumentEvent e){
             getSelectedNode(tabbedpane.getSelectedIndex()).m_textChanged = true;
-            System.out.println("removeUpdate m_textChanged true");
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("removeUpdate m_textChanged true");
         }
         @Override
         public void changedUpdate(DocumentEvent e){
             getSelectedNode(tabbedpane.getSelectedIndex()).m_textChanged=true;
-            System.out.println("changedUpdate m_textChanged true");
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("changedUpdate m_textChanged true");
         }
     }
     
@@ -2383,7 +2379,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
 
                 while(m_tokenizer.hasMoreTokens()){
                     word = m_tokenizer.nextToken();
-                    System.out.println("In while loop word:"+word);
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("In while loop word:"+word);
                     if(word.equals(word.toUpperCase())){
                         continue;
                     }
@@ -2403,10 +2399,10 @@ public class TabbedHTMLEditorDialog extends JDialog{
                     if(results.next()){
                         continue;
                     }
-                    System.out.println("Soundex:"+Utils.soundex(wordLowCase) );
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Soundex:"+Utils.soundex(wordLowCase) );
                     results = selStmt.executeQuery(SOUNDEX_QUERY+"'"+Utils.soundex(wordLowCase)+"'");
                     m_owner.setSelection(m_tokenizer.getStartPos(), m_tokenizer.getEndPos(), false, documents);
-                    System.out.println("m_tokenizer.getStartPos():"+m_tokenizer.getStartPos()+" selectedText:"+m_owner.getTextPane().getSelectedText()+" text:"+m_owner.getTextPane().getText());
+                    if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("m_tokenizer.getStartPos():"+m_tokenizer.getStartPos()+" selectedText:"+m_owner.getTextPane().getSelectedText()+" text:"+m_owner.getTextPane().getText());
                     if(!m_dlg.suggest(word,results)){
                         break;
                     }
@@ -2428,13 +2424,13 @@ public class TabbedHTMLEditorDialog extends JDialog{
             int xStart = m_tokenizer.getStartPos();
             int xFinish = m_tokenizer.getEndPos();
             
-            System.out.println("xStart:"+xStart+" xFinish:"+xFinish);
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("xStart:"+xStart+" xFinish:"+xFinish);
             
             m_owner.setSelection(xStart, xFinish, false, documents);
-            System.out.println("selection start:"+m_owner.getTextPane().getSelectionStart()+" selection end:"+documents.m_editor.getSelectionEnd());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("selection start:"+m_owner.getTextPane().getSelectionStart()+" selection end:"+documents.m_editor.getSelectionEnd());
 
             m_owner.getTextPane().replaceSelection(replacement);
-            System.out.println("selection start:"+m_owner.getTextPane().getSelectionStart()+" selection end:"+documents.m_editor.getSelectionEnd());
+            if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("selection start:"+m_owner.getTextPane().getSelectionStart()+" selection end:"+documents.m_editor.getSelectionEnd());
             
             xFinish = xStart+replacement.length();
             m_owner.setSelection(xStart, xFinish, false,documents);
@@ -2492,7 +2488,7 @@ public class TabbedHTMLEditorDialog extends JDialog{
                 JButton bt = new JButton("Change");
                 ActionListener lst = new ActionListener(){
                     public void actionPerformed(ActionEvent e){
-                        System.out.println("Suggested:"+m_suggestions.getSelected());
+                        if(DEBUG_TABBEDHTMLEDITORDIALOG) System.out.println("Suggested:"+m_suggestions.getSelected());
                         replaceSelection(m_suggestions.getSelected(),documents);
                         m_continue = true;
                         setVisible(false);
