@@ -1,6 +1,0 @@
-#ignore the following directory
-out/
-out/*
-
-#ignore all files with .class
-*.class
