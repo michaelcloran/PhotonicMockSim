@@ -1,6 +1,9 @@
 ReadMe
 This file is to show state of development version of Version 2.0 of the simulator.
 
+On 16/8/22
+Added debug flags on all main classes and upgraded to V2.02.01
+
 On 2/6/22
 A new version has been created 2.01 with oriented bounding boxes collision detection. I have also set the bounds on the pivot points to a smaller value (this needs more testing)
 
