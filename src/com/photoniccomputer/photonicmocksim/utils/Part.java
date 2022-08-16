@@ -11,7 +11,7 @@ provided with no warranty thus no liability
 for damages if anything goes wrong.
 
 It can not be used to base a project on.
-Closed Source Software
+Open Source Software
 */
 
 import com.photoniccomputer.photonicmocksim.CircuitComponent;
