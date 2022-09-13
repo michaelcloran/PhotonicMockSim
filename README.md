@@ -1,6 +1,8 @@
 # PhotonicMockSim
 an optical computer simulation suite.
 
+@13/9/22 currently working on a fork to add CPU bus capability
+
 It is a Java 8 application with the Java 8 MVC pattern. It is capable of simulation and with it it is possible to design modules chips and mothreboards.
 
 Please note that this software was developed by me when I was learning Java thus there is some bad coding and it will be replaced on a need to basis. I put the project 
