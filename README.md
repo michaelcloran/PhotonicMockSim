@@ -3,6 +3,8 @@ an optical computer simulation suite.
 
 @13/9/22 currently working on a fork to add CPU bus capability. Keep an eye on my blog https://photoniccomputer.blogspot.com/
 
+@7/1/23 I am working and debugging as I go on refining the layering option a chip can have several layers and these layers need to be at the same size. Also I am working on proper mappings to x,y coordinates within each layers module. Once this is done I will implement a basic processor to test everything and then I will try and update this fork with GitHub.
+
 It is a Java 8 application with the Java 8 MVC pattern. It is capable of simulation and with it it is possible to design modules chips and mothreboards.
 
 Please note that this software was developed by me when I was learning Java thus there is some bad coding and it will be replaced on a need to basis. I put the project 
