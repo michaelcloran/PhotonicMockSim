@@ -3,6 +3,9 @@ an optical computer simulation suite.
 
 @13/9/22 currently working on a fork to add CPU bus capability. Keep an eye on my blog https://photoniccomputer.blogspot.com/
 
+@1/4/23
+Currently writing the specification for a concept optical computer. I am using the Z80 as my mentor. When I have this designed and a writeup written then I will update the GitHub code in order to trash out the bugs. So far the spec is going well!!.
+
 @7/1/23 I am working and debugging as I go on refining the layering option a chip can have several layers and these layers need to be at the same size. Also I am working on proper mappings to x,y coordinates within each layers module. Once this is done I will implement a basic processor to test everything and then I will try and update this fork with GitHub.
 
 It is a Java 8 application with the Java 8 MVC pattern. It is capable of simulation and with it it is possible to design modules chips and mothreboards.
